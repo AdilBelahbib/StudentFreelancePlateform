@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="utilisateur" class="com.freelance.Utilisateur">
+      <property name="email" />
+      <property name="motDePasse" />
+      <property name="fichiers"  />
+      <property name="adresses" />
+   </bean>
+   
+   <bean id="particulier" parent="Utilisateur">
+      <property name="nomUtilisateur" />
+      <property name="nom" />
+      <property name="prenom" />
+      <property name="dateNaissance" />
+   </bean>
+   
+   <bean id="entreprise" parent="Utilisateur">
+      <property name="sigle" />
+      <property name="secteurActivites" />
+      <property name="apercu" />
+      <property name="appelOffres" />
+   </bean>
+	
+   <bean id="etudiant" parent="Particulier">
+      <property name="nombreBids" />
+      <property name="qualifications" />
+      <property name="competences" />
+      <property name="appelOffres" />
+      <property name="cahiersDesCharges" />
+      <property name="contrePropositions" />
+   </bean>
+   
+   <bean id="adresse" class="com.freelance.Adresse">
+      <property name="ville" />
+      <property name="pays" />
+      <property name="adresse" />
+      <property name="utilisateur" ref="utilisateur"/>
+   </bean>
+   
+    <bean id="fichier" class="com.freelance.Fichier">
+      <property name="titre" />
+      <property name="chemin" />
+      <property name="cahierDesCharges" ref="cahierDesCharges"/>
+      <property name="utilisateur" ref="utilisateur"/>
+      <property name="contreProposition" ref="contreProposition"/>
+   </bean>
+   
+   <bean id="contreProposition" class="com.freelance.ContreProposition">
+      <property name="enchere" />
+      <property name="fichier" ref="fichier" />
+      <property name="appelOffre" ref="appelOffre"/>
+      <property name="etudiant" ref="etudiant"/>
+   </bean>
+  
+   <bean id="cahierDesCharges" class="com.freelance.CahierDesCharges">
+      <property name="sujet" />
+      <property name="dateDebut" ref="fichier" />
+      <property name="dateFin" ref="appelOffre"/>
+      <property name="fichiers" />
+      <property name="etudiant" ref="etudiant"/>
+       <property name="appelOffre" ref="appelOffre"/>
+   </bean>
+
+    <bean id="appelOffre" class="com.freelance.AppelOffre">
+      <property name="dateExpiration" />
+      <property name="dateDebut" />
+      <property name="remunerations" />
+      <property name="qualifications"/>
+      <property name="etudiants" />
+      <property name="entreprise" ref="entreprise"/>
+       <property name="cahierDesCharges" ref="cahierDesCharges"/>
+   </bean>
+
+</beans>
