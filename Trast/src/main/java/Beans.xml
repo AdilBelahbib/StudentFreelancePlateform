@@ -76,4 +76,76 @@
        <property name="cahierDesCharges" ref="cahierDesCharges"/>
    </bean>
 
+<!-- bean: Etablissement -->
+
+	<bean id="etablissement" class="com.model.Etablissement">
+		<property name="id" value="" />
+		<property name="nomEtablissement" value="" />
+		<property name="intituleFormations">
+			<set>
+			</set>
+		</property>
+	</bean>
+<!-- bean: IntituleFormation -->	
+	<bean id="intituleFormation" class="com.model.IntituleFormation">
+		<property name="id" value="" />
+		<property name="intitule" value="" />
+		<property name="etablissement" ref="etablissement"/>
+		<property name="formations">
+			<set>
+			</set>
+		</property>
+	</bean>
+<!-- bean: Remuneration -->
+	<bean id="remuneration" class="com.model.Remuneration">
+		<property name="id" value="" />
+		<property name="somme" value="" />
+		<property name="intitule" value="" />
+		<property name="devise" value="" />
+		<property name="appelOffre" ref="appelOffre" />
+	</bean>
+<!--  bean: Qualification -->
+	<bean id="qualification" class="com.model.Qualification">
+		<property name="id" value=""/>
+		<property name="dateDebut" value=""/>
+		<property name="dateFin" value=""/>
+		<property name="etudiant" ref="etudiant"/>
+		<property name="fichiers">
+			<set>
+			</set>
+		</property>
+		<property name="appelOffres">
+			<set>
+			</set>
+		</property>
+	</bean>
+<!-- bean: Formation -->
+	<bean id="formation" class="com.model.Formation" parent="qualification">
+		<property name="intituleFormation" ref="intituleFormation"/>
+	</bean>
+<!-- bean: Experience -->
+	<bean id="experience" class="com.model.Experience" parent="qualification">
+	<property name="responsabilite" value=""/>
+	<property name="typeExperience" value=""/>
+	<property name="structureAccueil" value=""/>
+	<property name="sujet" value=""/>
+	<property name="salaire" value=""/>
+	</bean>
+<!-- bean: Competence -->
+	<bean id="competence" class="com.model.Competence">
+		<property name="id" value=""/>
+		<property name="intitule" value=""/>
+		<property name="niveau" value=""/>
+		<property name="etudiant" ref="etudiant"/>
+	</bean>
+<!-- bean: Projet -->
+	<bean id="projet" class="com.model.Projet">
+		<property name="id" value=""/>
+		<property name="etudiant" ref="etudiant"/>
+		<property name="cahierDesCharges" ref="cahierDesCharges"/>
+		
+	</bean>
+<!-- bean: Administrateur -->
+	<bean id="administrateur" class="com.model.Administrateur" parent="particulier">
+	</bean>
 </beans>
