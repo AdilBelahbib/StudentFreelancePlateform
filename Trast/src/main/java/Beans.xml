@@ -8,8 +8,8 @@
 	<bean id="utilisateur" class="com.trast.model.Utilisateur">
 		<property name="email" />
 		<property name="motDePasse" />
-		<property name="fichiers" />
-		<property name="adresses" />
+		<property name="fichiers"> <set></set></property>
+		<property name="adresses"> <set></set></property>
 	</bean>
 
 	<bean id="particulier" parent="Utilisateur">
@@ -21,17 +21,17 @@
 
 	<bean id="entreprise" parent="Utilisateur">
 		<property name="sigle" />
-		<property name="secteurActivites" />
+		<property name="secteurActivites"> <set></set></property>
 		<property name="apercu" />
-		<property name="appelOffres" />
+		<property name="appelOffres"> <set></set></property>
 	</bean>
 
 	<bean id="etudiant" parent="Particulier">
 		<property name="nombreBids" />
-		<property name="qualifications" />
-		<property name="competences" />
-		<property name="cahiersDesCharges" />
-		<property name="contrePropositions" />
+		<property name="qualifications"> <set></set></property>
+		<property name="competences"> <set></set></property>
+		<property name="cahiersDesCharges"> <set></set></property>
+		<property name="contrePropositions"> <set></set></property>
 	</bean>
 
 	<bean id="adresse" class="com.trast.model.Adresse">
@@ -60,7 +60,7 @@
 		<property name="sujet" />
 		<property name="dateDebut" ref="fichier" />
 		<property name="dateFin" ref="appelOffre" />
-		<property name="fichiers" />
+		<property name="fichiers"> <set></set></property>
 		<property name="etudiant" ref="etudiant" />
 		<property name="appelOffre" ref="appelOffre" />
 	</bean>
@@ -68,9 +68,9 @@
 	<bean id="appelOffre" class="com.trast.model.AppelOffre">
 		<property name="dateExpiration" />
 		<property name="dateDebut" />
-		<property name="remunerations" />
-		<property name="qualifications" />
-		<property name="etudiants" />
+		<property name="remunerations"> <set></set></property>
+		<property name="qualifications"> <set></set></property>
+		<property name="etudiants"> <set></set></property>
 		<property name="entreprise" ref="entreprise" />
 		<property name="cahierDesCharges" ref="cahierDesCharges" />
 	</bean>
