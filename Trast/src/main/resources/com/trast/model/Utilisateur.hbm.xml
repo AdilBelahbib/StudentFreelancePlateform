@@ -76,7 +76,7 @@
 					<column name="PRENOM" />
 				</property>
 			</join>
-			
+
 			<!-- La sous-classe Etudiant -->
 			<subclass name="Etudiant" discriminator-value="ETU">
 
@@ -118,11 +118,10 @@
 						<column name="NOMBREBIDS" />
 					</property>
 				</join>
-				
-			<subclass name="Administrateur" discriminator-value="ADM" />
-			
-			<subclass></subclass>
-			
+			</subclass>
+
+			<subclass name="Administrateur" discriminator-value="ADM"></subclass>
+
 		</subclass>
 	</class>
 </hibernate-mapping>

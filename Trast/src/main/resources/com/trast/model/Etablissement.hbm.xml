@@ -6,14 +6,14 @@
     <class name="com.trast.model.Etablissement" table="ETABLISSEMENT">
         <id name="id" type="java.lang.Long">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="nomEtablissement" type="java.lang.String">
             <column name="NOMETABLISSEMENT" />
         </property>
         <set name="intituleFormations" table="INTITULEFORMATION" inverse="false" lazy="true">
             <key>
-                <column name="ID" />
+                <column name="idEtablissement" />
             </key>
             <one-to-many class="com.trast.model.IntituleFormation" />
         </set>

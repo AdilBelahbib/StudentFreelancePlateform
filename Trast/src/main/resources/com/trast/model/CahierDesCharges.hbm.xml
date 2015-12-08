@@ -6,7 +6,7 @@
     <class name="com.trast.model.CahierDesCharges" table="CAHIERDESCHARGES">
         <id name="id" type="java.lang.Long">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="sujet" type="java.lang.String">
             <column name="SUJET" />
@@ -17,15 +17,23 @@
         <property name="dateFin" type="java.util.Date">
             <column name="DATEFIN" />
         </property>
+        
         <set name="fichiers" table="FICHIER" inverse="false" lazy="true">
             <key>
-                <column name="ID" />
+                <column name="idCahierDesCharges" />
             </key>
             <one-to-many class="com.trast.model.Fichier" />
         </set>
+        
         <many-to-one name="etudiant" class="com.trast.model.Etudiant" fetch="join">
             <column name="ETUDIANT" />
         </many-to-one>
+        
         <one-to-one name="appelOffre" class="com.trast.model.AppelOffre"></one-to-one>
+    
+    	<many-to-one name="appelOffre" class="com.trast.model.AppelOffre"
+			fetch="join" not-null="false">
+			<column name="idAppelOffre" />
+		</many-to-one>
     </class>
 </hibernate-mapping>

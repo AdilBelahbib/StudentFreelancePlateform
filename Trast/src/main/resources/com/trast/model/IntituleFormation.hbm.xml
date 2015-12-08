@@ -6,19 +6,21 @@
     <class name="com.trast.model.IntituleFormation" table="INTITULEFORMATION">
         <id name="id" type="java.lang.Long">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="intitule" type="java.lang.String">
             <column name="INTITULE" />
         </property>
         <many-to-one name="etablissement" class="com.trast.model.Etablissement" fetch="join">
-            <column name="ETABLISSEMENT" />
+            <column name="idEtablissement" />
         </many-to-one>
-        <set name="formations" table="FORMATION" inverse="false" lazy="true">
+        
+        <set name="formations" table="FORMATION" inverse="true" lazy="true">
             <key>
-                <column name="ID" />
+                <column name="idIntituleFormation" />
             </key>
             <one-to-many class="com.trast.model.Formation" />
         </set>
+        
     </class>
 </hibernate-mapping>

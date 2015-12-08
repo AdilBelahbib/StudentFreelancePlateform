@@ -9,20 +9,20 @@ public class CahierDesCharges {
 	private Date dateDebut;
 	private Date dateFin;
 	private Set<Fichier> fichiers;
-	private Etudiant etudiant;
+	private Projet projet;
 	private AppelOffre appelOffre;
 	
 	public CahierDesCharges(){
 	}
 	
 	public CahierDesCharges(Long id, String sujet, Date dateDebut, Date dateFin,
-			Set<Fichier> fichiers, Etudiant etudiant, AppelOffre offre){
+			Set<Fichier> fichiers, Projet projet, AppelOffre offre){
 		this.id = id;
 		this.sujet = sujet;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.fichiers = fichiers;
-		this.etudiant = etudiant;
+		this.projet = projet;
 		this.appelOffre = offre;
 	}
 
@@ -66,12 +66,12 @@ public class CahierDesCharges {
 		this.fichiers = fichiers;
 	}
 
-	public Etudiant getEtudiant() {
-		return etudiant;
+	public Projet getProjet() {
+		return projet;
 	}
 
-	public void setEtudiant(Etudiant etudiant) {
-		this.etudiant = etudiant;
+	public void setProjet(Projet projet) {
+		this.projet = projet;
 	}
 	
 	

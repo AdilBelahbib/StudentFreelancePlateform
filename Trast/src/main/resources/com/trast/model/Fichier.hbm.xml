@@ -6,7 +6,7 @@
     <class name="com.trast.model.Fichier" table="FICHIER">
         <id name="id" type="java.lang.Long">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="titre" type="java.lang.String">
             <column name="TITRE" />
@@ -14,12 +14,5 @@
         <property name="chemin" type="java.lang.String">
             <column name="CHEMIN" />
         </property>
-        <many-to-one name="cahierDesCharges" class="com.trast.model.CahierDesCharges" fetch="join">
-            <column name="CAHIERDESCHARGES" />
-        </many-to-one>
-        <many-to-one name="utilisateur" class="com.trast.model.Utilisateur" fetch="join">
-            <column name="UTILISATEUR" />
-        </many-to-one>
-        <one-to-one name="contreProposition" class="com.trast.model.ContreProposition"></one-to-one>
     </class>
 </hibernate-mapping>

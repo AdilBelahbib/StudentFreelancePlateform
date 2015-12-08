@@ -6,8 +6,9 @@
     <class name="com.trast.model.Competence" table="COMPETENCE">
         <id name="id" type="java.lang.Long">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
+        
         <property name="intitule" type="java.lang.String">
             <column name="INTITULE" />
         </property>
@@ -15,7 +16,7 @@
             <column name="NIVEAU" />
         </property>
         <many-to-one name="etudiant" class="com.trast.model.Etudiant" fetch="join">
-            <column name="ETUDIANT" />
+            <column name="idEtudiant" />
         </many-to-one>
     </class>
 </hibernate-mapping>

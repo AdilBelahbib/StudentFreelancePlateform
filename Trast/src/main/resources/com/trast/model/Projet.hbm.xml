@@ -6,13 +6,13 @@
     <class name="com.trast.model.Projet" table="PROJET">
         <id name="id" type="java.lang.Long">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <many-to-one name="etudiant" class="com.trast.model.Etudiant" access="field" fetch="join">
-            <column name="ETUDIANT" />
+            <column name="idEtudiant" />
         </many-to-one>
         <many-to-one name="cahierDesCharges" class="com.trast.model.CahierDesCharges" access="field" fetch="join">
-            <column name="CAHIERDESCHARGES" />
+            <column name="idCahierDesCharges" />
         </many-to-one>
     </class>
 </hibernate-mapping>

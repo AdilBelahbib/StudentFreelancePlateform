@@ -2,32 +2,33 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
-<hibernate-mapping>
-    <class name="com.trast.model.Qualification" table="QUALIFICATION">
+<hibernate-mapping package="com.trast.model">
+    <class name="Qualification" table="QUALIFICATION">
         <id name="id" type="java.lang.Long">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
+        
         <property name="dateDebut" type="java.util.Date">
             <column name="DATEDEBUT" />
         </property>
         <property name="dateFin" type="java.util.Date">
             <column name="DATEFIN" />
         </property>
-        <many-to-one name="etudiant" class="com.trast.model.Etudiant" fetch="join">
-            <column name="ETUDIANT" />
+        <many-to-one name="etudiant" class="Etudiant" fetch="join">
+            <column name="idEtudiant" />
         </many-to-one>
+        
         <set name="fichiers" table="FICHIER" inverse="false" lazy="true">
             <key>
-                <column name="ID" />
+                <column name="idQualification" />
             </key>
-            <one-to-many class="com.trast.model.Fichier" />
+            <one-to-many class="Fichier" />
         </set>
-        <set name="appelOffres" table="APPELOFFRE" inverse="false" lazy="true">
-            <key>
-                <column name="ID" />
-            </key>
-            <one-to-many class="com.trast.model.AppelOffre" />
-        </set>
+        
+        <many-to-one name="appelOffre" class="AppelOffre" fetch="join">
+            <column name="idAppelOffre" />
+        </many-to-one>
+        
     </class>
 </hibernate-mapping>

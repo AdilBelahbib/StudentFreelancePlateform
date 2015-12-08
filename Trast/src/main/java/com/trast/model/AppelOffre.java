@@ -9,7 +9,7 @@ public class AppelOffre {
 	private Date dateDebut;
 	private Set<Remuneration> remunerations;
 	private Set<Qualification> qualifications;
-	private Set<Etudiant> etudiants;
+	private Set<ContreProposition> contrePropositions;
 	private Entreprise entreprise;
 	private CahierDesCharges cahierDesCharges;
 
@@ -19,13 +19,13 @@ public class AppelOffre {
 	
 	public AppelOffre(Long id, Date dateExp, Date dateDebut,
 			Set<Remuneration> remunerations, Set<Qualification> qualifications,
-			Set<Etudiant> etudiants, Entreprise entreprise, CahierDesCharges cahier){
+			Set<ContreProposition> contrePropositions, Entreprise entreprise, CahierDesCharges cahier){
 		this.id = id;
 		this.dateExpiration = dateExp;
 		this.dateDebut = dateDebut;
 		this.remunerations = remunerations;
 		this.qualifications = qualifications;
-		this.etudiants = etudiants;
+		this.contrePropositions = contrePropositions;
 		this.entreprise = entreprise;
 		this.cahierDesCharges = cahier;
 	}
@@ -95,12 +95,12 @@ public class AppelOffre {
 		this.qualifications = qualifications;
 	}
 
-	public Set<Etudiant> getEtudiants() {
-		return etudiants;
+	public Set<ContreProposition> getContreProposition() {
+		return contrePropositions;
 	}
 
-	public void setEtudiants(Set<Etudiant> etudiants) {
-		this.etudiants = etudiants;
+	public void setContreProposition(Set<ContreProposition> contrePropositions) {
+		this.contrePropositions = contrePropositions;
 	}
 
 	public Entreprise getEntreprise() {

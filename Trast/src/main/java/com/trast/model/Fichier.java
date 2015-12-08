@@ -4,22 +4,15 @@ public class Fichier {
 	private Long id;
 	private String titre;
 	private String chemin;
-	private CahierDesCharges cahierDesCharges;
-	private Utilisateur utilisateur;
-	private ContreProposition contreProposition;
 	
 	public Fichier(){
 	}
 	
-	public Fichier(Long id, String titre, String chemin, CahierDesCharges cahier, Utilisateur utilisateur,
-			ContreProposition contreProposition)
+	public Fichier(Long id, String titre, String chemin)
 	{
 		this.id = id;
 		this.titre = titre;
 		this.chemin = chemin;
-		this.cahierDesCharges = cahier;
-		this.utilisateur = utilisateur;
-		this.contreProposition = contreProposition;
 	}
 	
 
@@ -74,30 +67,5 @@ public class Fichier {
 	public void setChemin(String chemin) {
 		this.chemin = chemin;
 	}
-
-	public CahierDesCharges getCahierDesCharges() {
-		return cahierDesCharges;
-	}
-
-	public void setCahierDesCharges(CahierDesCharges cahier) {
-		this.cahierDesCharges = cahier;
-	}
-
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
-
-	public ContreProposition getContreProposition() {
-		return contreProposition;
-	}
-
-	public void setContreProposition(ContreProposition contreProposition) {
-		this.contreProposition = contreProposition;
-	}
-	
 
 }
