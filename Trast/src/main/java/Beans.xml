@@ -30,14 +30,6 @@
 
 	<bean id="entreprise" parent="Utilisateur">
 		<property name="sigle" />
-<<<<<<< HEAD
-		<property name="secteurActivites">
-			<set></set>
-		</property>
-		<property name="apercu" />
-		<property name="appelOffres">
-			<set></set>
-=======
 		<property name="secteurActivites"> 
 			<set>
 			</set>
@@ -46,25 +38,11 @@
 		<property name="appelOffres"> 
 			<set>
 			</set>
->>>>>>> origin/master
 		</property>
 	</bean>
 
 	<bean id="etudiant" parent="Particulier">
 		<property name="nombreBids" />
-<<<<<<< HEAD
-		<property name="qualifications">
-			<set></set>
-		</property>
-		<property name="competences">
-			<set></set>
-		</property>
-		<property name="cahiersDesCharges">
-			<set></set>
-		</property>
-		<property name="contrePropositions">
-			<set></set>
-=======
 		<property name="qualifications"> 
 			<set>
 			</set>
@@ -80,7 +58,6 @@
 		<property name="contrePropositions"> 
 			<set>
 			</set>
->>>>>>> origin/master
 		</property>
 	</bean>
 
@@ -112,12 +89,8 @@
 		<property name="dateDebut" ref="fichier" />
 		<property name="dateFin" ref="appelOffre" />
 		<property name="fichiers">
-<<<<<<< HEAD
 			<set></set>
-=======
-		 	<set>
-		 	</set>
->>>>>>> origin/master
+
 		</property>
 		<property name="etudiant" ref="etudiant" />
 		<property name="appelOffre" ref="appelOffre" />
@@ -128,7 +101,6 @@
 		<property name="dateExpiration" />
 		<property name="dateDebut" />
 		<property name="remunerations">
-<<<<<<< HEAD
 			<set></set>
 		</property>
 		<property name="qualifications">
@@ -136,18 +108,7 @@
 		</property>
 		<property name="contrePropositions">
 			<set></set>
-=======
-		 	<set>
-		 	</set>
-		</property>
-		<property name="qualifications"> 
-			<set>
-			</set>
-		</property>
-		<property name="etudiants"> 
-			<set>
-			</set>
->>>>>>> origin/master
+
 		</property>
 		<property name="entreprise" ref="entreprise" />
 		<property name="cahierDesCharges" ref="cahierDesCharges" />
@@ -215,13 +176,8 @@
 	</bean>
 	<!-- bean: Projet -->
 	<bean id="projet" class="com.trast.model.Projet">
-<<<<<<< HEAD
-		<property name="id" value="" />
-		<property name="projet" ref="projet" />
-=======
 		<property name="id" />
 		<property name="etudiant" ref="etudiant" />
->>>>>>> origin/master
 		<property name="cahierDesCharges" ref="cahierDesCharges" />
 	</bean>
 	<!-- bean: Administrateur -->
