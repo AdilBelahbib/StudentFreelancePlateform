@@ -11,8 +11,8 @@ public class Formation extends Qualification{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Formation(Long id, Date dateDebut, Date dateFin,Etudiant etudiant,Set<Fichier> fichiers,Set<AppelOffre> appelOffres, IntituleFormation intituleFormation) {
-		super(id, dateDebut, dateFin,etudiant,fichiers,appelOffres);
+	public Formation(Long id, Date dateDebut, Date dateFin,Etudiant etudiant,Set<Fichier> fichiers,AppelOffre appelOffre, IntituleFormation intituleFormation) {
+		super(id, dateDebut, dateFin,etudiant,fichiers,appelOffre);
 		this.intituleFormation = intituleFormation;
 	}
 

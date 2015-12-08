@@ -13,9 +13,9 @@ public class Experience extends Qualification{
 	public Experience() {
 		super();
 	}
-	public Experience(Long id, Date dateDebut, Date dateFin,Etudiant etudiant,Set<Fichier> fichiers,Set<AppelOffre> appelOffres, String responsabilite, String typeExperience, String structureAccueil, String sujet,
+	public Experience(Long id, Date dateDebut, Date dateFin,Etudiant etudiant,Set<Fichier> fichiers,AppelOffre appelOffre, String responsabilite, String typeExperience, String structureAccueil, String sujet,
 			Double salaire) {
-		super(id, dateDebut, dateFin,etudiant,fichiers,appelOffres);
+		super(id, dateDebut, dateFin,etudiant,fichiers,appelOffre);
 		this.responsabilite = responsabilite;
 		this.typeExperience = typeExperience;
 		this.structureAccueil = structureAccueil;

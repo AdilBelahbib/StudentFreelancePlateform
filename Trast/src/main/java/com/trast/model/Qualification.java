@@ -11,19 +11,19 @@ public class Qualification {
 	private Date dateFin;
 	private Etudiant etudiant;
 	private Set<Fichier> fichiers;
-	private Set<AppelOffre> appelOffres;
+	private AppelOffre appelOffre;
 	
 	public Qualification() {
 		super();
 	}
-	public Qualification(Long id, Date dateDebut, Date dateFin, Etudiant etudiant,Set<Fichier> fichiers,Set<AppelOffre> appelOffres) {
+	public Qualification(Long id, Date dateDebut, Date dateFin, Etudiant etudiant,Set<Fichier> fichiers,AppelOffre appelOffre) {
 		super();
 		this.id = id;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.etudiant = etudiant;
 		this.fichiers = fichiers;
-		this.appelOffres = appelOffres;
+		this.appelOffre = appelOffre;
 	}
 	
 	public Etudiant getEtudiant() {
@@ -38,11 +38,11 @@ public class Qualification {
 	public void setFichiers(Set<Fichier> fichiers) {
 		this.fichiers = fichiers;
 	}
-	public Set<AppelOffre> getAppelOffres() {
-		return appelOffres;
+	public AppelOffre getAppelOffre() {
+		return appelOffre;
 	}
-	public void setAppelOffres(Set<AppelOffre> appelOffres) {
-		this.appelOffres = appelOffres;
+	public void setAppelOffre(AppelOffre appelOffre) {
+		this.appelOffre = appelOffre;
 	}
 	@Override
 	public int hashCode() {
