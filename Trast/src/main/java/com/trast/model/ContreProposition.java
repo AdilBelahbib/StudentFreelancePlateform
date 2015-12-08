@@ -1,4 +1,4 @@
-package com.model;
+package com.trast.model;
 
 public class ContreProposition {
 	private Long id;

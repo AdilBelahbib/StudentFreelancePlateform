@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.trast.model">
+	<class name="Utilisateur" table="UTILISATEUR">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+		<discriminator column="typeUtilisateur" type="string" />
+		<property name="email" type="java.lang.String">
+			<column name="EMAIL" />
+		</property>
+		<property name="motDePasse" type="java.lang.String">
+			<column name="MOTDEPASSE" />
+		</property>
+		<set name="fichiers" table="FICHIER" inverse="false" lazy="true">
+			<key>
+				<column name="idUtilisateur" />
+			</key>
+			<one-to-many class="Fichier" />
+		</set>
+		<set name="adresses" table="ADRESSE" inverse="false" lazy="true">
+			<key>
+				<column name="idUtilisateur" />
+			</key>
+			<one-to-many class="Adresse" />
+		</set>
+
+		<!-- La sous-classe Entreprise -->
+		<subclass name="Entreprise" discriminator-value="ENT">
+			<set name="appelOffres" table="appel_offre" inverse="true" lazy="true">
+				<key>
+					<column name="idEntreprise" />
+				</key>
+				<one-to-many class="AppelOffre" />
+			</set>
+			<set name="secteurActivites" table="secteur_activite" inverse="false"
+				lazy="false" cascade="ALL">
+				<key>
+					<column name="idEntreprise" />
+				</key>
+				<element type="java.lang.String">
+					<column name="secteur" />
+				</element>
+			</set>
+
+			<join table="entreprise">
+				<key column="id" />
+
+				<property name="sigle" type="java.lang.String">
+					<column name="SIGLE" />
+				</property>
+				<property name="apercu" type="java.lang.String">
+					<column name="APERCU" />
+				</property>
+			</join>
+		</subclass>
+
+		<!-- La sous-classe Particulier -->
+		<subclass name="Particulier" discriminator-value="P">
+
+			<join table="particulier">
+				<key column="id" />
+				<property name="nomUtilisateur" type="java.lang.String">
+					<column name="NOMUTILISATEUR" />
+				</property>
+				<property name="dateNaissance" type="java.util.Date">
+					<column name="DATENAISSANCE" />
+				</property>
+				<property name="nom" type="java.lang.String">
+					<column name="NOM" />
+				</property>
+				<property name="prenom" type="java.lang.String">
+					<column name="PRENOM" />
+				</property>
+			</join>
+			
+			<!-- La sous-classe Etudiant -->
+			<subclass name="Etudiant" discriminator-value="ETU">
+
+				<set name="competences" table="COMPETENCE" inverse="false" lazy="true">
+					<key>
+						<column name="idEtudiant" />
+					</key>
+					<one-to-many class="Competence" />
+				</set>
+
+				<set name="qualifications" table="QUALIFICATION" inverse="true"
+					lazy="true">
+					<key>
+						<column name="idEtudiant" />
+					</key>
+					<one-to-many class="Qualification" />
+				</set>
+
+				<set name="contrePropositions" table="contre_proposition"
+					inverse="true" lazy="true">
+					<key>
+						<column name="idEtudiant" />
+					</key>
+					<one-to-many class="ContreProposition" />
+				</set>
+
+				<set name="projets" table="PROJET" inverse="true" lazy="true"
+					access="field">
+					<key>
+						<column name="idEtudiant" />
+					</key>
+					<one-to-many class="Projet" />
+				</set>
+
+				<join table="etudiant">
+					<key column="id" />
+
+					<property name="nombreBids" type="int">
+						<column name="NOMBREBIDS" />
+					</property>
+				</join>
+				
+			<subclass name="Administrateur" discriminator-value="ADM" />
+			
+			<subclass></subclass>
+			
+		</subclass>
+	</class>
+</hibernate-mapping>

@@ -1,4 +1,4 @@
-package com.model;
+package com.trast.model;
 
 import java.util.Date;
 import java.util.Set;

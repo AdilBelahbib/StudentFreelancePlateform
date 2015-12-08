@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.trast.model.AppelOffre" table="APPELOFFRE">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="dateExpiration" type="java.util.Date">
+            <column name="DATEEXPIRATION" />
+        </property>
+        <property name="dateDebut" type="java.util.Date">
+            <column name="DATEDEBUT" />
+        </property>
+        <set name="remunerations" table="REMUNERATION" inverse="false" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <one-to-many class="com.trast.model.Remuneration" />
+        </set>
+        <set name="qualifications" table="QUALIFICATION" inverse="false" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <one-to-many class="com.trast.model.Qualification" />
+        </set>
+        <set name="etudiants" table="ETUDIANT" inverse="false" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <one-to-many class="com.trast.model.Etudiant" />
+        </set>
+        <many-to-one name="entreprise" class="com.trast.model.Entreprise" fetch="join">
+            <column name="ENTREPRISE" />
+        </many-to-one>
+        <one-to-one name="cahierDesCharges" class="com.trast.model.CahierDesCharges"></one-to-one>
+    </class>
+</hibernate-mapping>

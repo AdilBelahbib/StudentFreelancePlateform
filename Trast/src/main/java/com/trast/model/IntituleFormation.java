@@ -1,33 +1,37 @@
-package com.model;
+package com.trast.model;
 
 import java.util.Set;
 
-public class Competence {
+public class IntituleFormation {
 	private Long id;
 	private String intitule;
-	private int niveau;
-	private Etudiant etudiant;
+	private Etablissement etablissement;
+	private Set<Formation> formations;
 	
-
-	public Competence() {
+	public IntituleFormation() {
 		super();
 	}
+
 	
-	public Competence(Long id, String intitule, int niveau, Etudiant etudiant) {
+	public IntituleFormation(Long id, String intitule,Etablissement etablissement, Set<Formation> formations) {
 		super();
 		this.id = id;
 		this.intitule = intitule;
-		this.niveau = niveau;
-		this.etudiant = etudiant;
+		this.etablissement = etablissement;
+		this.formations = formations;
 	}
+
 	
-	public Etudiant getEtudiant() {
-		return etudiant;
+	public Etablissement getEtablissement() {
+		return etablissement;
 	}
-	public void setEtudiant(Etudiant etudiant) {
-		this.etudiant = etudiant;
+
+
+	public void setEtablissement(Etablissement etablissement) {
+		this.etablissement = etablissement;
 	}
-	
+
+
 	@Override
 	public int hashCode() {
 		 final int prime = 31;
@@ -38,6 +42,8 @@ public class Competence {
 		   result = prime * result + intitule.hashCode();
 		  return result;
 	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -46,7 +52,7 @@ public class Competence {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Competence other = (Competence) obj;
+		IntituleFormation other = (IntituleFormation) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -54,25 +60,35 @@ public class Competence {
 			return false;
 		return true;
 	}
+
+
 	public Long getId() {
 		return id;
 	}
+
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
 	public String getIntitule() {
 		return intitule;
 	}
+
 	public void setIntitule(String intitule) {
 		this.intitule = intitule;
 	}
-	public int getNiveau() {
-		return niveau;
+
+
+	public Set<Formation> getFormations() {
+		return formations;
 	}
-	public void setNiveau(int niveau) {
-		this.niveau = niveau;
+
+
+	public void setFormations(Set<Formation> formations) {
+		this.formations = formations;
 	}
-	
 	
 
 }

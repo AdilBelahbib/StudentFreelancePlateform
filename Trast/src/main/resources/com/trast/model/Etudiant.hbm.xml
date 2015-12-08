@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:42:34 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <joined-subclass name="com.trast.model.Etudiant" extends="com.trast.model.Particulier" table="ETUDIANT" lazy="false">
+        <key>
+            <column name="NOMUTILISATEUR" />
+        </key>
+        <property name="nombreBids" type="int">
+            <column name="NOMBREBIDS" />
+        </property>
+        <set name="competences" table="COMPETENCE" inverse="false" lazy="true">
+            <key>
+                <column name="NOMBREBIDS" />
+            </key>
+            <one-to-many class="com.trast.model.Competence" />
+        </set>
+        <set name="qualifications" table="QUALIFICATION" inverse="false" lazy="true">
+            <key>
+                <column name="NOMBREBIDS" />
+            </key>
+            <one-to-many class="com.trast.model.Qualification" />
+        </set>
+        <set name="appelOffres" table="APPELOFFRE" inverse="false" lazy="true">
+            <key>
+                <column name="NOMBREBIDS" />
+            </key>
+            <one-to-many class="com.trast.model.AppelOffre" />
+        </set>
+        <set name="contrePropositions" table="CONTREPROPOSITION" inverse="false" lazy="true">
+            <key>
+                <column name="NOMBREBIDS" />
+            </key>
+            <one-to-many class="com.trast.model.ContreProposition" />
+        </set>
+        <set name="projets" table="PROJET" inverse="false" lazy="true" access="field">
+            <key>
+                <column name="NOMBREBIDS" />
+            </key>
+            <one-to-many class="com.trast.model.Projet" />
+        </set>
+    </joined-subclass>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.trast.model.Remuneration" table="REMUNERATION">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="somme" type="double">
+            <column name="SOMME" />
+        </property>
+        <property name="intitule" type="java.lang.String">
+            <column name="INTITULE" />
+        </property>
+        <property name="devise" type="java.lang.String">
+            <column name="DEVISE" />
+        </property>
+        <many-to-one name="appelOffre" class="com.trast.model.AppelOffre" fetch="join">
+            <column name="APPELOFFRE" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

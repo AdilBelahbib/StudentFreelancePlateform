@@ -1,84 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="utilisateur" class="com.freelance.Utilisateur">
-      <property name="email" />
-      <property name="motDePasse" />
-      <property name="fichiers"  />
-      <property name="adresses" />
-   </bean>
-   
-   <bean id="particulier" parent="Utilisateur">
-      <property name="nomUtilisateur" />
-      <property name="nom" />
-      <property name="prenom" />
-      <property name="dateNaissance" />
-   </bean>
-   
-   <bean id="entreprise" parent="Utilisateur">
-      <property name="sigle" />
-      <property name="secteurActivites" />
-      <property name="apercu" />
-      <property name="appelOffres" />
-   </bean>
-	
-   <bean id="etudiant" parent="Particulier">
-      <property name="nombreBids" />
-      <property name="qualifications" />
-      <property name="competences" />
-      <property name="appelOffres" />
-      <property name="cahiersDesCharges" />
-      <property name="contrePropositions" />
-   </bean>
-   
-   <bean id="adresse" class="com.freelance.Adresse">
-      <property name="ville" />
-      <property name="pays" />
-      <property name="adresse" />
-      <property name="utilisateur" ref="utilisateur"/>
-   </bean>
-   
-    <bean id="fichier" class="com.freelance.Fichier">
-      <property name="titre" />
-      <property name="chemin" />
-      <property name="cahierDesCharges" ref="cahierDesCharges"/>
-      <property name="utilisateur" ref="utilisateur"/>
-      <property name="contreProposition" ref="contreProposition"/>
-   </bean>
-   
-   <bean id="contreProposition" class="com.freelance.ContreProposition">
-      <property name="enchere" />
-      <property name="fichier" ref="fichier" />
-      <property name="appelOffre" ref="appelOffre"/>
-      <property name="etudiant" ref="etudiant"/>
-   </bean>
-  
-   <bean id="cahierDesCharges" class="com.freelance.CahierDesCharges">
-      <property name="sujet" />
-      <property name="dateDebut" ref="fichier" />
-      <property name="dateFin" ref="appelOffre"/>
-      <property name="fichiers" />
-      <property name="etudiant" ref="etudiant"/>
-       <property name="appelOffre" ref="appelOffre"/>
-   </bean>
+	<bean id="utilisateur" class="com.trast.model.Utilisateur">
+		<property name="email" />
+		<property name="motDePasse" />
+		<property name="fichiers" />
+		<property name="adresses" />
+	</bean>
 
-    <bean id="appelOffre" class="com.freelance.AppelOffre">
-      <property name="dateExpiration" />
-      <property name="dateDebut" />
-      <property name="remunerations" />
-      <property name="qualifications"/>
-      <property name="etudiants" />
-      <property name="entreprise" ref="entreprise"/>
-       <property name="cahierDesCharges" ref="cahierDesCharges"/>
-   </bean>
+	<bean id="particulier" parent="Utilisateur">
+		<property name="nomUtilisateur" />
+		<property name="nom" />
+		<property name="prenom" />
+		<property name="dateNaissance" />
+	</bean>
 
-<!-- bean: Etablissement -->
+	<bean id="entreprise" parent="Utilisateur">
+		<property name="sigle" />
+		<property name="secteurActivites" />
+		<property name="apercu" />
+		<property name="appelOffres" />
+	</bean>
 
-	<bean id="etablissement" class="com.model.Etablissement">
+	<bean id="etudiant" parent="Particulier">
+		<property name="nombreBids" />
+		<property name="qualifications" />
+		<property name="competences" />
+		<property name="cahiersDesCharges" />
+		<property name="contrePropositions" />
+	</bean>
+
+	<bean id="adresse" class="com.trast.model.Adresse">
+		<property name="ville" />
+		<property name="pays" />
+		<property name="adresse" />
+		<property name="utilisateur" ref="utilisateur" />
+	</bean>
+
+	<bean id="fichier" class="com.trast.model.Fichier">
+		<property name="titre" />
+		<property name="chemin" />
+		<property name="cahierDesCharges" ref="cahierDesCharges" />
+		<property name="utilisateur" ref="utilisateur" />
+		<property name="contreProposition" ref="contreProposition" />
+	</bean>
+
+	<bean id="contreProposition" class="com.trast.model.ContreProposition">
+		<property name="enchere" />
+		<property name="fichier" ref="fichier" />
+		<property name="appelOffre" ref="appelOffre" />
+		<property name="etudiant" ref="etudiant" />
+	</bean>
+
+	<bean id="cahierDesCharges" class="com.trast.model.CahierDesCharges">
+		<property name="sujet" />
+		<property name="dateDebut" ref="fichier" />
+		<property name="dateFin" ref="appelOffre" />
+		<property name="fichiers" />
+		<property name="etudiant" ref="etudiant" />
+		<property name="appelOffre" ref="appelOffre" />
+	</bean>
+
+	<bean id="appelOffre" class="com.trast.model.AppelOffre">
+		<property name="dateExpiration" />
+		<property name="dateDebut" />
+		<property name="remunerations" />
+		<property name="qualifications" />
+		<property name="etudiants" />
+		<property name="entreprise" ref="entreprise" />
+		<property name="cahierDesCharges" ref="cahierDesCharges" />
+	</bean>
+
+	<!-- bean: Etablissement -->
+
+	<bean id="etablissement" class="com.trast.model.Etablissement">
 		<property name="id" value="" />
 		<property name="nomEtablissement" value="" />
 		<property name="intituleFormations">
@@ -86,30 +85,30 @@
 			</set>
 		</property>
 	</bean>
-<!-- bean: IntituleFormation -->	
-	<bean id="intituleFormation" class="com.model.IntituleFormation">
+	<!-- bean: IntituleFormation -->
+	<bean id="intituleFormation" class="com.trast.model.IntituleFormation">
 		<property name="id" value="" />
 		<property name="intitule" value="" />
-		<property name="etablissement" ref="etablissement"/>
+		<property name="etablissement" ref="etablissement" />
 		<property name="formations">
 			<set>
 			</set>
 		</property>
 	</bean>
-<!-- bean: Remuneration -->
-	<bean id="remuneration" class="com.model.Remuneration">
+	<!-- bean: Remuneration -->
+	<bean id="remuneration" class="com.trast.model.Remuneration">
 		<property name="id" value="" />
 		<property name="somme" value="" />
 		<property name="intitule" value="" />
 		<property name="devise" value="" />
 		<property name="appelOffre" ref="appelOffre" />
 	</bean>
-<!--  bean: Qualification -->
-	<bean id="qualification" class="com.model.Qualification">
-		<property name="id" value=""/>
-		<property name="dateDebut" value=""/>
-		<property name="dateFin" value=""/>
-		<property name="etudiant" ref="etudiant"/>
+	<!-- bean: Qualification -->
+	<bean id="qualification" class="com.trast.model.Qualification">
+		<property name="id" value="" />
+		<property name="dateDebut" value="" />
+		<property name="dateFin" value="" />
+		<property name="etudiant" ref="etudiant" />
 		<property name="fichiers">
 			<set>
 			</set>
@@ -119,33 +118,33 @@
 			</set>
 		</property>
 	</bean>
-<!-- bean: Formation -->
-	<bean id="formation" class="com.model.Formation" parent="qualification">
-		<property name="intituleFormation" ref="intituleFormation"/>
+	<!-- bean: Formation -->
+	<bean id="formation" class="com.trast.model.Formation" parent="qualification">
+		<property name="intituleFormation" ref="intituleFormation" />
 	</bean>
-<!-- bean: Experience -->
-	<bean id="experience" class="com.model.Experience" parent="qualification">
-	<property name="responsabilite" value=""/>
-	<property name="typeExperience" value=""/>
-	<property name="structureAccueil" value=""/>
-	<property name="sujet" value=""/>
-	<property name="salaire" value=""/>
+	<!-- bean: Experience -->
+	<bean id="experience" class="com.trast.model.Experience" parent="qualification">
+		<property name="responsabilite" value="" />
+		<property name="typeExperience" value="" />
+		<property name="structureAccueil" value="" />
+		<property name="sujet" value="" />
+		<property name="salaire" value="" />
 	</bean>
-<!-- bean: Competence -->
-	<bean id="competence" class="com.model.Competence">
-		<property name="id" value=""/>
-		<property name="intitule" value=""/>
-		<property name="niveau" value=""/>
-		<property name="etudiant" ref="etudiant"/>
+	<!-- bean: Competence -->
+	<bean id="competence" class="com.trast.model.Competence">
+		<property name="id" value="" />
+		<property name="intitule" value="" />
+		<property name="niveau" value="" />
+		<property name="etudiant" ref="etudiant" />
 	</bean>
-<!-- bean: Projet -->
-	<bean id="projet" class="com.model.Projet">
-		<property name="id" value=""/>
-		<property name="etudiant" ref="etudiant"/>
-		<property name="cahierDesCharges" ref="cahierDesCharges"/>
-		
+	<!-- bean: Projet -->
+	<bean id="projet" class="com.trast.model.Projet">
+		<property name="id" value="" />
+		<property name="etudiant" ref="etudiant" />
+		<property name="cahierDesCharges" ref="cahierDesCharges" />
 	</bean>
-<!-- bean: Administrateur -->
-	<bean id="administrateur" class="com.model.Administrateur" parent="particulier">
+	<!-- bean: Administrateur -->
+	<bean id="administrateur" class="com.trast.model.Administrateur"
+		parent="particulier">
 	</bean>
 </beans>

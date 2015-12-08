@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <joined-subclass name="com.trast.model.Entreprise" extends="com.trast.model.Utilisateur" table="ENTREPRISE" lazy="false">
+        <key>
+            <column name="ID" />
+        </key>
+        <property name="sigle" type="java.lang.String">
+            <column name="SIGLE" />
+        </property>
+        <property name="apercu" type="java.lang.String">
+            <column name="APERCU" />
+        </property>
+        <set name="appelOffres" table="APPELOFFRE" inverse="false" lazy="true">
+            <key>
+                <column name="SIGLE" />
+            </key>
+            <one-to-many class="com.trast.model.AppelOffre" />
+        </set>
+        <set name="secteurActivites" table="ENTREPRISE" inverse="false" lazy="true">
+            <key>
+                <column name="SIGLE" />
+            </key>
+            <element type="java.lang.String">
+                <column name="SECTEURACTIVITES" />
+            </element>
+        </set>
+    </joined-subclass>
+</hibernate-mapping>

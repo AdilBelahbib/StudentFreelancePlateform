@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <joined-subclass name="com.trast.model.Experience" extends="com.trast.model.Qualification" table="EXPERIENCE" lazy="false">
+        <key>
+            <column name="ID" />
+        </key>
+        <property name="responsabilite" type="java.lang.String">
+            <column name="RESPONSABILITE" />
+        </property>
+        <property name="structureAccueil" type="java.lang.String">
+            <column name="STRUCTUREACCUEIL" />
+        </property>
+        <property name="salaire" type="java.lang.Double">
+            <column name="SALAIRE" />
+        </property>
+        <property name="typeExperience" type="java.lang.String">
+            <column name="TYPEEXPERIENCE" />
+        </property>
+        <property name="sujet" type="java.lang.String">
+            <column name="SUJET" />
+        </property>
+    </joined-subclass>
+</hibernate-mapping>

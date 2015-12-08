@@ -1,29 +1,26 @@
-package com.model;
+package com.trast.model;
 
 import java.util.Set;
 
-public class Etudiant extends Particulier{
+public class Etudiant extends Particulier {
 	private int nombreBids;
 	private Set<Qualification> qualifications;
 	private Set<Competence> competences;
-	private Set<AppelOffre> appelOffres;
-	private Set<CahierDesCharges> cahiersDesCharges;
+	private Set<Projet> projets;
 	private Set<ContreProposition> contrePropositions;
-	
-	public Etudiant(){
+
+	public Etudiant() {
 	}
-	
-	public Etudiant(int nb,Set<Qualification> qualifications, 
-			Set<Competence> competences, Set<AppelOffre> appelOffres,
-			Set<CahierDesCharges> cahiers, Set<ContreProposition> contreProposition){
+
+	public Etudiant(int nb, Set<Qualification> qualifications, Set<Competence> competences, Set<Projet> projets,
+			Set<ContreProposition> contreProposition) {
 		this.nombreBids = nb;
 		this.qualifications = qualifications;
 		this.competences = competences;
-		this.appelOffres = appelOffres;
-		this.cahiersDesCharges = cahiers;
+		this.projets = projets;
 		this.contrePropositions = contreProposition;
 	}
-	
+
 	public int getNombreBids() {
 		return nombreBids;
 	}
@@ -48,20 +45,12 @@ public class Etudiant extends Particulier{
 		this.competences = competences;
 	}
 
-	public Set<AppelOffre> getAppelOffres() {
-		return appelOffres;
+	public Set<Projet> getProjet() {
+		return projets;
 	}
 
-	public void setAppelOffres(Set<AppelOffre> appelOffres) {
-		this.appelOffres = appelOffres;
-	}
-
-	public Set<CahierDesCharges> getCahiersDesCharges() {
-		return cahiersDesCharges;
-	}
-
-	public void setCahiersDesCharges(Set<CahierDesCharges> cahiersDesCharges) {
-		this.cahiersDesCharges = cahiersDesCharges;
+	public void setProjet(Set<Projet> projets) {
+		this.projets = projets;
 	}
 
 	public Set<ContreProposition> getContrePropositions() {
@@ -71,6 +60,5 @@ public class Etudiant extends Particulier{
 	public void setContrePropositions(Set<ContreProposition> contreProposition) {
 		this.contrePropositions = contreProposition;
 	}
-	
-	
+
 }

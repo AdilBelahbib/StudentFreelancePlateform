@@ -1,4 +1,4 @@
-package com.model;
+package com.trast.model;
 
 public class Fichier {
 	private Long id;
