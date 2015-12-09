@@ -11,6 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ParticulierDAOImpl implements ParticulierDAO{
 
 	private SessionFactory sessionFactory;
+	
+	public ParticulierDAOImpl(SessionFactory sessionFactory){
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	@Transactional
 	public List<Particulier> getParticuliers() {

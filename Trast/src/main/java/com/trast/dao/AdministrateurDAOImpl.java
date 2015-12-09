@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.trast.model.Administrateur;
 
 public class AdministrateurDAOImpl implements AdministrateurDAO {
-
 	private SessionFactory sessionFactory;
+	
+	public AdministrateurDAOImpl(SessionFactory sessionFactory){
+		this.sessionFactory = sessionFactory;
+	}
 	
 	@Override
 	@Transactional

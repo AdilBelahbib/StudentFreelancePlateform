@@ -213,4 +213,113 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<!-- Configuration des DAO bean -->
+	<bean id="AdministrateurDao" class="com.trast.dao.AdministrateurDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="AdresseDao" class="com.trast.dao.AdresseDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="AppelOffreDao" class="com.trast.dao.AppelOffreDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="CahierDesChargesDao" class="com.trast.dao.CahierDesChargesDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="CompetenceDao" class="com.trast.dao.CompetenceDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="ContrePropositionDao" class="com.trast.dao.ContrePropositionDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="EntrepriseDao" class="com.trast.dao.EntrepriseDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="EtablissementDao" class="com.trast.dao.EtablissementDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="EtudiantDao" class="com.trast.dao.EtudiantDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="ExperienceDao" class="com.trast.dao.ExperienceDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="FichierDao" class="com.trast.dao.FichierDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="FormationDao" class="com.trast.dao.FormationDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="IntituleFormationDao" class="com.trast.dao.IntituleFormationDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="ParticulierDao" class="com.trast.dao.ParticulierDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="ProjetDao" class="com.trast.dao.ProjetDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="QualificationDao" class="com.trast.dao.QualificationDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="RemunerationDao" class="com.trast.dao.RemunerationDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
+	
+	<bean id="UtilisateurDao" class="com.trast.dao.UtilisateurDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+	</bean>
 </beans>

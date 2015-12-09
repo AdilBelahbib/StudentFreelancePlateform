@@ -9,7 +9,11 @@ import com.trast.model.Experience;
 
 public class ExperienceDAOImpl implements ExperienceDAO {
 	private SessionFactory sessionFactory;
-
+	
+	public ExperienceDAOImpl(SessionFactory sessionFactory){
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	@Transactional
 	public List<Experience> getExperiences() {

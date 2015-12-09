@@ -9,6 +9,11 @@ import com.trast.model.Remuneration;
 public class RemunerationDAOImpl implements RemunerationDAO {
 
 	private SessionFactory sessionFactory;
+	
+	public RemunerationDAOImpl(SessionFactory sessionFactory){
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	@Transactional
 	public List<Remuneration> getRemunerations() {

@@ -10,7 +10,11 @@ import com.trast.model.AppelOffre;
 
 public class AppelOffreDAOImpl implements AppelOffreDAO {
 	private SessionFactory sessionFactory;
-
+	
+	public AppelOffreDAOImpl(SessionFactory sessionFactory){
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	@Transactional
 	public List<AppelOffre> getAppelOffres() {

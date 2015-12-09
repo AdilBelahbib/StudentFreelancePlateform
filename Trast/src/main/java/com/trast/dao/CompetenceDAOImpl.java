@@ -10,7 +10,11 @@ import com.trast.model.Competence;
 
 public class CompetenceDAOImpl implements CompetenceDAO{
 	private SessionFactory sessionFactory;
-
+	
+	public CompetenceDAOImpl(SessionFactory sessionFactory){
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	@Transactional
 	public List<Competence> getCompetences() {

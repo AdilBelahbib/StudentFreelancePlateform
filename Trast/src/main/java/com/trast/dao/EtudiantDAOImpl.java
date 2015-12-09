@@ -9,7 +9,11 @@ import com.trast.model.Etudiant;
 public class EtudiantDAOImpl implements EtudiantDAO {
 
 	private SessionFactory sessionFactory;
-
+	
+	public EtudiantDAOImpl(SessionFactory sessionFactory){
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	@Transactional
 	public List<Etudiant> getEtudiants() {

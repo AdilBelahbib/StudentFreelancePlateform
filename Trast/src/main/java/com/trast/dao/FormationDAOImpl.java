@@ -12,6 +12,10 @@ public class FormationDAOImpl implements FormationDAO {
 
 	private SessionFactory sessionFactory;
 	
+	public FormationDAOImpl(SessionFactory sessionFactory){
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	public List<Formation> getFormations() {
 		Session session = sessionFactory.getCurrentSession();
