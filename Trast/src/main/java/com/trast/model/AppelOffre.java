@@ -12,6 +12,7 @@ public class AppelOffre {
 	private Set<ContreProposition> contrePropositions;
 	private Entreprise entreprise;
 	private CahierDesCharges cahierDesCharges;
+	private EtatAppelOffre status;
 
 	
 	public AppelOffre(){

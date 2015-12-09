@@ -1,11 +1,10 @@
 package com.trast.model;
 
-
-public class Projet {
-	
+public class Projet {	
 	private Long id;
 	private Etudiant etudiant;
 	private CahierDesCharges cahierDesCharges;
+	private EtatProjet status;
 	
 	public Projet() {
 	}

@@ -90,7 +90,6 @@
 		<property name="dateFin" ref="appelOffre" />
 		<property name="fichiers">
 			<set></set>
-
 		</property>
 		<property name="etudiant" ref="etudiant" />
 		<property name="appelOffre" ref="appelOffre" />
@@ -112,8 +111,15 @@
 		</property>
 		<property name="entreprise" ref="entreprise" />
 		<property name="cahierDesCharges" ref="cahierDesCharges" />
+		<property name="status" value="PREPARE" />
 	</bean>
-
+	
+	<bean id="etatAppelOffre" class="com.trast.model.EtatAppelOffre">
+	</bean>
+	
+	<bean id="etatProjet" class="com.trast.model.EtatProjet">
+	</bean>
+	
 	<!-- bean: Etablissement -->
 
 	<bean id="etablissement" class="com.trast.model.Etablissement">
@@ -179,6 +185,7 @@
 		<property name="id" />
 		<property name="etudiant" ref="etudiant" />
 		<property name="cahierDesCharges" ref="cahierDesCharges" />
+		<property name="status" value="ENCOURS"/>
 	</bean>
 	<!-- bean: Administrateur -->
 	<bean id="administrateur" class="com.trast.model.Administrateur"
