@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2015 at 08:51 PM
+-- Generation Time: Dec 10, 2015 at 02:07 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -46,10 +46,24 @@ CREATE TABLE IF NOT EXISTS `appel_offre` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dateDebut` datetime NOT NULL,
   `dateExpiration` datetime NOT NULL,
+  `statut` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `idEntreprise` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idEntreprise` (`idEntreprise`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `appel_offre_competence`
+--
+
+CREATE TABLE IF NOT EXISTS `appel_offre_competence` (
+  `idCompetence` int(11) NOT NULL,
+  `idAppelOffre` int(11) NOT NULL,
+  PRIMARY KEY (`idCompetence`,`idAppelOffre`),
+  KEY `idAppelOffre` (`idAppelOffre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -78,10 +92,8 @@ CREATE TABLE IF NOT EXISTS `cahier_des_charges` (
 CREATE TABLE IF NOT EXISTS `competence` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `intitule` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `niveau` int(11) NOT NULL DEFAULT '0',
-  `idEtudiant` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `idEtudiant` (`idEtudiant`)
+  UNIQUE KEY `intitule` (`intitule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -136,6 +148,21 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
   `nombreBids` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `etudiant_competence`
+--
+
+CREATE TABLE IF NOT EXISTS `etudiant_competence` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idEtudiant` int(11) NOT NULL,
+  `idCompetence` int(11) NOT NULL,
+  `maitrise` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idEtudiant` (`idEtudiant`,`idCompetence`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -211,9 +238,8 @@ CREATE TABLE IF NOT EXISTS `particulier` (
   `id` int(11) NOT NULL,
   `nomUtilisateur` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `nom` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `prenom` int(32) NOT NULL,
+  `prenom` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `dateNaissance` date NOT NULL,
-  `typeParticulier` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nomUtilisateur` (`nomUtilisateur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -226,6 +252,7 @@ CREATE TABLE IF NOT EXISTS `particulier` (
 
 CREATE TABLE IF NOT EXISTS `projet` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `statut` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `idCahierDesCharges` int(11) NOT NULL,
   `idEtudiant` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -289,10 +316,10 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
   `motDePasse` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
-  `typeUtilisateur` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
+  `typeUtilisateur` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Constraints for dumped tables
@@ -311,17 +338,18 @@ ALTER TABLE `appel_offre`
   ADD CONSTRAINT `appel_offre_ibfk_1` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `appel_offre_competence`
+--
+ALTER TABLE `appel_offre_competence`
+  ADD CONSTRAINT `appel_offre_competence_ibfk_2` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appel_offre_competence_ibfk_1` FOREIGN KEY (`idCompetence`) REFERENCES `competence` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `cahier_des_charges`
 --
 ALTER TABLE `cahier_des_charges`
-  ADD CONSTRAINT `cahier_des_charges_ibfk_2` FOREIGN KEY (`idProjet`) REFERENCES `projet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cahier_des_charges_ibfk_1` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
-
---
--- Constraints for table `competence`
---
-ALTER TABLE `competence`
-  ADD CONSTRAINT `competence_ibfk_1` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `cahier_des_charges_ibfk_1` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `cahier_des_charges_ibfk_2` FOREIGN KEY (`idProjet`) REFERENCES `projet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `contre_proposition`

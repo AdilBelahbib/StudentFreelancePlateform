@@ -10,50 +10,27 @@ public class AppelOffre {
 	private Set<Remuneration> remunerations;
 	private Set<Qualification> qualifications;
 	private Set<ContreProposition> contrePropositions;
+	private Set<Competence> competences;
 	private Entreprise entreprise;
 	private CahierDesCharges cahierDesCharges;
-	private EtatAppelOffre status;
+	private EtatAppelOffre statut;
 
-	
 	public AppelOffre(){
 	}
-	
-	public AppelOffre(Long id, Date dateExp, Date dateDebut,
-			Set<Remuneration> remunerations, Set<Qualification> qualifications,
-			Set<ContreProposition> contrePropositions, Entreprise entreprise, CahierDesCharges cahier){
+
+	public AppelOffre(Long id, Date dateExpiration, Date dateDebut, Set<Remuneration> remunerations,
+			Set<Qualification> qualifications, Set<ContreProposition> contrePropositions, Set<Competence> competences,
+			Entreprise entreprise, CahierDesCharges cahierDesCharges, EtatAppelOffre status) {
 		this.id = id;
-		this.dateExpiration = dateExp;
+		this.dateExpiration = dateExpiration;
 		this.dateDebut = dateDebut;
 		this.remunerations = remunerations;
 		this.qualifications = qualifications;
 		this.contrePropositions = contrePropositions;
+		this.competences = competences;
 		this.entreprise = entreprise;
-		this.cahierDesCharges = cahier;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		if(id != null)
-			result = prime * result + id.intValue();
-		else
-			result = prime * result + dateDebut.hashCode();
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AppelOffre other = (AppelOffre) obj;
-		if (id != other.id)
-			return false;
-		return true;
+		this.cahierDesCharges = cahierDesCharges;
+		this.statut = status;
 	}
 
 	public Long getId() {
@@ -96,12 +73,28 @@ public class AppelOffre {
 		this.qualifications = qualifications;
 	}
 
-	public Set<ContreProposition> getContreProposition() {
+	public Set<ContreProposition> getContrePropositions() {
 		return contrePropositions;
 	}
 
-	public void setContreProposition(Set<ContreProposition> contrePropositions) {
+	public void setContrePropositions(Set<ContreProposition> contrePropositions) {
 		this.contrePropositions = contrePropositions;
+	}
+
+	public Set<Competence> getCompetences() {
+		return competences;
+	}
+
+	public void setCompetences(Set<Competence> competences) {
+		this.competences = competences;
+	}
+
+	public EtatAppelOffre getStatut() {
+		return statut;
+	}
+
+	public void setStatut(EtatAppelOffre status) {
+		this.statut = status;
 	}
 
 	public Entreprise getEntreprise() {
@@ -119,6 +112,30 @@ public class AppelOffre {
 	public void setCahierDesCharges(CahierDesCharges cahierDesCharges) {
 		this.cahierDesCharges = cahierDesCharges;
 	}
-
 	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		if(id != null)
+			result = prime * result + id.intValue();
+		else
+			result = prime * result + dateDebut.hashCode();
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AppelOffre other = (AppelOffre) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
 }

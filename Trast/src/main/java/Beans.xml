@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-    http://www.springframework.org/schema/tx
-    http://www.springframework.org/schema/tx/spring-tx.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
 	<bean id="utilisateur" class="com.trast.model.Utilisateur">
-		<property name="id" />
-		<property name="email" />
-		<property name="motDePasse" />
+		<property name="id" value="" />
+		<property name="email" value="" />
+		<property name="motDePasse" value="" />
 		<property name="fichiers">
 			<set></set>
 		</property>
@@ -21,84 +20,97 @@
 		</property>
 	</bean>
 
-	<bean id="particulier" parent="Utilisateur">
-		<property name="nomUtilisateur" />
-		<property name="nom" />
-		<property name="prenom" />
-		<property name="dateNaissance" />
-	</bean>
-
-	<bean id="entreprise" parent="Utilisateur">
-		<property name="sigle" />
-		<property name="secteurActivites"> 
-			<set>
-			</set>
-		</property>
-		<property name="apercu" />
-		<property name="appelOffres"> 
-			<set>
-			</set>
+	<bean id="particulier" class="com.trast.model.Particulier" parent="utilisateur">
+		<property name="nomUtilisateur" value="" />
+		<property name="nom" value="" />
+		<property name="prenom" value="" />
+		<property name="dateNaissance">
+			<bean class="java.util.Date" />
 		</property>
 	</bean>
 
-	<bean id="etudiant" parent="Particulier">
-		<property name="nombreBids" />
-		<property name="qualifications"> 
+	<bean id="entreprise" class="com.trast.model.Entreprise" parent="utilisateur">
+		<property name="sigle" value="" />
+		<property name="secteurActivites">
 			<set>
 			</set>
 		</property>
-		<property name="competences"> 
+		<property name="apercu" value="" />
+		<property name="appelOffres">
 			<set>
 			</set>
 		</property>
-		<property name="cahiersDesCharges"> 
+	</bean>
+
+	<bean id="etudiant" class="com.trast.model.Etudiant" parent="particulier">
+		<property name="nombreBids" value="5" />
+		<property name="qualifications">
 			<set>
 			</set>
 		</property>
-		<property name="contrePropositions"> 
+		<property name="niveaux">
 			<set>
 			</set>
 		</property>
+		<property name="projets">
+			<set>
+			</set>
+		</property>
+		<property name="contrePropositions">
+			<set>
+			</set>
+		</property>
+
 	</bean>
 
 	<bean id="adresse" class="com.trast.model.Adresse">
-		<property name="id" />
-		<property name="ville" />
-		<property name="pays" />
-		<property name="adresse" />
+		<property name="id" value="" />
+		<property name="ville" value="" />
+		<property name="pays" value="" />
+		<property name="adresse" value="" />
 		<property name="utilisateur" ref="utilisateur" />
 	</bean>
 
 	<bean id="fichier" class="com.trast.model.Fichier">
-		<property name="id" />
-		<property name="titre" />
-		<property name="chemin" />
+		<property name="id" value="" />
+		<property name="titre" value="" />
+		<property name="chemin" value="" />
 	</bean>
 
 	<bean id="contreProposition" class="com.trast.model.ContreProposition">
-		<property name="id" />
-		<property name="enchere" />
+		<property name="id" value="" />
+		<property name="enchere" value="" />
 		<property name="fichier" ref="fichier" />
 		<property name="appelOffre" ref="appelOffre" />
 		<property name="etudiant" ref="etudiant" />
 	</bean>
 
 	<bean id="cahierDesCharges" class="com.trast.model.CahierDesCharges">
-		<property name="id" />
-		<property name="sujet" />
-		<property name="dateDebut" ref="fichier" />
-		<property name="dateFin" ref="appelOffre" />
+		<property name="id" value="" />
+		<property name="sujet" value="" />
+		<property name="dateDebut">
+			<bean class="java.util.Date" />
+		</property>
+
+		<property name="dateFin">
+			<bean class="java.util.Date" />
+		</property>
+
 		<property name="fichiers">
 			<set></set>
 		</property>
-		<property name="etudiant" ref="etudiant" />
+		<property name="projet" ref="projet" />
 		<property name="appelOffre" ref="appelOffre" />
 	</bean>
 
 	<bean id="appelOffre" class="com.trast.model.AppelOffre">
-		<property name="id" />
-		<property name="dateExpiration" />
-		<property name="dateDebut" />
+		<property name="id" value="" />
+		<property name="dateExpiration">
+			<bean class="java.util.Date" />
+		</property>
+		<property name="dateDebut">
+			<bean class="java.util.Date" />
+		</property>
 		<property name="remunerations">
 			<set></set>
 		</property>
@@ -107,24 +119,27 @@
 		</property>
 		<property name="contrePropositions">
 			<set></set>
-
+		</property>
+		<property name="competences">
+			<set></set>
 		</property>
 		<property name="entreprise" ref="entreprise" />
 		<property name="cahierDesCharges" ref="cahierDesCharges" />
-		<property name="status" value="PREPARE" />
+		<property name="statut" value="PREPARE" />
 	</bean>
-	
-	<bean id="etatAppelOffre" class="com.trast.model.EtatAppelOffre">
+
+	<bean id="niveau" class="com.trast.model.Niveau">
+		<property name="id" value="" />
+		<property name="etudiant" ref="etudiant" />
+		<property name="competence" ref="competence" />
+		<property name="maitrise" value="0" />
 	</bean>
-	
-	<bean id="etatProjet" class="com.trast.model.EtatProjet">
-	</bean>
-	
+
 	<!-- bean: Etablissement -->
 
 	<bean id="etablissement" class="com.trast.model.Etablissement">
-		<property name="id" />
-		<property name="nomEtablissement" />
+		<property name="id" value="" />
+		<property name="nomEtablissement" value="" />
 		<property name="intituleFormations">
 			<set>
 			</set>
@@ -132,8 +147,8 @@
 	</bean>
 	<!-- bean: IntituleFormation -->
 	<bean id="intituleFormation" class="com.trast.model.IntituleFormation">
-		<property name="id"  />
-		<property name="intitule" />
+		<property name="id" value="" />
+		<property name="intitule" value="" />
 		<property name="etablissement" ref="etablissement" />
 		<property name="formations">
 			<set>
@@ -142,23 +157,27 @@
 	</bean>
 	<!-- bean: Remuneration -->
 	<bean id="remuneration" class="com.trast.model.Remuneration">
-		<property name="id"  />
-		<property name="somme" />
-		<property name="intitule"  />
-		<property name="devise"  />
+		<property name="id" value="" />
+		<property name="somme" value="0.0" />
+		<property name="intitule" value="" />
+		<property name="devise" value="" />
 		<property name="appelOffre" ref="appelOffre" />
 	</bean>
 	<!-- bean: Qualification -->
 	<bean id="qualification" class="com.trast.model.Qualification">
-		<property name="id"  />
-		<property name="dateDebut"/>
-		<property name="dateFin" />
+		<property name="id" value="" />
+		<property name="dateDebut">
+			<bean class="java.util.Date" />
+		</property>
+		<property name="dateFin">
+			<bean class="java.util.Date" />
+		</property>
 		<property name="etudiant" ref="etudiant" />
 		<property name="fichiers">
 			<set>
 			</set>
 		</property>
-		<property name="appelOffre">
+		<property name="appelOffre" ref="appelOffre">
 		</property>
 	</bean>
 	<!-- bean: Formation -->
@@ -167,29 +186,137 @@
 	</bean>
 	<!-- bean: Experience -->
 	<bean id="experience" class="com.trast.model.Experience" parent="qualification">
-		<property name="responsabilite"  />
-		<property name="typeExperience"  />
-		<property name="structureAccueil"  />
-		<property name="sujet"  />
-		<property name="salaire"  />
+		<property name="responsabilite" value="" />
+		<property name="typeExperience" value="" />
+		<property name="structureAccueil" value="" />
+		<property name="sujet" value="" />
+		<property name="salaire" value="" />
 	</bean>
 	<!-- bean: Competence -->
 	<bean id="competence" class="com.trast.model.Competence">
-		<property name="id" />
-		<property name="intitule"  />
-		<property name="niveau" />
+		<property name="id" value="" />
+		<property name="intitule" value="" />
 		<property name="etudiant" ref="etudiant" />
 	</bean>
 	<!-- bean: Projet -->
 	<bean id="projet" class="com.trast.model.Projet">
-		<property name="id" />
+		<property name="id" value="" />
 		<property name="etudiant" ref="etudiant" />
 		<property name="cahierDesCharges" ref="cahierDesCharges" />
-		<property name="status" value="ENCOURS"/>
+		<property name="statut" value="ENCOURS" />
 	</bean>
 	<!-- bean: Administrateur -->
 	<bean id="administrateur" class="com.trast.model.Administrateur"
 		parent="particulier">
+	</bean>
+
+	<!-- Configuration des DAO bean -->
+	<bean id="administrateurDao" class="com.trast.dao.AdministrateurDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="adresseDao" class="com.trast.dao.AdresseDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="appelOffreDao" class="com.trast.dao.AppelOffreDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="cahierDesChargesDao" class="com.trast.dao.CahierDesChargesDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="competenceDao" class="com.trast.dao.CompetenceDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="contrePropositionDao" class="com.trast.dao.ContrePropositionDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="entrepriseDao" class="com.trast.dao.EntrepriseDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="etablissementDao" class="com.trast.dao.EtablissementDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="etudiantDao" class="com.trast.dao.EtudiantDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="experienceDao" class="com.trast.dao.ExperienceDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="fichierDao" class="com.trast.dao.FichierDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="formationDao" class="com.trast.dao.FormationDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="intituleFormationDao" class="com.trast.dao.IntituleFormationDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="particulierDao" class="com.trast.dao.ParticulierDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="projetDao" class="com.trast.dao.ProjetDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="qualificationDao" class="com.trast.dao.QualificationDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="remunerationDao" class="com.trast.dao.RemunerationDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="utilisateurDao" class="com.trast.dao.UtilisateurDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
 	</bean>
 
 	<!-- Configuration du DataSource bean -->
@@ -201,125 +328,43 @@
 		<property name="password" value="" />
 	</bean>
 
-	<!-- Configuration du SessionFactory bean -->
+	<!-- Hibernate session factory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:main/resources/hibernate.cfg.xml" />
+		<property name="mappingResources">
+			<list>
+				<value>com/trast/model/Adresse.hbm.xml</value>
+				<value>com/trast/model/AppelOffre.hbm.xml</value>
+				<value>com/trast/model/CahierDesCharges.hbm.xml</value>
+				<value>com/trast/model/Competence.hbm.xml</value>
+				<value>com/trast/model/ContreProposition.hbm.xml</value>
+				<value>com/trast/model/Etablissement.hbm.xml</value>
+				<value>com/trast/model/Experience.hbm.xml</value>
+				<value>com/trast/model/Fichier.hbm.xml</value>
+				<value>com/trast/model/Formation.hbm.xml</value>
+				<value>com/trast/model/IntituleFormation.hbm.xml</value>
+				<value>com/trast/model/Niveau.hbm.xml</value>
+				<value>com/trast/model/Projet.hbm.xml</value>
+				<value>com/trast/model/Qualification.hbm.xml</value>
+				<value>com/trast/model/Remuneration.hbm.xml</value>
+				<value>com/trast/model/Utilisateur.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
 	</bean>
 
 	<tx:annotation-driven />
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	
-	<!-- Configuration des DAO bean -->
-	<bean id="AdministrateurDao" class="com.trast.dao.AdministrateurDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="AdresseDao" class="com.trast.dao.AdresseDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="AppelOffreDao" class="com.trast.dao.AppelOffreDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="CahierDesChargesDao" class="com.trast.dao.CahierDesChargesDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="CompetenceDao" class="com.trast.dao.CompetenceDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="ContrePropositionDao" class="com.trast.dao.ContrePropositionDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="EntrepriseDao" class="com.trast.dao.EntrepriseDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="EtablissementDao" class="com.trast.dao.EtablissementDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="EtudiantDao" class="com.trast.dao.EtudiantDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="ExperienceDao" class="com.trast.dao.ExperienceDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="FichierDao" class="com.trast.dao.FichierDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="FormationDao" class="com.trast.dao.FormationDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="IntituleFormationDao" class="com.trast.dao.IntituleFormationDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="ParticulierDao" class="com.trast.dao.ParticulierDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="ProjetDao" class="com.trast.dao.ProjetDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="QualificationDao" class="com.trast.dao.QualificationDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="RemunerationDao" class="com.trast.dao.RemunerationDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-	</bean>
-	
-	<bean id="UtilisateurDao" class="com.trast.dao.UtilisateurDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
 	</bean>
 </beans>

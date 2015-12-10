@@ -12,41 +12,12 @@ public class Utilisateur {
 	public Utilisateur(){		
 	}
 	
-	public Utilisateur(Long id, String email, String mdp,Set<Fichier> fichiers,
-			Set<Adresse> adresses){
+	public Utilisateur(Long id, String email, String motDePasse, Set<Fichier> fichiers, Set<Adresse> adresses) {
 		this.id = id;
 		this.email = email;
-		this.motDePasse = mdp;
+		this.motDePasse = motDePasse;
 		this.fichiers = fichiers;
 		this.adresses = adresses;
-	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		if(id != null)
-			result = prime * result + id.intValue();
-		else
-			result = prime * result + email.hashCode();
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Utilisateur other = (Utilisateur) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
 	}
 
 	public Long getId() {
@@ -87,6 +58,34 @@ public class Utilisateur {
 
 	public void setAdresses(Set<Adresse> adresses) {
 		this.adresses = adresses;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		if(id != null)
+			result = prime * result + id.intValue();
+		else
+			result = prime * result + email.hashCode();
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Utilisateur other = (Utilisateur) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

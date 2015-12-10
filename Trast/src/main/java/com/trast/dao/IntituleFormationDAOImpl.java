@@ -2,6 +2,8 @@ package com.trast.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -65,5 +67,5 @@ public class IntituleFormationDAOImpl implements IntituleFormationDAO {
 		
 		session.delete(intituleFormation);
 	}
-
+	
 }

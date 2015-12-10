@@ -1,19 +1,19 @@
 package com.trast.model;
 
-public class Projet {	
+public class Niveau {
 	private Long id;
 	private Etudiant etudiant;
-	private CahierDesCharges cahierDesCharges;
-	private EtatProjet statut;
+	private Competence competence;
+	private int maitrise;
 	
-	public Projet() {
+	public Niveau() {
 	}
 
-	public Projet(Long id, Etudiant etudiant, CahierDesCharges cahierDesCharges, EtatProjet status) {
+	public Niveau(Long id, Etudiant etudiant, Competence competence, int maitrise) {
 		this.id = id;
 		this.etudiant = etudiant;
-		this.cahierDesCharges = cahierDesCharges;
-		this.statut = status;
+		this.competence = competence;
+		this.maitrise = maitrise;
 	}
 
 	public Long getId() {
@@ -32,20 +32,20 @@ public class Projet {
 		this.etudiant = etudiant;
 	}
 
-	public CahierDesCharges getCahierDesCharges() {
-		return cahierDesCharges;
+	public Competence getCompetence() {
+		return competence;
 	}
 
-	public void setCahierDesCharges(CahierDesCharges cahierDesCharges) {
-		this.cahierDesCharges = cahierDesCharges;
+	public void setCompetence(Competence competence) {
+		this.competence = competence;
 	}
 
-	public EtatProjet getStatut() {
-		return statut;
+	public int getMaitrise() {
+		return maitrise;
 	}
 
-	public void setStatut(EtatProjet status) {
-		this.statut = status;
+	public void setMaitrise(int maitrise) {
+		this.maitrise = maitrise;
 	}
 
 	@Override
@@ -53,11 +53,11 @@ public class Projet {
 		final int prime = 31;
 		int result = 1;
 		
-		if(id != null)
+		if(this.id != null)
 			result = prime * result + ((id == null) ? 0 : id.intValue());
 		else
-			result = prime * result + ((id == null) ? 0 : cahierDesCharges.hashCode());
-		
+			result = prime * result + ((id == null) ? 0 : etudiant.hashCode());
+			
 		return result;
 	}
 
@@ -69,7 +69,7 @@ public class Projet {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Projet other = (Projet) obj;
+		Niveau other = (Niveau) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -77,7 +77,9 @@ public class Projet {
 			return false;
 		return true;
 	}
+
 	
 	
 	
+
 }

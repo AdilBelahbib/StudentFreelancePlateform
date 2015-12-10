@@ -14,7 +14,7 @@ public class Qualification {
 	private AppelOffre appelOffre;
 	
 	public Qualification() {
-		super();
+
 	}
 	public Qualification(Long id, Date dateDebut, Date dateFin, Etudiant etudiant,Set<Fichier> fichiers,AppelOffre appelOffre) {
 		super();

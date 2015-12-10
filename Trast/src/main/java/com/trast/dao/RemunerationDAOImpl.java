@@ -1,9 +1,12 @@
 package com.trast.dao;
 
 import java.util.List;
-import org.hibernate.Query;
+
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import com.trast.model.Remuneration;
 
 public class RemunerationDAOImpl implements RemunerationDAO {
@@ -52,5 +55,5 @@ public class RemunerationDAOImpl implements RemunerationDAO {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(remuneration);
 	}
-
+	
 }

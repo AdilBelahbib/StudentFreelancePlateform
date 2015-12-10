@@ -9,7 +9,7 @@ public class IntituleFormation {
 	private Set<Formation> formations;
 	
 	public IntituleFormation() {
-		super();
+
 	}
 
 	

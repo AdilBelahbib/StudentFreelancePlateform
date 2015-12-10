@@ -7,8 +7,7 @@ public class Formation extends Qualification{
 	private IntituleFormation intituleFormation;
 
 	public Formation() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public Formation(Long id, Date dateDebut, Date dateFin,Etudiant etudiant,Set<Fichier> fichiers,AppelOffre appelOffre, IntituleFormation intituleFormation) {

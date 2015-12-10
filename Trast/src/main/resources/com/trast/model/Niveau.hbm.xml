@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.trast.model">
+	<class name="Niveau" table="etudiant_competence">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="maitrise" type="int">
+			<column name="maitrise" />
+		</property>
+
+		<many-to-one name="etudiant" class="Etudiant" fetch="join">
+			<column name="idEtudiant" />
+		</many-to-one>
+
+		<many-to-one name="competence" class="Competence" fetch="join">
+			<column name="idCompetence" />
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

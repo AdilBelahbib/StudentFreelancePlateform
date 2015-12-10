@@ -11,7 +11,7 @@ public class Experience extends Qualification{
 	private Double salaire;
 	
 	public Experience() {
-		super();
+		
 	}
 	public Experience(Long id, Date dateDebut, Date dateFin,Etudiant etudiant,Set<Fichier> fichiers,AppelOffre appelOffre, String responsabilite, String typeExperience, String structureAccueil, String sujet,
 			Double salaire) {

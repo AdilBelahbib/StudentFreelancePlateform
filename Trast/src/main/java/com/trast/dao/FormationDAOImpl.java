@@ -1,10 +1,11 @@
 package com.trast.dao;
 
 import java.util.List;
-import org.hibernate.Query;
+
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.trast.model.Formation;
 
@@ -17,6 +18,7 @@ public class FormationDAOImpl implements FormationDAO {
 	}
 	
 	@Override
+	@Transactional
 	public List<Formation> getFormations() {
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
@@ -25,12 +27,14 @@ public class FormationDAOImpl implements FormationDAO {
 	}
 
 	@Override
+	@Transactional
 	public Formation getFormation(Long id) {
 		Session session = sessionFactory.getCurrentSession();
 		return(Formation) session.get(Formation.class,id);
 	}
 
 	@Override
+	@Transactional
 	public void ajouterFormation(Formation formation) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(formation);
@@ -38,6 +42,7 @@ public class FormationDAOImpl implements FormationDAO {
 	}
 
 	@Override
+	@Transactional
 	public void supprimerFormation(Long id) {
 		Session session = sessionFactory.getCurrentSession();
 		Formation formation = (Formation) session.get(Formation.class,id);
@@ -46,10 +51,11 @@ public class FormationDAOImpl implements FormationDAO {
 	}
 
 	@Override
+	@Transactional
 	public void modifierFormation(Formation formation) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(formation);
 		
 	}
-
+	
 }

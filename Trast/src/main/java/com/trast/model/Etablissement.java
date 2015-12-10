@@ -8,7 +8,7 @@ public class Etablissement {
 	private Set<IntituleFormation> intituleFormations;
 
 	public Etablissement() {
-		super();
+		
 	}
 
 	public Etablissement(Long id, String nomEtablissement, Set<IntituleFormation> intituleFormations) {

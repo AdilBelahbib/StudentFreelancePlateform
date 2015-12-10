@@ -3,19 +3,16 @@ package com.trast.model;
 public class Competence {
 	private Long id;
 	private String intitule;
-	private int niveau;
 	private Etudiant etudiant;
 	
-
 	public Competence() {
-		super();
+		
 	}
 	
-	public Competence(Long id, String intitule, int niveau, Etudiant etudiant) {
+	public Competence(Long id, String intitule, Etudiant etudiant) {
 		super();
 		this.id = id;
 		this.intitule = intitule;
-		this.niveau = niveau;
 		this.etudiant = etudiant;
 	}
 	
@@ -64,13 +61,5 @@ public class Competence {
 	public void setIntitule(String intitule) {
 		this.intitule = intitule;
 	}
-	public int getNiveau() {
-		return niveau;
-	}
-	public void setNiveau(int niveau) {
-		this.niveau = niveau;
-	}
-	
-	
 
 }

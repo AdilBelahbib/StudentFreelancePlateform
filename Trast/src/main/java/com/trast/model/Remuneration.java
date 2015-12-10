@@ -9,7 +9,6 @@ public class Remuneration {
 	private AppelOffre appelOffre;
 	
 	public Remuneration() {
-		super();
 	}
 
 	

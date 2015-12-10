@@ -2,7 +2,8 @@ package com.trast.dao;
 
 import java.util.List;
 
-import org.hibernate.Query;
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -61,4 +62,6 @@ public class EntrepriseDAOImpl implements EntrepriseDAO {
 		
 		session.delete(entreprise);
 	}
+
 }
+

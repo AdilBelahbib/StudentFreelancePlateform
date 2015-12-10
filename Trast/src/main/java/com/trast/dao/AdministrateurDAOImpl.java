@@ -1,11 +1,11 @@
 package com.trast.dao;
 
 import java.util.List;
-import org.hibernate.SessionFactory;
-import org.hibernate.Query;
+
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.trast.model.Administrateur;
 

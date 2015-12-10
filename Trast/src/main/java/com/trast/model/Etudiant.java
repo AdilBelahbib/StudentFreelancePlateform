@@ -5,18 +5,18 @@ import java.util.Set;
 public class Etudiant extends Particulier {
 	private int nombreBids;
 	private Set<Qualification> qualifications;
-	private Set<Competence> competences;
+	private Set<Niveau> niveaux;
 	private Set<Projet> projets;
 	private Set<ContreProposition> contrePropositions;
 
 	public Etudiant() {
 	}
 
-	public Etudiant(int nb, Set<Qualification> qualifications, Set<Competence> competences, Set<Projet> projets,
+	public Etudiant(int nb, Set<Qualification> qualifications, Set<Niveau> niveaux, Set<Projet> projets,
 			Set<ContreProposition> contreProposition) {
 		this.nombreBids = nb;
 		this.qualifications = qualifications;
-		this.competences = competences;
+		this.niveaux = niveaux;
 		this.projets = projets;
 		this.contrePropositions = contreProposition;
 	}
@@ -37,19 +37,19 @@ public class Etudiant extends Particulier {
 		this.qualifications = qualifications;
 	}
 
-	public Set<Competence> getCompetences() {
-		return competences;
+	public Set<Niveau> getNiveaux() {
+		return niveaux;
 	}
 
-	public void setCompetences(Set<Competence> competences) {
-		this.competences = competences;
+	public void setNiveaux(Set<Niveau> niveaux) {
+		this.niveaux = niveaux;
 	}
 
-	public Set<Projet> getProjet() {
+	public Set<Projet> getProjets() {
 		return projets;
 	}
 
-	public void setProjet(Set<Projet> projets) {
+	public void setProjets(Set<Projet> projets) {
 		this.projets = projets;
 	}
 
