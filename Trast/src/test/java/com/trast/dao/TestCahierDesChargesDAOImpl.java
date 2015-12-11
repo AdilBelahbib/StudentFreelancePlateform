@@ -11,7 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
 import com.trast.model.CahierDesCharges;
 import com.trast.model.Entreprise;
 
@@ -122,9 +121,7 @@ public class TestCahierDesChargesDAOImpl {
 		CahierDesChargesDAO cahierDesChargesDao = (CahierDesChargesDAO) context.getBean("cahierDesChargesDao");
 		CahierDesCharges cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");
 		
-		@SuppressWarnings("deprecation")
 		Date dateDebut = new Date("10/12/2015");
-		@SuppressWarnings("deprecation")
 		Date dateFin = new Date("11/12/2015");
 			
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");

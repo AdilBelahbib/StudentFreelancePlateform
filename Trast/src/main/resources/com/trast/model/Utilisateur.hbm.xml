@@ -56,6 +56,13 @@
 				<property name="apercu" type="java.lang.String">
 					<column name="APERCU" />
 				</property>
+
+				<property name="etatCompte" column="etatCompte">
+					<type name="org.hibernate.type.EnumType">
+						<param name="enumClass">com.trast.model.EtatCompte</param>
+						<param name="useNamed">true</param>
+					</type>
+				</property>
 			</join>
 		</subclass>
 
@@ -81,7 +88,8 @@
 			<!-- La sous-classe Etudiant -->
 			<subclass name="Etudiant" discriminator-value="ETU">
 
-				<set name="niveaux" table="etudiant_competence" inverse="true" lazy="true">
+				<set name="niveaux" table="etudiant_competence" inverse="true"
+					lazy="true">
 					<key>
 						<column name="idEtudiant" />
 					</key>

@@ -7,15 +7,16 @@ import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.trast.model.AppelOffre;
 import com.trast.model.ContreProposition;
 
 public class ContrePropositionDAOImpl implements ContrePropositionDAO {
 	private SessionFactory sessionFactory;
-	
-	public ContrePropositionDAOImpl(SessionFactory sessionFactory){
+
+	public ContrePropositionDAOImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@Override
 	@Transactional
 	public List<ContreProposition> getContrePropositions() {
@@ -30,9 +31,9 @@ public class ContrePropositionDAOImpl implements ContrePropositionDAO {
 	@Transactional
 	public ContreProposition getContrePropositionParId(Long id) {
 		Session session = sessionFactory.getCurrentSession();
-		
+
 		ContreProposition contreProposition = (ContreProposition) session.get(ContreProposition.class, id);
-		
+
 		return contreProposition;
 	}
 
@@ -41,7 +42,7 @@ public class ContrePropositionDAOImpl implements ContrePropositionDAO {
 	public void ajouterContreProposition(ContreProposition contreProposition) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		
+
 		session.save(contreProposition);
 	}
 
@@ -49,9 +50,9 @@ public class ContrePropositionDAOImpl implements ContrePropositionDAO {
 	@Transactional
 	public void modifierContreProposition(ContreProposition contreProposition) {
 		// TODO Auto-generated method stub
-		
+
 		Session session = sessionFactory.getCurrentSession();
-				
+
 		session.update(contreProposition);
 	}
 
@@ -59,13 +60,25 @@ public class ContrePropositionDAOImpl implements ContrePropositionDAO {
 	@Transactional
 	public void supprimerContreProposition(Long id) {
 		// TODO Auto-generated method stub
-		
+
 		Session session = sessionFactory.getCurrentSession();
-		
+
 		ContreProposition contreProposition = getContrePropositionParId(id);
-		
+
 		session.delete(contreProposition);
 
+	}
+
+	@Override
+	@Transactional
+	public List<ContreProposition> getContrePropositionsByAppelOffre(AppelOffre appelOffre) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<ContreProposition> listeContrePropositions = session
+				.createQuery("FROM ContreProposition cp where cp.appelOffre = :appelOffre")
+				.setEntity("appelOffre", appelOffre).list();
+		return listeContrePropositions;
 	}
 
 }

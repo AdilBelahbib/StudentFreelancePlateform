@@ -7,16 +7,18 @@ public class Entreprise extends Utilisateur{
 	private Set<String> secteurActivites;
 	private String apercu;
 	private Set<AppelOffre> appelOffres;
+	private EtatCompte etatCompte;
 	
 	public Entreprise(){
 	}
-	
-	public Entreprise(String sigle, Set<String> secteurs, String apercu,
-			Set<AppelOffre> appelOffres){
+
+	public Entreprise(String sigle, Set<String> secteurActivites, String apercu, Set<AppelOffre> appelOffres,
+			EtatCompte etatCompte) {
 		this.sigle = sigle;
-		this.secteurActivites = secteurs;
+		this.secteurActivites = secteurActivites;
 		this.apercu = apercu;
 		this.appelOffres = appelOffres;
+		this.etatCompte = etatCompte;
 	}
 
 	public String getSigle() {
@@ -50,6 +52,13 @@ public class Entreprise extends Utilisateur{
 	public void setAppelOffres(Set<AppelOffre> appelOffres) {
 		this.appelOffres = appelOffres;
 	}
-	
+
+	public EtatCompte getEtatCompte() {
+		return etatCompte;
+	}
+
+	public void setEtatCompte(EtatCompte etatCompte) {
+		this.etatCompte = etatCompte;
+	}
 	
 }

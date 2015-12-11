@@ -5,15 +5,20 @@ public class Projet {
 	private Etudiant etudiant;
 	private CahierDesCharges cahierDesCharges;
 	private EtatProjet statut;
+	private double cout;
+	private String devise;
 	
 	public Projet() {
 	}
 
-	public Projet(Long id, Etudiant etudiant, CahierDesCharges cahierDesCharges, EtatProjet status) {
+	public Projet(Long id, Etudiant etudiant, CahierDesCharges cahierDesCharges, EtatProjet statut, double cout,
+			String devise) {
 		this.id = id;
 		this.etudiant = etudiant;
 		this.cahierDesCharges = cahierDesCharges;
-		this.statut = status;
+		this.statut = statut;
+		this.cout = cout;
+		this.devise = devise;
 	}
 
 	public Long getId() {
@@ -46,6 +51,22 @@ public class Projet {
 
 	public void setStatut(EtatProjet status) {
 		this.statut = status;
+	}
+
+	public double getCout() {
+		return cout;
+	}
+
+	public void setCout(double cout) {
+		this.cout = cout;
+	}
+
+	public String getDevise() {
+		return devise;
+	}
+
+	public void setDevise(String devise) {
+		this.devise = devise;
 	}
 
 	@Override

@@ -10,6 +10,14 @@
             <generator class="native" />
         </id>
         
+        <property name="cout" type="double">
+            <column name="COUT" />
+        </property>
+        
+        <property name="devise" type="java.lang.String">
+            <column name="DEVISE" />
+        </property>
+        
         <property name="statut" column="statut" >
 			<type name="org.hibernate.type.EnumType">
 				<param name="enumClass">com.trast.model.EtatProjet</param>

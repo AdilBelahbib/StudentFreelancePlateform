@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-	<bean id="utilisateur" class="com.trast.model.Utilisateur">
+	<bean id="utilisateur" class="com.trast.model.Utilisateur" scope="prototype">
 		<property name="id" value="" />
 		<property name="email" value="" />
 		<property name="motDePasse" value="" />
@@ -40,6 +40,7 @@
 			<set>
 			</set>
 		</property>
+		<property name="etatCompte" value="EN_ATTENTE" />
 	</bean>
 
 	<bean id="etudiant" class="com.trast.model.Etudiant" parent="particulier">
@@ -63,7 +64,7 @@
 
 	</bean>
 
-	<bean id="adresse" class="com.trast.model.Adresse">
+	<bean id="adresse" class="com.trast.model.Adresse" scope="prototype">
 		<property name="id" value="" />
 		<property name="ville" value="" />
 		<property name="pays" value="" />
@@ -77,7 +78,7 @@
 		<property name="chemin" value="" />
 	</bean>
 
-	<bean id="contreProposition" class="com.trast.model.ContreProposition">
+	<bean id="contreProposition" class="com.trast.model.ContreProposition" scope="prototype">
 		<property name="id" value="" />
 		<property name="enchere" value="" />
 		<property name="fichier" ref="fichier" />
@@ -85,7 +86,7 @@
 		<property name="etudiant" ref="etudiant" />
 	</bean>
 
-	<bean id="cahierDesCharges" class="com.trast.model.CahierDesCharges">
+	<bean id="cahierDesCharges" class="com.trast.model.CahierDesCharges" scope="prototype">
 		<property name="id" value="" />
 		<property name="sujet" value="" />
 		<property name="dateDebut">
@@ -103,7 +104,7 @@
 		<!-- <property name="appelOffre" ref="appelOffre" />-->
 	</bean>
 
-	<bean id="appelOffre" class="com.trast.model.AppelOffre">
+	<bean id="appelOffre" class="com.trast.model.AppelOffre" scope="prototype">
 		<property name="id" value="" />
 		<property name="dateExpiration">
 			<bean class="java.util.Date" />
@@ -128,7 +129,7 @@
 		<property name="statut" value="PREPARE" />
 	</bean>
 
-	<bean id="niveau" class="com.trast.model.Niveau">
+	<bean id="niveau" class="com.trast.model.Niveau" scope="prototype">
 		<property name="id" value="" />
 		<property name="etudiant" ref="etudiant" />
 		<property name="competence" ref="competence" />
@@ -137,7 +138,7 @@
 
 	<!-- bean: Etablissement -->
 
-	<bean id="etablissement" class="com.trast.model.Etablissement">
+	<bean id="etablissement" class="com.trast.model.Etablissement" scope="prototype">
 		<property name="id" value="" />
 		<property name="nomEtablissement" value="" />
 		<property name="intituleFormations">
@@ -146,7 +147,7 @@
 		</property>
 	</bean>
 	<!-- bean: IntituleFormation -->
-	<bean id="intituleFormation" class="com.trast.model.IntituleFormation">
+	<bean id="intituleFormation" class="com.trast.model.IntituleFormation" scope="prototype">
 		<property name="id" value="" />
 		<property name="intitule" value="" />
 		<property name="etablissement" ref="etablissement" />
@@ -156,7 +157,7 @@
 		</property>
 	</bean>
 	<!-- bean: Remuneration -->
-	<bean id="remuneration" class="com.trast.model.Remuneration">
+	<bean id="remuneration" class="com.trast.model.Remuneration" scope="prototype">
 		<property name="id" value="" />
 		<property name="somme" value="0.0" />
 		<property name="intitule" value="" />
@@ -164,7 +165,7 @@
 		<property name="appelOffre" ref="appelOffre" />
 	</bean>
 	<!-- bean: Qualification -->
-	<bean id="qualification" class="com.trast.model.Qualification">
+	<bean id="qualification" class="com.trast.model.Qualification" scope="prototype">
 		<property name="id" value="" />
 		<property name="dateDebut">
 			<bean class="java.util.Date" />
@@ -193,16 +194,18 @@
 		<property name="salaire" value="" />
 	</bean>
 	<!-- bean: Competence -->
-	<bean id="competence" class="com.trast.model.Competence">
+	<bean id="competence" class="com.trast.model.Competence" scope="prototype">
 		<property name="id" value="" />
 		<property name="intitule" value="" />
 	</bean>
 	<!-- bean: Projet -->
-	<bean id="projet" class="com.trast.model.Projet">
+	<bean id="projet" class="com.trast.model.Projet" scope="prototype">
 		<property name="id" value="" />
 		<property name="etudiant" ref="etudiant" />
 		<property name="cahierDesCharges" ref="cahierDesCharges" />
 		<property name="statut" value="ENCOURS" />
+		<property name="cout" value="0.0"/>
+		<property name="devise" value=""/>
 	</bean>
 	<!-- bean: Administrateur -->
 	<bean id="administrateur" class="com.trast.model.Administrateur"
