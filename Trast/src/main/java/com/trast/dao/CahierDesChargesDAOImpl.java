@@ -49,12 +49,10 @@ public class CahierDesChargesDAOImpl implements CahierDesChargesDAO {
 
 	@Override
 	@Transactional
-	public void modifierCahierDesCharges(Long id) {
+	public void modifierCahierDesCharges(CahierDesCharges cahierDesCharges) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		
-		CahierDesCharges cahierDesCharges = getCahierDesChargesParId(id);
-		
+				
 		session.update(cahierDesCharges);
 		
 	}

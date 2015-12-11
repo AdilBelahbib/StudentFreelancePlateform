@@ -3,25 +3,18 @@ package com.trast.model;
 public class Competence {
 	private Long id;
 	private String intitule;
-	private Etudiant etudiant;
 	
 	public Competence() {
 		
 	}
 	
-	public Competence(Long id, String intitule, Etudiant etudiant) {
+	public Competence(Long id, String intitule) {
 		super();
 		this.id = id;
 		this.intitule = intitule;
-		this.etudiant = etudiant;
 	}
 	
-	public Etudiant getEtudiant() {
-		return etudiant;
-	}
-	public void setEtudiant(Etudiant etudiant) {
-		this.etudiant = etudiant;
-	}
+
 	
 	@Override
 	public int hashCode() {

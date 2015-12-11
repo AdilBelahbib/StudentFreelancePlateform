@@ -2,7 +2,7 @@ package com.trast.model;
 
 public class ContreProposition {
 	private Long id;
-	private String enchere;
+	private Double enchere;
 	private Fichier fichier;
 	private AppelOffre appelOffre;
 	private Etudiant etudiant;
@@ -10,7 +10,7 @@ public class ContreProposition {
 	public ContreProposition(){
 	}
 	
-	public ContreProposition(Long id, String enchere, Fichier fichier, AppelOffre offre, Etudiant etudiant){
+	public ContreProposition(Long id, Double enchere, Fichier fichier, AppelOffre offre, Etudiant etudiant){
 		this.id = id;
 		this.enchere = enchere;
 		this.fichier = fichier;
@@ -25,7 +25,7 @@ public class ContreProposition {
 		if(id != null)
 			result = prime * result + id.intValue();
 		else
-			result = prime * result + enchere.hashCode();
+			result = (prime * result + fichier.hashCode());
 		return result;
 	}
 
@@ -54,11 +54,11 @@ public class ContreProposition {
 		this.id = id;
 	}
 
-	public String getEnchere() {
+	public Double getEnchere() {
 		return enchere;
 	}
 
-	public void setEnchere(String enchere) {
+	public void setEnchere(Double enchere) {
 		this.enchere = enchere;
 	}
 

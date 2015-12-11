@@ -45,10 +45,8 @@ public class EntrepriseDAOImpl implements EntrepriseDAO {
 	
 	@Override
 	@Transactional
-	public void modifierEntreprise(Long id){
+	public void modifierEntreprise(Entreprise entreprise){
 		Session session = sessionFactory.getCurrentSession();
-		
-		Entreprise entreprise = getEntrepriseParId(id);
 		
 		session.update(entreprise);
 	}

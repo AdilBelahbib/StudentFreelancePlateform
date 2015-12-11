@@ -9,7 +9,7 @@ public interface EtablissementDAO {
 	public List<Etablissement> getEtablissements();
 	public Etablissement getEtablissementParId(Long id);
 	public void ajouterEtablissement(Etablissement etablissement);
-	public void modifierEtablissement(Long id);
+	public void modifierEtablissement(Etablissement etablissement);
 	public void supprimerEtablissement(Long id);
 
 }

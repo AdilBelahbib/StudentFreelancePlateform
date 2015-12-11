@@ -196,7 +196,6 @@
 	<bean id="competence" class="com.trast.model.Competence">
 		<property name="id" value="" />
 		<property name="intitule" value="" />
-		<property name="etudiant" ref="etudiant" />
 	</bean>
 	<!-- bean: Projet -->
 	<bean id="projet" class="com.trast.model.Projet">

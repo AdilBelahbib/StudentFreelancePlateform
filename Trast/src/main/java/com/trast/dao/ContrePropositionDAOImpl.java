@@ -47,13 +47,11 @@ public class ContrePropositionDAOImpl implements ContrePropositionDAO {
 
 	@Override
 	@Transactional
-	public void modifierContreProposition(Long id) {
+	public void modifierContreProposition(ContreProposition contreProposition) {
 		// TODO Auto-generated method stub
 		
 		Session session = sessionFactory.getCurrentSession();
-		
-		ContreProposition contreProposition = getContrePropositionParId(id);
-		
+				
 		session.update(contreProposition);
 	}
 

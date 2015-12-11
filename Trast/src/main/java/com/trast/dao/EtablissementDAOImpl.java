@@ -22,7 +22,7 @@ public class EtablissementDAOImpl implements EtablissementDAO {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
-		List<Etablissement> listeEtablissements = session.createQuery("FROM Etablissements").list();
+		List<Etablissement> listeEtablissements = session.createQuery("FROM Etablissement").list();
 		return listeEtablissements;
 	}
 
@@ -48,12 +48,10 @@ public class EtablissementDAOImpl implements EtablissementDAO {
 
 	@Override
 	@Transactional
-	public void modifierEtablissement(Long id) {
+	public void modifierEtablissement(Etablissement etablissement) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		
-		Etablissement etablissement = getEtablissementParId(id);
-		
+				
 		session.update(etablissement);
 	}
 

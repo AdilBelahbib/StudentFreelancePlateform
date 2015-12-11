@@ -45,10 +45,8 @@ public class AdresseDAOImpl implements AdresseDAO {
 	
 	@Override
 	@Transactional
-	public void modifierAdresse(Long id){
+	public void modifierAdresse(Adresse adresse){
 		Session session = sessionFactory.getCurrentSession();
-		
-		Adresse adresse = getAdresseParId(id);
 		
 		session.update(adresse);
 	}

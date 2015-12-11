@@ -16,7 +16,7 @@
             <column name="PAYS" />
         </property>
         <property name="adresse" type="java.lang.String">
-            <column name="ADRESSE" />
+            <column name="CORPS" />
         </property>
         
         <many-to-one name="utilisateur" class="Utilisateur" fetch="join">
