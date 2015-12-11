@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 3.4.9
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 10, 2015 at 02:07 AM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Client: localhost
+-- Généré le : Ven 11 Décembre 2015 à 21:16
+-- Version du serveur: 5.5.20
+-- Version de PHP: 5.3.9
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `trast`
+-- Base de données: `trast`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `adresse`
+-- Structure de la table `adresse`
 --
 
 CREATE TABLE IF NOT EXISTS `adresse` (
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `adresse` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appel_offre`
+-- Structure de la table `appel_offre`
 --
 
 CREATE TABLE IF NOT EXISTS `appel_offre` (
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `appel_offre` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appel_offre_competence`
+-- Structure de la table `appel_offre_competence`
 --
 
 CREATE TABLE IF NOT EXISTS `appel_offre_competence` (
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `appel_offre_competence` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cahier_des_charges`
+-- Structure de la table `cahier_des_charges`
 --
 
 CREATE TABLE IF NOT EXISTS `cahier_des_charges` (
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `cahier_des_charges` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `competence`
+-- Structure de la table `competence`
 --
 
 CREATE TABLE IF NOT EXISTS `competence` (
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `competence` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contre_proposition`
+-- Structure de la table `contre_proposition`
 --
 
 CREATE TABLE IF NOT EXISTS `contre_proposition` (
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `contre_proposition` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `entreprise`
+-- Structure de la table `entreprise`
 --
 
 CREATE TABLE IF NOT EXISTS `entreprise` (
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `entreprise` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `etablissement`
+-- Structure de la table `etablissement`
 --
 
 CREATE TABLE IF NOT EXISTS `etablissement` (
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `etablissement` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `etudiant`
+-- Structure de la table `etudiant`
 --
 
 CREATE TABLE IF NOT EXISTS `etudiant` (
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `etudiant_competence`
+-- Structure de la table `etudiant_competence`
 --
 
 CREATE TABLE IF NOT EXISTS `etudiant_competence` (
@@ -162,17 +162,17 @@ CREATE TABLE IF NOT EXISTS `etudiant_competence` (
   `maitrise` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idEtudiant` (`idEtudiant`,`idCompetence`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `experience`
+-- Structure de la table `experience`
 --
 
 CREATE TABLE IF NOT EXISTS `experience` (
   `id` int(11) NOT NULL,
-  `responsablitie` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `responsabilite` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `typeExperience` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `structureAccueil` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `sujet` text COLLATE utf8_unicode_ci NOT NULL,
@@ -183,13 +183,13 @@ CREATE TABLE IF NOT EXISTS `experience` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fichier`
+-- Structure de la table `fichier`
 --
 
 CREATE TABLE IF NOT EXISTS `fichier` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titre` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `chemain` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+  `chemin` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `idUtilisateur` int(11) DEFAULT NULL,
   `idCahierDesCharges` int(11) DEFAULT NULL,
   `idQualification` int(11) DEFAULT NULL,
@@ -199,12 +199,21 @@ CREATE TABLE IF NOT EXISTS `fichier` (
   KEY `idCahierDesCharges` (`idCahierDesCharges`),
   KEY `idQualification` (`idQualification`),
   KEY `idContreProposition` (`idContreProposition`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=54 ;
+
+--
+-- Contenu de la table `fichier`
+--
+
+INSERT INTO `fichier` (`id`, `titre`, `chemin`, `idUtilisateur`, `idCahierDesCharges`, `idQualification`, `idContreProposition`) VALUES
+(46, 'fichier', 'chemin', NULL, NULL, NULL, NULL),
+(52, 'fichier', 'chemin', NULL, NULL, NULL, NULL),
+(53, 'fichier', 'chemin', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `formation`
+-- Structure de la table `formation`
 --
 
 CREATE TABLE IF NOT EXISTS `formation` (
@@ -217,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `formation` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `intitule_formation`
+-- Structure de la table `intitule_formation`
 --
 
 CREATE TABLE IF NOT EXISTS `intitule_formation` (
@@ -231,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `intitule_formation` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `particulier`
+-- Structure de la table `particulier`
 --
 
 CREATE TABLE IF NOT EXISTS `particulier` (
@@ -247,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `particulier` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `projet`
+-- Structure de la table `projet`
 --
 
 CREATE TABLE IF NOT EXISTS `projet` (
@@ -263,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `projet` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `qualification`
+-- Structure de la table `qualification`
 --
 
 CREATE TABLE IF NOT EXISTS `qualification` (
@@ -275,12 +284,19 @@ CREATE TABLE IF NOT EXISTS `qualification` (
   PRIMARY KEY (`id`),
   KEY `idEtudiant` (`idEtudiant`),
   KEY `idAppelOffre` (`idAppelOffre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=52 ;
+
+--
+-- Contenu de la table `qualification`
+--
+
+INSERT INTO `qualification` (`id`, `dateDebut`, `dateFin`, `idEtudiant`, `idAppelOffre`) VALUES
+(51, '1970-01-01', '1970-01-01', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `remuneration`
+-- Structure de la table `remuneration`
 --
 
 CREATE TABLE IF NOT EXISTS `remuneration` (
@@ -296,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `remuneration` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `secteur_activite`
+-- Structure de la table `secteur_activite`
 --
 
 CREATE TABLE IF NOT EXISTS `secteur_activite` (
@@ -309,7 +325,7 @@ CREATE TABLE IF NOT EXISTS `secteur_activite` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateur`
+-- Structure de la table `utilisateur`
 --
 
 CREATE TABLE IF NOT EXISTS `utilisateur` (
@@ -319,65 +335,65 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `typeUtilisateur` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables exportées
 --
 
 --
--- Constraints for table `adresse`
+-- Contraintes pour la table `adresse`
 --
 ALTER TABLE `adresse`
   ADD CONSTRAINT `adresse_ibfk_1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `appel_offre`
+-- Contraintes pour la table `appel_offre`
 --
 ALTER TABLE `appel_offre`
   ADD CONSTRAINT `appel_offre_ibfk_1` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `appel_offre_competence`
+-- Contraintes pour la table `appel_offre_competence`
 --
 ALTER TABLE `appel_offre_competence`
-  ADD CONSTRAINT `appel_offre_competence_ibfk_2` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `appel_offre_competence_ibfk_1` FOREIGN KEY (`idCompetence`) REFERENCES `competence` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `appel_offre_competence_ibfk_1` FOREIGN KEY (`idCompetence`) REFERENCES `competence` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appel_offre_competence_ibfk_2` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `cahier_des_charges`
+-- Contraintes pour la table `cahier_des_charges`
 --
 ALTER TABLE `cahier_des_charges`
   ADD CONSTRAINT `cahier_des_charges_ibfk_1` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
   ADD CONSTRAINT `cahier_des_charges_ibfk_2` FOREIGN KEY (`idProjet`) REFERENCES `projet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `contre_proposition`
+-- Contraintes pour la table `contre_proposition`
 --
 ALTER TABLE `contre_proposition`
   ADD CONSTRAINT `contre_proposition_ibfk_1` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `contre_proposition_ibfk_2` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `entreprise`
+-- Contraintes pour la table `entreprise`
 --
 ALTER TABLE `entreprise`
   ADD CONSTRAINT `entreprise_ibfk_1` FOREIGN KEY (`id`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `etudiant`
+-- Contraintes pour la table `etudiant`
 --
 ALTER TABLE `etudiant`
   ADD CONSTRAINT `etudiant_ibfk_1` FOREIGN KEY (`id`) REFERENCES `particulier` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `experience`
+-- Contraintes pour la table `experience`
 --
 ALTER TABLE `experience`
   ADD CONSTRAINT `experience_ibfk_1` FOREIGN KEY (`id`) REFERENCES `qualification` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `fichier`
+-- Contraintes pour la table `fichier`
 --
 ALTER TABLE `fichier`
   ADD CONSTRAINT `fichier_ibfk_1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -386,46 +402,46 @@ ALTER TABLE `fichier`
   ADD CONSTRAINT `fichier_ibfk_4` FOREIGN KEY (`idContreProposition`) REFERENCES `contre_proposition` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `formation`
+-- Contraintes pour la table `formation`
 --
 ALTER TABLE `formation`
   ADD CONSTRAINT `formation_ibfk_1` FOREIGN KEY (`id`) REFERENCES `qualification` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `formation_ibfk_2` FOREIGN KEY (`idIntituleFormation`) REFERENCES `intitule_formation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `intitule_formation`
+-- Contraintes pour la table `intitule_formation`
 --
 ALTER TABLE `intitule_formation`
   ADD CONSTRAINT `intitule_formation_ibfk_1` FOREIGN KEY (`idEtablissement`) REFERENCES `etablissement` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `particulier`
+-- Contraintes pour la table `particulier`
 --
 ALTER TABLE `particulier`
   ADD CONSTRAINT `particulier_ibfk_1` FOREIGN KEY (`id`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `projet`
+-- Contraintes pour la table `projet`
 --
 ALTER TABLE `projet`
   ADD CONSTRAINT `projet_ibfk_1` FOREIGN KEY (`idCahierDesCharges`) REFERENCES `cahier_des_charges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `projet_ibfk_2` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `qualification`
+-- Contraintes pour la table `qualification`
 --
 ALTER TABLE `qualification`
   ADD CONSTRAINT `qualification_ibfk_1` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `qualification_ibfk_2` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `remuneration`
+-- Contraintes pour la table `remuneration`
 --
 ALTER TABLE `remuneration`
   ADD CONSTRAINT `remuneration_ibfk_1` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `secteur_activite`
+-- Contraintes pour la table `secteur_activite`
 --
 ALTER TABLE `secteur_activite`
   ADD CONSTRAINT `secteur_activite_ibfk_1` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
