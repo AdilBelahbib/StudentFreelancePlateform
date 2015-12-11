@@ -9,6 +9,6 @@ public interface FichierDAO {
 	public List<Fichier> getFichiers();
 	public Fichier getFichierParId(Long id);
 	public void ajouterFichier(Fichier fichier);
-	public void modifierFichier(Long id);
+	public void modifierFichier(Fichier fichier);
 	public void supprimerFichier(Long id);
 }

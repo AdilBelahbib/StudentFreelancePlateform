@@ -48,12 +48,9 @@ public class FichierDAOImpl implements FichierDAO {
 
 	@Override
 	@Transactional
-	public void modifierFichier(Long id) {
+	public void modifierFichier(Fichier fichier) {
 		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		
-		Fichier fichier = getFichierParId(id);
-		
+		Session session = sessionFactory.getCurrentSession();		
 		session.update(fichier);
 	}
 

@@ -16,7 +16,7 @@
         <property name="dateFin" type="java.util.Date">
             <column name="DATEFIN" />
         </property>
-        <many-to-one name="etudiant" class="Etudiant" fetch="join">
+        <many-to-one name="etudiant" class="Etudiant" fetch="join" not-null="false">
             <column name="idEtudiant" />
         </many-to-one>
         
@@ -27,7 +27,7 @@
             <one-to-many class="Fichier" />
         </set>
         
-        <many-to-one name="appelOffre" class="AppelOffre" fetch="join">
+        <many-to-one name="appelOffre" class="AppelOffre" fetch="join" not-null="false">
             <column name="idAppelOffre" />
         </many-to-one>
         

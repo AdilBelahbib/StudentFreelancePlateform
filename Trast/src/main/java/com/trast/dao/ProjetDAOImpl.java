@@ -48,12 +48,9 @@ public class ProjetDAOImpl implements ProjetDAO {
 
 	@Override
 	@Transactional
-	public void modifierProjet(Long id) {
+	public void modifierProjet(Projet projet) {
 		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		
-		Projet projet = getProjetParId(id);
-		
+		Session session = sessionFactory.getCurrentSession();		
 		session.update(projet);
 	}
 

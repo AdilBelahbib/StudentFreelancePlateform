@@ -48,12 +48,9 @@ public class QualificationDAOImpl implements QualificationDAO {
 
 	@Override
 	@Transactional
-	public void modifierQualification(Long id) {
+	public void modifierQualification(Qualification qualification) {
 		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		
-		Qualification qualification = getQualificationParId(id);
-		
+		Session session = sessionFactory.getCurrentSession();		
 		session.update(qualification);
 
 	}

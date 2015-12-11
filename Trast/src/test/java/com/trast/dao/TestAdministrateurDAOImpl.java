@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.trast.model.Administrateur;
 
 public class TestAdministrateurDAOImpl {
+	
 
 	@Test
 	public void testGetAdministrateurs() {
@@ -18,6 +19,7 @@ public class TestAdministrateurDAOImpl {
 
 	@Test
 	public void testGetAdministrateur() {
+		
 		fail("Not yet implemented");
 	}
 
@@ -31,9 +33,9 @@ public class TestAdministrateurDAOImpl {
 		admin.setEmail("admin@mail.com");
 		admin.setMotDePasse("mdp");
 		admin.setNom("nomAdmin");
-		admin.setPrenom("prenomAdmin");
-		
+		admin.setPrenom("prenomAdmin");		
 		adminDao.ajouterAdministrateur(admin);
+		
 		((ConfigurableApplicationContext)context).close();
 	}
 

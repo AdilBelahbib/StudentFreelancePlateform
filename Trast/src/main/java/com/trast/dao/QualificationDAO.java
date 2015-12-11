@@ -8,6 +8,6 @@ public interface QualificationDAO {
 	public List<Qualification> getQualifications();
 	public Qualification getQualificationParId(Long id);
 	public void ajouterQualification(Qualification qualification);
-	public void modifierQualification(Long id);
+	public void modifierQualification(Qualification qualification);
 	public void supprimerQualification(Long id);
 }

@@ -48,12 +48,9 @@ public class IntituleFormationDAOImpl implements IntituleFormationDAO {
 
 	@Override
 	@Transactional
-	public void modifierIntituleFormation(Long id) {
+	public void modifierIntituleFormation(IntituleFormation intituleFormation) {
 		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		
-		IntituleFormation intituleFormation = getIntituleFormationParId(id);
-		
+		Session session = sessionFactory.getCurrentSession();		
 		session.update(intituleFormation);
 	}
 

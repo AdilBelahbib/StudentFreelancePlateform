@@ -99,8 +99,8 @@
 		<property name="fichiers">
 			<set></set>
 		</property>
-		<property name="projet" ref="projet" />
-		<property name="appelOffre" ref="appelOffre" />
+		<!-- <property name="projet" ref="projet" /> -->
+		<!-- <property name="appelOffre" ref="appelOffre" />-->
 	</bean>
 
 	<bean id="appelOffre" class="com.trast.model.AppelOffre">
@@ -124,7 +124,7 @@
 			<set></set>
 		</property>
 		<property name="entreprise" ref="entreprise" />
-		<property name="cahierDesCharges" ref="cahierDesCharges" />
+		<!-- <property name="cahierDesCharges" ref="cahierDesCharges" /> -->
 		<property name="statut" value="PREPARE" />
 	</bean>
 
@@ -172,13 +172,13 @@
 		<property name="dateFin">
 			<bean class="java.util.Date" />
 		</property>
-		<property name="etudiant" ref="etudiant" />
+		<!-- <property name="etudiant" ref="etudiant" /> -->
 		<property name="fichiers">
 			<set>
 			</set>
 		</property>
-		<property name="appelOffre" ref="appelOffre">
-		</property>
+		<!-- <property name="appelOffre" ref="appelOffre"> 
+		</property>-->
 	</bean>
 	<!-- bean: Formation -->
 	<bean id="formation" class="com.trast.model.Formation" parent="qualification">
@@ -212,6 +212,12 @@
 
 	<!-- Configuration des DAO bean -->
 	<bean id="administrateurDao" class="com.trast.dao.AdministrateurDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="niveauDao" class="com.trast.dao.NiveauDAOImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
 		</constructor-arg>

@@ -8,6 +8,7 @@ public interface UtilisateurDAO {
 	public List<Utilisateur> getUtilisateurs();
 	public Utilisateur getUtilisateurParId(Long id);
 	public void ajouterUtilisateur(Utilisateur utilisateur);
-	public void modifierUtilisateur(Long id);
+	public void modifierUtilisateur(Utilisateur util);
 	public void supprimerUtilisateur(Long id);
+	public Utilisateur getByEmailAndMotDePasse(String email, String motDePasse);
 }

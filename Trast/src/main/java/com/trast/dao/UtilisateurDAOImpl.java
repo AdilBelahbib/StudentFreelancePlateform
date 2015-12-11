@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -48,12 +49,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	@Override
 	@Transactional
-	public void modifierUtilisateur(Long id) {
+	public void modifierUtilisateur(Utilisateur utilisateur) {
 		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		
-		Utilisateur utilisateur = getUtilisateurParId(id);
-		
+		Session session = sessionFactory.getCurrentSession();		
 		session.update(utilisateur);
 	}
 
@@ -66,6 +64,17 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		Utilisateur utilisateur = getUtilisateurParId(id);
 		
 		session.delete(utilisateur);
+	}
+
+	@Override
+	public Utilisateur getByEmailAndMotDePasse(String email, String motDePasse) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM Utilisateur U WHERE U.email =:email and U.motDePasse =:mdp";
+		Query query = session.createQuery(hql);
+		query.setParameter("email", email);
+		query.setParameter("mdp", motDePasse);
+		if(query.list()!=null) return (Utilisateur) query.list().get(0);
+		else return null;
 	}
 
 }
