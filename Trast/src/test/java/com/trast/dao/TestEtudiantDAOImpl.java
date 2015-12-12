@@ -40,6 +40,8 @@ public class TestEtudiantDAOImpl {
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
 		
+		etudiant.setNom("nomEtudiant");
+		etudiant.setPrenom("prenomEtudiant");
 		
 		etudiant.setNombreBids(5);
 		
