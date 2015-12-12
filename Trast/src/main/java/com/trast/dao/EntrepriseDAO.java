@@ -11,7 +11,8 @@ public interface EntrepriseDAO {
 	
 	public List<Entreprise> getEntreprises();
 	public Entreprise getEntrepriseParId(Long id);
-	public void ajouterEntreprise(Entreprise entreprise);
+	public boolean ajouterEntreprise(Entreprise entreprise);
+	//public void ajouterEntreprise(Entreprise entreprise);
 	public void modifierEntreprise(Entreprise entreprise);
 	public void supprimerEntreprise(Long id);
 	public List<Entreprise> getEntreprisesByEtatCompte(EtatCompte etatCompte);

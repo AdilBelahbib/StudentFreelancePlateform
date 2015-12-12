@@ -66,14 +66,20 @@ public class TestEntrepriseDAOImpl {
 
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
-
-		Set<String> secteurs = new HashSet<String>();
-		secteurs.add("Developpement");
-
+		entreprise.setEmail("trast@gmail.com");
 		entreprise.setSigle("TRAST");
 		entreprise.setApercu("Plateforme de gestion des appels d'offre");
 
-		entrepriseDao.ajouterEntreprise(entreprise);
+		Entreprise entreprise2 = (Entreprise) context.getBean("entreprise");
+		entreprise2.setSigle("TRAST");
+		entreprise2.setApercu("Plateforme de gestion des appels d'offre");
+		entreprise2.setEmail("trast@gmail.com");
+		
+		
+		Assert.assertEquals("Entreprise 1 ajoutée ",true,entrepriseDao.ajouterEntreprise(entreprise) );
+		Assert.assertEquals("Entreprise 2 non ajoutée", false,entrepriseDao.ajouterEntreprise(entreprise2) );
+		
+		//entrepriseDao.ajouterEntreprise(entreprise);
 		entreprise = entrepriseDao.getEntrepriseParId(entreprise.getId());
 
 		Assert.assertNotNull(entreprise);
@@ -88,10 +94,6 @@ public class TestEntrepriseDAOImpl {
 
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
-
-		Set<String> secteurs = new HashSet<String>();
-		secteurs.add("Developpement");
-
 		entreprise.setSigle("TRAST");
 		entreprise.setApercu("Plateforme de gestion des appels d'offre");
 
@@ -99,9 +101,7 @@ public class TestEntrepriseDAOImpl {
 		entreprise.setEmail("entreprise@gmail.com");
 		entrepriseDao.modifierEntreprise(entreprise);
 		entreprise = entrepriseDao.getEntrepriseParId(entreprise.getId());
-
 		Assert.assertNotNull(entreprise);
-
 		entrepriseDao.supprimerEntreprise(entreprise.getId());
 		((ConfigurableApplicationContext) context).close();
 	}

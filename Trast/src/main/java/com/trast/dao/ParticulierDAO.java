@@ -9,5 +9,6 @@ public interface ParticulierDAO {
 	public void ajouterParticulier(Particulier particulier );
 	public void supprimerParticulier(Long id);
 	public void modifierParticulier(Particulier particulier );
+	public boolean nomUtilisateurExiste(String nomUtilisateur);
 
 }

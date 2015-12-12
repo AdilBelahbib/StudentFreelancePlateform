@@ -6,6 +6,9 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.model.Entreprise;
 import com.trast.model.EtatCompte;
@@ -38,10 +41,18 @@ public class EntrepriseDAOImpl implements EntrepriseDAO {
 
 	@Override
 	@Transactional
-	public void ajouterEntreprise(Entreprise entreprise) {
+	public boolean ajouterEntreprise(Entreprise entreprise) {
 		Session session = sessionFactory.getCurrentSession();
-
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
+		if(utilisateurDao.emailExiste(entreprise.getEmail()))
+		{
+			((ConfigurableApplicationContext)context).close();
+			return false;
+		}
 		session.save(entreprise);
+		((ConfigurableApplicationContext)context).close();
+		return true;
 	}
 
 	@Override
@@ -49,7 +60,8 @@ public class EntrepriseDAOImpl implements EntrepriseDAO {
 	public void modifierEntreprise(Entreprise entreprise) {
 		Session session = sessionFactory.getCurrentSession();
 
-		session.update(entreprise);
+			session.update(entreprise);
+		
 	}
 
 	@Override

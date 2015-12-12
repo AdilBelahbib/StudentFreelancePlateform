@@ -102,4 +102,20 @@ public class TestParticulierDAOImpl {
 		((ConfigurableApplicationContext)context).close();
 	}
 
+	@Test
+	public void testNomUtilisateurExiste(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ParticulierDAO particulierDao = (ParticulierDAO) context.getBean("particulierDao");
+		Particulier particulier = (Particulier) context.getBean("particulier");
+		particulier.setNom("nom");
+		particulier.setEmail("email");
+		particulier.setMotDePasse("motDePasse");
+		particulier.setNomUtilisateur("nomUtilisateur");
+		particulier.setPrenom("prenom");
+		particulierDao.ajouterParticulier(particulier);
+		Assert.assertEquals("nomUtil existe: ",true,particulierDao.nomUtilisateurExiste("nomUtilisateur"));
+		Assert.assertEquals("nomUtil n'existe pas: ",false,particulierDao.nomUtilisateurExiste("nomUtilisateur2"));
+		particulierDao.supprimerParticulier(particulier.getId());
+		((ConfigurableApplicationContext)context).close();
+	}
 }

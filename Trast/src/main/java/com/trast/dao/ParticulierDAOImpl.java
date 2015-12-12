@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.trast.model.Particulier;
+import com.trast.model.Utilisateur;
 
 public class ParticulierDAOImpl implements ParticulierDAO{
 
@@ -57,6 +58,17 @@ public class ParticulierDAOImpl implements ParticulierDAO{
 		Session session = sessionFactory.getCurrentSession();
 		session.update(particulier);
 		
+	}
+
+	@Override
+	@Transactional
+	public boolean nomUtilisateurExiste(String nomUtilisateur) {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<Particulier> particuliers =session.createQuery("FROM Particulier p WHERE p.nomUtilisateur = :nomUtilisateur")
+				.setString("nomUtilisateur", nomUtilisateur).list();
+		if(particuliers.size()>0) return true;
+		return false;
 	}
 	
 }

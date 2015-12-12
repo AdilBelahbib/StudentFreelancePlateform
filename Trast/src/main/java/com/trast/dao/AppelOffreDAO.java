@@ -3,6 +3,7 @@ package com.trast.dao;
 import java.util.List;
 
 import com.trast.model.AppelOffre;
+import com.trast.model.Entreprise;
 
 public interface AppelOffreDAO {
 	

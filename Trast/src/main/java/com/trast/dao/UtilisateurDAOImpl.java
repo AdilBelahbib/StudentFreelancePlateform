@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.trast.model.Entreprise;
 import com.trast.model.Utilisateur;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO {
@@ -67,6 +68,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	@Override
+	@Transactional
 	public Utilisateur getByEmailAndMotDePasse(String email, String motDePasse) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM Utilisateur U WHERE U.email =:email and U.motDePasse =:mdp";
@@ -75,6 +77,17 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		query.setParameter("mdp", motDePasse);
 		if(query.list()!=null) return (Utilisateur) query.list().get(0);
 		else return null;
+	}
+
+	@Override
+	@Transactional
+	public boolean emailExiste(String email) {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<Utilisateur> utilisateurs =session.createQuery("FROM Utilisateur u WHERE u.email = :email")
+				.setString("email", email).list();
+		if(utilisateurs.size()>0) return true;
+		return false;
 	}
 
 }
