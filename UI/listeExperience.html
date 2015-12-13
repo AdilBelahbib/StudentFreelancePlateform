@@ -14,27 +14,17 @@
 
 	<table class="table table-striped table-hover">
 		<tr>
-			<th>Intitulé</th>
-			<th>Etablissement</th>
+			<th>Structure d'accueil</th>
+			<th>Sujet</th>
 			<th>
-				<button data-toggle="modal" data-target="#ajoutFormation"type="button" class="btn btn-primary ">Ajouter une formation</button>
+				<button data-toggle="modal" data-target="#ajoutExperience"type="button" class="btn btn-primary ">Ajouter une expérience</button>
 			</th>
 		</tr>
 		<tr>
-			<td>Formation 1</td>
-			<td>Etablissement 1</td>
+			<td>Entreprise 1</td>
+			<td>sujet 1</td>
 			<td>
-				<button data-toggle="modal" data-target="#detailsFormation"type="button" class="btn btn-default ">...</button>
-			</td>
-			<td>
-				<button type="button" class="close"><span aria-hidden="true">&times;</span></button>
-			</td>
-		</tr>
-		<tr>
-			<td>Intitulé</td>
-			<td>Etablissement</td>
-			<td>
-				<button type="button" class="btn btn-default">...</button>
+				<button data-toggle="modal" data-target="#detailsExperience"type="button" class="btn btn-default ">...</button>
 			</td>
 			<td>
 				<button type="button" class="close"><span aria-hidden="true">&times;</span></button>
@@ -43,12 +33,12 @@
 	</table>
 
 	<!-- line modal -->
-	<div class="modal fade" id="ajoutFormation" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal fade" id="ajoutExperience" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-					<h3 class="modal-title" id="lineModalLabel">Ajout de formation</h3>
+					<h3 class="modal-title" id="lineModalLabel">Ajout d'expérience</h3>
 				</div>
 				<div class="modal-body">
 					
@@ -56,7 +46,7 @@
 					<form>
 						<div class="form-group">
 							<label for="dateDebut">Date début</label>
-							<div class='input-group date' >
+							<div class='input-group date'>
 							<input type="text" class="form-control" id="dateDebut">
 							<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -72,19 +62,17 @@
 								</span>
 							</div>
 						</div>
-
 						<div class="form-group">
-							<label for="intituleFormation">Intitulé formation</label>
-							<input type="text" class="form-control" id="intituleFormation">
+							<label for="responsabilite">Responsabilité</label>
+							<input type="text" class="form-control" id="responsabilite">
 						</div>
-
 						<div class="form-group">
-							<label for="etablissement">Etablissement</label>
-							<select type="text" class="form-control" id="etablissement">
-						           <option disabled selected>Etablissement</option>
-						           <option value="FST">Faculté des sciences et 				techniques</option>
-						           <option value="EST">Ecole supérieure de technologie</option>
-						    </select>
+							<label for="typeExperience">Type d'expérience</label>
+							<input type="text" class="form-control" id="typeExperience">
+						</div>
+						<div class="form-group">
+							<label for="salaire">Salaire</label>
+							<input type="text" class="form-control" id="salaire">
 						</div>
 						<div class="form-group">
 							<label for="fichierAttache">Joindre un fichier</label>
@@ -108,15 +96,20 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+		$(function () {
+   		$('#dateDebut').datepicker();
+            });
+		</script>
 	</div>
 
-	<!-- line modal details of formation-->
-	<div class="modal fade" id="detailsFormation" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<!-- line modal of details experiences-->
+	<div class="modal fade" id="detailsExperience" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-					<h3 class="modal-title" id="lineModalLabel">Titre de formation</h3>
+					<h3 class="modal-title" id="lineModalLabel">Entreprise1</h3>
 				</div>
 				<div class="modal-body">
 					
@@ -124,7 +117,7 @@
 					<form>
 						<div class="form-group">
 							<label for="dateDebut1">Date début</label>
-							<div class='input-group date'>
+							<div class='input-group date' >
 							<input type="text" class="form-control" id="dateDebut1">
 							<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -140,23 +133,21 @@
 								</span>
 							</div>
 						</div>
-
 						<div class="form-group">
-							<label for="intituleFormation1">Intitulé formation</label>
-							<input type="text" class="form-control" id="intituleFormation1">
-						</div>
-
-						<div class="form-group">
-							<label for="etablissement1">Etablissement</label>
-							<select type="text" class="form-control" id="etablissement1">
-						           <option disabled selected>Etablissement</option>
-						           <option value="FST">Faculté des sciences et 				techniques</option>
-						           <option value="EST">Ecole supérieure de technologie</option>
-						    </select>
+							<label for="responsabilite1">Responsabilité</label>
+							<input type="text" class="form-control" id="responsabilite1">
 						</div>
 						<div class="form-group">
-							<label for="fichierAttache1">Joindre un fichier</label>
-							<input type="file" id="fichierAttache1">
+							<label for="typeExperience1">Type d'expérience</label>
+							<input type="text" class="form-control" id="typeExperience1">
+						</div>
+						<div class="form-group">
+							<label for="salaire1">Salaire</label>
+							<input type="text" class="form-control" id="salaire1">
+						</div>
+						<div class="form-group">
+							<label for="fichierAttache">Joindre un fichier</label>
+							<input type="file" id="fichierAttache">
 						</div>
 					</form>
 
@@ -176,11 +167,11 @@
 				</div>
 			</div>
 		</div>
-	</div>
-<script type="text/javascript">
-	$(function () {
-   	$('#dateDebut').datepicker();
+		<script type="text/javascript">
+		$(function () {
+   		$('#dateDebut1').datepicker();
             });
-</script>
+		</script>
+	</div>
 </body>
 </html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/main.css" rel="stylesheet" />
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+</head>
+<body>
+
+	<table class="table table-striped table-hover">
+		<tr>
+			<th>Appel d'offre</th>
+			<th>Intitulé</th>
+		</tr>
+		<tr>
+			<td>Appel d'offre 1</td>
+			<td>Sujet 1</td>
+			<td>
+				<button data-toggle="modal" data-target="#detailsAppelOffre"type="button" class="btn btn-warning ">Détails</button>
+			</td>
+			<td>
+				<button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+			</td>
+		</tr>
+	</table>
+
+	<!-- line modal -->
+	<div class="modal fade" id="detailsAppelOffre" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<h3 class="modal-title" id="lineModalLabel">AppelOffre 1</h3>
+				</div>
+				<div class="modal-body">
+					
+					<!-- content goes here -->
+					<form>
+						<div class="form-group">
+							<label for="dateDebut">Date début</label>
+							<div class='input-group date'>
+								<input type="text" class="form-control" id="dateDebut">
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="dateExpiration">Date d'expiration</label>
+							<div class='input-group date'>
+							<input type="text" class="form-control" id="dateExpiration">
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						<!--Informations cahier des charges -->
+						<div class="form-group">
+							<div class="form-group">
+								<label for="sujet">Sujet</label>
+								<input type="text" class="form-control" id="sujet">
+							</div>
+							<div class="form-group">
+								<label for="dateDebutRealisation">Date début de réalisation</label>
+								<div class='input-group date'>
+									<input type="text" class="form-control" id="dateDebutRealisation">
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="dateFinRealisation">Date fin de réalisation</label>
+								<div class='input-group date'>
+									<input type="text" class="form-control" id="dateFinRealisation">
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+						<!-- -->
+						<div class="form-group">
+							<label for="fichierAttache">Télécharger fichiers</label>
+							<a href="#">document</a>
+						</div>
+						<div class="col-md-offset-6">
+							<button data-toggle="modal" data-target="#ajoutContreProposition"type="button" class="btn btn-primary">Ajouter une contre-proposition</button>
+						</div>
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<!-- line modal add contre proposition -->
+	<div class="modal fade" id="ajoutContreProposition" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<h3 class="modal-title" id="lineModalLabel">Ajout de contre-proposition</h3>
+				</div>
+				<div class="modal-body">
+					
+					<!-- content goes here -->
+					<form>
+						<div class="form-group">
+							<label for="enchere">Enchère</label>
+							<input type="text" class="form-control" id="enchere">
+						</div>
+						<div class="form-group">
+							<label for="duree">Durée</label>
+							<input type="text" class="form-control" id="duree">
+						</div>
+						<div class="form-group">
+							<label for="dateDebutRealisation1">Date début de réalisation</label>
+							<div class='input-group date'>
+								<input type="text" class="form-control" id="dateDebutRealisation1">
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="fichierAttache1">Joindre un fichier</label>
+							<input type="file" id="fichierAttache1">
+						</div>
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Close</button>
+						</div>
+						<div class="btn-group btn-delete hidden" role="group">
+							<button type="button" id="delImage" class="btn btn-default btn-hover-red" data-dismiss="modal"  role="button">Delete</button>
+						</div>
+						<div class="btn-group" role="group">
+							<button type="button" id="saveImage" class="btn btn-default btn-hover-green" data-action="save" role="button">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

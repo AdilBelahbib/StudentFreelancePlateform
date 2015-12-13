@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/main.css" rel="stylesheet" />
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<form method="post" action="#" enctype="multipart/form-data">
+  <div class="container">
+    <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+    <h1> Inscription <br/> <small> Merci de renseigner vos formations </small></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-2 col-md-3">
+      <div class="form-group">
+        <label for="Etablissement">Etablissement</label>
+        <select type="text" class="form-control" id="etablissement">
+           <option disabled selected>Etablissement</option>
+           <option value="FST">Faculté des sciences et techniques</option>
+           <option value="EST">Ecole supérieure de technologies</option>
+       </select>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-offset-2 col-md-3">
+      <div class="form-group">
+        <label for="IntituleFormation">Intitule Formation</label>
+        <input type="text" class="form-control" id="intituleFormation">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-offset-2 col-md-3">
+      <div class="form-group">
+        <label for="DateDebut">Date début</label>
+      
+        <div class='input-group date' id='datetimepicker1'>
+            <input type='text' class="form-control"/>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-offset-1 col-md-3">
+        <div class="form-group">
+          <label for="DateFin">Date fin</label>
+          <div class='input-group date' id='datetimepicker2'>
+            <input type='text' class="form-control"/>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-offset-2 col-md-3">
+      <div class="form-group">
+        <label for="Fichier">Fichier</label>
+        <input type="file" class="form-control" id="fichier">
+
+      </div>
+    </div>
+  </div>
+</div>
+  <br/>
+  <div class="row">
+    <div class="col-md-offset-5 col-md-1">
+      <button type="button" class="btn btn-primary">Suivant</button>
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="btn btn-danger">Annuler</button>
+    </div>
+  </div>
+
+
+</form>
+<script type="text/javascript">
+$(function () {
+   $('#datetimepicker1').datetimepicker();
+            });
+$(function () {
+   $('#datetimepicker2').datetimepicker();
+            });
+</script>
+</body>
+</html>
