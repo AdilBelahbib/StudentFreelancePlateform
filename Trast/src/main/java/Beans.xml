@@ -326,6 +326,13 @@
 			<ref bean="sessionFactory" />
 		</constructor-arg>
 	</bean>
+	
+	<bean id="utilisateurDetailsService" 
+                class="com.trast.configuration.UtilisateurDetailsService">
+		<property name="utilisateurDao" ref="utilisateurDao" />
+	</bean>
+	
+
 
 	<!-- Configuration du DataSource bean -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
@@ -357,6 +364,7 @@
 				<value>com/trast/model/Qualification.hbm.xml</value>
 				<value>com/trast/model/Remuneration.hbm.xml</value>
 				<value>com/trast/model/Utilisateur.hbm.xml</value>
+				<!-- <value>com/trast/model/RoleUtilisateur.hbm.xml</value> -->
 			</list>
 		</property>
 		<property name="hibernateProperties">

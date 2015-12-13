@@ -28,6 +28,10 @@
 			</key>
 			<one-to-many class="Adresse" />
 		</set>
+		
+		<many-to-one name="roleUtilisateur" class="com.trast.model.RoleUtilisateur" fetch="join">
+            <column name="id_role" />
+        </many-to-one>
 
 		<!-- La sous-classe Entreprise -->
 		<subclass name="Entreprise" discriminator-value="ENT">

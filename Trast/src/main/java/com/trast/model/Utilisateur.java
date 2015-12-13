@@ -1,5 +1,6 @@
 package com.trast.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Utilisateur {
@@ -8,7 +9,27 @@ public class Utilisateur {
 	private String motDePasse;
 	private Set<Fichier> fichiers;
 	private Set<Adresse> adresses;
+	private RoleUtilisateur roleUtilisateur;
 	
+	public RoleUtilisateur getRoleUtilisateur() {
+		return roleUtilisateur;
+	}
+
+	public void setRoleUtilisateur(RoleUtilisateur roleUtilisateur) {
+		this.roleUtilisateur = roleUtilisateur;
+	}
+
+	//roles:
+	private Set<RoleUtilisateur> rolesUtilisateur = new HashSet<RoleUtilisateur>(0);
+	
+	public Set<RoleUtilisateur> getRolesUtilisateur() {
+		return rolesUtilisateur;
+	}
+
+	public void setRolesUtilisateur(Set<RoleUtilisateur> rolesUtilisateur) {
+		this.rolesUtilisateur = rolesUtilisateur;
+	}
+
 	public Utilisateur(){		
 	}
 	

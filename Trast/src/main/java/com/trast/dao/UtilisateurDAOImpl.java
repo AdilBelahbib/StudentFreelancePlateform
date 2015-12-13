@@ -90,4 +90,15 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		return false;
 	}
 
+	@Override
+	@Transactional
+	public Utilisateur getByEmail(String email) {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<Utilisateur> utilisateurs =session.createQuery("FROM Utilisateur u WHERE u.email = :email")
+				.setString("email", email).list();
+		if(utilisateurs.size()>0) return utilisateurs.get(0);
+		return null;
+	}
+
 }

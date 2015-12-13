@@ -11,5 +11,6 @@ public interface UtilisateurDAO {
 	public void modifierUtilisateur(Utilisateur util);
 	public void supprimerUtilisateur(Long id);
 	public Utilisateur getByEmailAndMotDePasse(String email, String motDePasse);
+	public Utilisateur getByEmail(String email);
 	public boolean emailExiste(String email);
 }

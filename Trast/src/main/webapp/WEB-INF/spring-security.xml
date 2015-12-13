@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://www.springframework.org/schema/security"
+xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/security 
+http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+	<http auto-config="true">
+	
+           <intercept-url pattern="/views/secure/**" access="hasRole('ROLE_MODERATOR')" />
+  
+           <intercept-url pattern="/views/**" access="permitAll"/>
+  
+           <intercept-url pattern="/**" access="hasRole('ROLE_MODERATOR')"/>
+  
+           <intercept-url pattern="/javax.faces.resource/**" access="permitAll"/>
+           <form-login login-page="/views/login.xhtml"/>
+     		<logout invalidate-session="true" delete-cookies="true" logout-success-url="/" />
+     	
+ 
+           
+      </http>
+     
+	
+	
+      
+      <authentication-manager alias="authenticationManager">
+           <authentication-provider user-service-ref="utilisateurDetailsService">
+               <password-encoder hash="plaintext"></password-encoder>
+           </authentication-provider>
+      </authentication-manager>
+ 
+
+
+
+<beans:bean id="loginController" name="loginController" class="com.trast.controller.LoginController" scope="prototype">
+           <beans:property name="authenticationManager" ref="authenticationManager"></beans:property>
+</beans:bean>
+
+</beans:beans>
