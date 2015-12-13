@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="css/sidemenu.css" rel="stylesheet" />
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="nav-side-menu">
+    <div class="brand">John Doe
+    <span class="ti-menu big-menu"></span></div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  
+        <div class="menu-list">
+  
+            <ul id="menu-content" class="menu-content collapse out">
+                <li>
+                  <a href="#">
+                  <i class="fa fa-dashboard fa-lg"></i> Accueil
+                  </a>
+                </li>
+
+                <li id="#profil">
+                  <a href="#"><i class="fa fa-user fa-lg"></i> Profil</a>
+                </li>
+
+                <li data-toggle="collapse" data-target="#appeloffre" class="collapsed">
+                  <a href="#"><i class="fa fa-exchange fa-lg"></i> Appels d'offre <span class="arrow"></span></a>
+                </li>  
+                <ul class="sub-menu collapse" id="appeloffre">
+                  <li>Mes appels d'offre en cours</li>
+                  <li>Mes appels d'offre en attente</li>
+                  <li>Mes appels d'offre expirées</li>
+                </ul>
+
+                <li data-toggle="collapse" data-target="#projet" class="collapsed">
+                  <a href="#"><i class="fa fa-check-circle-o fa-lg"></i> Mes projets</a>
+                </li>
+            </ul>
+     </div>
+</div>
+</body>
+</html>
