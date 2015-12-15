@@ -15,7 +15,7 @@ public class TestAppelOffreDAOImpl {
 
 	@Test
 	public void testGetAppelOffres() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		AppelOffre appelOffre = (AppelOffre) context.getBean("appelOffre");
@@ -48,7 +48,7 @@ public class TestAppelOffreDAOImpl {
 
 	@Test
 	public void testGetAppelOffre() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		AppelOffre appelOffre = (AppelOffre) context.getBean("appelOffre");
@@ -80,7 +80,7 @@ public class TestAppelOffreDAOImpl {
 
 	@Test
 	public void testAjouterAppelOffre() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		AppelOffre appelOffre = (AppelOffre) context.getBean("appelOffre");
@@ -112,7 +112,7 @@ public class TestAppelOffreDAOImpl {
 
 	@Test
 	public void testSupprimerAppelOffre() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		AppelOffre appelOffre = (AppelOffre) context.getBean("appelOffre");
@@ -145,7 +145,7 @@ public class TestAppelOffreDAOImpl {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testModifierAppelOffre() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		AppelOffre appelOffre = (AppelOffre) context.getBean("appelOffre");

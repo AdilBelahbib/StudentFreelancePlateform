@@ -18,7 +18,7 @@ public class TestCahierDesChargesDAOImpl {
 
 	@Test
 	public void testGetCahiersDesCharges() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		CahierDesChargesDAO cahierDesChargesDao = (CahierDesChargesDAO) context.getBean("cahierDesChargesDao");
 		CahierDesCharges cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");
@@ -51,7 +51,7 @@ public class TestCahierDesChargesDAOImpl {
 
 	@Test
 	public void testGetCahierDesChargesParId() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		CahierDesChargesDAO cahierDesChargesDao = (CahierDesChargesDAO) context.getBean("cahierDesChargesDao");
 		CahierDesCharges cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");
@@ -83,7 +83,7 @@ public class TestCahierDesChargesDAOImpl {
 
 	@Test
 	public void testAjouterCahierDesCharges() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		CahierDesChargesDAO cahierDesChargesDao = (CahierDesChargesDAO) context.getBean("cahierDesChargesDao");
 		CahierDesCharges cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");
@@ -116,7 +116,7 @@ public class TestCahierDesChargesDAOImpl {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testModifierCahierDesCharges() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		CahierDesChargesDAO cahierDesChargesDao = (CahierDesChargesDAO) context.getBean("cahierDesChargesDao");
 		CahierDesCharges cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");
@@ -148,7 +148,7 @@ public class TestCahierDesChargesDAOImpl {
 
 	@Test
 	public void testSupprimerCahierDesCharges() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		CahierDesChargesDAO cahierDesChargesDao = (CahierDesChargesDAO) context.getBean("cahierDesChargesDao");
 		CahierDesCharges cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");

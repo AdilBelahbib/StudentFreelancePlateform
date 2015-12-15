@@ -17,7 +17,7 @@ public class TestEntrepriseDAOImpl {
 
 	@Test
 	public void testGetEntreprises() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
@@ -40,7 +40,7 @@ public class TestEntrepriseDAOImpl {
 
 	@Test
 	public void testGetEntrepriseParId() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
@@ -62,24 +62,16 @@ public class TestEntrepriseDAOImpl {
 
 	@Test
 	public void testAjouterEntreprise() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
 		entreprise.setEmail("trast@gmail.com");
 		entreprise.setSigle("TRAST");
 		entreprise.setApercu("Plateforme de gestion des appels d'offre");
-
-		Entreprise entreprise2 = (Entreprise) context.getBean("entreprise");
-		entreprise2.setSigle("TRAST");
-		entreprise2.setApercu("Plateforme de gestion des appels d'offre");
-		entreprise2.setEmail("trast@gmail.com");
-		
 		
 		Assert.assertEquals("Entreprise 1 ajoutée ",true,entrepriseDao.ajouterEntreprise(entreprise) );
-		Assert.assertEquals("Entreprise 2 non ajoutée", false,entrepriseDao.ajouterEntreprise(entreprise2) );
 		
-		//entrepriseDao.ajouterEntreprise(entreprise);
 		entreprise = entrepriseDao.getEntrepriseParId(entreprise.getId());
 
 		Assert.assertNotNull(entreprise);
@@ -90,7 +82,7 @@ public class TestEntrepriseDAOImpl {
 
 	@Test
 	public void testModifierEntreprise() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
@@ -108,7 +100,7 @@ public class TestEntrepriseDAOImpl {
 
 	@Test
 	public void testSupprimerEntreprise() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
@@ -130,7 +122,7 @@ public class TestEntrepriseDAOImpl {
 
 	@Test
 	public void testGetEntreprisesByEtatCompte() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise1 = (Entreprise) context.getBean("entreprise");

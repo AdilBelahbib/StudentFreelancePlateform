@@ -10,5 +10,6 @@ public interface RoleUtilisateurDAO {
 	public void ajouterRole(RoleUtilisateur role);
 	public void supprimerRole(RoleUtilisateur role);
 	public void modifierRole(RoleUtilisateur role);
+	RoleUtilisateur getRoleByNom(String role);
 
 }

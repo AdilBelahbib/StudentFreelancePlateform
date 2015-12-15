@@ -20,7 +20,7 @@ public class TestFormationDAOImpl {
 
 	@Test
 	public void testGetFormations() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FormationDAO formationDao = (FormationDAO) context.getBean("formationDao");
 		Formation formation = (Formation) context.getBean("formation");
 		IntituleFormationDAO intituleDao = (IntituleFormationDAO) context.getBean("intituleFormationDao");
@@ -47,7 +47,7 @@ public class TestFormationDAOImpl {
 
 	@Test
 	public void testGetFormation() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FormationDAO formationDao = (FormationDAO) context.getBean("formationDao");
 		Formation formation = (Formation) context.getBean("formation");
 		IntituleFormationDAO intituleDao = (IntituleFormationDAO) context.getBean("intituleFormationDao");
@@ -74,7 +74,7 @@ public class TestFormationDAOImpl {
 
 	@Test
 	public void testAjouterFormation() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FormationDAO formationDao = (FormationDAO) context.getBean("formationDao");
 		Formation formation = (Formation) context.getBean("formation");
 		IntituleFormationDAO intituleDao = (IntituleFormationDAO) context.getBean("intituleFormationDao");
@@ -101,7 +101,7 @@ public class TestFormationDAOImpl {
 
 	@Test
 	public void testSupprimerFormation() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FormationDAO formationDao = (FormationDAO) context.getBean("formationDao");
 		Formation formation = (Formation) context.getBean("formation");
 		IntituleFormationDAO intituleDao = (IntituleFormationDAO) context.getBean("intituleFormationDao");
@@ -128,7 +128,7 @@ public class TestFormationDAOImpl {
 
 	@Test
 	public void testModifierFormation() throws ParseException {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FormationDAO formationDao = (FormationDAO) context.getBean("formationDao");
 		Formation formation = (Formation) context.getBean("formation");
 		IntituleFormationDAO intituleDao = (IntituleFormationDAO) context.getBean("intituleFormationDao");

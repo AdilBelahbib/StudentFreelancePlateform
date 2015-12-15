@@ -18,7 +18,7 @@ public class TestProjetDAOImpl {
 
 	@Test
 	public void testGetProjets() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
 		CahierDesChargesDAO cahierDesChargesDao = (CahierDesChargesDAO) context.getBean("cahierDesChargesDao");
 		CahierDesCharges cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");
@@ -48,7 +48,7 @@ public class TestProjetDAOImpl {
 
 	@Test
 	public void testGetProjetParId() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
 		CahierDesChargesDAO cahierDesChargesDao = (CahierDesChargesDAO) context.getBean("cahierDesChargesDao");
 		CahierDesCharges cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");
@@ -78,7 +78,7 @@ public class TestProjetDAOImpl {
 
 	@Test
 	public void testAjouterProjet() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
 		CahierDesChargesDAO cahierDesChargesDao = (CahierDesChargesDAO) context.getBean("cahierDesChargesDao");
 		CahierDesCharges cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");
@@ -108,7 +108,7 @@ public class TestProjetDAOImpl {
 
 	@Test
 	public void testModifierProjet() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		CahierDesChargesDAO cahierDesChargesDao = (CahierDesChargesDAO) context.getBean("cahierDesChargesDao");
 		CahierDesCharges cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");		
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
@@ -136,7 +136,7 @@ public class TestProjetDAOImpl {
 
 	@Test
 	public void testSupprimerProjet() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
 		CahierDesChargesDAO cahierDesChargesDao = (CahierDesChargesDAO) context.getBean("cahierDesChargesDao");
 		CahierDesCharges cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");

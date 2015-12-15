@@ -20,7 +20,7 @@ public class TestQualificationDAOImpl {
 	@Test
 	public void testGetQualifications() {
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		QualificationDAO qualificationDao = (QualificationDAO) context.getBean("qualificationDao");
 		Qualification qualification = (Qualification) context.getBean("qualification");
 		qualificationDao.ajouterQualification(qualification);
@@ -32,7 +32,7 @@ public class TestQualificationDAOImpl {
 
 	@Test
 	public void testGetQualificationParId() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		QualificationDAO qualificationDao = (QualificationDAO) context.getBean("qualificationDao");
 		Qualification qualification = (Qualification) context.getBean("qualification");
 		qualificationDao.ajouterQualification(qualification);
@@ -44,7 +44,7 @@ public class TestQualificationDAOImpl {
 
 	@Test
 	public void testAjouterQualification() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		QualificationDAO qualificationDao = (QualificationDAO) context.getBean("qualificationDao");
 		Qualification qualification = (Qualification) context.getBean("qualification");
 		qualificationDao.ajouterQualification(qualification);
@@ -57,7 +57,7 @@ public class TestQualificationDAOImpl {
 
 	@Test
 	public void testModifierQualification() throws ParseException {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		QualificationDAO qualificationDao = (QualificationDAO) context.getBean("qualificationDao");
 		Qualification qualification = (Qualification) context.getBean("qualification");
 		qualificationDao.ajouterQualification(qualification);
@@ -73,7 +73,7 @@ public class TestQualificationDAOImpl {
 
 	@Test
 	public void testSupprimerQualification() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		QualificationDAO qualificationDao = (QualificationDAO) context.getBean("qualificationDao");
 		Qualification qualification = (Qualification) context.getBean("qualification");
 		qualificationDao.ajouterQualification(qualification);

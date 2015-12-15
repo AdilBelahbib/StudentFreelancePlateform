@@ -12,6 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.model.Entreprise;
 import com.trast.model.EtatCompte;
+import com.trast.model.RoleUtilisateur;
 
 public class EntrepriseDAOImpl implements EntrepriseDAO {
 	private SessionFactory sessionFactory;
@@ -42,14 +43,22 @@ public class EntrepriseDAOImpl implements EntrepriseDAO {
 	@Override
 	@Transactional
 	public boolean ajouterEntreprise(Entreprise entreprise) {
-		Session session = sessionFactory.getCurrentSession();
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
 		if(utilisateurDao.emailExiste(entreprise.getEmail()))
 		{
 			((ConfigurableApplicationContext)context).close();
 			return false;
 		}
+		
+		Session session = sessionFactory.getCurrentSession();
+
+		RoleUtilisateur roleUtilisateur = (RoleUtilisateur) session.createQuery(
+				"from RoleUtilisateur roleU WHERE roleU.role = 'ROLE_ENTREPRISE'")
+				.uniqueResult();
+		
+		entreprise.setRoleUtilisateur(roleUtilisateur);
 		session.save(entreprise);
 		((ConfigurableApplicationContext)context).close();
 		return true;

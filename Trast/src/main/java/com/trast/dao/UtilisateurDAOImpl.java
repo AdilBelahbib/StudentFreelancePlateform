@@ -8,7 +8,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.trast.model.Entreprise;
 import com.trast.model.Utilisateur;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO {
@@ -94,11 +93,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	@Transactional
 	public Utilisateur getByEmail(String email) {
 		Session session = sessionFactory.getCurrentSession();
-		@SuppressWarnings("unchecked")
-		List<Utilisateur> utilisateurs =session.createQuery("FROM Utilisateur u WHERE u.email = :email")
-				.setString("email", email).list();
-		if(utilisateurs.size()>0) return utilisateurs.get(0);
-		return null;
+
+		return (Utilisateur) session.createQuery("FROM Utilisateur u WHERE u.email = :email")
+				.setString("email", email).setMaxResults(1).uniqueResult();
 	}
 
 }

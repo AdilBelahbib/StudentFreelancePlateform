@@ -16,7 +16,7 @@ public class TestRemunerationDAOImpl {
 
 	@Test
 	public void testGetRemunerations() {
-		  ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	  
+		  ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	  
 		  AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		  AppelOffre appelOffre = (AppelOffre) context.getBean("appelOffre");		  
 		  EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
@@ -40,7 +40,7 @@ public class TestRemunerationDAOImpl {
 
 	@Test
 	public void testGetRemuneration() {
-		  ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	  
+		  ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	  
 		  AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		  AppelOffre appelOffre = (AppelOffre) context.getBean("appelOffre");	  
 		  EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
@@ -64,7 +64,7 @@ public class TestRemunerationDAOImpl {
 
 	@Test
 	public void testAjouterRemuneration() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		  
 		  AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		  AppelOffre appelOffre = (AppelOffre) context.getBean("appelOffre");
@@ -96,7 +96,7 @@ public class TestRemunerationDAOImpl {
 
 	@Test
 	public void testSupprimerRemuneration() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		  
 		  AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		  AppelOffre appelOffre = (AppelOffre) context.getBean("appelOffre");
@@ -126,7 +126,7 @@ public class TestRemunerationDAOImpl {
 
 	@Test
 	public void testModifierRemuneration() {
-		  ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	  
+		  ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	  
 		  AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		  AppelOffre appelOffre = (AppelOffre) context.getBean("appelOffre");		  
 		  EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");

@@ -14,7 +14,7 @@ public class TestEtablissementDAOImpl {
 
 	@Test
 	public void testGetEtablissements() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml"); 
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml"); 
 		
 		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
 		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
@@ -35,7 +35,7 @@ public class TestEtablissementDAOImpl {
 
 	@Test
 	public void testGetEtablissementParId() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml"); 
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml"); 
 		
 		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
 		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
@@ -55,7 +55,7 @@ public class TestEtablissementDAOImpl {
 
 	@Test
 	public void testAjouterEtablissement() {		
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml"); 
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml"); 
 		
 		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
 		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
@@ -74,7 +74,7 @@ public class TestEtablissementDAOImpl {
 
 	@Test
 	public void testModifierEtablissement() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml"); 
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml"); 
 		
 		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
 		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
@@ -96,7 +96,7 @@ public class TestEtablissementDAOImpl {
 
 	@Test
 	public void testSupprimerEtablissement() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml"); 
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml"); 
 		
 		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
 		Etablissement etablissement = (Etablissement) context.getBean("etablissement");

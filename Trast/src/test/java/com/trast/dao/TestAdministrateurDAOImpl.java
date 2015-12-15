@@ -17,7 +17,7 @@ public class TestAdministrateurDAOImpl {
 
 	@Test
 	public void testGetAdministrateurs() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
@@ -38,7 +38,7 @@ public class TestAdministrateurDAOImpl {
 
 	@Test
 	public void testGetAdministrateur() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
@@ -57,7 +57,7 @@ public class TestAdministrateurDAOImpl {
 
 	@Test
 	public void testAjouterAdministrateur() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
@@ -76,7 +76,7 @@ public class TestAdministrateurDAOImpl {
 
 	@Test
 	public void testSupprimerAdministrateur() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
@@ -95,7 +95,7 @@ public class TestAdministrateurDAOImpl {
 
 	@Test
 	public void testModifierAdministrateur() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");

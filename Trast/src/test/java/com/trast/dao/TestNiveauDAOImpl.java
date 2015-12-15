@@ -18,7 +18,7 @@ public class TestNiveauDAOImpl {
 
 	@Test
 	public void testGetNiveaux() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	
 		CompetenceDAO competenceDao = (CompetenceDAO) context.getBean("competenceDao");
 		Competence competence = (Competence) context.getBean("competence");	
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
@@ -41,7 +41,7 @@ public class TestNiveauDAOImpl {
 
 	@Test
 	public void testGetNiveau() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	
 		CompetenceDAO competenceDao = (CompetenceDAO) context.getBean("competenceDao");
 		Competence competence = (Competence) context.getBean("competence");	
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
@@ -64,7 +64,7 @@ public class TestNiveauDAOImpl {
 
 	@Test
 	public void testAjouterNiveau() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	
 		CompetenceDAO competenceDao = (CompetenceDAO) context.getBean("competenceDao");
 		Competence competence = (Competence) context.getBean("competence");	
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
@@ -87,7 +87,7 @@ public class TestNiveauDAOImpl {
 
 	@Test
 	public void testSupprimerNiveau() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	
 		CompetenceDAO competenceDao = (CompetenceDAO) context.getBean("competenceDao");
 		Competence competence = (Competence) context.getBean("competence");	
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
@@ -113,7 +113,7 @@ public class TestNiveauDAOImpl {
 
 	@Test
 	public void testModifierNiveau() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	
 		CompetenceDAO competenceDao = (CompetenceDAO) context.getBean("competenceDao");
 		Competence competence = (Competence) context.getBean("competence");	
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");

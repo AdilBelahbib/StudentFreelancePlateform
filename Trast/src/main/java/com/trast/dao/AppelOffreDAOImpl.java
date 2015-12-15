@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.trast.model.AppelOffre;
-import com.trast.model.Entreprise;
 
 public class AppelOffreDAOImpl implements AppelOffreDAO {
 	private SessionFactory sessionFactory;

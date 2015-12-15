@@ -16,7 +16,7 @@ public class TestUtilisateurDAOImpl {
 
 	@Test
 	public void testGetUtilisateurs() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
 		Utilisateur utilisateur = (Utilisateur) context.getBean("utilisateur");
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
@@ -34,7 +34,7 @@ public class TestUtilisateurDAOImpl {
 
 	@Test
 	public void testGetUtilisateurParId() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
 		Utilisateur utilisateur = (Utilisateur) context.getBean("utilisateur");
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
@@ -50,7 +50,7 @@ public class TestUtilisateurDAOImpl {
 
 	@Test
 	public void testAjouterUtilisateur() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
 		Utilisateur utilisateur = (Utilisateur) context.getBean("utilisateur");
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
@@ -66,7 +66,7 @@ public class TestUtilisateurDAOImpl {
 
 	@Test
 	public void testModifierUtilisateur() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
 		Utilisateur utilisateur = (Utilisateur) context.getBean("utilisateur");
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
@@ -85,7 +85,7 @@ public class TestUtilisateurDAOImpl {
 
 	@Test
 	public void testSupprimerUtilisateur() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
 		Utilisateur utilisateur = (Utilisateur) context.getBean("utilisateur");
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
@@ -103,7 +103,7 @@ public class TestUtilisateurDAOImpl {
 	
 	@Test
 	public void testgetByEmailAndMotDePasse(){
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
 		Utilisateur utilisateur = (Utilisateur) context.getBean("utilisateur");
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
@@ -120,7 +120,7 @@ public class TestUtilisateurDAOImpl {
 	
 	@Test
 	public void testEmailExiste() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
 		Utilisateur utilisateur = (Utilisateur) context.getBean("utilisateur");
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
@@ -135,4 +135,23 @@ public class TestUtilisateurDAOImpl {
 		((ConfigurableApplicationContext)context).close();
 	}
 
+	
+	@Test
+	public void testGetByEmail() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
+		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
+		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
+		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
+		entreprise.setEmail("email@entreprise.com");
+		entreprise.setMotDePasse("motDePasse");
+		entrepriseDao.ajouterEntreprise(entreprise);
+		
+		Utilisateur utilisateur = utilisateurDao.getByEmail(entreprise.getEmail());
+		
+		junit.framework.Assert.assertEquals(entreprise, utilisateur);
+		
+		entrepriseDao.supprimerEntreprise(entreprise.getId());
+		
+		((ConfigurableApplicationContext)context).close();
+	}
 }

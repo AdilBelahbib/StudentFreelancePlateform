@@ -1,71 +1,90 @@
 package com.trast.controller;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @ManagedBean(name = "loginController", eager = true)
 @RequestScoped
 public class LoginController {
-	
-	private String userName = null;
-	private String password = null;
-	
-	@ManagedProperty(value="#{authenticationManager}")
-	private AuthenticationManager authenticationManager = null;
-	
 
+	@Inject
+	private LoginBean loginBean;
+	private AuthenticationManager authenticationManager;
+
+	/**
+	 * the login action called by the view
+	 * 
+	 * @return
+	 */
+	@Transactional
 	public String login() {
-		       try {
-		       Authentication request = new UsernamePasswordAuthenticationToken(this.getUserName(),this.getPassword());
-		               Authentication result = authenticationManager.authenticate(request);
-		               SecurityContextHolder.getContext().setAuthentication(result);
-		           } catch (AuthenticationException e) {
-		               e.printStackTrace();
-		               return "incorrect";
-		           }
-		           return "correct";
-		       }
-		  
-		       public String getUserName() {
-		return userName;
+		System.out.println(loginBean.getUserName()+" "+loginBean.getPassword());
+		try {
+			System.out.println("Login started for User with Name: " + getLoginBean().getUserName());
+			// check if userdata is given
+			if (getLoginBean().getUserName() == null || getLoginBean().getPassword() == null) {
+				FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "login.failed");
+				FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+				System.out.println("Login not started because userName or Password is empty: " + getLoginBean().getUserName());
+				return null;
+			}
+
+			// authenticate afainst spring security
+			Authentication request = new UsernamePasswordAuthenticationToken(getLoginBean().getUserName(),
+					getLoginBean().getPassword());
+
+			Authentication result = authenticationManager.authenticate(request);
+			SecurityContextHolder.getContext().setAuthentication(result);
+
+		} catch (AuthenticationException e) {
+			System.out.println("Login failed: " + e.getMessage());
+			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "login.failed");
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+
+			return null;
+		}
+		return "success";
+
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	/**
+	 * @return the loginBean
+	 */
+	public LoginBean getLoginBean() {
+		return loginBean;
 	}
 
-	public String getPassword() {
-		return password;
+	/**
+	 * @param loginBean
+	 *            the loginBean to set
+	 */
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+	/**
+	 * @return the authenticationManager
+	 */
 	public AuthenticationManager getAuthenticationManager() {
 		return authenticationManager;
 	}
 
+	/**
+	 * @param authenticationManager
+	 *            the authenticationManager to set
+	 */
 	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
 	}
 
-			public String cancel() {
-		           return null;
-		       }
-		  
-		       public String logout(){
-		           SecurityContextHolder.clearContext();
-		           return "loggedout";
-		       }
 }

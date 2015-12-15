@@ -14,7 +14,7 @@ public class TestEtudiantDAOImpl {
 
 	@Test
 	public void testGetEtudiants() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
@@ -35,7 +35,7 @@ public class TestEtudiantDAOImpl {
 
 	@Test
 	public void testAjouterEtudiant() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
@@ -56,7 +56,7 @@ public class TestEtudiantDAOImpl {
 
 	@Test
 	public void testGetEtudiant() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
@@ -75,7 +75,7 @@ public class TestEtudiantDAOImpl {
 
 	@Test
 	public void testSupprimerEtudiant() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
@@ -94,7 +94,7 @@ public class TestEtudiantDAOImpl {
 
 	@Test
 	public void testModifierEtudiant() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");

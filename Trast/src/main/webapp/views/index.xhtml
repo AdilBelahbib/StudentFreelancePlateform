@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/tags">
 <head>
-<meta charset="UTF-8"/>
-<title>Insert title here</title>
+<meta charset="UTF-8" />
+<title>Trast - Trust A Student !</title>
 </head>
 <body>
 
-<h:form>
-		<h:commandLink value="login" action="#{testController.loginPage}">
-			<f:param name="id" value="1"/>
-		</h:commandLink>
-	</h:form>
+	<ui:composition template="templates/common.xhtml">
+		<ui:param name="utilisateur" value="admin" />
+	</ui:composition>
 
 </body>
 </html>

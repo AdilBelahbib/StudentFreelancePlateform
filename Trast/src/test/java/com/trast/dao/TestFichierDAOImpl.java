@@ -14,7 +14,7 @@ public class TestFichierDAOImpl {
 
 	@Test
 	public void testGetFichiers() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FichierDAO fichierDao = (FichierDAO) context.getBean("fichierDao");
 		Fichier fichier = (Fichier) context.getBean("fichier");
 		fichier.setTitre("titre");
@@ -30,7 +30,7 @@ public class TestFichierDAOImpl {
 	@Test
 	public void testGetFichierParId() {
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FichierDAO fichierDao = (FichierDAO) context.getBean("fichierDao");
 		Fichier fichier = (Fichier) context.getBean("fichier");
 		fichier.setTitre("titre");
@@ -46,7 +46,7 @@ public class TestFichierDAOImpl {
 	@Test
 	public void testAjouterFichier() {
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		FichierDAO fichierDao = (FichierDAO) context.getBean("fichierDao");
 		Fichier fichier = (Fichier) context.getBean("fichier");
@@ -62,7 +62,7 @@ public class TestFichierDAOImpl {
 
 	@Test
 	public void testModifierFichier() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		FichierDAO fichierDao = (FichierDAO) context.getBean("fichierDao");
 		Fichier fichier = (Fichier) context.getBean("fichier");
@@ -83,7 +83,7 @@ public class TestFichierDAOImpl {
 
 	@Test
 	public void testSupprimerFichier() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FichierDAO fichierDao = (FichierDAO) context.getBean("fichierDao");
 		Fichier fichier = (Fichier) context.getBean("fichier");
 		fichier.setTitre("titre");

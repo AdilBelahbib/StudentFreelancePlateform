@@ -5,8 +5,12 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.model.Etudiant;
+import com.trast.model.RoleUtilisateur;
 public class EtudiantDAOImpl implements EtudiantDAO {
 
 	private SessionFactory sessionFactory;
@@ -26,10 +30,28 @@ public class EtudiantDAOImpl implements EtudiantDAO {
 
 	@Override
 	@Transactional
-	public void ajouterEtudiant(Etudiant etudiant) {
+	public boolean ajouterEtudiant(Etudiant etudiant) {
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
+		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
+		ParticulierDAO particulierDao = (ParticulierDAO) context.getBean("particulierDao");
+		if(utilisateurDao.emailExiste(etudiant.getEmail()) || particulierDao.nomUtilisateurExiste(etudiant.getNomUtilisateur()))
+		{
+			((ConfigurableApplicationContext)context).close();
+			return false;
+		}
+		
 		Session session = sessionFactory.getCurrentSession();
+		
+		RoleUtilisateur roleUtilisateur = (RoleUtilisateur) session.createQuery(
+				"from RoleUtilisateur roleU WHERE roleU.role = 'ROLE_ETUDIANT'")
+				.uniqueResult();
+		
+		etudiant.setRoleUtilisateur(roleUtilisateur);
+		
 		session.save(etudiant);
-
+		
+		return true;
 	}
 
 	@Override

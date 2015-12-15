@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.trast.model.Particulier;
-import com.trast.model.Utilisateur;
 
 public class ParticulierDAOImpl implements ParticulierDAO{
 

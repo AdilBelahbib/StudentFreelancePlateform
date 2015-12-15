@@ -16,7 +16,7 @@ public class TestAdresseDAOImpl {
 
 	@Test
 	public void testGetAdresses() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AdresseDAO adresseDao = (AdresseDAO) context.getBean("adresseDao");
 		Adresse adresse = (Adresse) context.getBean("adresse");
@@ -47,7 +47,7 @@ public class TestAdresseDAOImpl {
 
 	@Test
 	public void testGetAdresseParId() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AdresseDAO adresseDao = (AdresseDAO) context.getBean("adresseDao");
 		Adresse adresse = (Adresse) context.getBean("adresse");
@@ -75,7 +75,7 @@ public class TestAdresseDAOImpl {
 
 	@Test
 	public void testAjouterAdresse() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AdresseDAO adresseDao = (AdresseDAO) context.getBean("adresseDao");
 		Adresse adresse = (Adresse) context.getBean("adresse");
@@ -103,7 +103,7 @@ public class TestAdresseDAOImpl {
 
 	@Test
 	public void testModifierAdresse() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AdresseDAO adresseDao = (AdresseDAO) context.getBean("adresseDao");
 		Adresse adresse = (Adresse) context.getBean("adresse");
@@ -133,7 +133,7 @@ public class TestAdresseDAOImpl {
 
 	@Test
 	public void testSupprimerAdresse() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		AdresseDAO adresseDao = (AdresseDAO) context.getBean("adresseDao");
 		Adresse adresse = (Adresse) context.getBean("adresse");

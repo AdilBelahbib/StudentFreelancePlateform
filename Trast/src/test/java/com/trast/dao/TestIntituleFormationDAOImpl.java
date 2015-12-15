@@ -17,7 +17,7 @@ public class TestIntituleFormationDAOImpl {
 
 	@Test
 	public void testGetIntituleFormations() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	
 		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
 		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
 		etablissement.setNomEtablissement("nomEtablissement");
@@ -38,7 +38,7 @@ public class TestIntituleFormationDAOImpl {
 
 	@Test
 	public void testGetIntituleFormationParId() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	
 		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
 		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
 		etablissement.setNomEtablissement("nomEtablissement");
@@ -57,7 +57,7 @@ public class TestIntituleFormationDAOImpl {
 
 	@Test
 	public void testAjouterIntituleFormation() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	
 		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
 		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
 		etablissement.setNomEtablissement("nomEtablissement");
@@ -78,7 +78,7 @@ public class TestIntituleFormationDAOImpl {
 
 	@Test
 	public void testModifierIntituleFormation() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	
 		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
 		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
 		etablissement.setNomEtablissement("nomEtablissement");
@@ -100,7 +100,7 @@ public class TestIntituleFormationDAOImpl {
 
 	@Test
 	public void testSupprimerIntituleFormation() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");	
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	
 		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
 		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
 		etablissement.setNomEtablissement("nomEtablissement");

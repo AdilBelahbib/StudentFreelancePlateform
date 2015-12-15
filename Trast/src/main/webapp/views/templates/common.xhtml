@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta charset="UTF-8" />
+<title>Trast - Trust A Student !</title>
+</head>
+<h:body>
+	<ui:insert name="header">
+		<ui:include src="/views/templates/#{utilisateur}/header.xhtml">
+		</ui:include>
+	</ui:insert>
+	<ui:insert name="content">
+		<ui:include src="/views/templates/#{utilisateur}/content.xhtml" />
+	</ui:insert>
+	<ui:insert name="footer">
+		<ui:include src="/views/templates/#{utilisateur}/footer.xhtml" />
+	</ui:insert>
+</h:body>
+</html>

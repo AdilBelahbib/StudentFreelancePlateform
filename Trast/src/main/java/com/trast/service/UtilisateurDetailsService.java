@@ -1,4 +1,4 @@
-package com.trast.configuration;
+package com.trast.service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,36 +15,37 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.trast.dao.UtilisateurDAO;
 import com.trast.model.Utilisateur;
 import com.trast.model.RoleUtilisateur;
-public class UtilisateurDetailsService implements UserDetailsService{
-	
+
+public class UtilisateurDetailsService implements UserDetailsService {
+
 	private UtilisateurDAO utilisateurDao;
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Utilisateur utilisateur = utilisateurDao.getByEmail(email);
-		List<GrantedAuthority> authorities = buildUserAuthority(utilisateur.getRolesUtilisateur());
+		
+		System.out.println("GETTING USER BY MAIL: "+email+" ...");
+		System.out.println("ID: "+utilisateur.getId());
+		
+		List<GrantedAuthority> authorities = buildUserAuthority(utilisateur.getRoleUtilisateur());
 
 		return buildUserForAuthentication(utilisateur, authorities);
 	}
-	
+
 	private User buildUserForAuthentication(Utilisateur utilisateur, List<GrantedAuthority> authorities) {
-			return new User(utilisateur.getEmail(),utilisateur.getMotDePasse(),true, 
-	       true, true, true, authorities);
-		}
+		return new User(utilisateur.getEmail(), utilisateur.getMotDePasse(), true, true, true, true, authorities);
+	}
 
-	private List<GrantedAuthority> buildUserAuthority(Set<RoleUtilisateur> userRoles) {
+	private List<GrantedAuthority> buildUserAuthority(RoleUtilisateur userRole) {
 
-			Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
 
-			// Build user's authorities
-			for (RoleUtilisateur userRole : userRoles) {
-				setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
-			}
+		setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
 
-			List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
+		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
 
-			return Result;
-		}
+		return Result;
+	}
 
 	public UtilisateurDAO getUtilisateurDao() {
 		return utilisateurDao;

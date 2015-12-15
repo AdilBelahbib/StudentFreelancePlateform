@@ -16,7 +16,7 @@ public class TestExperienceDAOImpl {
 	@Test
 	public void testGetExperiences() {
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		ExperienceDAO experienceDao = (ExperienceDAO) context.getBean("experienceDao");
 		Experience experience = (Experience) context.getBean("experience");
 		experience.setResponsabilite("responsabilite");
@@ -34,7 +34,7 @@ public class TestExperienceDAOImpl {
 	@Test
 	public void testGetExperience() {
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		ExperienceDAO experienceDao = (ExperienceDAO) context.getBean("experienceDao");
 		Experience experience = (Experience) context.getBean("experience");
 		experience.setResponsabilite("responsabilite");
@@ -51,7 +51,7 @@ public class TestExperienceDAOImpl {
 
 	@Test
 	public void testAjouterExperience() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		ExperienceDAO experienceDao = (ExperienceDAO) context.getBean("experienceDao");
 		Experience experience = (Experience) context.getBean("experience");
 		experience.setResponsabilite("responsabilite");
@@ -71,7 +71,7 @@ public class TestExperienceDAOImpl {
 
 	@Test
 	public void testSupprimerExperience() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		ExperienceDAO experienceDao = (ExperienceDAO) context.getBean("experienceDao");
 		Experience experience = (Experience) context.getBean("experience");
 		experience.setResponsabilite("responsabilite");
@@ -89,7 +89,7 @@ public class TestExperienceDAOImpl {
 
 	@Test
 	public void testModifierExperience() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		ExperienceDAO experienceDao = (ExperienceDAO) context.getBean("experienceDao");
 		Experience experience = (Experience) context.getBean("experience");
 		experience.setResponsabilite("responsabilite");

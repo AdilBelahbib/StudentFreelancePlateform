@@ -1,7 +1,5 @@
 package com.trast.controller;
 
-
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -24,7 +22,15 @@ import org.apache.commons.logging.LogFactory;
 public class TestController {
 	
 	protected final Log logger = LogFactory.getLog(getClass());
+	private String attr;
 	
+	public String getAttr() {
+		return attr;
+	}
+	public void setAttr(String attr) {
+		this.attr = attr;
+	}
+
 	@ManagedProperty(value = "#{etudiant}")
 	Etudiant etudiant;
 	
@@ -38,9 +44,14 @@ public class TestController {
 			return "login";
 	}
 	
+	public void submit()
+	{
+		System.out.println(attr);
+	}
+	
 	@RequestMapping(value = "/listetudiant", method = RequestMethod.GET)
 	public String listEmployees(ModelMap model) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		
 		model.addAttribute("etudiantList",etudiantDao.getEtudiants());
@@ -48,7 +59,7 @@ public class TestController {
 			}
 
 	public String afficherDetailsEtudiant() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
 		.getRequest();

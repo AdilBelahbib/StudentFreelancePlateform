@@ -14,7 +14,7 @@ public class TestParticulierDAOImpl {
 
 	@Test
 	public void testGetParticuliers() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		ParticulierDAO particulierDao = (ParticulierDAO) context.getBean("particulierDao");
 		Particulier particulier = (Particulier) context.getBean("particulier");
 		particulier.setNom("nom");
@@ -32,7 +32,7 @@ public class TestParticulierDAOImpl {
 
 	@Test
 	public void testGetParticulier() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		ParticulierDAO particulierDao = (ParticulierDAO) context.getBean("particulierDao");
 		Particulier particulier = (Particulier) context.getBean("particulier");
 		particulier.setNom("nom");
@@ -49,7 +49,7 @@ public class TestParticulierDAOImpl {
 
 	@Test
 	public void testAjouterParticulier() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		ParticulierDAO particulierDao = (ParticulierDAO) context.getBean("particulierDao");
 		Particulier particulier = (Particulier) context.getBean("particulier");
 		particulier.setNom("nom");
@@ -66,7 +66,7 @@ public class TestParticulierDAOImpl {
 
 	@Test
 	public void testSupprimerParticulier() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		ParticulierDAO particulierDao = (ParticulierDAO) context.getBean("particulierDao");
 		Particulier particulier = (Particulier) context.getBean("particulier");
 		particulier.setNom("nom");
@@ -83,7 +83,7 @@ public class TestParticulierDAOImpl {
 
 	@Test
 	public void testModifierParticulier() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		ParticulierDAO particulierDao = (ParticulierDAO) context.getBean("particulierDao");
 		Particulier particulier = (Particulier) context.getBean("particulier");
 		particulier.setNom("nom");
@@ -104,7 +104,7 @@ public class TestParticulierDAOImpl {
 
 	@Test
 	public void testNomUtilisateurExiste(){
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		ParticulierDAO particulierDao = (ParticulierDAO) context.getBean("particulierDao");
 		Particulier particulier = (Particulier) context.getBean("particulier");
 		particulier.setNom("nom");

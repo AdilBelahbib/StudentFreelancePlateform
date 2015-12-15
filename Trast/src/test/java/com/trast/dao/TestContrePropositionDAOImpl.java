@@ -17,7 +17,7 @@ public class TestContrePropositionDAOImpl {
 
 	@Test
 	public void testGetContrePropositions() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		ContrePropositionDAO contrePropositionDao = (ContrePropositionDAO) context.getBean("contrePropositionDao");
 		ContreProposition contreProposition = (ContreProposition) context.getBean("contreProposition");
@@ -58,7 +58,7 @@ public class TestContrePropositionDAOImpl {
 
 	@Test
 	public void testGetContrePropositionParId() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		ContrePropositionDAO contrePropositionDao = (ContrePropositionDAO) context.getBean("contrePropositionDao");
 		ContreProposition contreProposition = (ContreProposition) context.getBean("contreProposition");
@@ -97,7 +97,7 @@ public class TestContrePropositionDAOImpl {
 
 	@Test
 	public void testAjouterContreProposition() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		ContrePropositionDAO contrePropositionDao = (ContrePropositionDAO) context.getBean("contrePropositionDao");
 		ContreProposition contreProposition = (ContreProposition) context.getBean("contreProposition");
@@ -136,7 +136,7 @@ public class TestContrePropositionDAOImpl {
 
 	@Test
 	public void testModifierContreProposition() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		ContrePropositionDAO contrePropositionDao = (ContrePropositionDAO) context.getBean("contrePropositionDao");
 		ContreProposition contreProposition = (ContreProposition) context.getBean("contreProposition");
@@ -177,7 +177,7 @@ public class TestContrePropositionDAOImpl {
 
 	@Test
 	public void testSupprimerContreProposition() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		ContrePropositionDAO contrePropositionDao = (ContrePropositionDAO) context.getBean("contrePropositionDao");
 		ContreProposition contreProposition = (ContreProposition) context.getBean("contreProposition");
@@ -216,7 +216,7 @@ public class TestContrePropositionDAOImpl {
 	
 	@Test
 	public void testGetContrePropositionsByAppelOffre() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		ContrePropositionDAO contrePropositionDao = (ContrePropositionDAO) context.getBean("contrePropositionDao");
 			

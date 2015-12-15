@@ -6,13 +6,7 @@ public class RoleUtilisateur {
 	private Integer id;
 	private String role;
 	private Set<Utilisateur> utilisateurs;
-	
-	public Set<Utilisateur> getUtilisateurs() {
-		return utilisateurs;
-	}
-	public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
-		this.utilisateurs = utilisateurs;
-	}
+
 	public RoleUtilisateur(){
 		
 	}
@@ -28,5 +22,14 @@ public class RoleUtilisateur {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	public Set<Utilisateur> getUtilisateurs() {
+		return utilisateurs;
+	}
+	public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+		this.utilisateurs = utilisateurs;
+	}
+	
+	
 
 }

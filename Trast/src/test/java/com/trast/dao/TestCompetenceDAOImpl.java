@@ -15,7 +15,7 @@ public class TestCompetenceDAOImpl {
 
 	@Test
 	public void testGetCompetences() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		CompetenceDAO competenceDao = (CompetenceDAO) context.getBean("competenceDao");
 		Competence competence = (Competence) context.getBean("competence");
@@ -32,7 +32,7 @@ public class TestCompetenceDAOImpl {
 
 	@Test
 	public void testGetCompetence() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		CompetenceDAO competenceDao = (CompetenceDAO) context.getBean("competenceDao");
 		Competence competence = (Competence) context.getBean("competence");
@@ -48,7 +48,7 @@ public class TestCompetenceDAOImpl {
 
 	@Test
 	public void testAjouterCompetence() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		CompetenceDAO competenceDao = (CompetenceDAO) context.getBean("competenceDao");
 		Competence competence = (Competence) context.getBean("competence");
@@ -64,7 +64,7 @@ public class TestCompetenceDAOImpl {
 
 	@Test
 	public void testSupprimerCompetence() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		CompetenceDAO competenceDao = (CompetenceDAO) context.getBean("competenceDao");
 		Competence competence = (Competence) context.getBean("competence");
@@ -80,7 +80,7 @@ public class TestCompetenceDAOImpl {
 
 	@Test
 	public void testModifierCompetence() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		
 		CompetenceDAO competenceDao = (CompetenceDAO) context.getBean("competenceDao");
 		Competence competence = (Competence) context.getBean("competence");
