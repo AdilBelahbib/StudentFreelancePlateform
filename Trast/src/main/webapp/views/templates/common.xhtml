@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
-<meta charset="UTF-8" />
-<title>Trast - Trust A Student !</title>
-</head>
-<h:body>
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/tags">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="modal-login.css" />
+	<h:outputScript library="js" name="jquery.min.js" />
+	<h:outputScript library="js" name="bootstrap.min.js" />
+	<title>Trast - Trust A Student !</title>
+</h:head>
+<body>
 	<ui:insert name="header">
 		<ui:include src="/views/templates/#{utilisateur}/header.xhtml">
 		</ui:include>
@@ -17,5 +26,5 @@
 	<ui:insert name="footer">
 		<ui:include src="/views/templates/#{utilisateur}/footer.xhtml" />
 	</ui:insert>
-</h:body>
+</body>
 </html>
