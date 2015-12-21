@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/nav-dropdown.css" rel="stylesheet" />
+	<link href="css/inscription-wizard.css" rel="stylesheet" />
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/inscription-wizard.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="stepwizard">
+			<div class="stepwizard-row setup-panel">
+				<div class="stepwizard-step">
+					<a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+					<p>Step 1</p>
+				</div>
+				<div class="stepwizard-step">
+					<a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+					<p>Step 2</p>
+				</div>
+				<div class="stepwizard-step">
+					<a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+					<p>Step 3</p>
+				</div>
+				<div class="stepwizard-step">
+					<a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+					<p>Step 4</p>
+				</div>
+			</div>
+		</div>
+		<form role="form">
+			<!--ETAPE 1 : Données personnelles-->
+			<div class="row setup-content" id="step-1">
+				<div class="col-xs-12">
+					<div class="col-md-12">
+						<h3> Etape 1: Informations personnelles</h3>
+						<div class="row">
+							<div class="col-md-5">
+								<div class="form-group">
+									<label for="Nom">Nom</label>
+									<input type="text" class="form-control" id="nom" >
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="form-group">
+									<label for="Prenom">Prénom</label>
+									<input type="text" class="form-control" id="prenom" >
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-5">
+								<div class="form-group">
+									<label for="NomUtilisateur">Nom d'utilisateur</label>
+									<input type="text" class="form-control" id="nomUtilisateur">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-5">
+								<div class="form-group">
+									<label for="Email">Adresse Email</label>
+									<input type="text" class="form-control" id="email">
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-5">
+								<div class="form-group">
+									<label for="Password">Mot de passe</label>
+									<input type="password" class="form-control" id="password">
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="form-group">
+									<label for="Vpassword">Vérification mot de passe</label>
+									<input type="password" class="form-control" id="vpassword">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-5">
+								<div class="form-group">
+									<label for="DateNaissance">Date de naissance</label>
+									<div class="input-group">
+										<span class="input-group-addon glyphicon glyphicon-calendar"></span>
+										<input type="text" class="form-control" aria-describedby="basic-addon1">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-10">
+								<div class="form-group">
+									<label for="Adresse">Adresse</label>
+									<input type="text" class="form-control" aria-describedby="basic-addon1">
+								</div>
+							</div>
+						</div>
+
+						<button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+					</div>
+				</div>
+			</div>
+			<!-- / ETAPE 1-->
+			<!--ETAPE 2 : Formations-->
+			<div class="row setup-content" id="step-2">
+				<div class="col-xs-12">
+					<div class="col-md-12">
+						<h3> Step 2</h3>
+						<button data-toggle="modal" data-target="#ajoutformation" class="btn btn-default btn-lg pull-right" type="button" >+</button>
+
+						<table class="table table-striped table-hover">
+							<tr>
+								<th>Intitulé</th>
+								<th>Etablissement</th>
+							</tr>
+							<tr>
+								<td>Formation 1</td>
+								<td>Etablissement 1</td>
+								<td>
+									<button data-toggle="modal" data-target="#detailsformation"type="button" class="btn btn-default ">...</button>
+								</td>
+								<td>
+									<button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+								</td>
+							</tr>
+							<tr>
+								<td>Intitulé</td>
+								<td>Etablissement</td>
+								<td>
+									<button type="button" class="btn btn-default">...</button>
+								</td>
+								<td>
+									<button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+								</td>
+							</tr>
+							<tr>
+								<td>Intitulé</td>
+								<td>Etablissement</td>
+								<td>
+									<button type="button" class="btn btn-default">...</button>
+								</td>
+								<td>
+									<button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+								</td>
+							</tr>
+						</table>
+
+						<!-- MODAL: Détails formation-->
+						<div class="modal fade" id="detailsformation" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+										<h3 class="modal-title" id="lineModalLabel">Ajout formation</h3>
+									</div>
+									<div class="modal-body">
+
+										<!-- content goes here -->
+										<form>
+											<div class="form-group">
+												<label>Date début: xx/xx/xx</label>
+											</div>
+											<div class="form-group">
+												<label>Date fin: xx/xx/xxxx</label>
+											</div>
+											<div class="form-group">
+												<label>Intitulé: jhskjfhsdkfhsdfuhsduifhs</label>
+											</div>
+											<div class="form-group">
+												<label >Etablissement: jkjksdsds</label>
+											</div>
+											<div class="form-group">
+												<a href="#">Télécharger le fichier joint</a>
+											</div>
+										</form>
+
+									</div>
+									<div class="modal-footer">
+										<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+											<div class="btn-group" role="group">
+												<button type="button" id="saveImage" class="btn btn-danger btn-hover-green" data-action="save" role="button">Supprimer</button>
+											</div>
+											<div class="btn-group" role="group">
+												<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Fermer</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- /MODAL: Détails formation-->
+
+						<!-- MODAL: Ajout formation-->
+						<div class="modal fade" id="ajoutformation" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+										<h3 class="modal-title" id="lineModalLabel">Ajout formation</h3>
+									</div>
+									<div class="modal-body">
+
+										<!-- content goes here -->
+										<form>
+											<div class="form-group">
+												<label for="dateDebut">Date début</label>
+												<div class='input-group date'>
+													<input type="text" class="form-control" id="dateDebut">
+													<span class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
+													</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="dateFin">Date fin</label>
+												<div class='input-group date'>
+													<input type="text" class="form-control" id="dateFin">
+													<span class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
+													</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="intitule">Intitulé</label>
+												<input type="text" class="form-control" id="intitule">
+											</div>
+											<div class="form-group">
+												<label for="etablissement">Etablissement</label>
+												<input type="text" class="form-control" id="etablissement">
+											</div>
+											<div class="form-group">
+												<label for="fichierAttache">Joindre un fichier</label>
+												<input type="file" id="fichierAttache">
+											</div>
+										</form>
+
+									</div>
+									<div class="modal-footer">
+										<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+											<div class="btn-group" role="group">
+												<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Fermer</button>
+											</div>
+											<div class="btn-group" role="group">
+												<button type="button" id="saveImage" class="btn btn-success btn-hover-green" data-action="save" role="button">Ajouter</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- /MODAL: Ajout formation-->
+
+						<button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+					</div>
+				</div>
+			</div>
+			<!--/ETAPE 2-->
+			<!--ETAPE 3: LES EXPERIENCES -->
+			<div class="row setup-content" id="step-3">
+				<div class="col-xs-12">
+					<div class="col-md-12">
+						<h3> Step 3</h3>
+						<button data-toggle="modal" data-target="#ajoutexperience" type="button" class="btn btn-default btn-lg pull-right">+</button>
+						<table class="table table-striped table-hover">
+							<tr>
+								<th>Structure d'accueil</th>
+								<th>Sujet</th>
+							</tr>
+							<tr>
+								<td>Entreprise 1</td>
+								<td>sujet 1</td>
+								<td>
+									<button data-toggle="modal" data-target="#detailsexperience"type="button" class="btn btn-default ">...</button>
+								</td>
+								<td>
+									<button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+								</td>
+							</tr>
+						</table>
+
+						<!-- MODAL: ajout expérience-->
+						<div class="modal fade" id="ajoutexperience" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+										<h3 class="modal-title" id="lineModalLabel">Ajout d'expérience</h3>
+									</div>
+									<div class="modal-body">
+
+										<!-- content goes here -->
+										<form>
+											<div class="form-group">
+												<label for="dateDebut">Date début</label>
+												<div class='input-group date'>
+													<input type="text" class="form-control" id="dateDebut">
+													<span class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
+													</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="dateFin">Date fin</label>
+												<div class='input-group date'>
+													<input type="text" class="form-control" id="dateFin">
+													<span class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
+													</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="responsabilite">Responsabilité</label>
+												<input type="text" class="form-control" id="responsabilite">
+											</div>
+											<div class="form-group">
+												<label for="typeExperience">Type d'expérience</label>
+												<input type="text" class="form-control" id="typeExperience">
+											</div>
+											<div class="form-group">
+												<label for="salaire">Salaire</label>
+												<input type="text" class="form-control" id="salaire">
+											</div>
+											<div class="form-group">
+												<label for="fichierAttache">Joindre un fichier</label>
+												<input type="file" id="fichierAttache">
+											</div>
+										</form>
+
+									</div>
+									<div class="modal-footer">
+										<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+											<div class="btn-group" role="group">
+												<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Fermer</button>
+											</div>
+											<div class="btn-group" role="group">
+												<button type="button" id="saveImage" class="btn btn-success btn-hover-green" data-action="save" role="button">Ajouter</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /MODAL: ajout expérience-->
+
+						<!-- MODAL: détails expérience-->
+						<div class="modal fade" id="detailsexperience" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+										<h3 class="modal-title" id="lineModalLabel">Entreprise1</h3>
+									</div>
+									<div class="modal-body">
+
+										<!-- content goes here -->
+										<form>
+											<div class="form-group">
+												<label>Date début: xx/xx/xxx</label>
+											</div>
+											<div class="form-group">
+												<label>Date fin: xx/xx/xxx</label>
+											</div>
+											<div class="form-group">
+												<label>Responsabilité:kjhkjhkjhkjhkh</label>
+											</div>
+											<div class="form-group">
+												<label>Type d'expérience:kljlksdjfskldjfs</label>
+											</div>
+											<div class="form-group">
+												<label>Salaire: 1234</label>
+											</div>
+											<div class="form-group">
+												<a href="#">Télécharger le fichier joint</a>
+											</div>
+										</form>
+
+									</div>
+									<div class="modal-footer">
+										<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+											
+											<div class="btn-group" role="group">
+												<button type="button" id="saveImage" class="btn btn-success btn-hover-red" data-action="save" role="button">Supprimer</button>
+											</div>
+
+											<div class="btn-group" role="group">
+												<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Fermer</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /MODAL: détails expérience-->
+
+						<button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="row setup-content" id="step-4">
+				<div class="col-xs-12">
+					<div class="col-md-12">
+						<h3> Step 4</h3>
+						<button class="btn btn-success btn-lg pull-right" type="submit">Finish!</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+</body>
+</html>

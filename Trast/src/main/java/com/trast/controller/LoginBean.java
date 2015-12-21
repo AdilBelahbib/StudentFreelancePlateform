@@ -4,40 +4,37 @@ import java.io.Serializable;
 
 import javax.inject.Named;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 @Named
-public class LoginBean  implements Serializable{
+public class LoginBean implements Serializable {
 
 	private static final long serialVersionUID = 6175255537226165236L;
 
 	private String userName;
 	private String password;
-	
-	
-	public void reset(){
+
+	public void reset() {
 		userName = "";
 		password = "";
 	}
-
 
 	public String getUserName() {
 		return userName;
 	}
 
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
 }

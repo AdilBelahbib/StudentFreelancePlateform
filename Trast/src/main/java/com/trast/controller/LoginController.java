@@ -2,6 +2,7 @@ package com.trast.controller;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -11,7 +12,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+
+import com.trast.model.Utilisateur;
 
 @ManagedBean(name = "loginController", eager = true)
 @RequestScoped
@@ -27,7 +32,7 @@ public class LoginController {
 	 * @return
 	 */
 	@Transactional
-	public String login() {
+	public void login() {
 		System.out.println(loginBean.getUserName()+" "+loginBean.getPassword());
 		try {
 			System.out.println("Login started for User with Name: " + getLoginBean().getUserName());
@@ -36,7 +41,6 @@ public class LoginController {
 				FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "login.failed");
 				FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 				System.out.println("Login not started because userName or Password is empty: " + getLoginBean().getUserName());
-				return null;
 			}
 
 			// authenticate afainst spring security
@@ -50,11 +54,9 @@ public class LoginController {
 			System.out.println("Login failed: " + e.getMessage());
 			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "login.failed");
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-
-			return null;
 		}
-		return "success";
-
+		
+		
 	}
 
 	/**
@@ -86,5 +88,6 @@ public class LoginController {
 	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
 	}
+
 
 }
