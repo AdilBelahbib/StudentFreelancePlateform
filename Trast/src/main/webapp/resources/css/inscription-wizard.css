@@ -7,9 +7,15 @@
     display: table-row;
 }
 
+.inscriptionAjoutButton
+{
+	margin-bottom: 40px;
+}
+
 .stepwizard {
     display: table;
     width: 100%;
+    margin-top: 100px;
     position: relative;
 }
 

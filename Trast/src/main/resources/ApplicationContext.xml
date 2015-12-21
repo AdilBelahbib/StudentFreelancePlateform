@@ -231,15 +231,6 @@
 		</property>
 	</bean>
 
-	<bean id="loginBean" class="com.trast.controller.LoginBean">
-		<property name="userName" value=""/>
-		<property name="password" value=""/>
-	</bean>
-	
-	<bean scope="singleton" id="loginController" class="com.trast.controller.LoginController">
-		<property name="loginBean" ref="loginBean" />
-		<property name="authenticationManager" ref="authenticationManager" />
-	</bean>
 	<!-- Configuration des DAO bean -->
 	<bean id="administrateurDao" class="com.trast.dao.AdministrateurDAOImpl">
 		<constructor-arg>
