@@ -19,8 +19,5 @@
             <column name="CORPS" />
         </property>
         
-        <many-to-one name="utilisateur" class="Utilisateur" fetch="join">
-            <column name="idUtilisateur" />
-        </many-to-one>
     </class>
 </hibernate-mapping>

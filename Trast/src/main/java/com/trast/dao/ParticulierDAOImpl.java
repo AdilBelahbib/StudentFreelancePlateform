@@ -58,16 +58,5 @@ public class ParticulierDAOImpl implements ParticulierDAO{
 		session.update(particulier);
 		
 	}
-
-	@Override
-	@Transactional
-	public boolean nomUtilisateurExiste(String nomUtilisateur) {
-		Session session = sessionFactory.getCurrentSession();
-		@SuppressWarnings("unchecked")
-		List<Particulier> particuliers =session.createQuery("FROM Particulier p WHERE p.nomUtilisateur = :nomUtilisateur")
-				.setString("nomUtilisateur", nomUtilisateur).list();
-		if(particuliers.size()>0) return true;
-		return false;
-	}
 	
 }

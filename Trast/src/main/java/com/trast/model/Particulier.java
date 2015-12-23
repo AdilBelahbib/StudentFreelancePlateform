@@ -3,7 +3,6 @@ package com.trast.model;
 import java.util.Date;
 
 public class Particulier extends Utilisateur {
-	private String nomUtilisateur;
 	private String nom;
 	private String prenom;
 	private Date dateNaissance;
@@ -11,19 +10,10 @@ public class Particulier extends Utilisateur {
 	public Particulier(){
 	}
 	
-	public Particulier(String utilisateur, String nom, String prenom,Date date){
-		this.nomUtilisateur = utilisateur;
+	public Particulier(String nom, String prenom,Date date){
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissance = date;
-	}
-
-	public String getNomUtilisateur() {
-		return nomUtilisateur;
-	}
-
-	public void setNomUtilisateur(String nomUtilisateur) {
-		this.nomUtilisateur = nomUtilisateur;
 	}
 
 	public String getNom() {

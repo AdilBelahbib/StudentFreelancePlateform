@@ -51,7 +51,7 @@ public class Qualification {
 		  if(id != null)
 		   result = prime * result + id.intValue();
 		  else 
-		   result = prime * result + dateDebut.hashCode();
+		   result = prime * result + (dateDebut.hashCode()*dateFin.hashCode());
 		  return result;
 
 	}

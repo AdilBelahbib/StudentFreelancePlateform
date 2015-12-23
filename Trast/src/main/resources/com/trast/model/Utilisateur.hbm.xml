@@ -22,7 +22,7 @@
 			</key>
 			<one-to-many class="Fichier" />
 		</set>
-		<set name="adresses" table="ADRESSE" inverse="false" lazy="true">
+		<set name="adresses" table="ADRESSE" inverse="false" lazy="true" cascade="all">
 			<key>
 				<column name="idUtilisateur" />
 			</key>
@@ -75,9 +75,6 @@
 
 			<join table="particulier">
 				<key column="id" />
-				<property name="nomUtilisateur" type="java.lang.String">
-					<column name="NOMUTILISATEUR" />
-				</property>
 				<property name="dateNaissance" type="java.util.Date">
 					<column name="DATENAISSANCE" />
 				</property>
@@ -93,7 +90,7 @@
 			<subclass name="Etudiant" discriminator-value="ETU">
 
 				<set name="niveaux" table="etudiant_competence" inverse="true"
-					lazy="true">
+					lazy="true" cascade="all">
 					<key>
 						<column name="idEtudiant" />
 					</key>
@@ -101,7 +98,7 @@
 				</set>
 
 				<set name="qualifications" table="QUALIFICATION" inverse="true"
-					lazy="true">
+					lazy="true" cascade="all">
 					<key>
 						<column name="idEtudiant" />
 					</key>
@@ -109,7 +106,7 @@
 				</set>
 
 				<set name="contrePropositions" table="contre_proposition"
-					inverse="true" lazy="true">
+					inverse="true" lazy="true" cascade="all">
 					<key>
 						<column name="idEtudiant" />
 					</key>

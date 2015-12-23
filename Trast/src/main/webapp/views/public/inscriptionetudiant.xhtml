@@ -1,10 +1,9 @@
-
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
 xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml">
 <ui:define name="content">
 
@@ -32,237 +31,131 @@ template="../templates/common.xhtml">
 			</div>
 		</div>
 	</div>
-	<form role="form">
-		<!--ETAPE 1 : Données personnelles-->
-		<div class="row setup-content" id="step-1">
-			<div class="col-xs-12">
-				<div class="col-md-12">
-					<h3>Etape 1: Informations personnelles</h3>
-					<div class="row">
-						<div class="col-md-5">
-							<div class="form-group">
-								<label for="Nom">Nom</label> <input type="text"
-								class="form-control" id="nom" />
-							</div>
-						</div>
-						<div class="col-md-5">
-							<div class="form-group">
-								<label for="Prenom">Prénom</label> <input type="text"
-								class="form-control" id="prenom" />
-							</div>
+	<h:form>
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	<!--ETAPE 1 : Données personnelles-->
+	<div class="row setup-content" id="step-1">
+		<div class="col-xs-12">
+			<div class="col-md-12">
+				<h3>Etape 1: Informations personnelles</h3>
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="nom">Nom</label>
+							<h:inputText id="nom" value="#{etudiantController.etudiant.nom}" styleClass="form-control" />
 						</div>
 					</div>
-
-					<div class="row">
-						<div class="col-md-5">
-							<div class="form-group">
-								<label for="NomUtilisateur">Nom d'utilisateur</label> <input
-								type="text" class="form-control" id="nomUtilisateur" />
-							</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="prenom">Prénom</label>
+							<h:inputText id="prenom" value="#{etudiantController.etudiant.prenom}" styleClass="form-control" />
 						</div>
 					</div>
+				</div>
 
-					<div class="row">
-						<div class="col-md-5">
-							<div class="form-group">
-								<label for="Email">Adresse Email</label> <input type="text"
-								class="form-control" id="email" />
-							</div>
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="email">Adresse Email</label>
+							<h:inputText id="email" value="#{etudiantController.etudiant.email}" styleClass="form-control" />
 						</div>
 					</div>
+				</div>
 
-
-					<div class="row">
-						<div class="col-md-5">
-							<div class="form-group">
-								<label for="Password">Mot de passe</label> <input
-								type="password" class="form-control" id="password" />
-							</div>
-						</div>
-						<div class="col-md-5">
-							<div class="form-group">
-								<label for="Vpassword">Vérification mot de passe</label> <input
-								type="password" class="form-control" id="vpassword" />
-							</div>
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="motDePasse">Mot de passe</label>
+							<h:inputSecret id="motDePasse" value="#{etudiantController.etudiant.motDePasse}" styleClass="form-control" />
 						</div>
 					</div>
-
-					<div class="row">
-						<div class="col-md-5">
-							<div class="form-group">
-								<label for="DateNaissance">Date de naissance</label>
-								<div class="input-group">
-									<span class="input-group-addon glyphicon glyphicon-calendar"></span>
-									<input type="text" class="form-control"
-									aria-describedby="basic-addon1" />
-								</div>
-							</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="vMotDePasse">Vérification mot de passe</label>
+							<h:inputSecret id="vMotDePasse" styleClass="form-control" />
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-10">
-							<div class="form-group">
-								<label for="Adresse">Adresse</label> <input type="text"
-								class="form-control" aria-describedby="basic-addon1" />
-							</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="dateNaissance">Date de naissance</label>
+							<div class="input-group">
+								<span class="input-group-addon glyphicon glyphicon-calendar"></span>
+
+								<h:inputText id="dateNaissance" value="#{etudiantController.etudiant.dateNaissance}"
+								styleClass="form-control">
+								<f:convertDateTime pattern="dd/mm/yyyy" />
+							</h:inputText>
 						</div>
 					</div>
-
-					<button class="btn btn-primary nextBtn btn-lg pull-right"
-					type="button">Suivant</button>
 				</div>
 			</div>
-		</div>
-		<!-- / ETAPE 1-->
-		<!--ETAPE 2 : Formations-->
-		<div class="row setup-content" id="step-2">
-			<div class="col-xs-12">
-				<div class="col-md-12">
-					<h3>Step 2</h3>
-					<button data-toggle="modal" data-target="#ajoutformation"
-					class="btn btn-default btn-lg pull-right inscriptionAjoutButton"
-					type="button">+</button>
+			<div class="row">
+				<div class="col-md-10">
+					<div class="form-group">
+						<button data-toggle="modal" data-target="#ajoutadresse" class="btn btn-default btn-lg pull-right" type="button" >+</button>
 
-					<table class="table table-striped table-hover">
-						<tr>
-							<th>Intitulé</th>
-							<th>Etablissement</th>
+						<table class="table table-striped table-hover">
+							<tr>
+								<th>Adresses</th>
+							</tr>
+
+							<c:forEach items="#{etudiantController.etudiant.adresses}" var="adresse" varStatus="statut">
+							<tr>
+								<td>#{adresse.adresse} #{adresse.ville} #{adresse.pays}</td>
+								<td>
+									<h:commandButton action="#{etudiantController.retirerAdresse()}" styleClass="close">
+									<f:setPropertyActionListener target="#{etudiantController.adresse}" value="#{adresse}" />
+								</h:commandButton>
+							</td>
 						</tr>
+					</c:forEach>
+				</table>
 
-					</table>
-
-					<!-- MODAL: Détails formation-->
-					<div class="modal fade" id="detailsformation" tabindex="-1"
-					role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">
-									<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-								</button>
-								<h3 class="modal-title" id="lineModalLabel">Ajout
-									formation</h3>
-								</div>
-								<div class="modal-body">
-
-									<!-- content goes here -->
-									<form>
-										<div class="form-group">
-											<label>Date début: xx/xx/xx</label>
-										</div>
-										<div class="form-group">
-											<label>Date fin: xx/xx/xxxx</label>
-										</div>
-										<div class="form-group">
-											<label>Intitulé: jhskjfhsdkfhsdfuhsduifhs</label>
-										</div>
-										<div class="form-group">
-											<label>Etablissement: jkjksdsds</label>
-										</div>
-										<div class="form-group">
-											<a href="#">Télécharger le fichier joint</a>
-										</div>
-									</form>
-
-								</div>
-								<div class="modal-footer">
-									<div class="btn-group btn-group-justified" role="group"
-									aria-label="group button">
-									<div class="btn-group" role="group">
-										<button type="button" id="saveImage"
-										class="btn btn-danger btn-hover-green" data-action="save"
-										role="button">Supprimer</button>
-									</div>
-									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-default"
-										data-dismiss="modal" role="button">Fermer</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- /MODAL: Détails formation-->
-
-				<!-- MODAL: Ajout formation-->
-				<div class="modal fade" id="ajoutformation" tabindex="-1"
-				role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-							</button>
-							<h3 class="modal-title" id="lineModalLabel">Ajout
-								formation</h3>
-							</div>
-							<div class="modal-body">
-
-								<!-- content goes here -->
-								<h:form>
-									
-									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-									
-									<div class="form-group">
-										<label for="intitule">Intitulé</label>
-										<h:inputText id="intitule" value="#{etudiantController.formation.intituleFormation.intitule}" styleClass="form-control" />
-									</div>
-									<div class="form-group">
-										<label for="etablissement">Etablissement</label>
-										<h:inputText id="etablissement" value="#{etudiantController.formation.intituleFormation.etablissement.nomEtablissement}" styleClass="form-control" />
-									</div>
-									<div class="form-group">
-										<label for="dateDebut">Date début</label>
-										<div class='input-group date'>
-
-											<h:inputText id="dateDebut" value="#{etudiantController.formation.dateDebut}"
-											styleClass="form-control">
-											<f:convertDateTime pattern="dd/mm/yyyy" />
-										</h:inputText>
-										<span class="input-group-addon"> <span
-											class="glyphicon glyphicon-calendar"></span>
-										</span>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="dateFin">Date fin</label>
-									<div class='input-group date'>
-
-										<h:inputText id="dateFin" value="#{etudiantController.formation.dateFin}"
-										styleClass="form-control">
-										<f:convertDateTime pattern="dd/mm/yyyy" />
-									</h:inputText>
-									<span class="input-group-addon"> <span
-										class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="fichierAttache">Joindre un fichier</label> <input
-								type="file" id="fichierAttache" />
-							</div>
-							
-							<div class="btn-group" role="group">
-								<h:commandButton action="#{etudiantController.ajouterFormation()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
-							</div>
-						</h:form>
-
-					</div>
-					<div class="modal-footer">
-						<div class="btn-group btn-group-justified" role="group"
-						aria-label="group button">
-						<div class="btn-group" role="group">
-							<button type="button" class="btn btn-default"
-							data-dismiss="modal" role="button">Fermer</button>
-						</div>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 	</div>
 
-	<!-- /MODAL: Ajout formation-->
+	<button class="btn btn-primary nextBtn btn-lg pull-right"
+	type="button">Suivant</button>
+</div>
+</div>
+</div>
+<!-- / ETAPE 1-->
+<!--ETAPE 2 : Formations-->
+<div class="row setup-content" id="step-2">
+	<div class="col-xs-12">
+		<div class="col-md-12">
+			<h3>Step 2</h3>
+			<button data-toggle="modal" data-target="#ajoutformation"
+			class="btn btn-default btn-lg pull-right inscriptionAjoutButton"
+			type="button">+</button>
+
+			<table class="table table-striped table-hover">
+				<tr>
+					<th>Intitulé</th>
+					<th>Etablissement</th>
+				</tr>
+				
+				
+				<c:forEach items="#{etudiantController.etudiant.qualifications}" var="formation" varStatus="statut">
+				<c:if test="${formation['class'].simpleName == 'Formation'}">
+				
+				<tr>
+					<td>#{formation.intituleFormation}</td>
+					<td>#{formation.etablissement}</td>
+					<td>
+						<button data-toggle="modal" data-target="#detailsformation-#{statut.count}" type="button" class="btn btn-default ">...</button>
+					</td>
+				</tr>
+			</c:if>
+		</c:forEach>
+		
+	</table>
+
 
 	<button class="btn btn-primary nextBtn btn-lg pull-right"
 	type="button">Suivant</button>
@@ -280,146 +173,27 @@ template="../templates/common.xhtml">
 			class="btn btn-default btn-lg pull-right inscriptionAjoutButton">+</button>
 			<table class="table table-striped table-hover">
 				<tr>
-					<th>Structure d'accueil</th>
 					<th>Sujet</th>
+					<th>Structure d'accueil</th>
 				</tr>
 
-			</table>
+				<c:forEach items="#{etudiantController.etudiant.qualifications}" var="experience" varStatus="statut">
+				<c:if test="${experience['class'].simpleName == 'Experience'}">
+				<tr>
+					<td>#{experience.sujet}</td>
+					<td>#{experience.structureAccueil}</td>
+					<td>
+						<button data-toggle="modal" data-target="#detailsexperience-#{statut.count}" type="button" class="btn btn-default ">...</button>
+					</td>
+				</tr>
+			</c:if>
+		</c:forEach>
+	</table>
 
-			<!-- MODAL: ajout expérience-->
-			<div class="modal fade" id="ajoutexperience" tabindex="-1"
-			role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-						</button>
-						<h3 class="modal-title" id="lineModalLabel">Ajout
-							d'expérience</h3>
-						</div>
-						<div class="modal-body">
 
-							<!-- content goes here -->
-							<h:form>
-								
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-								
-								<div class="form-group">
-									<label for="dateDebut">Date début</label>
-									<div class='input-group date'>
-										<input type="text" class="form-control" id="dateDebut" />
-										<span class="input-group-addon"> <span
-											class="glyphicon glyphicon-calendar"></span>
-										</span>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="dateFin">Date fin</label>
-									<div class='input-group date'>
-										<input type="text" class="form-control" id="dateFin" /> <span
-										class="input-group-addon"> <span
-										class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="responsabilite">Responsabilité</label> <input
-								type="text" class="form-control" id="responsabilite" />
-							</div>
-							<div class="form-group">
-								<label for="typeExperience">Type d'expérience</label> <input
-								type="text" class="form-control" id="typeExperience" />
-							</div>
-							<div class="form-group">
-								<label for="salaire">Salaire</label> <input type="text"
-								class="form-control" id="salaire" />
-							</div>
-							<div class="form-group">
-								<label for="fichierAttache">Joindre un fichier</label> <input
-								type="file" id="fichierAttache" />
-							</div>
-						</h:form>
 
-					</div>
-					<div class="modal-footer">
-						<div class="btn-group btn-group-justified" role="group"
-						aria-label="group button">
-						<div class="btn-group" role="group">
-							<button type="button" class="btn btn-default"
-							data-dismiss="modal" role="button">Fermer</button>
-						</div>
-						<div class="btn-group" role="group">
-							<button type="button" id="saveImage"
-							class="btn btn-success btn-hover-green" data-action="save"
-							role="button">Ajouter</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /MODAL: ajout expérience-->
-
-	<!-- MODAL: détails expérience-->
-	<div class="modal fade" id="detailsexperience" tabindex="-1"
-	role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-				</button>
-				<h3 class="modal-title" id="lineModalLabel">Entreprise1</h3>
-			</div>
-			<div class="modal-body">
-
-				<!-- content goes here -->
-				<form>
-					<div class="form-group">
-						<label>Date début: xx/xx/xxx</label>
-					</div>
-					<div class="form-group">
-						<label>Date fin: xx/xx/xxx</label>
-					</div>
-					<div class="form-group">
-						<label>Responsabilité:kjhkjhkjhkjhkh</label>
-					</div>
-					<div class="form-group">
-						<label>Type d'expérience:kljlksdjfskldjfs</label>
-					</div>
-					<div class="form-group">
-						<label>Salaire: 1234</label>
-					</div>
-					<div class="form-group">
-						<a href="#">Télécharger le fichier joint</a>
-					</div>
-				</form>
-
-			</div>
-			<div class="modal-footer">
-				<div class="btn-group btn-group-justified" role="group"
-				aria-label="group button">
-
-				<div class="btn-group" role="group">
-					<button type="button" id="saveImage"
-					class="btn btn-success btn-hover-red" data-action="save"
-					role="button">Supprimer</button>
-				</div>
-
-				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default"
-					data-dismiss="modal" role="button">Fermer</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
-<!-- /MODAL: détails expérience-->
-
-<button class="btn btn-primary nextBtn btn-lg pull-right"
-type="button">Suivant</button>
+	<button class="btn btn-primary nextBtn btn-lg pull-right"
+	type="button">Suivant</button>
 </div>
 </div>
 </div>
@@ -428,13 +202,390 @@ type="button">Suivant</button>
 	<div class="col-xs-12">
 		<div class="col-md-12">
 			<h3>Step 4</h3>
-			<button class="btn btn-success btn-lg pull-right" type="submit">Je
-				valide !</button>
+			<h:commandButton action="#{etudiantController.inscrire()}" styleClass="btn btn-success btn-lg pull-right" value="Je valide!"/>
+		</div>
+	</div>
+</div>
+</h:form>
+</div>
+
+
+<!-- LES MODALS -->
+<!-- MODAL: Ajout adresse-->
+<div class="modal fade" id="ajoutadresse" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+				<h3 class="modal-title" id="lineModalLabel">Ajout adresse</h3>
+			</div>
+			<div class="modal-body">
+
+				<!-- content goes here -->
+				<h:form >
+
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<div class="form-group">
+					<label for="adresse">Adresse</label>
+					<div class='input-group date'>
+						<h:inputText id="adresse" value="#{etudiantController.adresse.adresse}" styleClass="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="ville">Ville</label>
+					<div class='input-group date'>
+						<h:inputText id="ville" value="#{etudiantController.adresse.ville}" styleClass="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="pays">Pays</label>
+					<h:inputText id="pays" value="#{etudiantController.adresse.pays}" styleClass="form-control" />
+				</div>
+
+				<div class="btn-group" role="group">
+					<h:commandButton action="#{etudiantController.ajouterAdresse()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+				</div>
+
+			</h:form>
+
+		</div>
+		<div class="modal-footer">
+			<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Fermer</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</form>
 </div>
+</div>
+<!-- /MODAL: Ajout adresse-->
+
+<!-- MODAL: Détails formation-->
+
+<c:forEach items="#{etudiantController.etudiant.qualifications}" var="formation" varStatus="statut">
+<c:if test="${formation['class'].simpleName == 'Formation'}">
+<div class="modal fade" id="detailsformation-#{statut.count}" tabindex="-1"
+role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">
+				<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+			</button>
+			<h3 class="modal-title" id="lineModalLabel">Ajout
+				formation</h3>
+			</div>
+			<div class="modal-body">
+
+				<!-- content goes here -->
+				<div class="form-group">
+					<label>Date début: 
+						<h:outputText value="#{formation.dateDebut}">
+						<f:convertDateTime pattern="dd/mm/yyyy" />
+					</h:outputText>
+				</label>
+			</div>
+			<div class="form-group">
+				<label>Date fin:
+					<h:outputText value="#{formation.dateFin}">
+					<f:convertDateTime pattern="dd/mm/yyyy" />
+				</h:outputText>
+			</label>
+		</div>
+		<div class="form-group">
+			<label>Intitulé: <h:outputText value="#{formation.intituleFormation}" /></label>
+		</div>
+		<div class="form-group">
+			<label>Etablissement: <h:outputText value="#{formation.etablissement}" /></label>
+		</div>
+		<div class="form-group">
+			<a href="#">Télécharger le fichier joint</a>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div class="btn-group btn-group-justified" role="group"
+		aria-label="group button">
+		<div class="btn-group" role="group">
+		<h:form>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<h:commandButton action="#{etudiantController.retirerFormation()}" styleClass="btn btn-danger btn-hover-green" value="Supprimer">
+			<f:setPropertyActionListener target="#{etudiantController.formation}" value="#{formation}" />
+			</h:commandButton>
+		</h:form>
+	</div>
+	<div class="btn-group" role="group">
+		<button type="button" class="btn btn-default"
+		data-dismiss="modal" role="button">Fermer</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</c:if>
+</c:forEach>
+<!-- /MODAL: Détails formation-->
+
+<!-- MODAL: Ajout formation-->
+<div class="modal fade" id="ajoutformation" tabindex="-1"
+role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">
+				<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+			</button>
+			<h3 class="modal-title" id="lineModalLabel">Ajout
+				formation</h3>
+			</div>
+			<div class="modal-body">
+
+				<!-- content goes here -->
+				<h:form >
+
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+				<div class="form-group">
+					<label for="intitule">Intitulé</label>
+					<h:inputText id="intitule" value="#{etudiantController.formation.intituleFormation}" styleClass="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="etablissement">Etablissement</label>
+					<h:inputText id="etablissement" value="#{etudiantController.formation.etablissement}" styleClass="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="dateDebut">Date début</label>
+					<div class='input-group date'>
+
+						<h:inputText id="dateDebut" value="#{etudiantController.formation.dateDebut}"
+						styleClass="form-control">
+						<f:convertDateTime pattern="dd/mm/yyyy" />
+					</h:inputText>
+					<span class="input-group-addon"> <span
+						class="glyphicon glyphicon-calendar"></span>
+					</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="dateFin">Date fin</label>
+				<div class='input-group date'>
+
+					<h:inputText id="dateFin" value="#{etudiantController.formation.dateFin}"
+					styleClass="form-control">
+					<f:convertDateTime pattern="dd/mm/yyyy" />
+				</h:inputText>
+				<span class="input-group-addon"> <span
+					class="glyphicon glyphicon-calendar"></span>
+				</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="fichierAttache">Joindre un fichier</label> <input
+			type="file" id="fichierAttache" />
+		</div>
+
+		<div class="btn-group" role="group">
+			<h:commandButton action="#{etudiantController.ajouterFormation()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+		</div>
+	</h:form>
+
+</div>
+<div class="modal-footer">
+	<div class="btn-group btn-group-justified" role="group"
+	aria-label="group button">
+	<div class="btn-group" role="group">
+		<button type="button" class="btn btn-default"
+		data-dismiss="modal" role="button">Fermer</button>
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- /MODAL: Ajout formation-->
+
+<!-- MODAL: détails expérience-->
+
+<c:forEach items="#{etudiantController.etudiant.qualifications}" var="experience" varStatus="statut">
+<c:if test="${experience['class'].simpleName == 'Experience'}">
+<div class="modal fade" id="detailsexperience-#{statut.count}" tabindex="-1"
+role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">
+				<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+			</button>
+			<h3 class="modal-title" id="lineModalLabel">Entreprise</h3>
+		</div>
+		<div class="modal-body">
+
+			<!-- content goes here -->
+			<form>
+
+				<div class="form-group">
+					<label>Sujet: <h:outputText value="#{experience.sujet}" /></label>
+				</div>
+				<div class="form-group">
+					<label>Structure d'accueil: <h:outputText value="#{experience.structureAccueil}" /></label>
+				</div>
+				<div class="form-group">
+					<label>Date début:
+						<h:outputText value="#{experience.dateDebut}">
+						<f:convertDateTime pattern="dd/mm/yyyy" />
+					</h:outputText>
+				</label>
+			</div>
+			<div class="form-group">
+				<label>Date fin:
+					<h:outputText value="#{experience.dateFin}">
+					<f:convertDateTime pattern="dd/mm/yyyy" />
+				</h:outputText>
+			</label>
+		</div>
+		<div class="form-group">
+			<label>Responsabilité: <h:outputText value="#{experience.responsabilite}" /></label>
+		</div>
+		<div class="form-group">
+			<label>Type d'expérience: <h:outputText value="#{experience.typeExperience}" /></label>
+		</div>
+		<div class="form-group">
+			<label>Salaire: 
+				<h:outputText value="#{experience.salaire}">
+				<f:convertNumber minFractionDigits="2" />
+			</h:outputText>
+		</label>
+	</div>
+	<div class="form-group">
+		<a href="#">Télécharger le fichier joint</a>
+	</div>
+</form>
+
+</div>
+<div class="modal-footer">
+	<div class="btn-group btn-group-justified" role="group"
+	aria-label="group button">
+	
+	<div class="btn-group" role="group">
+		
+		<h:form>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		
+		<h:commandButton action="#{etudiantController.retirerExperience()}" styleClass="btn btn-danger btn-hover-green" value="Supprimer">
+		<f:setPropertyActionListener target="#{etudiantController.experience}" value="#{experience}" />
+	</h:commandButton>
+</h:form>
+</div>
+
+<div class="btn-group" role="group">
+	<button type="button" class="btn btn-default"
+	data-dismiss="modal" role="button">Fermer</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</c:if>
+</c:forEach>
+<!-- /MODAL: détails expérience-->
+
+
+
+<!-- MODAL: ajout expérience-->
+<div class="modal fade" id="ajoutexperience" tabindex="-1"
+role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">
+				<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+			</button>
+			<h3 class="modal-title" id="lineModalLabel">Ajout
+				d'expérience</h3>
+			</div>
+			<div class="modal-body">
+
+				<!-- content goes here -->
+				<h:form>
+
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				
+				<div class="form-group">
+					<label for="sujet">Sujet:</label> 
+					<h:inputText id="sujet" value="#{etudiantController.experience.sujet}" styleClass="form-control" />
+				</div>
+				
+				<div class="form-group">
+					<label for="structureAccueil">Structure d'accueil:</label> 
+					<h:inputText id="structureAccueil" value="#{etudiantController.experience.structureAccueil}" styleClass="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="dateDebut">Date début</label>
+					<div class='input-group date'>
+						<h:inputText id="dateDebut" value="#{etudiantController.experience.dateDebut}"
+						styleClass="form-control">
+						<f:convertDateTime pattern="dd/mm/yyyy" />
+					</h:inputText>
+					<span class="input-group-addon"> <span
+						class="glyphicon glyphicon-calendar"></span>
+					</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="dateFin">Date fin</label>
+				<div class='input-group date'>
+					<h:inputText id="dateFin" value="#{etudiantController.experience.dateFin}"
+					styleClass="form-control">
+					<f:convertDateTime pattern="dd/mm/yyyy" />
+				</h:inputText>
+				<span class="input-group-addon"> <span
+					class="glyphicon glyphicon-calendar"></span>
+				</span>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="responsabilite">Responsabilité</label> 
+			<h:inputText id="responsabilite" value="#{etudiantController.experience.responsabilite}" styleClass="form-control" />
+		</div>
+		<div class="form-group">
+			<label for="typeExperience">Type d'expérience</label>
+			<h:inputText id="typeExperience" value="#{etudiantController.experience.typeExperience}" styleClass="form-control" />
+		</div>
+		<div class="form-group">
+			<label for="salaire">Salaire</label>
+
+			<h:inputText id="salaire" value="#{etudiantController.experience.salaire}" styleClass="form-control">
+			<f:convertNumber minFractionDigits="2" />
+		</h:inputText>
+	</div>
+	<div class="form-group">
+		<label for="fichierAttache">Joindre un fichier</label> <input
+		type="file" id="fichierAttache" />
+	</div>
+
+	<div class="btn-group" role="group">
+		<h:commandButton action="#{etudiantController.ajouterExperience()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+	</div>
+</h:form>
+
+</div>
+<div class="modal-footer">
+	<div class="btn-group btn-group-justified" role="group"
+	aria-label="group button">
+	<div class="btn-group" role="group">
+		<button type="button" class="btn btn-default"
+		data-dismiss="modal" role="button">Fermer</button>
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /MODAL: ajout expérience-->
 
 </ui:define>
 </ui:composition>

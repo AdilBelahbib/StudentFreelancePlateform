@@ -1,67 +1,65 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
 
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-					aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Trast</a>
-			</div>
-			<div class="btn-group navbar-right" role="group" aria-label="...">
-
-				<h:form>
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-					<button type="button" class="btn btn-success navbar-btn">Je
-						suis une entreprise</button>
-
-					<h:commandButton action="/views/public/inscriptionetudiant.xhtml"
-						value="Je
-				suis un étudiant"
-						styleClass="btn btn-success navbar-btn" />
-
-					<button type="button" class="btn btn-default navbar-btn"
-						data-toggle="modal" data-target="#login-modal">Se
-						connecter</button>
-				</h:form>
-			</div>
-		</div>
-	</nav>
-
-	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true"
-		style="display: none;">
-		<div class="modal-dialog">
-			<div class="loginmodal-container">
-				<h1>Connectez-vous</h1>
-				<br />
-				<h:form id="loginForm">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-					<h:inputText id="j_username" value="#{loginBean.userName}"
-						required="true" a:placeholder="Email" />
-					<h:inputSecret id="j_password" value="#{loginBean.password}"
-						required="true" a:placeholder="Mot de passe" />
-					<h:commandButton id="submitButton"
-						styleClass="login loginmodal-submit" value="Connexion"
-						action="#{loginController.login}" />
-				</h:form>
-
-				<div class="login-help">
-					<a href="#">S'inscrire</a> - <a href="#">Mot de passe oublié</a>
-				</div>
-			</div>
-		</div>
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+			data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+			aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span> <span
+			class="icon-bar"></span> <span class="icon-bar"></span> <span
+			class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#">Trast</a>
 	</div>
+	<div class="btn-group navbar-right" role="group" aria-label="...">
+
+		<h:form>
+		<input type="hidden" name="${_csrf.parameterName}"
+		value="${_csrf.token}" />
+		<h:commandButton action="/views/public/inscriptionentreprise.xhtml?faces-redirect=true"
+		value="Je suis une entreprise"	styleClass="btn btn-success navbar-btn" />
+
+		<h:commandButton action="/views/public/inscriptionetudiant.xhtml?faces-redirect=true"
+		value="Je suis un étudiant"	styleClass="btn btn-success navbar-btn" />
+
+		<button type="button" class="btn btn-default navbar-btn"
+		data-toggle="modal" data-target="#login-modal">Se
+		connecter</button>
+	</h:form>
+</div>
+</div>
+</nav>
+
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
+aria-labelledby="myModalLabel" aria-hidden="true"
+style="display: none;">
+<div class="modal-dialog">
+	<div class="loginmodal-container">
+		<h1>Connectez-vous</h1>
+		<br />
+		<h:form id="loginForm">
+		<input type="hidden" name="${_csrf.parameterName}"
+		value="${_csrf.token}" />
+		<h:inputText id="j_username" value="#{loginBean.userName}"
+		required="true" a:placeholder="Email" />
+		<h:inputSecret id="j_password" value="#{loginBean.password}"
+		required="true" a:placeholder="Mot de passe" />
+		<h:commandButton id="submitButton"
+		styleClass="login loginmodal-submit" value="Connexion"
+		action="#{loginController.login}" />
+	</h:form>
+
+	<div class="login-help">
+		<a href="#">S'inscrire</a> - <a href="#">Mot de passe oublié</a>
+	</div>
+</div>
+</div>
+</div>
 
 </ui:composition>

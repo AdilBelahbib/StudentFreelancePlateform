@@ -1,6 +1,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:sec="http://www.springframework.org/security/tags">
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:define name="metadata">
+	<f:metadata>
+		<f:viewAction action="#{administrateurController.onLoad}" />
+	</f:metadata>
+</ui:define>
 
 <ui:composition template="templates/common.xhtml" />
 

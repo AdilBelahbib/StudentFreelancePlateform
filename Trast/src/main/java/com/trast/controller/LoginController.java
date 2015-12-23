@@ -2,7 +2,6 @@ package com.trast.controller;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -12,11 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-
-import com.trast.model.Utilisateur;
 
 @ManagedBean(name = "loginController", eager = true)
 @RequestScoped
@@ -68,7 +63,7 @@ public class LoginController {
 
 	/**
 	 * @param loginBean
-	 *            the loginBean to set
+	 * the loginBean to set
 	 */
 	public void setLoginBean(LoginBean loginBean) {
 		this.loginBean = loginBean;

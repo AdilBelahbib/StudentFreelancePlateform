@@ -12,9 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.trast.model.Etablissement;
 import com.trast.model.Formation;
-import com.trast.model.IntituleFormation;
 
 public class TestFormationDAOImpl {
 
@@ -23,25 +21,16 @@ public class TestFormationDAOImpl {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FormationDAO formationDao = (FormationDAO) context.getBean("formationDao");
 		Formation formation = (Formation) context.getBean("formation");
-		IntituleFormationDAO intituleDao = (IntituleFormationDAO) context.getBean("intituleFormationDao");
-		IntituleFormation intitule = (IntituleFormation) context.getBean("intituleFormation");
-		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
-		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
 		
-		etablissement.setNomEtablissement("nomEtablissement");
-		intitule.setIntitule("intitule");
-		intitule.setEtablissement(etablissement);
-		formation.setIntituleFormation(intitule);
-		
-		etablissementDao.ajouterEtablissement(etablissement);
-		intituleDao.ajouterIntituleFormation(intitule);
+		formation.setEtablissement("nomEtablissement");
+		formation.setIntituleFormation("intitule");
+
 		formationDao.ajouterFormation(formation);
 		
 		List<Formation> formations = formationDao.getFormations();
 		Assert.assertNotNull(formations);
 		formationDao.supprimerFormation(formation.getId());
-		intituleDao.supprimerIntituleFormation(intitule.getId());
-		etablissementDao.supprimerEtablissement(etablissement.getId());
+
 		((ConfigurableApplicationContext)context).close();	
 	}
 
@@ -50,25 +39,16 @@ public class TestFormationDAOImpl {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FormationDAO formationDao = (FormationDAO) context.getBean("formationDao");
 		Formation formation = (Formation) context.getBean("formation");
-		IntituleFormationDAO intituleDao = (IntituleFormationDAO) context.getBean("intituleFormationDao");
-		IntituleFormation intitule = (IntituleFormation) context.getBean("intituleFormation");
-		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
-		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
 		
-		etablissement.setNomEtablissement("nomEtablissement");
-		intitule.setIntitule("intitule");
-		intitule.setEtablissement(etablissement);
-		formation.setIntituleFormation(intitule);
-		
-		etablissementDao.ajouterEtablissement(etablissement);
-		intituleDao.ajouterIntituleFormation(intitule);
+		formation.setEtablissement("nomEtablissement");
+		formation.setIntituleFormation("intitule");
+
 		formationDao.ajouterFormation(formation);
 		
 		formation = formationDao.getFormation(formation.getId());
 		Assert.assertNotNull(formation);
 		formationDao.supprimerFormation(formation.getId());
-		intituleDao.supprimerIntituleFormation(intitule.getId());
-		etablissementDao.supprimerEtablissement(etablissement.getId());
+
 		((ConfigurableApplicationContext)context).close();	
 	}
 
@@ -77,25 +57,16 @@ public class TestFormationDAOImpl {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FormationDAO formationDao = (FormationDAO) context.getBean("formationDao");
 		Formation formation = (Formation) context.getBean("formation");
-		IntituleFormationDAO intituleDao = (IntituleFormationDAO) context.getBean("intituleFormationDao");
-		IntituleFormation intitule = (IntituleFormation) context.getBean("intituleFormation");
-		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
-		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
-		
-		etablissement.setNomEtablissement("nomEtablissement");
-		intitule.setIntitule("intitule");
-		intitule.setEtablissement(etablissement);
-		formation.setIntituleFormation(intitule);
-		
-		etablissementDao.ajouterEtablissement(etablissement);
-		intituleDao.ajouterIntituleFormation(intitule);
+
+		formation.setEtablissement("nomEtablissement");
+		formation.setIntituleFormation("intitule");
+
 		formationDao.ajouterFormation(formation);
 		
 		formation = formationDao.getFormation(formation.getId());
 		Assert.assertNotNull(formation);
 		formationDao.supprimerFormation(formation.getId());
-		intituleDao.supprimerIntituleFormation(intitule.getId());
-		etablissementDao.supprimerEtablissement(etablissement.getId());
+
 		((ConfigurableApplicationContext)context).close();	
 	}
 
@@ -104,25 +75,15 @@ public class TestFormationDAOImpl {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FormationDAO formationDao = (FormationDAO) context.getBean("formationDao");
 		Formation formation = (Formation) context.getBean("formation");
-		IntituleFormationDAO intituleDao = (IntituleFormationDAO) context.getBean("intituleFormationDao");
-		IntituleFormation intitule = (IntituleFormation) context.getBean("intituleFormation");
-		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
-		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
+
+		formation.setEtablissement("nomEtablissement");
+		formation.setIntituleFormation("intitule");
 		
-		etablissement.setNomEtablissement("nomEtablissement");
-		intitule.setIntitule("intitule");
-		intitule.setEtablissement(etablissement);
-		formation.setIntituleFormation(intitule);
-		
-		etablissementDao.ajouterEtablissement(etablissement);
-		intituleDao.ajouterIntituleFormation(intitule);
 		formationDao.ajouterFormation(formation);
 		formationDao.supprimerFormation(formation.getId());
 		formation = formationDao.getFormation(formation.getId());
 		Assert.assertNull(formation);
-		
-		intituleDao.supprimerIntituleFormation(intitule.getId());
-		etablissementDao.supprimerEtablissement(etablissement.getId());
+
 		((ConfigurableApplicationContext)context).close();	
 	}
 
@@ -131,18 +92,9 @@ public class TestFormationDAOImpl {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		FormationDAO formationDao = (FormationDAO) context.getBean("formationDao");
 		Formation formation = (Formation) context.getBean("formation");
-		IntituleFormationDAO intituleDao = (IntituleFormationDAO) context.getBean("intituleFormationDao");
-		IntituleFormation intitule = (IntituleFormation) context.getBean("intituleFormation");
-		EtablissementDAO etablissementDao = (EtablissementDAO) context.getBean("etablissementDao");
-		Etablissement etablissement = (Etablissement) context.getBean("etablissement");
-		
-		etablissement.setNomEtablissement("nomEtablissement");
-		intitule.setIntitule("intitule");
-		intitule.setEtablissement(etablissement);
-		formation.setIntituleFormation(intitule);
-		
-		etablissementDao.ajouterEtablissement(etablissement);
-		intituleDao.ajouterIntituleFormation(intitule);
+
+		formation.setEtablissement("nomEtablissement");
+		formation.setIntituleFormation("intitule");
 		formationDao.ajouterFormation(formation);
 		
 		formation = formationDao.getFormation(formation.getId());
@@ -153,8 +105,7 @@ public class TestFormationDAOImpl {
 		formation = formationDao.getFormation(formation.getId());
 		Assert.assertEquals(0, formation.getDateDebut().compareTo(date1));
 		formationDao.supprimerFormation(formation.getId());
-		intituleDao.supprimerIntituleFormation(intitule.getId());
-		etablissementDao.supprimerEtablissement(etablissement.getId());
+
 		((ConfigurableApplicationContext)context).close();
 	}
 

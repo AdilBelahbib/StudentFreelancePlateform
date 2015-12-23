@@ -2,7 +2,7 @@ package com.trast.model;
 
 import java.util.Set;
 
-public class Utilisateur {
+public class Utilisateur{
 	private Long id;
 	private String email;
 	private String motDePasse;

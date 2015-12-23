@@ -27,7 +27,6 @@
 	</bean>
 
 	<bean id="particulier" class="com.trast.model.Particulier" parent="utilisateur">
-		<property name="nomUtilisateur" value="" />
 		<property name="nom" value="" />
 		<property name="prenom" value="" />
 		<property name="dateNaissance">
@@ -75,7 +74,6 @@
 		<property name="ville" value="" />
 		<property name="pays" value="" />
 		<property name="adresse" value="" />
-		<property name="utilisateur" ref="utilisateur" />
 	</bean>
 
 	<bean id="fichier" class="com.trast.model.Fichier">
@@ -144,28 +142,6 @@
 		<property name="maitrise" value="0" />
 	</bean>
 
-	<!-- bean: Etablissement -->
-
-	<bean id="etablissement" class="com.trast.model.Etablissement"
-		scope="prototype">
-		<property name="id" value="" />
-		<property name="nomEtablissement" value="" />
-		<property name="intituleFormations">
-			<set>
-			</set>
-		</property>
-	</bean>
-	<!-- bean: IntituleFormation -->
-	<bean id="intituleFormation" class="com.trast.model.IntituleFormation"
-		scope="prototype">
-		<property name="id" value="" />
-		<property name="intitule" value="" />
-		<property name="etablissement" ref="etablissement" />
-		<property name="formations">
-			<set>
-			</set>
-		</property>
-	</bean>
 	<!-- bean: Remuneration -->
 	<bean id="remuneration" class="com.trast.model.Remuneration"
 		scope="prototype">
@@ -193,11 +169,12 @@
 		<!-- <property name="appelOffre" ref="appelOffre"> </property> -->
 	</bean>
 	<!-- bean: Formation -->
-	<bean id="formation" class="com.trast.model.Formation" parent="qualification">
-		<property name="intituleFormation" ref="intituleFormation" />
+	<bean id="formation" class="com.trast.model.Formation" parent="qualification" scope="prototype">
+		<property name="intituleFormation" value="" />
+		<property name="etablissement" value="" />
 	</bean>
 	<!-- bean: Experience -->
-	<bean id="experience" class="com.trast.model.Experience" parent="qualification">
+	<bean id="experience" class="com.trast.model.Experience" parent="qualification" scope="prototype">
 		<property name="responsabilite" value="" />
 		<property name="typeExperience" value="" />
 		<property name="structureAccueil" value="" />
@@ -280,12 +257,6 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="etablissementDao" class="com.trast.dao.EtablissementDAOImpl">
-		<constructor-arg>
-			<ref bean="sessionFactory" />
-		</constructor-arg>
-	</bean>
-
 	<bean id="etudiantDao" class="com.trast.dao.EtudiantDAOImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
@@ -305,12 +276,6 @@
 	</bean>
 
 	<bean id="formationDao" class="com.trast.dao.FormationDAOImpl">
-		<constructor-arg>
-			<ref bean="sessionFactory" />
-		</constructor-arg>
-	</bean>
-
-	<bean id="intituleFormationDao" class="com.trast.dao.IntituleFormationDAOImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
 		</constructor-arg>
@@ -377,11 +342,9 @@
 				<value>com/trast/model/CahierDesCharges.hbm.xml</value>
 				<value>com/trast/model/Competence.hbm.xml</value>
 				<value>com/trast/model/ContreProposition.hbm.xml</value>
-				<value>com/trast/model/Etablissement.hbm.xml</value>
 				<value>com/trast/model/Experience.hbm.xml</value>
 				<value>com/trast/model/Fichier.hbm.xml</value>
 				<value>com/trast/model/Formation.hbm.xml</value>
-				<value>com/trast/model/IntituleFormation.hbm.xml</value>
 				<value>com/trast/model/Niveau.hbm.xml</value>
 				<value>com/trast/model/Projet.hbm.xml</value>
 				<value>com/trast/model/Qualification.hbm.xml</value>

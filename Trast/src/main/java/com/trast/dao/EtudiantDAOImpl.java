@@ -28,14 +28,15 @@ public class EtudiantDAOImpl implements EtudiantDAO {
 		return etList;
 		}
 
+	@SuppressWarnings("resource")
 	@Override
 	@Transactional
 	public boolean ajouterEtudiant(Etudiant etudiant) {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
-		ParticulierDAO particulierDao = (ParticulierDAO) context.getBean("particulierDao");
-		if(utilisateurDao.emailExiste(etudiant.getEmail()) || particulierDao.nomUtilisateurExiste(etudiant.getNomUtilisateur()))
+
+		if(utilisateurDao.emailExiste(etudiant.getEmail()))
 		{
 			((ConfigurableApplicationContext)context).close();
 			return false;

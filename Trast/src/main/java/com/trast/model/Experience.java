@@ -53,5 +53,17 @@ public class Experience extends Qualification{
 	public void setSalaire(Double salaire) {
 		this.salaire = salaire;
 	}
+	
+	@Override
+	public int hashCode() {
+		 final int prime = 31;
+		  int result = 1;
+		  if(this.getId() != null)
+		   result = prime * result + this.getId().intValue();
+		  else 
+		   result = prime * result + this.structureAccueil.hashCode() + (this.getDateDebut().hashCode()*this.getDateFin().hashCode());
+		  return result;
 
+	}
+	
 }

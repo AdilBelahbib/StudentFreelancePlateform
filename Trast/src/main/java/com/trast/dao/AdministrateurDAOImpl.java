@@ -36,14 +36,15 @@ public class AdministrateurDAOImpl implements AdministrateurDAO {
 		return(Administrateur) session.get(Administrateur.class,id);
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	@Transactional
 	public boolean ajouterAdministrateur(Administrateur admin) {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
 		UtilisateurDAO utilisateurDao = (UtilisateurDAO) context.getBean("utilisateurDao");
-		ParticulierDAO particulierDao = (ParticulierDAO) context.getBean("particulierDao");
-		if(utilisateurDao.emailExiste(admin.getEmail()) || particulierDao.nomUtilisateurExiste(admin.getNomUtilisateur()))
+
+		if(utilisateurDao.emailExiste(admin.getEmail()))
 		{
 			((ConfigurableApplicationContext)context).close();
 			return false;

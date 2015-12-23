@@ -30,7 +30,6 @@ public class TestAdresseDAOImpl {
 		adresse.setPays("Maroc");
 		adresse.setVille("Rabat");
 		adresse.setAdresse("Sidi Moussa");
-		adresse.setUtilisateur(admin);
 		
 		List<Adresse> adresses;
 		
@@ -51,25 +50,15 @@ public class TestAdresseDAOImpl {
 		
 		AdresseDAO adresseDao = (AdresseDAO) context.getBean("adresseDao");
 		Adresse adresse = (Adresse) context.getBean("adresse");
-		
-		Administrateur admin = (Administrateur)context.getBean("administrateur");
-		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
-		
-		admin.setEmail("admin@gmail.com");
-		admin.setMotDePasse("mdp");
-		
+
 		adresse.setPays("Maroc");
 		adresse.setVille("Rabat");
 		adresse.setAdresse("Sidi Moussa");
-		adresse.setUtilisateur(admin);
-		
-		adminDao.ajouterAdministrateur(admin);
-						
+
 		adresseDao.ajouterAdresse(adresse);
 		adresse = adresseDao.getAdresseParId(adresse.getId());
 		Assert.assertNotNull(adresse);
 		adresseDao.supprimerAdresse(adresse.getId());
-		adminDao.supprimerAdministrateur(admin.getId());
 		((ConfigurableApplicationContext)context).close();
 	}
 
@@ -79,25 +68,16 @@ public class TestAdresseDAOImpl {
 		
 		AdresseDAO adresseDao = (AdresseDAO) context.getBean("adresseDao");
 		Adresse adresse = (Adresse) context.getBean("adresse");
-		
-		Administrateur admin = (Administrateur)context.getBean("administrateur");
-		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
-		
-		admin.setEmail("admin@gmail.com");
-		admin.setMotDePasse("mdp");
-		
+
 		adresse.setPays("Maroc");
 		adresse.setVille("Rabat");
 		adresse.setAdresse("Sidi Moussa");
-		adresse.setUtilisateur(admin);
-		
-		adminDao.ajouterAdministrateur(admin);
 						
 		adresseDao.ajouterAdresse(adresse);
 		adresse = adresseDao.getAdresseParId(adresse.getId());
 		Assert.assertNotNull(adresse);
 		adresseDao.supprimerAdresse(adresse.getId());
-		adminDao.supprimerAdministrateur(admin.getId());
+
 		((ConfigurableApplicationContext)context).close();
 	}
 
@@ -107,27 +87,17 @@ public class TestAdresseDAOImpl {
 		
 		AdresseDAO adresseDao = (AdresseDAO) context.getBean("adresseDao");
 		Adresse adresse = (Adresse) context.getBean("adresse");
-		
-		Administrateur admin = (Administrateur)context.getBean("administrateur");
-		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
-		
-		admin.setEmail("admin@gmail.com");
-		admin.setMotDePasse("mdp");
-		
+
 		adresse.setPays("Maroc");
 		adresse.setVille("Rabat");
 		adresse.setAdresse("Sidi Moussa");
-		adresse.setUtilisateur(admin);
-		
-		adminDao.ajouterAdministrateur(admin);
 						
 		adresseDao.ajouterAdresse(adresse);
-		adresse.setVille("Salé");
+		adresse.setVille("Salï¿½");
 		adresseDao.modifierAdresse(adresse);
 		adresse = adresseDao.getAdresseParId(adresse.getId());
 		Assert.assertNotNull(adresse);
 		adresseDao.supprimerAdresse(adresse.getId());
-		adminDao.supprimerAdministrateur(admin.getId());
 		((ConfigurableApplicationContext)context).close();
 	}
 
@@ -138,24 +108,14 @@ public class TestAdresseDAOImpl {
 		AdresseDAO adresseDao = (AdresseDAO) context.getBean("adresseDao");
 		Adresse adresse = (Adresse) context.getBean("adresse");
 		
-		Administrateur admin = (Administrateur)context.getBean("administrateur");
-		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
-		
-		admin.setEmail("admin@gmail.com");
-		admin.setMotDePasse("mdp");
-		
 		adresse.setPays("Maroc");
 		adresse.setVille("Rabat");
 		adresse.setAdresse("Sidi Moussa");
-		adresse.setUtilisateur(admin);
-		
-		adminDao.ajouterAdministrateur(admin);
 						
 		adresseDao.ajouterAdresse(adresse);
 		adresse = adresseDao.getAdresseParId(adresse.getId());
 		Assert.assertNotNull(adresse);
 		adresseDao.supprimerAdresse(adresse.getId());
-		adminDao.supprimerAdministrateur(admin.getId());
 		((ConfigurableApplicationContext)context).close();
 	}
 

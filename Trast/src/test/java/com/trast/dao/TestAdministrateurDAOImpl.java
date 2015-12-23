@@ -21,7 +21,6 @@ public class TestAdministrateurDAOImpl {
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
-		admin.setNomUtilisateur("admin");
 		admin.setEmail("admin@mail.com");
 		admin.setMotDePasse("mdp");
 		admin.setNom("nomAdmin");
@@ -42,7 +41,6 @@ public class TestAdministrateurDAOImpl {
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
-		admin.setNomUtilisateur("admin");
 		admin.setEmail("admin@mail.com");
 		admin.setMotDePasse("mdp");
 		admin.setNom("nomAdmin");
@@ -61,7 +59,6 @@ public class TestAdministrateurDAOImpl {
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
-		admin.setNomUtilisateur("admin");
 		admin.setEmail("admin@mail.com");
 		admin.setMotDePasse("mdp");
 		admin.setNom("nomAdmin");
@@ -80,7 +77,6 @@ public class TestAdministrateurDAOImpl {
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
-		admin.setNomUtilisateur("admin");
 		admin.setEmail("admin@mail.com");
 		admin.setMotDePasse("mdp");
 		admin.setNom("nomAdmin");
@@ -99,14 +95,12 @@ public class TestAdministrateurDAOImpl {
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
-		admin.setNomUtilisateur("admin");
 		admin.setEmail("admin@mail.com");
 		admin.setMotDePasse("mdp");
 		admin.setNom("nomAdmin");
 		admin.setPrenom("prenomAdmin");
 		
 		adminDao.ajouterAdministrateur(admin);
-		admin.setNomUtilisateur("adminModifie");
 		admin.setEmail("adminModifie@mail.com");
 		adminDao.modifierAdministrateur(admin);
 		admin = adminDao.getAdministrateur(admin.getId());		

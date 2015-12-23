@@ -1,7 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	>
+	xmlns:h="http://java.sun.com/jsf/html">
 
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
@@ -50,9 +49,13 @@
 										</div>
 										<div class="col-md-6">
 
-											<form action="${request.contextPath}/j_spring_security_logout" method="post">
-											  <input type="submit" value="Log out" class="btn btn-default btn-sm pull-right"/>
-											  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+											<form
+												action="${request.contextPath}/j_spring_security_logout"
+												method="post">
+												<input type="submit" value="Log out"
+													class="btn btn-default btn-sm pull-right" /> <input
+													type="hidden" name="${_csrf.parameterName}"
+													value="${_csrf.token}" />
 											</form>
 										</div>
 									</div>

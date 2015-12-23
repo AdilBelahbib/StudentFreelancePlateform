@@ -1,21 +1,23 @@
 package com.trast.model;
 
-public class Adresse {
+import java.io.Serializable;
+
+public class Adresse implements Serializable{
+	private static final long serialVersionUID = -6916302511964187117L;
+	
 	private Long id;
 	private String ville;
 	private String pays;
 	private String adresse;
-	private Utilisateur utilisateur;
 	
 	public Adresse(){
 	}
 	
-	public Adresse(Long id, String ville, String pays, String adresse, Utilisateur utilisateur){
+	public Adresse(Long id, String ville, String pays, String adresse){
 		this.id = id;
 		this.ville = ville;
 		this.pays = pays;
 		this.adresse = adresse;
-		this.utilisateur = utilisateur;
 	}
 
 	@Override
@@ -78,13 +80,5 @@ public class Adresse {
 		this.adresse = adresse;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
-	
 	
 }
