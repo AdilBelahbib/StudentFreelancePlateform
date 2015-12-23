@@ -5,13 +5,21 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+
+import com.trast.dao.UtilisateurDAO;
 
 @ManagedBean(name = "loginController", eager = true)
 @RequestScoped
@@ -44,13 +52,24 @@ public class LoginController {
 
 			Authentication result = authenticationManager.authenticate(request);
 			SecurityContextHolder.getContext().setAuthentication(result);
+			
+			//Ajouter l'utilisateur connecté dans la session
+			HttpServletRequest httpRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+			HttpSession session = httpRequest.getSession();
+			
+			//Appeler le context pour récupérer les DAOs
+			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+        	UtilisateurDAO utilisateurDAO = (UtilisateurDAO) context.getBean("utilisateurDao");
 
+			session.setAttribute("utilisateur", utilisateurDAO.getByEmail(((User)result.getPrincipal()).getUsername()));
+			
+			((ConfigurableApplicationContext)context).close();
+			
 		} catch (AuthenticationException e) {
 			System.out.println("Login failed: " + e.getMessage());
 			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "login.failed");
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		}
-		
 		
 	}
 
