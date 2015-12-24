@@ -7,13 +7,13 @@
 	<ui:define name="content">
 
 		<c:choose>
-			<c:when test="#{not empty request.entreprisesEnAttente}">
+			<c:when test="#{not empty administrateurController.entreprises}">
 				<table class="table table-striped table-hover">
 					<tr>
 						<th>Entreprise</th>
 					</tr>
 
-					<c:forEach items="#{request.entreprisesEnAttente}" var="entreprise"
+					<c:forEach items="#{administrateurController.entreprises}" var="entreprise"
 						varStatus="statut">
 
 						<tr>
@@ -27,7 +27,7 @@
 					</c:forEach>
 				</table>
 
-				<c:forEach items="#{request.entreprisesEnAttente}" var="entreprise"
+				<c:forEach items="#{administrateurController.entreprises}" var="entreprise"
 					varStatus="statut">
 					<div class="modal fade" id="detailsdemande-#{statut.count}"
 						tabindex="-1" role="dialog" aria-labelledby="modalLabel"
@@ -66,37 +66,39 @@
 										<div class="form-group">
 											<a href="#">Télécharger le fichier joint</a>
 										</div>
+										
+										<div class="form-group">
+										<h:form>
+												<input type="hidden" name="${_csrf.parameterName}"
+													value="${_csrf.token}" />
+
+												<h:commandButton
+													action="#{administrateurController.accepterEntreprise()}"
+													styleClass="btn btn-success btn-hover-green col-md-6"
+													value="Accepter">
+													<f:setPropertyActionListener
+														target="#{administrateurController.entreprise}"
+														value="#{entreprise}" />
+												</h:commandButton>
+											</h:form>
+											<h:form>
+												<input type="hidden" name="${_csrf.parameterName}"
+													value="${_csrf.token}" />
+											<h:commandButton
+													action="#{administrateurController.refuserEntreprise()}"
+													styleClass="btn btn-danger btn-hover-green col-md-6" value="Refuser">
+													<f:setPropertyActionListener
+														target="#{administrateurController.entreprise}"
+														value="#{entreprise}" />
+												</h:commandButton>
+												</h:form>
+										</div>
 									</form>
 
 								</div>
 								<div class="modal-footer">
 									<div class="btn-group btn-group-justified" role="group"
 										aria-label="group button">
-
-										<div class="btn-group" role="group">
-
-											<h:form>
-												<input type="hidden" name="${_csrf.parameterName}"
-													value="${_csrf.token}" />
-
-												<h:commandButton
-													action="#{etudiantController.retirerExperience()}"
-													styleClass="btn btn-success btn-hover-green"
-													value="Accepter">
-													<f:setPropertyActionListener
-														target="#{etudiantController.experience}"
-														value="#{experience}" />
-												</h:commandButton>
-
-												<h:commandButton
-													action="#{etudiantController.retirerExperience()}"
-													styleClass="btn btn-danger btn-hover-green" value="Refuser">
-													<f:setPropertyActionListener
-														target="#{etudiantController.experience}"
-														value="#{experience}" />
-												</h:commandButton>
-											</h:form>
-										</div>
 
 										<div class="btn-group" role="group">
 											<button type="button" class="btn btn-default"
@@ -114,7 +116,6 @@
 				<h3>Aucune demande !</h3>
 			</c:otherwise>
 		</c:choose>
-		</c:if>
 
 	</ui:define>
 </ui:composition>

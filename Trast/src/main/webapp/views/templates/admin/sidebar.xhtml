@@ -1,29 +1,36 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
 
-<div class="nav-side-menu">
-    <div class="brand">#{sessionScope.utilisateur.prenom} #{sessionScope.utilisateur.nom}
-    <span class="ti-menu big-menu"></span></div>
-    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-  
-        <div class="menu-list">
-  
-            <ul id="menu-content" class="menu-content collapse out">
-                <li>
-                  <a href="#">
-                  <i class="fa fa-dashboard fa-lg"></i> Accueil
-                  </a>
-                </li>
+	<div class="nav-side-menu">
+		<div class="brand">
+			#{sessionScope.utilisateur.prenom} #{sessionScope.utilisateur.nom} <span
+				class="ti-menu big-menu"></span>
+		</div>
+		<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
+			data-target="#menu-content"></i>
 
-                <li id="#profil">
-                  <a href="#"><i class="fa fa-user fa-lg"></i> Profil</a>
-                </li>
+		<div class="menu-list">
 
-                <li id="#demandesinscription" class="collapsed">
-                  <a href="#"><i class="fa fa-check-circle-o fa-lg"></i> Demandes d'inscription</a>
-                </li>
-            </ul>
-     </div>
-</div>
+			<ul id="menu-content" class="menu-content collapse out">
+				<li><a href="#"> <i class="fa fa-dashboard fa-lg"></i>
+						Accueil
+				</a></li>
+
+				<li id="#profil"><a href="#"><i class="fa fa-user fa-lg"></i>
+						Profil</a></li>
+
+				<li id="#demandesinscription" class="collapsed">
+				<h:form>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				
+						<i class="fa fa-check-circle-o fa-lg"></i>
+						<h:commandLink value="Demandes d'inscription"
+							action="#{administrateurController.getEntreprisesEnAttente}">
+						</h:commandLink>
+					</h:form></li>
+			</ul>
+		</div>
+	</div>
 
 </ui:composition>
