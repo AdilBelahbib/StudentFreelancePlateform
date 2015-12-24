@@ -4,10 +4,6 @@ import java.io.Serializable;
 
 import javax.inject.Named;
 
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-
 @Named
 public class LoginBean implements Serializable {
 

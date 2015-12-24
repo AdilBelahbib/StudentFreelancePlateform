@@ -42,13 +42,13 @@ template="../templates/common.xhtml">
 					<div class="col-md-5">
 						<div class="form-group">
 							<label for="nom">Nom</label>
-							<h:inputText id="nom" value="#{etudiantController.etudiant.nom}" styleClass="form-control" />
+							<h:inputText id="nom" value="#{inscriptionEtudiantController.etudiant.nom}" styleClass="form-control" />
 						</div>
 					</div>
 					<div class="col-md-5">
 						<div class="form-group">
 							<label for="prenom">Prénom</label>
-							<h:inputText id="prenom" value="#{etudiantController.etudiant.prenom}" styleClass="form-control" />
+							<h:inputText id="prenom" value="#{inscriptionEtudiantController.etudiant.prenom}" styleClass="form-control" />
 						</div>
 					</div>
 				</div>
@@ -57,7 +57,7 @@ template="../templates/common.xhtml">
 					<div class="col-md-5">
 						<div class="form-group">
 							<label for="email">Adresse Email</label>
-							<h:inputText id="email" value="#{etudiantController.etudiant.email}" styleClass="form-control" />
+							<h:inputText id="email" value="#{inscriptionEtudiantController.etudiant.email}" styleClass="form-control" />
 						</div>
 					</div>
 				</div>
@@ -66,7 +66,7 @@ template="../templates/common.xhtml">
 					<div class="col-md-5">
 						<div class="form-group">
 							<label for="motDePasse">Mot de passe</label>
-							<h:inputSecret id="motDePasse" value="#{etudiantController.etudiant.motDePasse}" styleClass="form-control" />
+							<h:inputSecret id="motDePasse" value="#{inscriptionEtudiantController.etudiant.motDePasse}" styleClass="form-control" />
 						</div>
 					</div>
 					<div class="col-md-5">
@@ -84,9 +84,9 @@ template="../templates/common.xhtml">
 							<div class="input-group">
 								<span class="input-group-addon glyphicon glyphicon-calendar"></span>
 
-								<h:inputText id="dateNaissance" value="#{etudiantController.etudiant.dateNaissance}"
+								<h:inputText id="dateNaissance" value="#{inscriptionEtudiantController.etudiant.dateNaissance}"
 								styleClass="form-control">
-								<f:convertDateTime pattern="dd/mm/yyyy" />
+								<f:convertDateTime pattern="dd/MM/yyyy" />
 							</h:inputText>
 						</div>
 					</div>
@@ -102,12 +102,12 @@ template="../templates/common.xhtml">
 								<th>Adresses</th>
 							</tr>
 
-							<c:forEach items="#{etudiantController.etudiant.adresses}" var="adresse" varStatus="statut">
+							<c:forEach items="#{inscriptionEtudiantController.etudiant.adresses}" var="adresse" varStatus="statut">
 							<tr>
 								<td>#{adresse.adresse} #{adresse.ville} #{adresse.pays}</td>
 								<td>
-									<h:commandButton action="#{etudiantController.retirerAdresse()}" styleClass="close">
-									<f:setPropertyActionListener target="#{etudiantController.adresse}" value="#{adresse}" />
+									<h:commandButton action="#{inscriptionEtudiantController.retirerAdresse()}" styleClass="close">
+									<f:setPropertyActionListener target="#{inscriptionEtudiantController.adresse}" value="#{adresse}" />
 								</h:commandButton>
 							</td>
 						</tr>
@@ -141,7 +141,7 @@ template="../templates/common.xhtml">
 				</tr>
 				
 				
-				<c:forEach items="#{etudiantController.etudiant.qualifications}" var="formation" varStatus="statut">
+				<c:forEach items="#{inscriptionEtudiantController.etudiant.qualifications}" var="formation" varStatus="statut">
 				<c:if test="${formation['class'].simpleName == 'Formation'}">
 				
 				<tr>
@@ -177,7 +177,7 @@ template="../templates/common.xhtml">
 					<th>Structure d'accueil</th>
 				</tr>
 
-				<c:forEach items="#{etudiantController.etudiant.qualifications}" var="experience" varStatus="statut">
+				<c:forEach items="#{inscriptionEtudiantController.etudiant.qualifications}" var="experience" varStatus="statut">
 				<c:if test="${experience['class'].simpleName == 'Experience'}">
 				<tr>
 					<td>#{experience.sujet}</td>
@@ -202,7 +202,7 @@ template="../templates/common.xhtml">
 	<div class="col-xs-12">
 		<div class="col-md-12">
 			<h3>Step 4</h3>
-			<h:commandButton action="#{etudiantController.inscrire()}" styleClass="btn btn-success btn-lg pull-right" value="Je valide!"/>
+			<h:commandButton action="#{inscriptionEtudiantController.inscrire()}" styleClass="btn btn-success btn-lg pull-right" value="Je valide!"/>
 		</div>
 	</div>
 </div>
@@ -228,22 +228,22 @@ template="../templates/common.xhtml">
 				<div class="form-group">
 					<label for="adresse">Adresse</label>
 					<div class='input-group date'>
-						<h:inputText id="adresse" value="#{etudiantController.adresse.adresse}" styleClass="form-control" />
+						<h:inputText id="adresse" value="#{inscriptionEtudiantController.adresse.adresse}" styleClass="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="ville">Ville</label>
 					<div class='input-group date'>
-						<h:inputText id="ville" value="#{etudiantController.adresse.ville}" styleClass="form-control" />
+						<h:inputText id="ville" value="#{inscriptionEtudiantController.adresse.ville}" styleClass="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="pays">Pays</label>
-					<h:inputText id="pays" value="#{etudiantController.adresse.pays}" styleClass="form-control" />
+					<h:inputText id="pays" value="#{inscriptionEtudiantController.adresse.pays}" styleClass="form-control" />
 				</div>
 
 				<div class="btn-group" role="group">
-					<h:commandButton action="#{etudiantController.ajouterAdresse()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+					<h:commandButton action="#{inscriptionEtudiantController.ajouterAdresse()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
 				</div>
 
 			</h:form>
@@ -263,7 +263,7 @@ template="../templates/common.xhtml">
 
 <!-- MODAL: Détails formation-->
 
-<c:forEach items="#{etudiantController.etudiant.qualifications}" var="formation" varStatus="statut">
+<c:forEach items="#{inscriptionEtudiantController.etudiant.qualifications}" var="formation" varStatus="statut">
 <c:if test="${formation['class'].simpleName == 'Formation'}">
 <div class="modal fade" id="detailsformation-#{statut.count}" tabindex="-1"
 role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -282,14 +282,14 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 				<div class="form-group">
 					<label>Date début: 
 						<h:outputText value="#{formation.dateDebut}">
-						<f:convertDateTime pattern="dd/mm/yyyy" />
+						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</label>
 			</div>
 			<div class="form-group">
 				<label>Date fin:
 					<h:outputText value="#{formation.dateFin}">
-					<f:convertDateTime pattern="dd/mm/yyyy" />
+					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</h:outputText>
 			</label>
 		</div>
@@ -309,8 +309,8 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 		<div class="btn-group" role="group">
 		<h:form>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<h:commandButton action="#{etudiantController.retirerFormation()}" styleClass="btn btn-danger btn-hover-green" value="Supprimer">
-			<f:setPropertyActionListener target="#{etudiantController.formation}" value="#{formation}" />
+			<h:commandButton action="#{inscriptionEtudiantController.retirerFormation()}" styleClass="btn btn-danger btn-hover-green" value="Supprimer">
+			<f:setPropertyActionListener target="#{inscriptionEtudiantController.formation}" value="#{formation}" />
 			</h:commandButton>
 		</h:form>
 	</div>
@@ -348,19 +348,19 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 
 				<div class="form-group">
 					<label for="intitule">Intitulé</label>
-					<h:inputText id="intitule" value="#{etudiantController.formation.intituleFormation}" styleClass="form-control" />
+					<h:inputText id="intitule" value="#{inscriptionEtudiantController.formation.intituleFormation}" styleClass="form-control" />
 				</div>
 				<div class="form-group">
 					<label for="etablissement">Etablissement</label>
-					<h:inputText id="etablissement" value="#{etudiantController.formation.etablissement}" styleClass="form-control" />
+					<h:inputText id="etablissement" value="#{inscriptionEtudiantController.formation.etablissement}" styleClass="form-control" />
 				</div>
 				<div class="form-group">
 					<label for="dateDebut">Date début</label>
 					<div class='input-group date'>
 
-						<h:inputText id="dateDebut" value="#{etudiantController.formation.dateDebut}"
+						<h:inputText id="dateDebut" value="#{inscriptionEtudiantController.formation.dateDebut}"
 						styleClass="form-control">
-						<f:convertDateTime pattern="dd/mm/yyyy" />
+						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:inputText>
 					<span class="input-group-addon"> <span
 						class="glyphicon glyphicon-calendar"></span>
@@ -371,9 +371,9 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 				<label for="dateFin">Date fin</label>
 				<div class='input-group date'>
 
-					<h:inputText id="dateFin" value="#{etudiantController.formation.dateFin}"
+					<h:inputText id="dateFin" value="#{inscriptionEtudiantController.formation.dateFin}"
 					styleClass="form-control">
-					<f:convertDateTime pattern="dd/mm/yyyy" />
+					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</h:inputText>
 				<span class="input-group-addon"> <span
 					class="glyphicon glyphicon-calendar"></span>
@@ -386,7 +386,7 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 		</div>
 
 		<div class="btn-group" role="group">
-			<h:commandButton action="#{etudiantController.ajouterFormation()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+			<h:commandButton action="#{inscriptionEtudiantController.ajouterFormation()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
 		</div>
 	</h:form>
 
@@ -408,7 +408,7 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 
 <!-- MODAL: détails expérience-->
 
-<c:forEach items="#{etudiantController.etudiant.qualifications}" var="experience" varStatus="statut">
+<c:forEach items="#{inscriptionEtudiantController.etudiant.qualifications}" var="experience" varStatus="statut">
 <c:if test="${experience['class'].simpleName == 'Experience'}">
 <div class="modal fade" id="detailsexperience-#{statut.count}" tabindex="-1"
 role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -434,14 +434,14 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 				<div class="form-group">
 					<label>Date début:
 						<h:outputText value="#{experience.dateDebut}">
-						<f:convertDateTime pattern="dd/mm/yyyy" />
+						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</label>
 			</div>
 			<div class="form-group">
 				<label>Date fin:
 					<h:outputText value="#{experience.dateFin}">
-					<f:convertDateTime pattern="dd/mm/yyyy" />
+					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</h:outputText>
 			</label>
 		</div>
@@ -473,8 +473,8 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 		<h:form>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		
-		<h:commandButton action="#{etudiantController.retirerExperience()}" styleClass="btn btn-danger btn-hover-green" value="Supprimer">
-		<f:setPropertyActionListener target="#{etudiantController.experience}" value="#{experience}" />
+		<h:commandButton action="#{inscriptionEtudiantController.retirerExperience()}" styleClass="btn btn-danger btn-hover-green" value="Supprimer">
+		<f:setPropertyActionListener target="#{inscriptionEtudiantController.experience}" value="#{experience}" />
 	</h:commandButton>
 </h:form>
 </div>
@@ -515,19 +515,19 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 				
 				<div class="form-group">
 					<label for="sujet">Sujet:</label> 
-					<h:inputText id="sujet" value="#{etudiantController.experience.sujet}" styleClass="form-control" />
+					<h:inputText id="sujet" value="#{inscriptionEtudiantController.experience.sujet}" styleClass="form-control" />
 				</div>
 				
 				<div class="form-group">
 					<label for="structureAccueil">Structure d'accueil:</label> 
-					<h:inputText id="structureAccueil" value="#{etudiantController.experience.structureAccueil}" styleClass="form-control" />
+					<h:inputText id="structureAccueil" value="#{inscriptionEtudiantController.experience.structureAccueil}" styleClass="form-control" />
 				</div>
 				<div class="form-group">
 					<label for="dateDebut">Date début</label>
 					<div class='input-group date'>
-						<h:inputText id="dateDebut" value="#{etudiantController.experience.dateDebut}"
+						<h:inputText id="dateDebut" value="#{inscriptionEtudiantController.experience.dateDebut}"
 						styleClass="form-control">
-						<f:convertDateTime pattern="dd/mm/yyyy" />
+						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:inputText>
 					<span class="input-group-addon"> <span
 						class="glyphicon glyphicon-calendar"></span>
@@ -537,9 +537,9 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 			<div class="form-group">
 				<label for="dateFin">Date fin</label>
 				<div class='input-group date'>
-					<h:inputText id="dateFin" value="#{etudiantController.experience.dateFin}"
+					<h:inputText id="dateFin" value="#{inscriptionEtudiantController.experience.dateFin}"
 					styleClass="form-control">
-					<f:convertDateTime pattern="dd/mm/yyyy" />
+					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</h:inputText>
 				<span class="input-group-addon"> <span
 					class="glyphicon glyphicon-calendar"></span>
@@ -549,16 +549,16 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 		
 		<div class="form-group">
 			<label for="responsabilite">Responsabilité</label> 
-			<h:inputText id="responsabilite" value="#{etudiantController.experience.responsabilite}" styleClass="form-control" />
+			<h:inputText id="responsabilite" value="#{inscriptionEtudiantController.experience.responsabilite}" styleClass="form-control" />
 		</div>
 		<div class="form-group">
 			<label for="typeExperience">Type d'expérience</label>
-			<h:inputText id="typeExperience" value="#{etudiantController.experience.typeExperience}" styleClass="form-control" />
+			<h:inputText id="typeExperience" value="#{inscriptionEtudiantController.experience.typeExperience}" styleClass="form-control" />
 		</div>
 		<div class="form-group">
 			<label for="salaire">Salaire</label>
 
-			<h:inputText id="salaire" value="#{etudiantController.experience.salaire}" styleClass="form-control">
+			<h:inputText id="salaire" value="#{inscriptionEtudiantController.experience.salaire}" styleClass="form-control">
 			<f:convertNumber minFractionDigits="2" />
 		</h:inputText>
 	</div>
@@ -568,7 +568,7 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 	</div>
 
 	<div class="btn-group" role="group">
-		<h:commandButton action="#{etudiantController.ajouterExperience()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+		<h:commandButton action="#{inscriptionEtudiantController.ajouterExperience()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
 	</div>
 </h:form>
 

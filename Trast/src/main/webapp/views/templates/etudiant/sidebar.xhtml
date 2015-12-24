@@ -21,17 +21,15 @@
                   <i class="fa fa-dashboard fa-lg"></i> Accueil
                   </a>
                 </li>
-
-                <li data-toggle="collapse" data-target="#profil" class="collapsed">
-                  <h:commandLink value = "Profil" action="#{etudiantControllerKhouloud.profileEtudiant}">
-					<i class="fa fa-user fa-lg"></i> Profil
-                  	<span class="arrow"></span>
-		          </h:commandLink>
-                
+				
+				<li data-toggle="collapse" data-target="#profil" class="collapsed">
+                  <a href="#">
+                  <i class="fa fa-user fa-lg"></i> Profil
+                  <span class="arrow"></span></a>
                   </li>
                   <ul class="sub-menu collapse" id="profil">
-                  <li>Mon profil</li>
-                  <li>Mes bids</li>
+                  <li><h:link outcome="/views/etudiant/profil.xhtml?faces-redirect=true" value="Mon profil" /></li>
+                  <li><h:link outcome="/views/etudiant/listeContrePropositions.xhtml?faces-redirect=true" value="Mes contre-propositions/bids" /></li>
                   <li>Ma galerie</li>
                 </ul>
 

@@ -14,9 +14,9 @@ import com.trast.dao.EntrepriseDAO;
 import com.trast.model.Adresse;
 import com.trast.model.Entreprise;
 
-@ManagedBean(name = "entrepriseController", eager = true)
+@ManagedBean(name = "inscriptionEntrepriseController", eager = true)
 @SessionScoped
-public class EntrepriseController implements Serializable {
+public class InscriptionEntrepriseController implements Serializable {
 
 	private static final long serialVersionUID = 1017995181310443923L;
 	// L'entreprise concernée

@@ -10,7 +10,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.trast.dao.AdresseDAO;
 import com.trast.dao.EtudiantDAO;
+import com.trast.dao.ExperienceDAO;
+import com.trast.dao.FormationDAO;
 import com.trast.model.Adresse;
 import com.trast.model.Etudiant;
 import com.trast.model.Experience;
@@ -20,21 +23,44 @@ import com.trast.model.Formation;
 @SessionScoped
 public class EtudiantController implements Serializable {
 
-	private static final long serialVersionUID = 1754286458443067247L;
+	private static final long serialVersionUID = -2165350133251436328L;
 
-	// L'étudiant concerné
-	@ManagedProperty(value = "#{etudiant}")
+	@ManagedProperty(value = "#{sessionScope.utilisateur}")
 	private Etudiant etudiant;
 
+	@ManagedProperty(value = "#{etudiantDao}")
+	private EtudiantDAO etudiantDao;
+
+	@ManagedProperty(value = "#{adresseDao}")
+	private AdresseDAO adresseDao;
+
+	@ManagedProperty(value = "#{formationDao}")
+	private FormationDAO formationDao;
+
+	@ManagedProperty(value = "#{experienceDao}")
+	private ExperienceDAO experienceDao;
+
+	// Utilisée pour récupérer les données d'une adresse lors de l'inscription
+	@ManagedProperty(value = "#{adresse}")
+	private Adresse adresse;
 	// Utilisée pour récupérer les données d'une formation lors de l'inscription
 	@ManagedProperty(value = "#{formation}")
 	private Formation formation;
 	// Utilisée pour récupérer les données d'une formation lors de l'inscription
 	@ManagedProperty(value = "#{experience}")
 	private Experience experience;
-	// Utilisée pour récupérer les données d'une adresse lors de l'inscription
-	@ManagedProperty(value = "#{adresse}")
-	private Adresse adresse;
+
+	private String motDePasse;
+	
+	
+	
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
 
 	public Etudiant getEtudiant() {
 		return etudiant;
@@ -42,6 +68,46 @@ public class EtudiantController implements Serializable {
 
 	public void setEtudiant(Etudiant etudiant) {
 		this.etudiant = etudiant;
+	}
+
+	public Adresse getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
+	}
+
+	public EtudiantDAO getEtudiantDao() {
+		return etudiantDao;
+	}
+
+	public void setEtudiantDao(EtudiantDAO etudiantDao) {
+		this.etudiantDao = etudiantDao;
+	}
+
+	public AdresseDAO getAdresseDao() {
+		return adresseDao;
+	}
+
+	public void setAdresseDao(AdresseDAO adresseDao) {
+		this.adresseDao = adresseDao;
+	}
+
+	public FormationDAO getFormationDao() {
+		return formationDao;
+	}
+
+	public void setFormationDao(FormationDAO formationDao) {
+		this.formationDao = formationDao;
+	}
+
+	public ExperienceDAO getExperienceDao() {
+		return experienceDao;
+	}
+
+	public void setExperienceDao(ExperienceDAO experienceDao) {
+		this.experienceDao = experienceDao;
 	}
 
 	public Formation getFormation() {
@@ -60,48 +126,15 @@ public class EtudiantController implements Serializable {
 		this.experience = experience;
 	}
 
-	public Adresse getAdresse() {
-		return adresse;
-	}
-
-	public void setAdresse(Adresse adresse) {
-		this.adresse = adresse;
-	}
-
-	// La méthode appelée quand l'étudiant ajoute une formation à sa liste des
-	// formations
-	public void ajouterFormation() {
-		formation.setEtudiant(etudiant);
-		etudiant.getQualifications().add(formation);
-		// Réinitialiser la formation par une nouvelle instance vide
-		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-		formation = (Formation) context.getBean("formation");
-		((ConfigurableApplicationContext) context).close();
-	}
-
-	// La méthode appelée quand l'étudiant ajoute une expérience à sa liste
-	public void ajouterExperience() {
-		experience.setEtudiant(etudiant);
-		etudiant.getQualifications().add(experience);
-		// Réinitialiser l'experience par une nouvelle instance vide
-		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-		experience = (Experience) context.getBean("experience");
-		((ConfigurableApplicationContext) context).close();
-	}
-
-	// La méthode appelée quand l'étudiant retire une formation
-	public void retirerFormation() {
-		etudiant.getQualifications().remove(formation);
-	}
-
-	// La méthode appelée quand l'étudiant retire une experience
-	public void retirerExperience() {
-		etudiant.getQualifications().remove(experience);
-	}
-
 	// La méthode appelée quand l'étudiant ajoute une adresse à sa liste
 	public void ajouterAdresse() {
+		adresse.setUtilisateur(etudiant);
+
+		// Mettre à jour l'étudiant
+		adresseDao.ajouterAdresse(adresse);
+
 		etudiant.getAdresses().add(adresse);
+
 		// Réinitialiser l'experience par une nouvelle instance vide
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		adresse = (Adresse) context.getBean("adresse");
@@ -111,22 +144,83 @@ public class EtudiantController implements Serializable {
 	// La méthode appelée quand l'étudiant retire une adresse
 	public void retirerAdresse() {
 		etudiant.getAdresses().remove(adresse);
+
+		adresse.setUtilisateur(null);
+		adresseDao.modifierAdresse(adresse);
+		adresseDao.supprimerAdresse(adresse.getId());
+
+		// Réinitialiser l'experience par une nouvelle instance vide
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		adresse = (Adresse) context.getBean("adresse");
+		((ConfigurableApplicationContext) context).close();
+	}
+
+	// La méthode appelée quand l'étudiant ajoute une formation à sa liste des
+	// formations
+	public void ajouterFormation() {
+		formation.setEtudiant(etudiant);
+		etudiant.getQualifications().add(formation);
+
+		formationDao.ajouterFormation(formation);
+
+		// Réinitialiser la formation par une nouvelle instance vide
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		formation = (Formation) context.getBean("formation");
+		((ConfigurableApplicationContext) context).close();
+	}
+
+	// La méthode appelée quand l'étudiant retire une formation
+	public void retirerFormation() {
+		etudiant.getQualifications().remove(formation);
+
+		formation.setEtudiant(null);
+		formationDao.modifierFormation(formation);
+		
+		formationDao.supprimerFormation(formation.getId());
+
+		// Réinitialiser la formation par une nouvelle instance vide
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		formation = (Formation) context.getBean("formation");
+		((ConfigurableApplicationContext) context).close();
+	}
+
+	// La méthode appelée quand l'étudiant ajoute une expérience à sa liste
+	public String ajouterExperience() {
+		
+		experience.setEtudiant(etudiant);
+		etudiant.getQualifications().add(experience);
+		
+		experienceDao.ajouterExperience(experience);
+		
+		// Réinitialiser l'experience par une nouvelle instance vide
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		experience = (Experience) context.getBean("experience");
+		((ConfigurableApplicationContext) context).close();
+		return "/views/etudiant/profil.xhtml";
+	}
+
+	// La méthode appelée quand l'étudiant retire une experience
+	public void retirerExperience() {
+		etudiant.getQualifications().remove(experience);
+		
+		experience.setEtudiant(null);
+		experienceDao.modifierExperience(experience);
+		
+		experienceDao.supprimerExperience(experience.getId());
+
+		// Réinitialiser l'experience par une nouvelle instance vide
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		experience = (Experience) context.getBean("experience");
+		((ConfigurableApplicationContext) context).close();
 	}
 	
-	// La méthode appelée quand l'étudiant valide son inscription
-	public void inscrire()
+	public void modifierEtudiant()
 	{
-		System.out.println("Inscription en cours ...");
-		//Récupérer le DAO de l'étudiant et l'insérer dans la bdd
-		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-		EtudiantDAO etudiantDAO = (EtudiantDAO) context.getBean("etudiantDao");
+		if(motDePasse != null)
+			if(!motDePasse.equals(""))
+				etudiant.setMotDePasse(motDePasse);
 		
-		etudiantDAO.ajouterEtudiant(etudiant);
-		
-		//Réinitialiser l'étudiant
-		etudiant = (Etudiant) context.getBean("etudiant");
-		((ConfigurableApplicationContext) context).close();
-		System.out.println("Inscription réussie.");
+		etudiantDao.modifierEtudiant(etudiant);
 	}
 
 }

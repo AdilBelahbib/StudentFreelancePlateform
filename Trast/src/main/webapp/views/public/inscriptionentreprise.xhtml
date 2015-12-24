@@ -44,7 +44,7 @@ template="../templates/common.xhtml">
 					<div class="col-md-10">
 						<div class="form-group">
 							<label for="sigle">Sigle</label>
-							<h:inputText id="sigle" value="#{entrepriseController.entreprise.sigle}" styleClass="form-control" />
+							<h:inputText id="sigle" value="#{inscriptionEntrepriseController.entreprise.sigle}" styleClass="form-control" />
 						</div>
 					</div>
 				</div>
@@ -53,7 +53,7 @@ template="../templates/common.xhtml">
 					<div class="col-md-10">
 						<div class="form-group">
 							<label for="apercu">Aperçu</label>
-							<h:inputTextarea id="apercu" value="#{entrepriseController.entreprise.apercu}" styleClass="form-control" />
+							<h:inputTextarea id="apercu" value="#{inscriptionEntrepriseController.entreprise.apercu}" styleClass="form-control" />
 						</div>
 					</div>
 				</div>
@@ -62,7 +62,7 @@ template="../templates/common.xhtml">
 					<div class="col-md-5">
 						<div class="form-group">
 							<label for="email">Adresse Email</label>
-							<h:inputText id="email" value="#{entrepriseController.entreprise.email}" styleClass="form-control" />
+							<h:inputText id="email" value="#{inscriptionEntrepriseController.entreprise.email}" styleClass="form-control" />
 						</div>
 					</div>
 				</div>
@@ -71,7 +71,7 @@ template="../templates/common.xhtml">
 					<div class="col-md-5">
 						<div class="form-group">
 							<label for="motDePasse">Mot de passe</label>
-							<h:inputSecret id="motDePasse" value="#{entrepriseController.entreprise.motDePasse}" styleClass="form-control" />
+							<h:inputSecret id="motDePasse" value="#{inscriptionEntrepriseController.entreprise.motDePasse}" styleClass="form-control" />
 						</div>
 					</div>
 					<div class="col-md-5">
@@ -92,12 +92,12 @@ template="../templates/common.xhtml">
 									<th>Adresses</th>
 								</tr>
 
-								<c:forEach items="#{entrepriseController.entreprise.adresses}" var="adresse" varStatus="statut">
+								<c:forEach items="#{inscriptionEntrepriseController.entreprise.adresses}" var="adresse" varStatus="statut">
 								<tr>
 									<td>#{adresse.adresse} #{adresse.ville} #{adresse.pays}</td>
 									<td>
-										<h:commandButton action="#{entrepriseController.retirerAdresse()}" styleClass="close">
-										<f:setPropertyActionListener target="#{entrepriseController.adresse}" value="#{adresse}" />
+										<h:commandButton action="#{inscriptionEntrepriseController.retirerAdresse()}" styleClass="close">
+										<f:setPropertyActionListener target="#{inscriptionEntrepriseController.adresse}" value="#{adresse}" />
 									</h:commandButton>
 								</td>
 							</tr>
@@ -127,14 +127,14 @@ template="../templates/common.xhtml">
 					<th>Secteur d'activté</th>
 				</tr>
 				
-				<c:forEach items="#{entrepriseController.entreprise.secteurActivites}" var="secteur" varStatus="statut">
+				<c:forEach items="#{inscriptionEntrepriseController.entreprise.secteurActivites}" var="secteur" varStatus="statut">
 				
 				<tr>
 					<td>#{secteur}</td>
 					<td>
 
-						<h:commandButton action="#{entrepriseController.retirerSecteurActivites()}" styleClass="close" value="x">
-						<f:setPropertyActionListener target="#{entrepriseController.secteurActivites}" value="#{secteur}" />
+						<h:commandButton action="#{inscriptionEntrepriseController.retirerSecteurActivites()}" styleClass="close" value="x">
+						<f:setPropertyActionListener target="#{inscriptionEntrepriseController.secteurActivites}" value="#{secteur}" />
 					</h:commandButton>
 			</td>
 		</tr>
@@ -170,7 +170,7 @@ type="button">Suivant</button>
 		<div class="col-md-12">
 			<h3>Step 4</h3>
 			
-			<h:commandButton action="#{entrepriseController.inscrire()}" styleClass="btn btn-success btn-lg pull-right" value="Je valide!"/>
+			<h:commandButton action="#{inscriptionEntrepriseController.inscrire()}" styleClass="btn btn-success btn-lg pull-right" value="Je valide!"/>
 
 		</div>
 	</div>
@@ -200,22 +200,22 @@ type="button">Suivant</button>
 				<div class="form-group">
 					<label for="adresse">Adresse</label>
 					<div class='input-group date'>
-						<h:inputText id="adresse" value="#{entrepriseController.adresse.adresse}" styleClass="form-control" />
+						<h:inputText id="adresse" value="#{inscriptionEntrepriseController.adresse.adresse}" styleClass="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="ville">Ville</label>
 					<div class='input-group date'>
-						<h:inputText id="ville" value="#{entrepriseController.adresse.ville}" styleClass="form-control" />
+						<h:inputText id="ville" value="#{inscriptionEntrepriseController.adresse.ville}" styleClass="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="pays">Pays</label>
-					<h:inputText id="pays" value="#{entrepriseController.adresse.pays}" styleClass="form-control" />
+					<h:inputText id="pays" value="#{inscriptionEntrepriseController.adresse.pays}" styleClass="form-control" />
 				</div>
 
 				<div class="btn-group" role="group">
-					<h:commandButton action="#{entrepriseController.ajouterAdresse()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+					<h:commandButton action="#{inscriptionEntrepriseController.ajouterAdresse()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
 				</div>
 
 			</h:form>
@@ -254,11 +254,11 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 
 				<div class="form-group">
 					<label for="secteurActivite">Secteur d'activité</label>
-					<h:inputText id="secteurActivite" value="#{entrepriseController.secteurActivites}" styleClass="form-control" />
+					<h:inputText id="secteurActivite" value="#{inscriptionEntrepriseController.secteurActivites}" styleClass="form-control" />
 				</div>
 
 				<div class="btn-group" role="group">
-					<h:commandButton action="#{entrepriseController.ajouterSecteurActivites()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+					<h:commandButton action="#{inscriptionEntrepriseController.ajouterSecteurActivites()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
 				</div>
 			</h:form>
 

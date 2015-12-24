@@ -9,6 +9,7 @@ public class Adresse implements Serializable{
 	private String ville;
 	private String pays;
 	private String adresse;
+	private Utilisateur utilisateur;
 	
 	public Adresse(){
 	}
@@ -80,5 +81,12 @@ public class Adresse implements Serializable{
 		this.adresse = adresse;
 	}
 
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
 	
 }

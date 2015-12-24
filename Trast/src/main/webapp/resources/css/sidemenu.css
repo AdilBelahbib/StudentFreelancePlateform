@@ -5,7 +5,7 @@
   font-weight: 200;
   background-color: #2e353d;
   position: absolute;
-  width: 250px;
+  width: 270px;
   height: 100%;
   color: #e1ffff;
   float: left;
@@ -15,7 +15,7 @@
   line-height: 50px;
   display: block;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
 }
 .nav-side-menu .toggle-btn {
   display: none;

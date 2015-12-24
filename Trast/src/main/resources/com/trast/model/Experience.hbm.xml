@@ -14,8 +14,8 @@
         <property name="structureAccueil" type="java.lang.String">
             <column name="STRUCTUREACCUEIL" />
         </property>
-        <property name="salaire" type="java.lang.Double">
-            <column name="SALAIRE" />
+        <property name="salaire" type="java.lang.Double" not-null="false">
+            <column name="SALAIRE" not-null="false"/>
         </property>
         <property name="typeExperience" type="java.lang.String">
             <column name="TYPEEXPERIENCE" />
