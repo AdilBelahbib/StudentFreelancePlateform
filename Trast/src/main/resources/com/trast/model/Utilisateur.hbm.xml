@@ -22,7 +22,7 @@
 			</key>
 			<one-to-many class="Fichier" />
 		</set>
-		<set name="adresses" table="ADRESSE" inverse="false" lazy="true" cascade="all">
+		<set name="adresses" table="ADRESSE" inverse="false" lazy="false" cascade="all">
 			<key>
 				<column name="idUtilisateur" />
 			</key>

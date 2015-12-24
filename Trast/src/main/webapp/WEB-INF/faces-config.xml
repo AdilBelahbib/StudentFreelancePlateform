@@ -36,4 +36,29 @@
                <redirect></redirect>
         </navigation-case>      
        </navigation-rule>
+       
+      	<!--navigation­rule for etudiant -->
+       <navigation-rule>
+         
+           <!-- navigation­case for method profil() -->
+           <navigation-case>
+               <from-action>#{etudiantControllerKhouloud.profileEtudiant}</from-action>
+               <from-outcome>profil</from-outcome>
+               <to-view-id>/views/etudiant/profil.xhtml</to-view-id>
+           </navigation-case>
+        
+       </navigation-rule>
+       
+       
+       <!--navigation­rule for appelOffre -->
+       <navigation-rule>
+         
+           <!-- navigation­case for method listerProfil() -->
+           <navigation-case>
+               <from-action>#{appelOffreControllerKhouloud.listerAppelOffres}</from-action>
+               <from-outcome>listeAppelOffres</from-outcome>
+               <to-view-id>/views/etudiant/listeAppelOffres.xhtml</to-view-id>
+           </navigation-case>
+        
+       </navigation-rule>
 </faces-config>

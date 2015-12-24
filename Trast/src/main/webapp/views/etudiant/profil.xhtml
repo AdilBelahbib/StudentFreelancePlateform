@@ -1,0 +1,154 @@
+
+<ui:composition template="../templates/common.xhtml"
+xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="content"> 
+<h:form enctype="multipart/form-data">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+<div class="container">
+    <h1>Profil</h1>
+  
+	<div class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="" class="avatar img-circle" alt="avatar"/>
+          <h6>Modifier votre photo de profil</h6>
+          
+          <h:inputFile class="form-control"/>
+        </div>
+      </div>
+      
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        <h3>Informations personnelles</h3>
+        
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Nom:</label>
+            <div class="col-lg-8">
+              <h:outputText class="form-control" value="#{sessionScope.utilisateur.nom}">
+              </h:outputText>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Prénom:</label>
+            <div class="col-lg-8">
+              <h:outputText class="form-control" value="#{sessionScope.utilisateur.prenom}">
+              </h:outputText>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Date de naissance:</label>
+            <div class="col-lg-8">
+              <h:outputText class="form-control" value="#{sessionScope.utilisateur.dateNaissance}">
+              </h:outputText>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-8">
+              <h:outputText class="form-control" value="#{sessionScope.utilisateur.email}">
+              </h:outputText>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <h:commandButton class="btn btn-primary" value="Modifier">
+              </h:commandButton>
+            </div>
+          </div>
+        </form>
+      </div>
+	
+
+	  <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        <h3>Formations </h3>
+        
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Intitulé:</label>
+            <div class="col-lg-8">
+              <h:outputText class="form-control" value="#{sessionScope.utilisateur}">
+              </h:outputText>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Etablissement:</label>
+            <div class="col-lg-8">
+              <h:outputText class="form-control" value="#{sessionScope.utilisateur}">
+              </h:outputText>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <h:commandButton class="btn btn-primary" value="Ajouter">
+              </h:commandButton>
+              <span></span>
+              <h:commandButton class="btn btn-default" value="Supprimer">
+              </h:commandButton>
+            </div>
+          </div>
+        </form>
+      </div>
+	  
+	  <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        <h3>Expériences professionnelles</h3>
+        
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Structure d'accueil:</label>
+            <div class="col-lg-8">
+              <h:outputText class="form-control" value="#{sessionScope.utilisateur}">
+              </h:outputText>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">sujet:</label>
+            <div class="col-lg-8">
+              <h:outputText class="form-control" value="#{sessionScope.utilisateur}">
+              </h:outputText>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Date début:</label>
+            <div class="col-lg-8">
+              <h:outputText class="form-control" value="">
+              </h:outputText>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Date fin:</label>
+            <div class="col-lg-8">
+              <h:outputText class="form-control" value="">
+              </h:outputText>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <h:commandButton class="btn btn-primary" value="Ajouter">
+              </h:commandButton>
+              <span></span>
+              <h:commandButton class="btn btn-default" value="Supprimer">
+              </h:commandButton>
+            </div>
+          </div>
+        </form>
+      </div>
+	  
+	  
+  </div>
+</div>
+
+</h:form>
+</ui:define>
+</ui:composition>

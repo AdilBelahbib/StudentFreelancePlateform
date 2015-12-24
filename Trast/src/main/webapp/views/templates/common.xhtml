@@ -31,9 +31,15 @@
 			<ui:include src="/views/templates/etudiant/header.xhtml">
 			</ui:include>
 		</ui:insert>
-		<ui:insert name="content">
-			<ui:include src="/views/templates/etudiant/content.xhtml" />
+		<ui:insert name="sidebar">
+			<ui:include src="/views/templates/etudiant/sidebar.xhtml">
+			</ui:include>
 		</ui:insert>
+		<aside>
+			<ui:insert name="content">
+				<ui:include src="/views/templates/etudiant/content.xhtml" />
+			</ui:insert>
+		</aside>
 		<ui:insert name="footer">
 			<ui:include src="/views/templates/etudiant/footer.xhtml" />
 		</ui:insert>
