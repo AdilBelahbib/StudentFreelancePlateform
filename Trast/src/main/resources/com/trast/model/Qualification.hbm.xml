@@ -16,18 +16,18 @@
         <property name="dateFin" type="java.util.Date">
             <column name="DATEFIN" />
         </property>
-        <many-to-one name="etudiant" class="Etudiant" fetch="join" not-null="false">
+        <many-to-one name="etudiant" class="Etudiant" fetch="join" not-null="false" lazy="false">
             <column name="idEtudiant" />
         </many-to-one>
         
-        <set name="fichiers" table="FICHIER" inverse="false" lazy="true">
+        <set name="fichiers" table="FICHIER" inverse="false" lazy="false">
             <key>
                 <column name="idQualification" />
             </key>
             <one-to-many class="Fichier" />
         </set>
         
-        <many-to-one name="appelOffre" class="AppelOffre" fetch="join" not-null="false">
+        <many-to-one name="appelOffre" class="AppelOffre" fetch="join" not-null="false" lazy="false">
             <column name="idAppelOffre" />
         </many-to-one>
         

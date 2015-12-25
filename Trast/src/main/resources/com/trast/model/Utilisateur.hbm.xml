@@ -16,7 +16,7 @@
 		<property name="motDePasse" type="java.lang.String">
 			<column name="MOTDEPASSE" />
 		</property>
-		<set name="fichiers" table="FICHIER" inverse="false" lazy="true">
+		<set name="fichiers" table="FICHIER" inverse="false" lazy="false">
 			<key>
 				<column name="idUtilisateur" />
 			</key>
@@ -29,7 +29,7 @@
 			<one-to-many class="Adresse" />
 		</set>
 		
-		<many-to-one name="roleUtilisateur" class="RoleUtilisateur" fetch="join">
+		<many-to-one name="roleUtilisateur" class="RoleUtilisateur" fetch="join" lazy="false">
             <column name="idrole" />
         </many-to-one>
 
@@ -90,7 +90,7 @@
 			<subclass name="Etudiant" discriminator-value="ETU">
 
 				<set name="niveaux" table="etudiant_competence" inverse="true"
-					lazy="true" cascade="all">
+					lazy="false" cascade="all">
 					<key>
 						<column name="idEtudiant" />
 					</key>
@@ -113,7 +113,7 @@
 					<one-to-many class="ContreProposition" />
 				</set>
 
-				<set name="projets" table="PROJET" inverse="true" lazy="true"
+				<set name="projets" table="PROJET" inverse="true" lazy="false"
 					access="field">
 					<key>
 						<column name="idEtudiant" />

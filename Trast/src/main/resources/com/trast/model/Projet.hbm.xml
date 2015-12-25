@@ -25,10 +25,10 @@
 			</type>
 		</property>
         
-        <many-to-one name="etudiant" class="com.trast.model.Etudiant" access="field" fetch="join">
+        <many-to-one name="etudiant" class="com.trast.model.Etudiant" access="field" fetch="join" lazy="false">
             <column name="idEtudiant" />
         </many-to-one>
-        <many-to-one name="cahierDesCharges" class="com.trast.model.CahierDesCharges" access="field" fetch="join">
+        <many-to-one name="cahierDesCharges" class="com.trast.model.CahierDesCharges" access="field" fetch="join" lazy="false">
             <column name="idCahierDesCharges" />
         </many-to-one>
     </class>

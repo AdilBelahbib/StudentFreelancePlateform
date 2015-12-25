@@ -32,14 +32,21 @@ public class AppelOffreControllerKhouloud implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManagedProperty(value ="#{sessionScope.appelOffre}")
+	@ManagedProperty(value ="#{appelOffre}")
 	private AppelOffre appelOffre;
 	
-	@ManagedProperty(value = "#{sessionScope.appelOffreDao}")
+	@ManagedProperty(value = "#{appelOffreDao}")
 	private AppelOffreDAO appelOffreDao;
 	//LISTES DES APPELS D'OFFRE
 	@ManagedProperty(value = "#{listes}")
 	private List<AppelOffre> listes;
+	
+	//etudiant connecté
+	@ManagedProperty(value = "#{sessionScope.utilisateur}")
+	private Etudiant etudiant;
+	
+	@ManagedProperty(value = "#{etudiantDao}")
+	private EtudiantDAO etudiantDao;
 	
 	/*
 	 * Instance contreProposition pour:
@@ -52,6 +59,22 @@ public class AppelOffreControllerKhouloud implements Serializable{
 	@ManagedProperty(value = "#{contrePropositionDao}")
 	private ContrePropositionDAO contrePropositionDao;
 	
+	public EtudiantDAO getEtudiantDao() {
+		return etudiantDao;
+	}
+
+	public void setEtudiantDao(EtudiantDAO etudiantDao) {
+		this.etudiantDao = etudiantDao;
+	}
+
+	public Etudiant getEtudiant() {
+		return etudiant;
+	}
+
+	public void setEtudiant(Etudiant etudiant) {
+		this.etudiant = etudiant;
+	}
+
 	public ContrePropositionDAO getContrePropositionDao() {
 		return contrePropositionDao;
 	}
@@ -111,30 +134,29 @@ public class AppelOffreControllerKhouloud implements Serializable{
 	 * d'un appel d'offre.
 	 */
 	public String enregistrerContreProposition() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		//ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-				.getRequest();
-		//Récupérer l'étudiant connecté
-		HttpSession session = request.getSession();
-		Etudiant etudiant = (Etudiant) session.getAttribute("utilisateur");
-		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
+		
 		//Reduire le nombre de bids de l'étudiant
 		etudiant.setNombreBids(etudiant.getNombreBids() - 1);
-		etudiantDao.modifierEtudiant(etudiant);
+		
 		
 		//Initialiser les paramètres de l'instance contreProposition
 		contreProposition.setEtudiant(etudiant);
 		contreProposition.setAppelOffre(appelOffre);
 		appelOffre.getContrePropositions().add(contreProposition);
+		etudiant.getContrePropositions().add(contreProposition);
 		
+		//session.setAttribute("utilisateur", etudiant);
 		//Ajouter unecontreProposition
 		contrePropositionDao.ajouterContreProposition(contreProposition);
+		etudiantDao.modifierEtudiant(etudiant);
 		//modifier l appel d'offre par le nouveau
 		//appelOffreDao.modifierAppelOffre(appelOffre);
+		
 		// réinitialisation de l'instance de contreProposition, vide
-		contreProposition = (ContreProposition) context.getBean("contreProposition");
-		((ConfigurableApplicationContext) context).close();
+		//contreProposition = (ContreProposition) context.getBean("contreProposition");
+		//((ConfigurableApplicationContext) context).close();
 		return "listeAppelOffre";
 	}
 	
