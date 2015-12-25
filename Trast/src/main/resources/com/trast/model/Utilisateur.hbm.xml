@@ -41,6 +41,14 @@
 				</key>
 				<one-to-many class="AppelOffre" />
 			</set>
+			
+			<set name="projets" table="projet" inverse="true" lazy="false">
+				<key>
+					<column name="idEntreprise" />
+				</key>
+				<one-to-many class="Projet" />
+			</set>
+			
 			<set name="secteurActivites" table="secteur_activite" inverse="false"
 				lazy="false">
 				<key>

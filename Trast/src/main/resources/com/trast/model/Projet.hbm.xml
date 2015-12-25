@@ -31,5 +31,10 @@
         <many-to-one name="cahierDesCharges" class="com.trast.model.CahierDesCharges" access="field" fetch="join">
             <column name="idCahierDesCharges" />
         </many-to-one>
+        
+        <many-to-one name="entreprise" class="com.trast.model.Entreprise" access="field" fetch="join" lazy="false">
+            <column name="idEntreprise" />
+        </many-to-one>
+        
     </class>
 </hibernate-mapping>
