@@ -4,7 +4,6 @@ public class Projet {
 	private Long id;
 	private Etudiant etudiant;
 	private CahierDesCharges cahierDesCharges;
-	private Entreprise entreprise;
 	private EtatProjet statut;
 	private double cout;
 	private String devise;
@@ -12,20 +11,15 @@ public class Projet {
 	public Projet() {
 	}
 
-	
-
-	public Projet(Long id, Etudiant etudiant, CahierDesCharges cahierDesCharges, Entreprise entreprise,
-			EtatProjet statut, double cout, String devise) {
+	public Projet(Long id, Etudiant etudiant, CahierDesCharges cahierDesCharges, EtatProjet statut, double cout,
+			String devise) {
 		this.id = id;
 		this.etudiant = etudiant;
 		this.cahierDesCharges = cahierDesCharges;
-		this.entreprise = entreprise;
 		this.statut = statut;
 		this.cout = cout;
 		this.devise = devise;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -74,18 +68,6 @@ public class Projet {
 	public void setDevise(String devise) {
 		this.devise = devise;
 	}
-	
-	public Entreprise getEntreprise() {
-		return entreprise;
-	}
-
-
-
-	public void setEntreprise(Entreprise entreprise) {
-		this.entreprise = entreprise;
-	}
-
-
 
 	@Override
 	public int hashCode() {
