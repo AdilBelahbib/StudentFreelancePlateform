@@ -10,23 +10,31 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.trast.dao.AdresseDAO;
 import com.trast.dao.EntrepriseDAO;
 import com.trast.model.Adresse;
 import com.trast.model.Entreprise;
 
-@ManagedBean(name = "inscriptionEntrepriseController", eager = true)
+@ManagedBean(name = "entrepriseController", eager = true)
 @SessionScoped
-public class InscriptionEntrepriseController implements Serializable {
+public class EntrepriseController implements Serializable {
 
-	private static final long serialVersionUID = 1017995181310443923L;
-	// L'entreprise concernée
-	@ManagedProperty(value = "#{entreprise}")
+	private static final long serialVersionUID = 6158707672711389644L;
+
+	@ManagedProperty(value = "#{sessionScope.utilisateur}")
 	private Entreprise entreprise;
-	// Utilisée pour récupérer les données d'une adresse lors de l'inscription
+
 	@ManagedProperty(value = "#{adresse}")
 	private Adresse adresse;
-	// Utilisée pour récupérer le secteur d'activités saisi
+
+	@ManagedProperty(value = "#{entrepriseDao}")
+	private EntrepriseDAO entrepriseDao;
+
+	@ManagedProperty(value = "#{adresseDao}")
+	private AdresseDAO adresseDao;
+
 	private String secteurActivites;
+	private String motDePasse;
 
 	public Entreprise getEntreprise() {
 		return entreprise;
@@ -51,10 +59,39 @@ public class InscriptionEntrepriseController implements Serializable {
 	public void setSecteurActivites(String secteurActivites) {
 		this.secteurActivites = secteurActivites;
 	}
+	
+	public EntrepriseDAO getEntrepriseDao() {
+		return entrepriseDao;
+	}
+
+	public void setEntrepriseDao(EntrepriseDAO entrepriseDao) {
+		this.entrepriseDao = entrepriseDao;
+	}
+
+	public AdresseDAO getAdresseDao() {
+		return adresseDao;
+	}
+
+	public void setAdresseDao(AdresseDAO adresseDao) {
+		this.adresseDao = adresseDao;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
 
 	// La méthode appelée quand l'entreprise ajoute une adresse à sa liste
 	public void ajouterAdresse() {
+		adresse.setUtilisateur(entreprise);
+		adresseDao.ajouterAdresse(adresse);
+		
+		// Mettre à jour l'entreprise
 		entreprise.getAdresses().add(adresse);
+
 		// Réinitialiser l'experience par une nouvelle instance vide
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		adresse = (Adresse) context.getBean("adresse");
@@ -64,30 +101,40 @@ public class InscriptionEntrepriseController implements Serializable {
 	// La méthode appelée quand l'entreprise retire une adresse
 	public void retirerAdresse() {
 		entreprise.getAdresses().remove(adresse);
+		
+		adresse.setUtilisateur(null);
+		adresseDao.modifierAdresse(adresse);
+		adresseDao.supprimerAdresse(adresse.getId());
+
+		// Réinitialiser l'experience par une nouvelle instance vide
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		adresse = (Adresse) context.getBean("adresse");
+		((ConfigurableApplicationContext) context).close();
 	}
 
 	// La méthode appelée quand l'entreprise ajoute un secteur d'activités
 	public void ajouterSecteurActivites() {
 		entreprise.getSecteurActivites().add(secteurActivites);
+		
+		entrepriseDao.modifierEntreprise(entreprise);
+		
 		secteurActivites = new String();
 	}
 
 	// La méthode appelée quand l'entreprise retire un secteur d'activités
 	public void retirerSecteurActivites() {
 		entreprise.getSecteurActivites().remove(secteurActivites);
-	}
-
-	// La méthode appelée quand l'entreprise valide son inscription
-	public void inscrire() {
-		// Récupérer le DAO de l'entreprise et l'insérer dans la bdd
-		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-		EntrepriseDAO entrepriseDAO = (EntrepriseDAO) context.getBean("entrepriseDao");
-
-		entrepriseDAO.ajouterEntreprise(entreprise);
-
-		// Réinitialiser l'entreprise
-		entreprise = (Entreprise) context.getBean("entreprise");
-		((ConfigurableApplicationContext) context).close();
+		
+		entrepriseDao.modifierEntreprise(entreprise);
 	}
 	
+	public void modifierEntreprise()
+	{
+		if(motDePasse != null)
+			if(!motDePasse.equals(""))
+				entreprise.setMotDePasse(motDePasse);
+		
+		entrepriseDao.modifierEntreprise(entreprise);
+	}
+
 }

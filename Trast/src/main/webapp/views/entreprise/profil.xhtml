@@ -1,65 +1,288 @@
 
-<ui:composition
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 xmlns:ui="http://java.sun.com/jsf/facelets" 
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml">
-         		
-         <ui:define name="content">
-         <h:form>
-            <div>
-				<div class="row">
-				    <div class="col-md-offset-1 ">
-						<h2>Mon profil</h2>
 
-						<table class="table table-striped table-hover">	
-						<tr>
-							<td>Sigle :</td>
-							<td>#{entrepriseControllerNassima.entreprise.sigle}</td>
-						</tr>
-						<tr>
-							<td>Email :</td>
-							<td>#{entrepriseControllerNassima.entreprise.email}</td>							
-						</tr>
-						<tr>
-							<td>Secteurs d'activite :</td>
-							<td>
-							<h:dataTable value="#{entrepriseControllerNassima.entreprise.secteurActivites}" var="secteur" >
-								<h:column>
-									#{secteur}
-								</h:column>
-							</h:dataTable>
-							</td>
-			
-						</tr>
-						<tr>
-							<td>Apercu:</td>
-							<td><p>#{entrepriseControllerNassima.entreprise.apercu}</p></td>
-							
-						</tr>
-						</table>
-				</div>
-			</div>
-		</div>
-		<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
-		<div class="row">
-    		<div class="col-md-offset-7 col-md-2">
-    			<h:commandLink class="btn btn-primary" value="Modifier Profil" action="#{entrepriseControllerNassima.modifierProfil}"> 
-					<f:param name="requete" value="get" />
-				</h:commandLink>
-    		</div>
-    		
-    		<div class="col-md-2">
-    			<h:commandLink class="btn btn-primary" value="Modifier Compte"  action="#{entrepriseControllerNassima.modifierCompte}"> 
-					<f:param name="requete" value="get" />
-				</h:commandLink>
-    		</div>
+<ui:define name="content">
+<div class="container">
+  
+  <h1>Profil</h1>
+  
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-3">
+      <div class="text-center">
+        <img src="" class="avatar img-circle" alt="avatar"/>
+        <h6>Modifier votre photo de profil</h6>
+        
+        <h:inputFile class="form-control"/>
+      </div>
+    </div>
+    
+    <!-- edit form column -->
+    <div class="col-md-9 personal-info">
+      <h3>Informations générales</h3>
+      
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">SIGLE:</label>
+          <h:outputText value="#{sessionScope.utilisateur.sigle}" />
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Aperçu:</label>
+          <h:outputText value="#{sessionScope.utilisateur.apercu}" />
+        </div>
+        
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email:</label>
+          <h:outputText value="#{sessionScope.utilisateur.email}" />
+        </div>
+        
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Etat:</label>
+          
+          <c:choose>
+          <c:when test="#{sessionScope.utilisateur.etatCompte == 'EN_ATTENTE'}">En attente d'activation</c:when>
+          <c:otherwise>Activé</c:otherwise>
+        </c:choose>
+      </div>
+      <div class="form-group">
+        <div class="col-md-12">
+          <button data-toggle="modal" data-target="#modifierinfos" class="btn btn-default" type="button" >Modifier</button>
+        </div>
+      </div>
+    </form>
+  </div>
 
-		</div>
-		
-		</h:form>
-     </ui:define> 
-         
-     <ui:define name="footer">
-         </ui:define>			
-     </ui:composition> 
+  <!-- LES ADRESSES -->
+  <div class="col-md-9 personal-info">
+    <h3>Adresses</h3>
+    <div class="col-md-10">
+     <div class="form-group">
+      <button data-toggle="modal" data-target="#ajoutadresse" class="btn btn-default btn-lg pull-right" type="button" >+</button>
+      <h:form enctype="multipart/form-data">
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      
+      <table class="table table-striped table-hover">
+       <tr>
+        <th>Adresses</th>
+      </tr>
+
+      <c:forEach items="#{sessionScope.utilisateur.adresses}" var="adresse" varStatus="statut">
+      <tr>
+        <td>#{adresse.adresse} #{adresse.ville} #{adresse.pays}</td>
+        <td>          
+          <h:commandButton action="#{entrepriseController.retirerAdresse()}" styleClass="close">
+          <f:setPropertyActionListener target="#{entrepriseController.adresse}" value="#{adresse}" />
+        </h:commandButton>
+      </td>
+    </tr>
+  </c:forEach>
+</table>
+</h:form>
+</div>
+</div>
+</div>
+<!-- /LES ADRESSES -->
+
+<!-- LES SECTEURS D'ACTIVITES -->
+
+<div class="col-md-10">
+  <div class="form-group">
+    <button data-toggle="modal" data-target="#ajoutsecteur" class="btn btn-default btn-lg pull-right" type="button" >+</button>
+      
+<h:form enctype="multipart/form-data">
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Secteur d'activité</th>
+      </tr>
+      
+      <c:forEach items="#{sessionScope.utilisateur.secteurActivites}" var="secteur" varStatus="statut">
+      
+      <tr>
+        <td>#{secteur}</td>
+        <td>
+
+          <h:commandButton action="#{entrepriseController.retirerSecteurActivites()}" styleClass="close" value="x">
+          <f:setPropertyActionListener target="#{entrepriseController.secteurActivites}" value="#{secteur}" />
+        </h:commandButton>
+      </td>
+    </tr>
+  </c:forEach>
+
+</table>
+</h:form>
+</div>
+</div>
+<!-- /LES SECTEURS D'ACTIVITES -->
+
+
+
+</div>
+</div>
+  
+
+<!-- LES MODALS -->
+<!-- MODAL: Ajout adresse-->
+<div class="modal fade" id="ajoutadresse" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <h3 class="modal-title" id="lineModalLabel">Ajout adresse</h3>
+      </div>
+      <div class="modal-body">
+
+        <!-- content goes here -->
+        <h:form enctype="multipart/form-data">
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <div class="form-group">
+          <label for="adresse">Adresse</label>
+          <div class='input-group date'>
+            <h:inputText id="adresse" value="#{entrepriseController.adresse.adresse}" styleClass="form-control" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ville">Ville</label>
+          <div class='input-group date'>
+            <h:inputText id="ville" value="#{entrepriseController.adresse.ville}" styleClass="form-control" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pays">Pays</label>
+          <h:inputText id="pays" value="#{entrepriseController.adresse.pays}" styleClass="form-control" />
+        </div>
+
+        <div class="btn-group" role="group">
+          <h:commandButton action="#{entrepriseController.ajouterAdresse()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+        </div>
+
+      </h:form>
+
+    </div>
+    <div class="modal-footer">
+      <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- /MODAL: Ajout adresse-->
+
+<!-- MODAL: Modifier les informations-->
+<div class="modal fade" id="modifierinfos" tabindex="-1"
+role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+      </button>
+      <h3 class="modal-title" id="lineModalLabel">Modifier les informations</h3>
+    </div>
+    <div class="modal-body">
+
+      <!-- content goes here -->
+      <h:form enctype="multipart/form-data">
+
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+      <div class="form-group">
+        <label for="sigle">SIGLE</label>
+        <h:inputText id="sigle" value="#{entrepriseController.entreprise.sigle}" styleClass="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="apercu">Aperçu</label>
+        <h:inputTextarea id="apercu" value="#{entrepriseController.entreprise.apercu}" styleClass="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <h:inputText id="email" value="#{entrepriseController.entreprise.email}" styleClass="form-control" />
+      </div>
+      
+      <div class="form-group">
+        <label for="motDePasse">Mot de passe</label>
+        <h:inputSecret id="motDePasse" value="#{entrepriseController.motDePasse}" styleClass="form-control" />
+      </div>
+
+      <div class="btn-group" role="group">
+        <h:commandButton action="#{entrepriseController.modifierEntreprise}" styleClass="btn btn-success btn-hover-green" value="Mettre à jour"/>
+      </div>
+    </h:form>
+
+  </div>
+  <div class="modal-footer">
+    <div class="btn-group btn-group-justified" role="group"
+    aria-label="group button">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default"
+      data-dismiss="modal" role="button">Fermer</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- /MODAL: Modifier les informations-->
+
+<!-- MODAL: Ajout secteur activité-->
+<div class="modal fade" id="ajoutsecteur" tabindex="-1"
+role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+      </button>
+      <h3 class="modal-title" id="lineModalLabel">Ajout
+        secteur d'activité</h3>
+      </div>
+      <div class="modal-body">
+
+        <!-- content goes here -->
+        <h:form  enctype="multipart/form-data" >
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+        <div class="form-group">
+          <label for="secteurActivite">Secteur d'activité</label>
+          <h:inputText id="secteurActivite" value="#{entrepriseController.secteurActivites}" styleClass="form-control" />
+        </div>
+
+        <div class="btn-group" role="group">
+          <h:commandButton action="#{entrepriseController.ajouterSecteurActivites()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+        </div>
+      </h:form>
+
+    </div>
+    <div class="modal-footer">
+      <div class="btn-group btn-group-justified" role="group"
+      aria-label="group button">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default"
+        data-dismiss="modal" role="button">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- /MODAL: Ajout secteur d'activités-->
+
+</ui:define> 
+
+<ui:define name="footer">
+</ui:define>  
+
+</ui:composition> 
