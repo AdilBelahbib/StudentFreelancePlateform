@@ -65,10 +65,6 @@ public class EtudiantControllerKhouloud implements Serializable{
 		return "profil";
 	}
 	
-	
-	
-	
-	
 	public Etudiant getEtudiant() {
 		return etudiant;
 	}

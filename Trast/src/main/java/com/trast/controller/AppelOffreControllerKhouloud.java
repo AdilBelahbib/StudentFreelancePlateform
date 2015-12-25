@@ -6,6 +6,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.context.ApplicationContext;
@@ -13,8 +16,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.AppelOffreDAO;
+import com.trast.dao.ContrePropositionDAO;
+import com.trast.dao.EtudiantDAO;
 import com.trast.model.AppelOffre;
 import com.trast.model.ContreProposition;
+import com.trast.model.EtatAppelOffre;
+import com.trast.model.Etudiant;
 
 @ManagedBean(name = "appelOffreControllerKhouloud", eager = true)
 @SessionScoped
@@ -25,18 +32,34 @@ public class AppelOffreControllerKhouloud implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManagedProperty(value = "#{appelOffre}")
+	@ManagedProperty(value ="#{sessionScope.appelOffre}")
 	private AppelOffre appelOffre;
 	
-	@ManagedProperty(value = "#{appelOffreDao}")
+	@ManagedProperty(value = "#{sessionScope.appelOffreDao}")
 	private AppelOffreDAO appelOffreDao;
 	//LISTES DES APPELS D'OFFRE
 	@ManagedProperty(value = "#{listes}")
 	private List<AppelOffre> listes;
 	
+	/*
+	 * Instance contreProposition pour:
+	 * 	L'ajout d'une contre-proposition lors de la visualisation 
+	 * des détails d'un appel d'offre
+	 */
 	@ManagedProperty(value = "#{contreProposition}")
 	private ContreProposition contreProposition;
 	
+	@ManagedProperty(value = "#{contrePropositionDao}")
+	private ContrePropositionDAO contrePropositionDao;
+	
+	public ContrePropositionDAO getContrePropositionDao() {
+		return contrePropositionDao;
+	}
+
+	public void setContrePropositionDao(ContrePropositionDAO contrePropositionDao) {
+		this.contrePropositionDao = contrePropositionDao;
+	}
+
 	public ContreProposition getContreProposition() {
 		return contreProposition;
 	}
@@ -68,27 +91,69 @@ public class AppelOffreControllerKhouloud implements Serializable{
 	public void setAppelOffreDao(AppelOffreDAO appelOffreDao) {
 		this.appelOffreDao = appelOffreDao;
 	}
+	/**
+	 * La fonction permet de visualiser la liste des appels d'offre
+	 * qui ont le statut ENCOURS.
+	 * Elle redirige vers la vue "listeAppelOffres.xhtml"
+	 * */
 	
 	@Transactional
 	public String listerAppelOffres(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		this.appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
-
-		this.listes = this.appelOffreDao.getAppelOffres();
+		this.listes = this.appelOffreDao.getAppelOffresByStatus(EtatAppelOffre.ENCOURS);
 		//System.out.println(listes.get(0).getId()+" "+listes.get(0).getStatut());
 		((ConfigurableApplicationContext)context).close();
 		return "listeAppelOffres";
 	}
-	
-	public void ajouterContreProposition() {
-		//contreProposition.setEtudiant(etudiant);
+	/**
+	 * La fonction est appelée lorsque l'étudiant visualise le détail 
+	 * d'un appel d'offre.
+	 */
+	public String enregistrerContreProposition() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+				.getRequest();
+		//Récupérer l'étudiant connecté
+		HttpSession session = request.getSession();
+		Etudiant etudiant = (Etudiant) session.getAttribute("utilisateur");
+		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
+		//Reduire le nombre de bids de l'étudiant
+		etudiant.setNombreBids(etudiant.getNombreBids() - 1);
+		etudiantDao.modifierEtudiant(etudiant);
+		
+		//Initialiser les paramètres de l'instance contreProposition
+		contreProposition.setEtudiant(etudiant);
 		contreProposition.setAppelOffre(appelOffre);
 		appelOffre.getContrePropositions().add(contreProposition);
-		System.out.println(" size == "+appelOffre.getContrePropositions().size());
-		// réinitialisation
-		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		
+		//Ajouter unecontreProposition
+		contrePropositionDao.ajouterContreProposition(contreProposition);
+		//modifier l appel d'offre par le nouveau
+		//appelOffreDao.modifierAppelOffre(appelOffre);
+		// réinitialisation de l'instance de contreProposition, vide
 		contreProposition = (ContreProposition) context.getBean("contreProposition");
 		((ConfigurableApplicationContext) context).close();
+		return "listeAppelOffre";
+	}
+	
+	/**
+	 * La fonction est appelée pour détailler un appel d'offre
+	 * Elle redirige vers la vue detailsAppelOffre.xhtml
+	 */
+	public String details(){
+		
+		return "detailsAppelOffres";
+	}
+	
+	/**
+	 * La fonction est appelée pour visualiser le formulaire 
+	 * d'ajout d'une contre-proposition
+	 * Elle redirige vers la vue ajoutContreProposition.xhtml
+	 */
+	public String nouvelleContreProposition(){
+		return "ajoutContreProposition";
 	}
 
 }
