@@ -36,9 +36,8 @@
                   	<h:commandLink value = "Tous les appels d'offre" action="#{appelOffreControllerNassima.afficherAppelsOffre}">				
 		          	</h:commandLink>
                   </li>
-                  <li>Mes appels d'offre en cours</li>
-                  <li>Mes appels d'offre en attente</li>
-                  <li>Mes appels d'offre expirées</li>
+                   <li><h:commandLink action="#{appelOffreControllerNassima.afficherAppelsOffreEnCours}">Mes appels d'offre en cours</h:commandLink></li>
+                   <li><h:commandLink action="#{appelOffreControllerNassima.afficherAppelsOffreArchives}">Mes appels d'offre archivés</h:commandLink></li>
                 </ul>
 
                 <li data-toggle="collapse" data-target="#projet" class="collapsed">
