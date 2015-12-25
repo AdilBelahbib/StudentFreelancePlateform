@@ -18,7 +18,7 @@
         <property name="devise" type="java.lang.String">
             <column name="DEVISE" />
         </property>
-        <many-to-one name="appelOffre" class="com.trast.model.AppelOffre" fetch="join">
+        <many-to-one name="appelOffre" class="com.trast.model.AppelOffre" fetch="join" lazy="false">
             <column name="idAppelOffre" />
         </many-to-one>
     </class>

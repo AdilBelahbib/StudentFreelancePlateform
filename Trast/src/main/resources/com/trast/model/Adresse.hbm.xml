@@ -20,7 +20,7 @@
         </property>
         
         <many-to-one name="utilisateur" class="Utilisateur"
-			fetch="join">
+			fetch="join" lazy="false">
 			<column name="idUtilisateur" />
 		</many-to-one>
         

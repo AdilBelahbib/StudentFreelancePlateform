@@ -14,11 +14,11 @@
 			<column name="maitrise" />
 		</property>
 
-		<many-to-one name="etudiant" class="Etudiant" fetch="join">
+		<many-to-one name="etudiant" class="Etudiant" fetch="join" lazy="false">
 			<column name="idEtudiant" />
 		</many-to-one>
 
-		<many-to-one name="competence" class="Competence" fetch="join">
+		<many-to-one name="competence" class="Competence" fetch="join" lazy="false">
 			<column name="idCompetence" />
 		</many-to-one>
 

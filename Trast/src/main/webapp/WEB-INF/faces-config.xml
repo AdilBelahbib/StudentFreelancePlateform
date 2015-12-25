@@ -57,28 +57,28 @@
            <navigation-case>
                <from-action>#{appelOffreControllerKhouloud.listerAppelOffres}</from-action>
                <from-outcome>listeAppelOffres</from-outcome>
-               <to-view-id>/views/etudiant/listeAppelOffres.xhtml</to-view-id>
+               <to-view-id>/views/etudiant/listeAppelOffres.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
            
            <!-- navigation­case for method details() -->
            <navigation-case>
                <from-action>#{appelOffreControllerKhouloud.details}</from-action>
                <from-outcome>detailsAppelOffres</from-outcome>
-               <to-view-id>/views/etudiant/detailAppelOffre.xhtml</to-view-id>
+               <to-view-id>/views/etudiant/detailAppelOffre.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
            
            <!-- navigation­case for method nouvelleContreProposition() -->
            <navigation-case>
                <from-action>#{appelOffreControllerKhouloud.nouvelleContreProposition}</from-action>
                <from-outcome>ajoutContreProposition</from-outcome>
-               <to-view-id>/views/etudiant/ajoutContreProposition.xhtml</to-view-id>
+               <to-view-id>/views/etudiant/ajoutContreProposition.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
         
 			<!-- navigation­case for method enregistrerContreProp() -->
            <navigation-case>
                <from-action>#{appelOffreControllerKhouloud.enregistrerContreProposition}</from-action>
                <from-outcome>listeAppelOffre</from-outcome>
-               <to-view-id>/views/etudiant/listeAppelOffres.xhtml</to-view-id>
+               <to-view-id>/views/etudiant/listeAppelOffres.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>        	
         
        </navigation-rule>
@@ -90,34 +90,34 @@
            <navigation-case>
                <from-action>#{entrepriseControllerNassima.profil}</from-action>
                <from-outcome>profil</from-outcome>
-               <to-view-id>/views/entreprise/profil.xhtml</to-view-id>
+               <to-view-id>/views/entreprise/profil.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
             <navigation-case>
                <from-action>#{entrepriseControllerNassima.modifierProfil}</from-action>
                <from-outcome>profil</from-outcome>
-               <to-view-id>/views/entreprise/profil.xhtml</to-view-id>
+               <to-view-id>/views/entreprise/profil.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
        </navigation-rule>
        <navigation-rule>
        		<navigation-case>
                <from-action>#{appelOffreControllerNassima.afficherAppelsOffre}</from-action>
                <from-outcome>afficherAppelsOffre</from-outcome>
-               <to-view-id>/views/entreprise/afficherAppelsOffre.xhtml</to-view-id>
+               <to-view-id>/views/entreprise/afficherAppelsOffre.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
           	<navigation-case>
                <from-action>#{appelOffreControllerNassima.afficherAppelsOffreArchives}</from-action>
                <from-outcome>afficherArchives</from-outcome>
-               <to-view-id>/views/entreprise/afficherAppelsOffreArchives.xhtml</to-view-id>
+               <to-view-id>/views/entreprise/afficherAppelsOffreArchives.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
            <navigation-case>
                <from-action>#{appelOffreControllerNassima.afficherAppelsOffreEnCours}</from-action>
                <from-outcome>afficherEncours</from-outcome>
-               <to-view-id>/views/entreprise/afficherAppelsOffreEnCours.xhtml</to-view-id>
+               <to-view-id>/views/entreprise/afficherAppelsOffreEnCours.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
            <navigation-case>
                <from-action>#{appelOffreControllerNassima.relancerAppelOffre}</from-action>
                <from-outcome>afficherArchives</from-outcome>
-               <to-view-id>/views/entreprise/afficherAppelsOffreArchives.xhtml</to-view-id>
+               <to-view-id>/views/entreprise/afficherAppelsOffreArchives.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
        </navigation-rule>
 </faces-config>
