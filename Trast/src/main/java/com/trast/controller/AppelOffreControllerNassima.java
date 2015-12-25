@@ -20,15 +20,20 @@ import com.trast.dao.CompetenceDAO;
 import com.trast.dao.EntrepriseDAO;
 import com.trast.dao.ExperienceDAO;
 import com.trast.dao.FormationDAO;
+import com.trast.dao.ProjetDAO;
 import com.trast.dao.RemunerationDAO;
 import com.trast.model.Adresse;
 import com.trast.model.AppelOffre;
 import com.trast.model.CahierDesCharges;
 import com.trast.model.Competence;
+import com.trast.model.ContreProposition;
 import com.trast.model.Entreprise;
+import com.trast.model.EtatAppelOffre;
+import com.trast.model.EtatProjet;
 import com.trast.model.Experience;
 import com.trast.model.Fichier;
 import com.trast.model.Formation;
+import com.trast.model.Projet;
 import com.trast.model.Qualification;
 import com.trast.model.Remuneration;
 
@@ -46,6 +51,10 @@ public class AppelOffreControllerNassima implements Serializable{
 	AppelOffre appelOffre;
 	@ManagedProperty(value = "#{appelOffres}")
 	List<AppelOffre> appelOffres;
+	
+	@ManagedProperty(value = "#{contreProposition}")
+	ContreProposition contreProposition;
+	
 	
 	/* pour creation d'un appel offre*/
 	@ManagedProperty(value = "#{cahierDesCharges}")
@@ -146,6 +155,12 @@ public class AppelOffreControllerNassima implements Serializable{
 		this.competence = competence;
 		
 	}
+	public ContreProposition getContreProposition() {
+		return contreProposition;
+	}
+	public void setContreProposition(ContreProposition contreProposition) {
+		this.contreProposition = contreProposition;
+	}
 
 /*****************************************************/
 	
@@ -197,6 +212,66 @@ public class AppelOffreControllerNassima implements Serializable{
 	}
 	
 	/************************************************************/
+	
+	public void relancerAppelOffre(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		AppelOffreDAO  appelDao = (AppelOffreDAO) context.getBean("appelOffreDao");
+		
+		for(AppelOffre item :entreprise.getAppelOffres()){
+			if(item.getId()==appelOffre.getId()) 
+			{
+				item.setStatut(EtatAppelOffre.ENCOURS);
+				appelDao.modifierAppelOffre(item);
+				break;
+			}
+		}
+		((ConfigurableApplicationContext)context).close();
+		this.afficherAppelsOffreArchives();
+		//return "afficherArchives";		
+	}
+	
+	public void archiverAppelOffre(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		AppelOffreDAO  appelDao = (AppelOffreDAO) context.getBean("appelOffreDao");
+		
+		for(AppelOffre item :entreprise.getAppelOffres()){
+			if(item.getId()==appelOffre.getId()) 
+			{
+				item.setStatut(EtatAppelOffre.PREPARE);
+				appelDao.modifierAppelOffre(item);
+				break;
+			}
+		}
+		((ConfigurableApplicationContext)context).close();
+		this.afficherAppelsOffreEnCours();
+		//return "afficherArchives";		
+	}
+	
+	public void affecterAppelOffre(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		AppelOffreDAO  appelDao = (AppelOffreDAO) context.getBean("appelOffreDao");
+		ProjetDAO  projetDao = (ProjetDAO) context.getBean("projetDao");
+		Projet projet = (Projet) context.getBean("projet");
+		projet.setCahierDesCharges(appelOffre.getCahierDesCharges());
+		projet.setEtudiant(contreProposition.getEtudiant());
+		projet.setCout(contreProposition.getEnchere());
+		projet.setStatut(EtatProjet.ENCOURS);
+		projetDao.ajouterProjet(projet);
+		/* modifier etat appelOffre / supprimer */
+		for(AppelOffre item :entreprise.getAppelOffres()){
+			if(item.getId()==appelOffre.getId()) 
+			{
+				item.setStatut(EtatAppelOffre.AFFECTE);
+				appelDao.modifierAppelOffre(item);
+				break;
+			}
+		}
+		((ConfigurableApplicationContext)context).close();
+		this.afficherAppelsOffreEnCours();
+		
+	}
+	
+	/************************************************/
 	public String afficherAppelsOffre(){
 		
 		
@@ -211,6 +286,24 @@ public class AppelOffreControllerNassima implements Serializable{
 		((ConfigurableApplicationContext)context).close();
 
 		return "afficherAppelsOffre";
+	}
+	public String afficherAppelsOffreArchives(){
+	
+		appelOffres = new ArrayList<AppelOffre>();
+		/* recuperer les appels d'offre archive*/
+		for(AppelOffre item : entreprise.getAppelOffres()){
+			if(item.getStatut().equals(EtatAppelOffre.PREPARE)) appelOffres.add(item);
+		}
+		return "afficherArchives";
+	}
+	public String afficherAppelsOffreEnCours(){
+		
+		appelOffres = new ArrayList<AppelOffre>();
+		/* recuperer les appels d'offre archive*/
+		for(AppelOffre item : entreprise.getAppelOffres()){
+			if(item.getStatut().equals(EtatAppelOffre.ENCOURS)) appelOffres.add(item);
+		}
+		return "afficherEncours";
 	}
 
 	public String ajouterAppelOffre(){

@@ -14,6 +14,7 @@ template="../templates/common.xhtml"
 		</div>
 		<div class="row">		
 				<div class="col-md-offset-1 col-md-10">
+				<h:form>
 						<div class="form-group">
 							<table class="table table-striped table-hover">
 							<tr>
@@ -26,10 +27,18 @@ template="../templates/common.xhtml"
 								<td>#{item.enchere} </td>
 								<td><button  data-toggle="modal" data-target="#detailsEtudiant-#{statut.count}" type="button" class="btn btn-default ">#{item.etudiant.nom} #{item.etudiant.prenom}</button> </td>
 								<td><a> download</a> </td>
+								<td>
+									<h:commandButton value="Accepter"  action="#{appelOffreControllerNassima.affecterAppelOffre}" class="btn btn-default" >
+			            
+										<f:setPropertyActionListener target="#{appelOffreControllerNassima.contreProposition}" value="#{item}" />
+						</h:commandButton></td>
 							</tr>
 							</c:forEach>
 						</table>
 					</div>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					
+					</h:form>
 				</div>
 				</div>
 		

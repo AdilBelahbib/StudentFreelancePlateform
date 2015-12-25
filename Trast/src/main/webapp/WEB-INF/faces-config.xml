@@ -104,5 +104,20 @@
                <from-outcome>afficherAppelsOffre</from-outcome>
                <to-view-id>/views/entreprise/afficherAppelsOffre.xhtml</to-view-id>
            </navigation-case>
+          	<navigation-case>
+               <from-action>#{appelOffreControllerNassima.afficherAppelsOffreArchives}</from-action>
+               <from-outcome>afficherArchives</from-outcome>
+               <to-view-id>/views/entreprise/afficherAppelsOffreArchives.xhtml</to-view-id>
+           </navigation-case>
+           <navigation-case>
+               <from-action>#{appelOffreControllerNassima.afficherAppelsOffreEnCours}</from-action>
+               <from-outcome>afficherEncours</from-outcome>
+               <to-view-id>/views/entreprise/afficherAppelsOffreEnCours.xhtml</to-view-id>
+           </navigation-case>
+           <navigation-case>
+               <from-action>#{appelOffreControllerNassima.relancerAppelOffre}</from-action>
+               <from-outcome>afficherArchives</from-outcome>
+               <to-view-id>/views/entreprise/afficherAppelsOffreArchives.xhtml</to-view-id>
+           </navigation-case>
        </navigation-rule>
 </faces-config>
