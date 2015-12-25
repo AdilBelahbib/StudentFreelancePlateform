@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.trast.model.AppelOffre;
+import com.trast.model.EtatAppelOffre;
 
 public class AppelOffreDAOImpl implements AppelOffreDAO {
 	private SessionFactory sessionFactory;
@@ -56,7 +58,17 @@ public class AppelOffreDAOImpl implements AppelOffreDAO {
 		session.update(appelOffre);
 		
 	}
-
+	
+	@Override
+	@Transactional
+	public List<AppelOffre> getAppelOffresByStatus(EtatAppelOffre statut) {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<AppelOffre> listeAppelOffres = session
+				.createQuery("FROM AppelOffre apOf WHERE apOf.statut = :statut")
+				.setString("statut", statut.name()).list();
+		return listeAppelOffres;
+	}
 	
 
 }

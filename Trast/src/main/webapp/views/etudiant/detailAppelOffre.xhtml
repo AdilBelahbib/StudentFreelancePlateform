@@ -1,0 +1,244 @@
+<ui:composition template="../templates/common.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="content">
+
+		<div>
+
+
+			<section class="bg-default" id="appelOffres">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8 col-lg-offset-2 text-center">
+							<br />
+							<h2 class="section-heading">Appel d'offre</h2>
+							<hr class="primary"></hr>
+							<br />
+		
+								<div class="form-group">
+									<label>Date début: <h:outputText
+											value="#{appelOffreControllerKhouloud.appelOffre.dateDebut}" /></label>
+								</div>
+								<div class="form-group">
+									<label>Date d'expiration: <h:outputText
+											value="#{appelOffreControllerKhouloud.appelOffre.dateExpiration}" /></label>
+								</div>
+								<div class="form-group">
+									<label>Statut: <h:outputText value="#{appelOffreControllerKhouloud.appelOffre.statut}" /></label>
+								</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="bg-default" id="cahiersDesCharges">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8 col-lg-offset-2 text-center">
+							<br />
+							<h2 class="section-heading">Cahier des charges</h2>
+							<hr class="primary"></hr>
+							<br />
+								<div class="form-group">
+									<label>Sujet: <h:outputText
+											value="#{appelOffreControllerKhouloud.appelOffre.cahierDesCharges.sujet}" /></label>
+								</div>
+								<c:if test="#{appelOffreControllerKhouloud.appelOffre.cahierDesCharges.dateDebut != NULL}">
+									<div class="form-group">
+										<label>Date début du sujet: <h:outputText
+												value="#{appelOffreControllerKhouloud.appelOffre.cahierDesCharges.dateDebut}" /></label>
+									</div>
+								</c:if>
+								<c:if test="#{appelOffreControllerKhouloud.appelOffre.cahierDesCharges.dateFin != NULL}">
+									<div class="form-group">
+										<label>Date fin du sujet: <h:outputText
+												value="#{appelOffreControllerKhouloud.appelOffre.cahierDesCharges.dateFin}" /></label>
+									</div>
+								</c:if>
+								<div class="form-group">
+									<a href="#">Télécharger le fichier joint</a>
+								</div>
+
+						</div>
+					</div>
+					<div class="container">
+						<div class="row"></div>
+					</div>
+				</div>
+			</section>
+
+			<section class="bg-default" id="qualifications">
+				<div class="container-fluid">
+					<div class="row ">
+
+						<div class="col-lg-8 col-lg-offset-2 text-center">
+							<br />
+							<h2 class="section-heading">Qualifications</h2>
+
+							<hr class="primary"></hr>
+							<br />
+								<c:forEach items="#{appelOffreControllerKhouloud.appelOffre.qualifications}" var="qualification"
+									varStatus="statut">
+									<div class="form-group">
+										<!-- Infos qualification -->
+										<c:if test="#{qualification.dateDebut!= NULL}">
+											<div class="form-group">
+												<label>Date début : <h:outputText
+														value="#{qualification.dateDebut}" /></label>
+											</div>
+										</c:if>
+										<c:if test="#{qualification.dateFin!= NULL}">
+											<div class="form-group">
+												<label>Date fin : <h:outputText
+														value="#{qualification.dateFin}" /></label>
+											</div>
+										</c:if>
+										<!-- if it is formation -->
+										<c:if
+											test="${qualification['class'].simpleName == 'Formation'}">
+											<!-- <h3>Formation</h3> -->
+											<c:if test="#{qualification.etablissement != NULL}">
+												<div class="form-group">
+													<label>Etablissement : <h:outputText
+															value="#{qualification.etablissement}" /></label>
+												</div>
+											</c:if>
+
+											<c:if test="#{qualification.intituleFormation != NULL}">
+												<div class="form-group">
+													<label>Intitulé formation : <h:outputText
+															value="#{qualification.intituleFormation}" /></label>
+												</div>
+											</c:if>
+										</c:if>
+										<!-- if it is experience -->
+										<c:if
+											test="#${qualification['class'].simpleName == 'Experience'}">
+											<h3>Expériences</h3>
+											<c:if test="#{qualification.responsabilite != NULL}">
+												<div class="form-group">
+													<label>Responsabilité : <h:outputText
+															value="#{qualification.responsabilite}" /></label>
+												</div>
+											</c:if>
+											<c:if test="#{qualification.typeExperience != NULL}">
+												<div class="form-group">
+													<label>Type d'expérience : <h:outputText
+															value="#{qualification.typeExperience}" /></label>
+												</div>
+											</c:if>
+											<c:if test="#{qualification.structureAccueil != NULL}">
+												<div class="form-group">
+													<label>Structure d'accueil : <h:outputText
+															value="#{qualification.structureAccueil}" /></label>
+												</div>
+											</c:if>
+											<c:if test="#{qualification.sujet != NULL}">
+												<div class="form-group">
+													<label>Sujet : <h:outputText
+															value="#{qualification.sujet}" /></label>
+												</div>
+											</c:if>
+											<c:if test="#{qualification.salaire != NULL}">
+												<div class="form-group">
+													<label>Salaire : <h:outputText
+															value="#{qualification.salaire}" /></label>
+												</div>
+											</c:if>
+										</c:if>
+									</div>
+									************
+								</c:forEach>
+							
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="bg-default" id="competences">
+				<div class="container-fluid">
+					<div class="row">
+						<br />
+						<div class="col-lg-8 col-lg-offset-2 text-center">
+							<h2 class="section-heading">Compétences</h2>
+							<hr class="primary"></hr>
+							<br />
+								<c:forEach items="#{appelOffreControllerKhouloud.appelOffre.competences}" var="competence"
+									varStatus="statut">
+									<div class="form-group">
+										<c:if test="#{competence.intitule != NULL}">
+											<div class="form-group">
+												<label><h:outputText value="#{competence.intitule}" /></label>
+											</div>
+										</c:if>
+									</div>
+								</c:forEach>
+						
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="bg-default" id="remunerations">
+				<div class="container-fluid">
+					<div class="row">
+						<br />
+						<div class="col-lg-8 col-lg-offset-2 text-center">
+							<h2 class="section-heading">Rémunération</h2>
+							<hr class="primary"></hr>
+							<br />
+								<c:forEach items="#{appelOffreControllerKhouloud.appelOffre.remunerations}" var="remuneration"
+									varStatus="statut">
+									<div class="form-group">
+										<c:if test="#{remuneration.intitule != NULL}">
+											<div class="form-group">
+												<label>Intitulé: <h:outputText
+														value="#{remuneration.intitule}" /></label>
+											</div>
+										</c:if>
+										<c:if test="#{remuneration.somme != NULL}">
+											<div class="form-group">
+
+												<label>Salaire: <h:outputText
+														value="#{remuneration.somme} #{remuneration.devise}" /></label>
+											</div>
+										</c:if>
+									</div>
+								</c:forEach>
+							
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+
+		<section class="bg-default">
+			<div class="container-fluid">
+				<div class="row">
+					<br />
+					<div class="col-lg-8 col-lg-offset-2 text-center">
+						<h:form>
+						<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+							<c:if test="#{sessionScope.utilisateur.nombreBids > 0}">
+								<h:commandButton value="Ajouter une contre-proposition"
+									action="#{appelOffreControllerKhouloud.nouvelleContreProposition}"
+									class="btn btn-primary">
+								</h:commandButton>
+							</c:if>
+							<c:if test="#{sessionScope.utilisateur.nombreBids == 0}">
+								<h3>Vous n'avez pas le droit d'ajouter une
+									contre-proposition !</h3>
+							</c:if>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</section>
+	</ui:define>
+</ui:composition>
