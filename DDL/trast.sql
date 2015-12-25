@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2015 at 09:54 PM
+-- Generation Time: Dec 25, 2015 at 09:00 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `adresse` (
   `idUtilisateur` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `adresse`
@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS `adresse` (
 INSERT INTO `adresse` (`id`, `corps`, `ville`, `pays`, `idUtilisateur`) VALUES
 (22, 'Mon Adresse N 3', 'Ville 3', 'Pays 3', 3),
 (23, 'aaaaaaaaaaa', 'vvvvvvvvvv', 'pppppppppppppp', 3),
-(24, 'sssssss', 'xxxxxxxxx', 'wwwwwwww', 3);
+(24, 'sssssss', 'xxxxxxxxx', 'wwwwwwww', 3),
+(28, 'ffffffff', 'uuuuuuuuu', 'xxxxxxxxxx', 4);
 
 -- --------------------------------------------------------
 
@@ -59,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `appel_offre` (
   `idEntreprise` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idEntreprise` (`idEntreprise`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `appel_offre`
@@ -69,7 +70,8 @@ INSERT INTO `appel_offre` (`id`, `dateDebut`, `dateExpiration`, `statut`, `idEnt
 (1, '2015-12-01 00:00:00', '2015-12-25 00:00:00', 'ENCOURS', 4),
 (2, '2015-12-23 00:00:00', '2015-12-10 00:00:00', 'ENCOURS', 4),
 (3, '2015-12-10 00:00:00', '2015-12-22 00:00:00', 'ENCOURS', 26),
-(4, '2015-12-09 00:00:00', '2015-12-23 00:00:00', 'ENCOURS', 4);
+(4, '2015-12-09 00:00:00', '2015-12-23 00:00:00', 'ENCOURS', 4),
+(5, '2015-12-25 14:48:12', '2015-01-25 00:48:00', 'PREPARE', 4);
 
 -- --------------------------------------------------------
 
@@ -100,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `cahier_des_charges` (
   PRIMARY KEY (`id`),
   KEY `idAppelOffre` (`idAppelOffre`),
   KEY `idProjet` (`idProjet`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `cahier_des_charges`
@@ -110,7 +112,8 @@ INSERT INTO `cahier_des_charges` (`id`, `sujet`, `dateDebut`, `dateFin`, `idAppe
 (1, 'Sujet cahier des charge 1', '2015-12-02', '2015-12-16', 1, NULL),
 (2, 'Sujet cahier des charge 2', '2015-12-04', '2015-12-23', 2, NULL),
 (3, 'Sujet cahier des charge 3', '2015-05-12', '2016-05-11', 3, NULL),
-(4, 'Sujet cahier des charge 4', '2015-04-02', '2015-08-10', 4, NULL);
+(4, 'Sujet cahier des charge 4', '2015-04-02', '2015-08-10', 4, NULL),
+(5, '', '2015-12-25', '2015-12-25', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -168,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `entreprise` (
 --
 
 INSERT INTO `entreprise` (`id`, `sigle`, `apercu`, `etatCompte`) VALUES
-(4, 'TRAST', 'Plateforme de gestion des appels d''offre', 'EN_ATTENTE'),
+(4, 'TRAST ModifiÃ?Â©', 'Plateforme de gestion des appels d''offre ModifiÃ?Â©', 'EN_ATTENTE'),
 (26, 'TRAST2', 'Plateforme de gestion des appels d''offre', 'ACTIVE');
 
 -- --------------------------------------------------------
@@ -315,9 +318,11 @@ CREATE TABLE IF NOT EXISTS `projet` (
   `statut` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `idCahierDesCharges` int(11) NOT NULL,
   `idEtudiant` int(11) NOT NULL,
+  `idEntreprise` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCahierDesCharges` (`idCahierDesCharges`),
-  KEY `idEtudiant` (`idEtudiant`)
+  KEY `idEtudiant` (`idEtudiant`),
+  KEY `idEntreprise` (`idEntreprise`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -335,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `qualification` (
   PRIMARY KEY (`id`),
   KEY `idEtudiant` (`idEtudiant`),
   KEY `idAppelOffre` (`idAppelOffre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=78 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=74 ;
 
 --
 -- Dumping data for table `qualification`
@@ -401,7 +406,8 @@ CREATE TABLE IF NOT EXISTS `secteur_activite` (
 --
 
 INSERT INTO `secteur_activite` (`secteur`, `idEntreprise`) VALUES
-('Secteur A', 4);
+('Secteur A', 4),
+('Secteur C', 4);
 
 -- --------------------------------------------------------
 
@@ -418,7 +424,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `fk_role` (`idRole`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `utilisateur`
@@ -510,6 +516,7 @@ ALTER TABLE `particulier`
 -- Constraints for table `projet`
 --
 ALTER TABLE `projet`
+  ADD CONSTRAINT `projet_ibfk_3` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `projet_ibfk_1` FOREIGN KEY (`idCahierDesCharges`) REFERENCES `cahier_des_charges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `projet_ibfk_2` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 

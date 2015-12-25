@@ -7,19 +7,25 @@ public class Entreprise extends Utilisateur{
 	private Set<String> secteurActivites;
 	private String apercu;
 	private Set<AppelOffre> appelOffres;
+	private Set<Projet> projets;
 	private EtatCompte etatCompte;
 	
 	public Entreprise(){
-	}
+	} 	
 
-	public Entreprise(String sigle, Set<String> secteurActivites, String apercu, Set<AppelOffre> appelOffres,
+	public Entreprise(Long id, String email, String motDePasse, Set<Fichier> fichiers, Set<Adresse> adresses,
+			String sigle, Set<String> secteurActivites, String apercu, Set<AppelOffre> appelOffres, Set<Projet> projets,
 			EtatCompte etatCompte) {
+		super(id, email, motDePasse, fichiers, adresses);
 		this.sigle = sigle;
 		this.secteurActivites = secteurActivites;
 		this.apercu = apercu;
 		this.appelOffres = appelOffres;
+		this.projets = projets;
 		this.etatCompte = etatCompte;
 	}
+
+
 
 	public String getSigle() {
 		return sigle;
@@ -51,6 +57,14 @@ public class Entreprise extends Utilisateur{
 
 	public void setAppelOffres(Set<AppelOffre> appelOffres) {
 		this.appelOffres = appelOffres;
+	}
+	
+	public Set<Projet> getProjets() {
+		return projets;
+	}
+
+	public void setProjets(Set<Projet> projets) {
+		this.projets = projets;
 	}
 
 	public EtatCompte getEtatCompte() {
