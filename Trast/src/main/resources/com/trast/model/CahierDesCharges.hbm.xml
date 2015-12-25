@@ -19,7 +19,7 @@
             <column name="DATEFIN" />
         </property>
         
-        <set name="fichiers" table="FICHIER" inverse="false" lazy="false">
+        <set name="fichiers" table="FICHIER" inverse="false" lazy="true">
             <key>
                 <column name="idCahierDesCharges" />
             </key>
@@ -27,12 +27,12 @@
         </set>
         
         <many-to-one name="projet" class="com.trast.model.Projet"
-			fetch="join" not-null="false" lazy="false">
+			fetch="join" not-null="false">
 			<column name="idProjet" />
 		</many-to-one>
 		
     	<many-to-one name="appelOffre" class="com.trast.model.AppelOffre"
-			fetch="join" not-null="false" lazy="false">
+			fetch="join" not-null="false">
 			<column name="idAppelOffre" />
 		</many-to-one>
     </class>

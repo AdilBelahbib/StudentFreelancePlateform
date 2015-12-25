@@ -13,10 +13,10 @@
             <column name="ENCHERE" />
         </property>
         <one-to-one name="fichier" class="com.trast.model.Fichier"></one-to-one>
-        <many-to-one name="appelOffre" class="com.trast.model.AppelOffre" fetch="join" lazy="false">
+        <many-to-one name="appelOffre" class="com.trast.model.AppelOffre" fetch="join">
             <column name="idAppelOffre" />
         </many-to-one>
-        <many-to-one name="etudiant" class="com.trast.model.Etudiant" fetch="join" lazy="false">
+        <many-to-one name="etudiant" class="com.trast.model.Etudiant" fetch="join">
             <column name="idEtudiant" />
         </many-to-one>
     </class>

@@ -35,7 +35,7 @@ public class EtudiantControllerKhouloud implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	//L'etudiant concerné
-	@ManagedProperty(value = "#{sessionScope.utilisateur}")
+	@ManagedProperty(value = "#{etudiant}")
 	Etudiant etudiant;
 	
 	@ManagedProperty(value = "#{etudiantDao}")

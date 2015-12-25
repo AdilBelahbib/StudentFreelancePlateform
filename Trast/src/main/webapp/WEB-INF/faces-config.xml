@@ -64,21 +64,21 @@
            <navigation-case>
                <from-action>#{appelOffreControllerKhouloud.details}</from-action>
                <from-outcome>detailsAppelOffres</from-outcome>
-               <to-view-id>/views/etudiant/detailAppelOffre.xhtml?faces-redirect=true</to-view-id>
+               <to-view-id>/views/etudiant/detailAppelOffre.xhtml</to-view-id>
            </navigation-case>
            
            <!-- navigation­case for method nouvelleContreProposition() -->
            <navigation-case>
                <from-action>#{appelOffreControllerKhouloud.nouvelleContreProposition}</from-action>
                <from-outcome>ajoutContreProposition</from-outcome>
-               <to-view-id>/views/etudiant/ajoutContreProposition.xhtml?faces-redirect=true</to-view-id>
+               <to-view-id>/views/etudiant/ajoutContreProposition.xhtml</to-view-id>
            </navigation-case>
         
 			<!-- navigation­case for method enregistrerContreProp() -->
            <navigation-case>
                <from-action>#{appelOffreControllerKhouloud.enregistrerContreProposition}</from-action>
                <from-outcome>listeAppelOffre</from-outcome>
-               <to-view-id>/views/etudiant/listeAppelOffres.xhtml?faces-redirect=true</to-view-id>
+               <to-view-id>/views/etudiant/listeAppelOffres.xhtml</to-view-id>
            </navigation-case>        	
         
        </navigation-rule>

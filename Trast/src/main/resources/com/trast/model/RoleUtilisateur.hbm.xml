@@ -14,7 +14,7 @@
 		<property name="role" type="string">
 			<column name="role" length="45" not-null="true" />
 		</property>
-		<set name="utilisateurs" table="UTILISATEUR" inverse="true" lazy="false">
+		<set name="utilisateurs" table="UTILISATEUR" inverse="true" lazy="true">
 			<key>
 				<column name="idrole" />
 			</key>
