@@ -1,0 +1,65 @@
+
+<ui:composition
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+template="../templates/common.xhtml">
+         		
+         <ui:define name="content">
+         <h:form>
+            <div>
+				<div class="row">
+				    <div class="col-md-offset-1 ">
+						<h2>Mon profil</h2>
+
+						<table class="table table-striped table-hover">	
+						<tr>
+							<td>Sigle :</td>
+							<td>#{entrepriseControllerNassima.entreprise.sigle}</td>
+						</tr>
+						<tr>
+							<td>Email :</td>
+							<td>#{entrepriseControllerNassima.entreprise.email}</td>							
+						</tr>
+						<tr>
+							<td>Secteurs d'activite :</td>
+							<td>
+							<h:dataTable value="#{entrepriseControllerNassima.entreprise.secteurActivites}" var="secteur" >
+								<h:column>
+									#{secteur}
+								</h:column>
+							</h:dataTable>
+							</td>
+			
+						</tr>
+						<tr>
+							<td>Apercu:</td>
+							<td><p>#{entrepriseControllerNassima.entreprise.apercu}</p></td>
+							
+						</tr>
+						</table>
+				</div>
+			</div>
+		</div>
+		<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+		<div class="row">
+    		<div class="col-md-offset-7 col-md-2">
+    			<h:commandLink class="btn btn-primary" value="Modifier Profil" action="#{entrepriseControllerNassima.modifierProfil}"> 
+					<f:param name="requete" value="get" />
+				</h:commandLink>
+    		</div>
+    		
+    		<div class="col-md-2">
+    			<h:commandLink class="btn btn-primary" value="Modifier Compte"  action="#{entrepriseControllerNassima.modifierCompte}"> 
+					<f:param name="requete" value="get" />
+				</h:commandLink>
+    		</div>
+
+		</div>
+		
+		</h:form>
+     </ui:define> 
+         
+     <ui:define name="footer">
+         </ui:define>			
+     </ui:composition> 

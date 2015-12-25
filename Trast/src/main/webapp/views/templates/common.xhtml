@@ -50,9 +50,15 @@
 			<ui:include src="/views/templates/entreprise/header.xhtml">
 			</ui:include>
 		</ui:insert>
+		<ui:insert name="sidebar">
+			<ui:include src="/views/templates/entreprise/sidebar.xhtml">
+			</ui:include>
+		</ui:insert>
+		<aside>
 		<ui:insert name="content">
 			<ui:include src="/views/templates/entreprise/content.xhtml" />
 		</ui:insert>
+		</aside>
 		<ui:insert name="footer">
 			<ui:include src="/views/templates/entreprise/footer.xhtml" />
 		</ui:insert>

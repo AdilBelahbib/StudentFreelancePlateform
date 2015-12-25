@@ -61,4 +61,27 @@
            </navigation-case>
         
        </navigation-rule>
+       
+       <!--navigation­rule for entreprise -->
+       <navigation-rule>
+         
+           <!-- navigation­case for method profil() -->
+           <navigation-case>
+               <from-action>#{entrepriseControllerNassima.profil}</from-action>
+               <from-outcome>profil</from-outcome>
+               <to-view-id>/views/entreprise/profil.xhtml</to-view-id>
+           </navigation-case>
+            <navigation-case>
+               <from-action>#{entrepriseControllerNassima.modifierProfil}</from-action>
+               <from-outcome>profil</from-outcome>
+               <to-view-id>/views/entreprise/profil.xhtml</to-view-id>
+           </navigation-case>
+       </navigation-rule>
+       <navigation-rule>
+       		<navigation-case>
+               <from-action>#{appelOffreControllerNassima.afficherAppelsOffre}</from-action>
+               <from-outcome>afficherAppelsOffre</from-outcome>
+               <to-view-id>/views/entreprise/afficherAppelsOffre.xhtml</to-view-id>
+           </navigation-case>
+       </navigation-rule>
 </faces-config>

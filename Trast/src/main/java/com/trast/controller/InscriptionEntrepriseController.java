@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -90,4 +93,7 @@ public class InscriptionEntrepriseController implements Serializable {
 		((ConfigurableApplicationContext) context).close();
 		System.out.println("Inscription réussie.");
 	}
+	
+	
+	
 }

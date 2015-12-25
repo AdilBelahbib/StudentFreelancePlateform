@@ -1,0 +1,68 @@
+<ui:composition
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+template="../templates/common.xhtml">
+        <ui:define name="content">
+         
+		  <div>
+			<div class="row">
+			 <div class="col-md-offset-1 ">
+				<h2> Mon Compte</h2>
+				<h:form>
+				<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+				  <div class="row">
+				    <div class="col-md-offset-2 col-md-7">
+				      <div class="form-group">
+				        <label id="email">Email</label>
+				        <h:inputText type="text" class="form-control" id="email" value="#{entrepriseControllerNassima.entreprise.email}"/>
+				      </div>
+				    </div>
+				  </div>
+				
+				  <div class="row">
+				    <div class="col-md-offset-2 col-md-7">
+				      <div class="form-group">
+				        <label for="password">Ancien mot de passe</label>
+				        <h:inputText type="text" class="form-control" id="password" />
+				      </div>
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="col-md-offset-2 col-md-7">
+				      <div class="form-group">
+				        <label for="n_password">nouveau mot de passe</label>
+				        <h:inputText type="text" class="form-control" id="n_password" value="#{entrepriseControllerNassima.entreprise.motDePasse}"/>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="col-md-offset-2 col-md-7">
+				      <div class="form-group">
+				        <label for="c_n_password">confirmer nouveau mot de passe</label>
+				        <h:inputText type="text" class="form-control" id="c_n_password"/>
+				      </div>
+				    </div>
+				  </div>
+				
+				
+					<div>
+						<div class="row">
+				    <div class="col-md-offset-7 col-md-2">
+				    <h:commandButton value="Enregistrer" class="btn btn-primary" action="#{entrepriseControllerNassima.modifierCompte}">
+				    	<f:param name="requete" value="post" />
+				    </h:commandButton>
+				      <!-- <button type="button" class="btn btn-primary">Enregistrer</button> -->
+				    </div>
+				
+					</div>
+					</div>
+					</h:form>
+					</div>
+					</div>
+					</div>
+         </ui:define> 
+         
+     <ui:define name="footer">
+         </ui:define>			
+     </ui:composition> 

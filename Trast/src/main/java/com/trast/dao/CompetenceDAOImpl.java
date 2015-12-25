@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.trast.model.Competence;
-
+import org.hibernate.Query;
 public class CompetenceDAOImpl implements CompetenceDAO{
 	private SessionFactory sessionFactory;
 	
@@ -55,6 +55,28 @@ public class CompetenceDAOImpl implements CompetenceDAO{
 		Session session = sessionFactory.getCurrentSession();
 		session.update(competence);
 		
+	}
+	@Override
+	@Transactional
+	public Competence getCompetenceByIntitule(String intitule) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM Competence C WHERE C.intitule =:intitule";
+		Query query = session.createQuery(hql);
+		query.setParameter("intitule", intitule);
+		if(query.list()!=null) return (Competence) query.list().get(0);
+		else return null;
+	}
+
+	@Override
+	@Transactional
+	public boolean ajouterCompetenceIfNotExist(Competence competence) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM Competence C WHERE C.intitule =:intitule";
+		Query query = session.createQuery(hql);
+		query.setParameter("intitule", competence.getIntitule());
+		if(query.list().size()>0) return false;
+		session.save(competence);
+		return true;
 	}
 
 }

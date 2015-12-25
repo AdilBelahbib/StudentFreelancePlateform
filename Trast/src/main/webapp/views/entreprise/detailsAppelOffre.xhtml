@@ -1,0 +1,142 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+template="../templates/common.xhtml"
+                xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="content">
+				
+				<div class="row">
+				
+					<div class="col-md-offset-1 col-md-10">
+					<h3>Le Cahier des Charges</h3>
+						<div class="form-group">
+							<label for="nom">Sujet :</label>
+							<h:outputText  value="#{appelOffreControllerNassima.appelOffre.cahierDesCharges.sujet}" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-offset-1 col-md-10">
+						<div class="form-group">
+							<label for="nom">Date debut :</label>
+							<h:outputText  value="#{appelOffreControllerNassima.appelOffre.cahierDesCharges.dateDebut}" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-offset-1 col-md-10">
+						<div class="form-group">
+							<label for="nom">Date fin :</label>
+							<h:outputText  value="#{appelOffreControllerNassima.appelOffre.cahierDesCharges.dateFin}" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-offset-1 col-md-10">
+						<div class="form-group">
+							<label for="nom">Date d'expiration :</label>
+							<h:outputText  value="#{appelOffreControllerNassima.appelOffre.dateExpiration}" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+				<div class="col-md-offset-1 col-md-10">
+				<h3>Les remunerations</h3>
+					<div class="form-group">
+					<table>
+						<c:forEach items="#{appelOffreControllerNassima.appelOffre.remunerations}" var="remuneration" varStatus="statut">
+							<tr>
+								<td>#{remuneration.intitule} : #{remuneration.somme} #{remuneration.devise}</td>
+							</tr>
+						</c:forEach>
+						</table>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+				
+				
+				<div class="col-md-offset-1 col-md-10">
+				<h3>Les formations</h3>
+						<div class="form-group">
+							<table class="table table-striped table-hover">
+							<tr>
+								<th>Intitule</th>
+								<th>Nom Etablissement</th>
+								<th>Date de debut</th>
+								<th>Date de fin</th>
+							</tr>
+							<c:forEach items="#{appelOffreControllerNassima.formationsAppelOffre}" var="formation" varStatus="statut">
+							<tr>
+								<td>#{formation.intituleFormation} </td>
+								<td>#{formation.etablissement} </td>
+								<td>#{formation.dateDebut} </td>
+								<td>#{formation.dateFin} </td>
+							</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+				
+				<div class="col-md-offset-1 col-md-10">
+				<h3>Les Experiences</h3>
+						<div class="form-group">
+							<table class="table table-striped table-hover">
+							<tr>
+								<th>Responsabilite</th>
+								<th>Sujet</th>
+								<th>Structure d'accueil</th>
+								<th>Salaire</th>
+								<th>Date de debut</th>
+								<th>Date de fin</th>
+							</tr>
+							<c:forEach items="#{appelOffreControllerNassima.experiencesAppelOffre}" var="experience" varStatus="statut">
+							<tr>
+								<td>#{experience.responsabilite} </td>
+								<td>#{experience.sujet} </td>
+								<td>#{experience.structureAccueil} </td>
+								<td>#{experience.salaire} </td>
+								<td>#{experience.dateDebut} </td>
+								<td>#{experience.dateFin} </td>
+								
+							</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+				
+				<div class="col-md-offset-1 col-md-10">
+				<h3>Les competences</h3>
+					<div class="form-group">
+					<table>
+						<c:forEach items="#{appelOffreControllerNassima.appelOffre.competences}" var="competence" varStatus="statut">
+							<tr>
+								<td>#{competence.intitule}</td>
+							</tr>
+						</c:forEach>
+						</table>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+				
+				<div class="col-md-offset-1 col-md-10">
+				<h:form>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			
+ 				<h:commandButton value="retour" class="btn btn-default" action="#{appelOffreControllerNassima.afficherAppelsOffre}">
+				</h:commandButton>
+				</h:form>
+				</div>
+				</div>
+	</ui:define>
+</ui:composition>

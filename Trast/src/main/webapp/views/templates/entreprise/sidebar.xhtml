@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">		
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+<h:form>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+
+<div class="nav-side-menu">
+    <div class="brand">
+    <h:outputText value="#{sessionScope.utilisateur.sigle} : #{sessionScope.utilisateur.email}" />
+    <span class="ti-menu big-menu"></span></div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  
+        <div class="menu-list">
+  
+            <ul id="menu-content" class="menu-content collapse out">
+                <li>
+                  <a href="#">
+                  <i class="fa fa-dashboard fa-lg"></i> Accueil
+                  </a>
+                </li>
+
+                <li id="#profil">
+                <h:commandLink class="fa fa-dashboard fa-lg" value = "Profil" action="#{entrepriseControllerNassima.profil}">
+					
+		          </h:commandLink>
+                </li>
+
+                <li data-toggle="collapse" data-target="#appeloffre" class="collapsed">
+                  <a href="#"><i class="fa fa-exchange fa-lg"></i> Appels d'offre <span class="arrow"></span></a>
+                </li>  
+                <ul class="sub-menu collapse" id="appeloffre">
+                  <li>
+                  	<h:commandLink value = "Tous les appels d'offre" action="#{appelOffreControllerNassima.afficherAppelsOffre}">				
+		          	</h:commandLink>
+                  </li>
+                  <li>Mes appels d'offre en cours</li>
+                  <li>Mes appels d'offre en attente</li>
+                  <li>Mes appels d'offre expirées</li>
+                </ul>
+
+                <li data-toggle="collapse" data-target="#projet" class="collapsed">
+                  <a href="#"><i class="fa fa-check-circle-o fa-lg"></i> Mes projets</a>
+                </li>
+            </ul>
+     </div>
+</div>
+</h:form>
+</ui:composition>

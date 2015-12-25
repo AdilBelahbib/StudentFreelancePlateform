@@ -1,0 +1,82 @@
+<ui:composition
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+template="../templates/common.xhtml">         		
+         <ui:define name="content">
+         	<div>
+
+         
+				<div class="row">
+      				<div class="col-md-offset-1 ">
+	      				<h2>Profil</h2>
+				        <h:form>
+				          <div class="row">				
+				            <div class="col-md-offset-1 col-md-3">
+				              <div class="form-group">
+				                <label> Entreprise #{entrepriseControllerNassima.entreprise.sigle} </label>
+				              </div>
+				            </div>
+				          </div>
+				          <div class="row">
+				            <div class="col-md-offset-2 col-md-7">
+				            <h:panelGroup layout="block" id="secteursInput">
+								<label>Les secteurs</label>
+								
+								<h:dataTable value="#{entrepriseControllerNassima.entreprise.secteurActivites}" var="secteur" >
+									<h:column>
+									#{secteur}
+									</h:column>
+									<!-- <h:column>
+									<h:commandButton value="DELETE"/>
+									</h:column>	 -->							
+								</h:dataTable>
+
+							</h:panelGroup>
+				              <div class="form-group">
+				                <!-- <label>Les secteurs</label>
+				                <ui:repeat value="#{entrepriseControllerNassima.entreprise.secteurActivites}" var="secteur">									
+									<li>#{secteur}</li>
+								</ui:repeat> -->
+								<!-- <h:outputText id="inputName" value="#{entrepriseControllerNassima.secteur}"/> -->
+				                <label for="secteur"> Ajouter un secteur</label>			                
+				                <h:inputText type="text" class="form-control" id="secteurInput" value="#{entrepriseControllerNassima.secteur}"/>  
+				                <div class="col-md-offset-11   col-md-5"><br/>
+				               <h:commandButton  value="ajouter"  class="btn btn-primary" >
+				                	<f:ajax execute="secteurInput" render="secteursInput" /> 
+				                </h:commandButton>
+				                </div>
+				              </div>
+				            </div>
+				          </div>
+				          <div class="row">
+				            <div class="col-md-offset-2 col-md-7">
+				              <label for="apercu">Apercu</label>
+				              <div class="form-group">
+				                
+				                <h:inputTextarea id="apercu" cols="100" rows="8" class="form-control" value="#{entrepriseControllerNassima.entreprise.apercu}"/>
+				              </div>
+				            </div>
+				          </div>
+        			<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+			      		<div class="row">
+			          <div class="col-md-offset-2 col-md-7">
+			          <div class="col-md-offset-11 col-md-5">
+			          	<h:commandButton value="Modification profil" class="btn btn-primary" action="#{entrepriseControllerNassima.modifierProfil}">
+			          		<f:param name="requete" value="post" />
+			          	</h:commandButton>
+			            <!-- <button type="button" class="btn btn-primary">Modifier</button>
+			          --> </div>
+			        </div>
+			        
+
+			</div>
+			</h:form>
+			</div>
+			</div>
+			</div>
+         </ui:define> 
+         
+     	 <ui:define name="footer">
+         </ui:define>			
+     </ui:composition> 
