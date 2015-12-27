@@ -18,7 +18,7 @@
 			<column name="nombrePassage" />
 		</property>
 
-		<property name="dateDernierPassage" type="java.util.Date">
+		<property name="dateDernierPassage" type="Date">
 			<column name="dateDernierPassage" />
 		</property>
 
