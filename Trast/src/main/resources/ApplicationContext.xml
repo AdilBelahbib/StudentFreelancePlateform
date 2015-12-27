@@ -209,6 +209,30 @@
 		</property>
 	</bean>
 
+	<!-- bean Test -->
+	<bean id="test" class="com.trast.model.Test" scope="prototype">
+		<property name="id" value="" />
+		<property name="duree" value="0.0" />
+		<property name="nombrePassage" value="0" />
+		<!-- <property name="entreprise" ref="entreprise" /> -->
+		<property name="questions">
+			<set></set>
+		</property>
+		<property name="competences">
+			<set></set>
+		</property>	
+	</bean>
+<!-- bean ResultatTest -->
+	<bean id="resultatTest" class="com.trast.model.ResultatTest" scope="prototype">
+		<property name="id" value="" />
+		<property name="score" value="0" />
+		<property name="dateDernierPassage" >
+			<bean class="java.util.Date" />
+		</property>
+		<property name="nbPassage" value="0" />
+		<property name="etudiant" ref="etudiant" />
+		<property name="test" ref="test" />
+	</bean>
 	<!-- Configuration des DAO bean -->
 	<bean id="administrateurDao" class="com.trast.dao.AdministrateurDAOImpl">
 		<constructor-arg>
@@ -317,6 +341,17 @@
 			<ref bean="sessionFactory" />
 		</constructor-arg>
 	</bean>
+	
+		<bean id="testDao" class="com.trast.dao.TestDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	<bean id="resultatTestDao" class="com.trast.dao.ResultatTestDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
 
 	<!-- Service beans -->
 	<bean id="utilisateurDetailsService" class="com.trast.service.UtilisateurDetailsService">
@@ -352,6 +387,9 @@
 				<value>com/trast/model/Remuneration.hbm.xml</value>
 				<value>com/trast/model/Utilisateur.hbm.xml</value>
 				<value>com/trast/model/RoleUtilisateur.hbm.xml</value>
+				<value>com/trast/model/Test.hbm.xml</value>
+				<value>com/trast/model/ResultatTest.hbm.xml</value>
+				<value>com/trast/model/Question.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
