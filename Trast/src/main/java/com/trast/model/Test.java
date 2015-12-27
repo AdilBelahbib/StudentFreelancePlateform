@@ -73,6 +73,14 @@ public class Test {
 		this.competences = competences;
 	}
 
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

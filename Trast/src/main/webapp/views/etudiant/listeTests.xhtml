@@ -3,15 +3,25 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:sec="http://www.springframework.org/security/tags">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
 	<ui:define name="content">
-	<f:metadata>
-		<f:viewAction action="#{testController.getAllTests}" />
-	</f:metadata>
-		
-		
-		
+		<f:metadata>
+			<f:viewAction action="#{testController.getAllTests}" />
+		</f:metadata>
+		<table id="testTable" class="table table-striped table-hover">
+
+			<tr>
+				<th>Titre</th>
+			</tr>
+
+			<c:forEach items="#{testController.tests}" var="test"
+				varStatus="statut">
+				<td>#{contreproposition.titre}</td>
+			</c:forEach>
+
+		</table>
+
 	</ui:define>
-	
+
 </ui:composition>
