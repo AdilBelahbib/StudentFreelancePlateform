@@ -13,6 +13,10 @@
 		<property name="score" type="double">
 			<column name="score" />
 		</property>
+		
+		<property name="nbPassage" type="int">
+			<column name="nombrePassage" />
+		</property>
 
 		<property name="dateDernierPassage" type="Date">
 			<column name="dateDernierPassage" />

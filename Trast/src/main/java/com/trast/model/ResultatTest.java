@@ -7,6 +7,7 @@ public class ResultatTest {
 	private double score;
 	private Date dateDernierPassage;
 	private Etudiant etudiant;
+	private int nbPassage;
 	private Test test;
 	
 	public ResultatTest() {
@@ -50,6 +51,14 @@ public class ResultatTest {
 
 	public void setTest(Test test) {
 		this.test = test;
+	}
+
+	public int getNbPassage() {
+		return nbPassage;
+	}
+
+	public void setNbPassage(int nbPassage) {
+		this.nbPassage = nbPassage;
 	}
 
 	@Override
