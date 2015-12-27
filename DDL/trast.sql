@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2015 at 09:00 PM
+-- Generation Time: Dec 27, 2015 at 01:35 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -318,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `projet` (
   `statut` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `idCahierDesCharges` int(11) NOT NULL,
   `idEtudiant` int(11) NOT NULL,
-  `idEntreprise` int(11) NOT NULL,
+  `idEntreprise` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idCahierDesCharges` (`idCahierDesCharges`),
   KEY `idEtudiant` (`idEtudiant`),
@@ -354,6 +354,21 @@ INSERT INTO `qualification` (`id`, `dateDebut`, `dateFin`, `idEtudiant`, `idAppe
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `question`
+--
+
+CREATE TABLE IF NOT EXISTS `question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question` varchar(128) NOT NULL,
+  `coefficient` double NOT NULL,
+  `idTest` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idTest` (`idTest`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `remuneration`
 --
 
@@ -366,6 +381,49 @@ CREATE TABLE IF NOT EXISTS `remuneration` (
   PRIMARY KEY (`id`),
   KEY `idAppelOffre` (`idAppelOffre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reponse_fausse`
+--
+
+CREATE TABLE IF NOT EXISTS `reponse_fausse` (
+  `reponse` int(11) NOT NULL,
+  `idQuestion` int(11) NOT NULL,
+  PRIMARY KEY (`reponse`,`idQuestion`),
+  KEY `idQuestion` (`idQuestion`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reponse_juste`
+--
+
+CREATE TABLE IF NOT EXISTS `reponse_juste` (
+  `reponse` int(11) NOT NULL,
+  `idQuestion` int(11) NOT NULL,
+  PRIMARY KEY (`reponse`,`idQuestion`),
+  KEY `idQuestion` (`idQuestion`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resultat_test`
+--
+
+CREATE TABLE IF NOT EXISTS `resultat_test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `score` double NOT NULL,
+  `dateDernierPassage` datetime NOT NULL,
+  `idEtudiant` int(11) NOT NULL,
+  `idTest` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idEtudiant` (`idEtudiant`),
+  KEY `idTest` (`idTest`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -408,6 +466,34 @@ CREATE TABLE IF NOT EXISTS `secteur_activite` (
 INSERT INTO `secteur_activite` (`secteur`, `idEntreprise`) VALUES
 ('Secteur A', 4),
 ('Secteur C', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test`
+--
+
+CREATE TABLE IF NOT EXISTS `test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `duree` double NOT NULL,
+  `nombrePassage` int(11) NOT NULL,
+  `idEntreprise` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idEntreprise` (`idEntreprise`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test_competence`
+--
+
+CREATE TABLE IF NOT EXISTS `test_competence` (
+  `idTest` int(11) NOT NULL,
+  `idCompetence` int(11) NOT NULL,
+  PRIMARY KEY (`idTest`,`idCompetence`),
+  KEY `idCompetence` (`idCompetence`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -516,9 +602,9 @@ ALTER TABLE `particulier`
 -- Constraints for table `projet`
 --
 ALTER TABLE `projet`
-  ADD CONSTRAINT `projet_ibfk_3` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `projet_ibfk_1` FOREIGN KEY (`idCahierDesCharges`) REFERENCES `cahier_des_charges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `projet_ibfk_2` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `projet_ibfk_2` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `projet_ibfk_3` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `qualification`
@@ -528,16 +614,54 @@ ALTER TABLE `qualification`
   ADD CONSTRAINT `qualification_ibfk_2` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `question`
+--
+ALTER TABLE `question`
+  ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`idTest`) REFERENCES `test` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `remuneration`
 --
 ALTER TABLE `remuneration`
   ADD CONSTRAINT `remuneration_ibfk_1` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `reponse_fausse`
+--
+ALTER TABLE `reponse_fausse`
+  ADD CONSTRAINT `reponse_fausse_ibfk_1` FOREIGN KEY (`idQuestion`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reponse_juste`
+--
+ALTER TABLE `reponse_juste`
+  ADD CONSTRAINT `reponse_juste_ibfk_1` FOREIGN KEY (`idQuestion`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `resultat_test`
+--
+ALTER TABLE `resultat_test`
+  ADD CONSTRAINT `resultat_test_ibfk_2` FOREIGN KEY (`idTest`) REFERENCES `test` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `resultat_test_ibfk_1` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `secteur_activite`
 --
 ALTER TABLE `secteur_activite`
   ADD CONSTRAINT `secteur_activite_ibfk_1` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `test`
+--
+ALTER TABLE `test`
+  ADD CONSTRAINT `test_ibfk_1` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `test_competence`
+--
+ALTER TABLE `test_competence`
+  ADD CONSTRAINT `test_competence_ibfk_2` FOREIGN KEY (`idCompetence`) REFERENCES `competence` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `test_competence_ibfk_1` FOREIGN KEY (`idTest`) REFERENCES `test` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `utilisateur`
