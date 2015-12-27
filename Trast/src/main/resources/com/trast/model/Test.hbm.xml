@@ -9,7 +9,11 @@
 			<column name="ID" />
 			<generator class="native" />
 		</id>
-
+		
+		<property name="titre" type="java.lang.String">
+			<column name="titre" />
+		</property>
+		
 		<property name="duree" type="double">
 			<column name="duree" />
 		</property>

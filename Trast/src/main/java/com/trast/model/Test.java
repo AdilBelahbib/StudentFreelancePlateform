@@ -4,6 +4,7 @@ import java.util.Set;
 
 public class Test {
 	private Long id;
+	private String titre;
 	private Set<Question> questions;
 	private double duree;
 	private int nombrePassage;
@@ -13,9 +14,10 @@ public class Test {
 	public Test() {
 	}
 
-	public Test(Long id, Set<Question> questions, double duree, int nombrePassage, Set<Competence> competences,
-			Entreprise entreprise) {
+	public Test(Long id, String titre, Set<Question> questions, double duree, int nombrePassage,
+			Set<Competence> competences, Entreprise entreprise) {
 		this.id = id;
+		this.titre = titre;
 		this.questions = questions;
 		this.duree = duree;
 		this.nombrePassage = nombrePassage;
@@ -75,7 +77,7 @@ public class Test {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? (questions.hashCode()+entreprise.hashCode()) : id.hashCode());
+		result = prime * result + ((id == null) ? (questions.hashCode()+titre.hashCode()) : id.hashCode());
 		return result;
 	}
 
