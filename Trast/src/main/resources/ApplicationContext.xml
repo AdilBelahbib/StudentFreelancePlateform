@@ -194,6 +194,7 @@
 		<property name="statut" value="ENCOURS" />
 		<property name="cout" value="0.0" />
 		<property name="devise" value="" />
+		<!-- <property name="entreprise" ref="entreprise" /> -->
 	</bean>
 	<!-- bean: Administrateur -->
 	<bean id="administrateur" class="com.trast.model.Administrateur"

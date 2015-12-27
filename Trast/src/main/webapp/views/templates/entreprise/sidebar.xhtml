@@ -34,13 +34,15 @@ xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
           <a href="#"><i class="fa fa-exchange fa-lg"></i> Appels d'offre <span class="arrow"></span></a>
         </li>  
         <ul class="sub-menu collapse" id="appeloffre">
-          <li>
-            <h:commandLink value = "Tous les appels d'offre" action="#{appelOffreControllerNassima.afficherAppelsOffre}">       
+
+        <li>
+        	<h:commandLink value = "Mes appels d'offre en cours" action="#{appelOffreControllerNassima.afficherAppelsOffreEnCours}">       
           </h:commandLink>
-        </li>
-        <li>Mes appels d'offre en cours</li>
-        <li>Mes appels d'offre en attente</li>
-        <li>Mes appels d'offre expirées</li>
+         </li>
+        <li>
+        	<h:commandLink value = "Mes appels archivés" action="#{appelOffreControllerNassima.afficherAppelsOffreArchives}">       
+          </h:commandLink>
+         </li>
       </ul>
 
       <li data-toggle="collapse" data-target="#projet" class="collapsed">

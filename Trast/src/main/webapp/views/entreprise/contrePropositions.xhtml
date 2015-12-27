@@ -31,7 +31,16 @@ template="../templates/common.xhtml"
 									<h:commandButton value="Accepter"  action="#{appelOffreControllerNassima.affecterAppelOffre}" class="btn btn-default" >
 			            
 										<f:setPropertyActionListener target="#{appelOffreControllerNassima.contreProposition}" value="#{item}" />
-						</h:commandButton></td>
+									</h:commandButton>
+								</td>
+								
+								
+								<td>
+									<h:commandButton value="Refuser"  action="#{appelOffreControllerNassima.refuserContreProposition()}" class="btn btn-default" >
+			            
+										<f:setPropertyActionListener target="#{appelOffreControllerNassima.contreProposition}" value="#{item}" />
+									</h:commandButton>
+								</td>
 							</tr>
 							</c:forEach>
 						</table>

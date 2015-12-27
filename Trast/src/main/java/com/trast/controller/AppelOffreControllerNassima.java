@@ -17,7 +17,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.trast.dao.AppelOffreDAO;
 import com.trast.dao.CahierDesChargesDAO;
 import com.trast.dao.CompetenceDAO;
+import com.trast.dao.ContrePropositionDAO;
 import com.trast.dao.EntrepriseDAO;
+import com.trast.dao.EtudiantDAO;
 import com.trast.dao.ExperienceDAO;
 import com.trast.dao.FormationDAO;
 import com.trast.dao.ProjetDAO;
@@ -247,16 +249,40 @@ public class AppelOffreControllerNassima implements Serializable{
 		//return "afficherArchives";		
 	}
 	
-	public void affecterAppelOffre(){
+	public String affecterAppelOffre(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-		AppelOffreDAO  appelDao = (AppelOffreDAO) context.getBean("appelOffreDao");
+		AppelOffreDAO appelDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		ProjetDAO  projetDao = (ProjetDAO) context.getBean("projetDao");
+		ContrePropositionDAO  contrePropositionDao = (ContrePropositionDAO) context.getBean("contrePropositionDao");
+		EtudiantDAO  etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
+		System.out.println("************* "+entreprise.getId());
 		Projet projet = (Projet) context.getBean("projet");
+		System.out.println("************* "+entreprise.getId());
+		entreprise.getProjets().add(projet);
+		projet.setEntreprise(entreprise);
 		projet.setCahierDesCharges(appelOffre.getCahierDesCharges());
 		projet.setEtudiant(contreProposition.getEtudiant());
 		projet.setCout(contreProposition.getEnchere());
 		projet.setStatut(EtatProjet.ENCOURS);
 		projetDao.ajouterProjet(projet);
+		
+		/* retirer contre proposition acceptee*/
+		appelOffre.getContrePropositions().remove(contreProposition);
+		contreProposition.getEtudiant().getContrePropositions().remove(contreProposition);
+		contreProposition.setEtudiant(null);
+		contrePropositionDao.modifierContreProposition(contreProposition);
+		contrePropositionDao.supprimerContreProposition(contreProposition.getId());
+		
+		/* retirer les autres contrepropositions + incre bids*/
+		for(ContreProposition item : appelOffre.getContrePropositions()){
+			item.getEtudiant().setNombreBids(item.getEtudiant().getNombreBids()+1);
+			etudiantDao.modifierEtudiant(item.getEtudiant());
+			/* supprimer */
+			item.setEtudiant(null);
+			contrePropositionDao.modifierContreProposition(item);
+			contrePropositionDao.supprimerContreProposition(item.getId());
+			appelOffre.getContrePropositions().remove(item);
+		}
 		/* modifier etat appelOffre / supprimer */
 		for(AppelOffre item :entreprise.getAppelOffres()){
 			if(item.getId()==appelOffre.getId()) 
@@ -266,10 +292,38 @@ public class AppelOffreControllerNassima implements Serializable{
 				break;
 			}
 		}
+	
 		((ConfigurableApplicationContext)context).close();
-		this.afficherAppelsOffreEnCours();
+		appelOffres.remove(appelOffre);
+		
+		return "afficherEncours";
 		
 	}
+	
+	
+	public String refuserContreProposition(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		AppelOffreDAO appelDao = (AppelOffreDAO) context.getBean("appelOffreDao");
+		ContrePropositionDAO  contrePropositionDao = (ContrePropositionDAO) context.getBean("contrePropositionDao");
+		EtudiantDAO  etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
+		
+		contreProposition.getEtudiant().setNombreBids(contreProposition.getEtudiant().getNombreBids()+1);
+		etudiantDao.modifierEtudiant(contreProposition.getEtudiant());
+		/* supprimer */
+		contreProposition.setEtudiant(null);
+		contrePropositionDao.modifierContreProposition(contreProposition);
+		contrePropositionDao.supprimerContreProposition(contreProposition.getId());
+		appelOffre.getContrePropositions().remove(contreProposition);
+		appelDao.modifierAppelOffre(appelOffre);
+		((ConfigurableApplicationContext)context).close();
+	
+		/* recuperer les appels d'offre archive*/
+		appelOffres.remove(appelOffre);
+		
+		return "afficherEncours";
+		
+	}
+	
 	
 	/************************************************/
 	public String afficherAppelsOffre(){
@@ -298,6 +352,7 @@ public class AppelOffreControllerNassima implements Serializable{
 	}
 	public String afficherAppelsOffreEnCours(){
 		
+		
 		appelOffres = new ArrayList<AppelOffre>();
 		/* recuperer les appels d'offre archive*/
 		for(AppelOffre item : entreprise.getAppelOffres()){
@@ -325,6 +380,7 @@ public class AppelOffreControllerNassima implements Serializable{
 		appelOffre.setCahierDesCharges(cahierDesCharges);
 		cahierDesCharges.setDateDebut(appelOffre.getDateDebut());
 		cahierDesCharges.setAppelOffre(appelOffre);
+		appelOffre.setStatut(EtatAppelOffre.ENCOURS);
 		appelDao.ajouterAppelOffre(appelOffre);
 		cahierDao.ajouterCahierDesCharges(cahierDesCharges);
 		entrepriseDao.modifierEntreprise(entreprise);

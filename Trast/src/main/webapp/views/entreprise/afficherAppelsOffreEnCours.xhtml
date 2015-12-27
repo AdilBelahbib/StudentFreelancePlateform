@@ -9,7 +9,7 @@ template="../templates/common.xhtml">
         Ajouter un appel d'offre
         </button>
 			      </div>			   			       
-			      <h:form>
+			      <h:form enctype="multipart/form-data">
 			      <h:dataTable  class="table table-striped table-hover"  value="#{appelOffreControllerNassima.appelOffres}" var="item" varStatus="statut"
 			         >	
 			         <h:column>    				
@@ -60,7 +60,7 @@ template="../templates/common.xhtml">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Ajouter un appel d'offre</h4>
       </div>
-      <h:form>
+      <h:form enctype="multipart/form-data">
       <div class="modal-body">
         
 			<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>

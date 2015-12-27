@@ -119,5 +119,15 @@
                <from-outcome>afficherArchives</from-outcome>
                <to-view-id>/views/entreprise/afficherAppelsOffreArchives.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
+           <navigation-case>
+               <from-action>#{appelOffreControllerNassima.affecterAppelOffre}</from-action>
+               <from-outcome>afficherEncours</from-outcome>
+               <to-view-id>/views/entreprise/afficherAppelsOffreEnCours.xhtml?faces-redirect=true</to-view-id>
+           </navigation-case>
+            <navigation-case>
+               <from-action>#{appelOffreControllerNassima.refuserContreProposition}</from-action>
+               <from-outcome>afficherEncours</from-outcome>
+               <to-view-id>/views/entreprise/afficherAppelsOffreEnCours.xhtml?faces-redirect=true</to-view-id>
+           </navigation-case>
        </navigation-rule>
 </faces-config>
