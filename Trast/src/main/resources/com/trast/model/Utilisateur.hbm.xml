@@ -22,16 +22,18 @@
 			</key>
 			<one-to-many class="Fichier" />
 		</set>
-		<set name="adresses" table="ADRESSE" inverse="true" lazy="false" cascade="all">
+		<set name="adresses" table="ADRESSE" inverse="true" lazy="false"
+			cascade="all">
 			<key>
 				<column name="idUtilisateur" />
 			</key>
 			<one-to-many class="Adresse" />
 		</set>
-		
-		<many-to-one name="roleUtilisateur" class="RoleUtilisateur" fetch="join" lazy="false">
-            <column name="idrole" />
-        </many-to-one>
+
+		<many-to-one name="roleUtilisateur" class="RoleUtilisateur"
+			fetch="join" lazy="false">
+			<column name="idrole" />
+		</many-to-one>
 
 		<!-- La sous-classe Entreprise -->
 		<subclass name="Entreprise" discriminator-value="ENT">
@@ -41,14 +43,14 @@
 				</key>
 				<one-to-many class="AppelOffre" />
 			</set>
-			
+
 			<set name="projets" table="projet" inverse="true" lazy="false">
 				<key>
 					<column name="idEntreprise" />
 				</key>
 				<one-to-many class="Projet" />
 			</set>
-			
+
 			<set name="secteurActivites" table="secteur_activite" inverse="false"
 				lazy="false">
 				<key>
@@ -57,6 +59,14 @@
 				<element type="java.lang.String">
 					<column name="secteur" />
 				</element>
+			</set>
+
+			<set name="tests" table="TEST" inverse="true" lazy="false"
+				access="field">
+				<key>
+					<column name="idEntreprise" />
+				</key>
+				<one-to-many class="Test" />
 			</set>
 
 			<join table="entreprise">
@@ -114,7 +124,7 @@
 				</set>
 
 				<set name="contrePropositions" table="contre_proposition"
-					inverse="true" lazy="false" cascade="all" >
+					inverse="true" lazy="false" cascade="all">
 					<key>
 						<column name="idEtudiant" />
 					</key>
@@ -127,6 +137,14 @@
 						<column name="idEtudiant" />
 					</key>
 					<one-to-many class="Projet" />
+				</set>
+
+				<set name="resultatTests" table="resultat_test" inverse="true"
+					lazy="false" access="field">
+					<key>
+						<column name="idEtudiant" />
+					</key>
+					<one-to-many class="ResultatTest" />
 				</set>
 
 				<join table="etudiant">

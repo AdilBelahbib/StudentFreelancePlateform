@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.trast.model">
+	<class name="Test" table="TEST">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="duree" type="double">
+			<column name="duree" />
+		</property>
+
+		<property name="nombrePassage" type="int">
+			<column name="nombrePassage" />
+		</property>
+
+		<set name="questions" table="question" inverse="true" lazy="false">
+			<key>
+				<column name="idTest" />
+			</key>
+			<one-to-many class="Question" />
+		</set>
+
+		<set name="competences" table="test_competence" inverse="true"
+			lazy="false">
+			<key column="idTest" />
+			<many-to-many column="idCompetence" class="Competence" />
+		</set>
+
+		<many-to-one name="entreprise" class="Entreprise" fetch="join" lazy="false">
+			<column name="idEntreprise" />
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

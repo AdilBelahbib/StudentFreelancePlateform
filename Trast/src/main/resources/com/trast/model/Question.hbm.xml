@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.trast.model">
+	<class name="Question" table="QUESTION">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+		
+		<property name="question" type="java.lang.String">
+			<column name="question" />
+		</property>
+
+		<set name="reponsesJustes" table="reponse_juste" inverse="false"
+			lazy="false">
+			<key>
+				<column name="idQuestion" />
+			</key>
+			<element type="java.lang.String">
+				<column name="reponse" />
+			</element>
+		</set>
+
+		<set name="reponsesFausses" table="reponse_fausse" inverse="false"
+			lazy="false">
+			<key>
+				<column name="idQuestion" />
+			</key>
+			<element type="java.lang.String">
+				<column name="reponse" />
+			</element>
+		</set>
+
+		<property name="coefficient" type="double">
+			<column name="coefficient" />
+		</property>
+
+		<many-to-one name="test" class="Test" fetch="join"
+			lazy="false">
+			<column name="idTest" />
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

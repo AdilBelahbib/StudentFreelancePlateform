@@ -8,6 +8,7 @@ public class Entreprise extends Utilisateur{
 	private String apercu;
 	private Set<AppelOffre> appelOffres;
 	private Set<Projet> projets;
+	private Set<Test> tests;
 	private EtatCompte etatCompte;
 	
 	public Entreprise(){
@@ -15,13 +16,14 @@ public class Entreprise extends Utilisateur{
 
 	public Entreprise(Long id, String email, String motDePasse, Set<Fichier> fichiers, Set<Adresse> adresses,
 			String sigle, Set<String> secteurActivites, String apercu, Set<AppelOffre> appelOffres, Set<Projet> projets,
-			EtatCompte etatCompte) {
+			Set<Test> tests, EtatCompte etatCompte) {
 		super(id, email, motDePasse, fichiers, adresses);
 		this.sigle = sigle;
 		this.secteurActivites = secteurActivites;
 		this.apercu = apercu;
 		this.appelOffres = appelOffres;
 		this.projets = projets;
+		this.tests = tests;
 		this.etatCompte = etatCompte;
 	}
 
@@ -73,6 +75,14 @@ public class Entreprise extends Utilisateur{
 
 	public void setEtatCompte(EtatCompte etatCompte) {
 		this.etatCompte = etatCompte;
+	}
+
+	public Set<Test> getTests() {
+		return tests;
+	}
+
+	public void setTests(Set<Test> tests) {
+		this.tests = tests;
 	}
 	
 }
