@@ -233,6 +233,19 @@
 		<property name="etudiant" ref="etudiant" />
 		<property name="test" ref="test" />
 	</bean>
+<!-- bean Question -->
+	<bean id="question" class="com.trast.model.Question" scope="prototype">
+		<property name="id" value="" />
+		<property name="question" value="" />
+		<property name="coefficient" value="0" />
+		<property name="test" ref="test" />
+		<property name="reponsesJustes">
+			<set></set>
+		</property>	
+		<property name="reponsesFausses">
+			<set></set>
+		</property>	
+	</bean>
 	<!-- Configuration des DAO bean -->
 	<bean id="administrateurDao" class="com.trast.dao.AdministrateurDAOImpl">
 		<constructor-arg>
@@ -352,7 +365,11 @@
 			<ref bean="sessionFactory" />
 		</constructor-arg>
 	</bean>
-
+	<bean id="questionDao" class="com.trast.dao.QuestionDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
 	<!-- Service beans -->
 	<bean id="utilisateurDetailsService" class="com.trast.service.UtilisateurDetailsService">
 		<property name="utilisateurDao" ref="utilisateurDao" />

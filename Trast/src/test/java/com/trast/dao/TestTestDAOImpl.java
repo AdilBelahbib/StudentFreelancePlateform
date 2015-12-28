@@ -1,13 +1,17 @@
 package com.trast.dao;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.trast.model.Question;
 
 public class TestTestDAOImpl {
 
@@ -46,9 +50,10 @@ public class TestTestDAOImpl {
 		  com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
 		  test.setDuree(60);
 		  test.setNombrePassage(0);
+		  
 		  testDao.ajouterTest(test);
-		  List<com.trast.model.Test> tests = testDao.getTests();
-		  Assert.assertNotNull(tests);  
+		  test = testDao.getTestParId(test.getId());
+		  Assert.assertNotNull(test);  
 		  testDao.supprimerTest(test.getId());		  
 		  ((ConfigurableApplicationContext)context).close();
 	}
