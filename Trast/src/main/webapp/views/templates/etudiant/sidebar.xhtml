@@ -47,6 +47,17 @@
                 <li id="#projet">
                   <a href="#"><i class="fa fa-briefcase fa-lg"></i> Mes projets</a>
                 </li>
+                
+                <li data-toggle="collapse" data-target="#test" class="collapsed">
+                  <a href="#">
+                  <i class="fa fa-superscript fa-lg"></i> Les tests de connaissances
+                  <span class="arrow"></span></a>
+                  </li>
+                  <ul class="sub-menu collapse" id="test">
+                  <li><h:link outcome="/views/etudiant/listeTests.xhtml?faces-redirect=true" value="Passer un test" /></li>
+                  <li><h:link outcome="/views/etudiant/listeContrePropositions.xhtml?faces-redirect=true" value="Mes résultats" /></li>
+                </ul>
+                
             </ul>
      </div>
 </div>

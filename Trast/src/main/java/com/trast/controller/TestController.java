@@ -36,6 +36,7 @@ public class TestController {
 	public void getAllTests()
 	{
 		tests = testDao.getTests();
+		System.out.println(tests.size());
 	}
 	
 
