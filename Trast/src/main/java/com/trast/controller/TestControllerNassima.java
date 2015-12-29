@@ -5,12 +5,16 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.CompetenceDAO;
+import com.trast.dao.QuestionDAO;
+import com.trast.dao.TestDAO;
 import com.trast.model.Competence;
 import com.trast.model.Entreprise;
 import com.trast.model.Question;
@@ -34,7 +38,15 @@ public class TestControllerNassima implements Serializable{
 	String statut;
 	@ManagedProperty(value = "#{reponse}")
 	String reponse;
+	@ManagedProperty(value = "#{redirection}")
+	int redirection;
 	/************ getters & setters ***************/
+	public int getRedirection() {
+		return redirection;
+	}
+	public void setRedirection(int redirection) {
+		this.redirection = redirection;
+	}
 	public String getStatut() {
 		return statut;
 	}
@@ -80,6 +92,8 @@ public class TestControllerNassima implements Serializable{
 	/*-------------------------------------------*/
 	/******* method ***********************/
 	public void creerTest(){
+		if(this.getRedirection()==0){
+			
 		/* recuperer une instance test et l'initialiser */
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		test = (Test) context.getBean("test");
@@ -87,11 +101,13 @@ public class TestControllerNassima implements Serializable{
 		test.setNombrePassage(0);
 				
 		((ConfigurableApplicationContext)context).close();
+		}
+		else this.setRedirection(0);
 		
 	}
 
 	public void retirerCompetence(){
-		System.out.println("suppr : "+competence.getIntitule()+" ***");
+		System.out.println("suppr : "+test.getCompetences().size()+" ***");
 		test.getCompetences().remove(competence);	
 		System.out.println("fin supp");
 	}
@@ -118,10 +134,10 @@ public class TestControllerNassima implements Serializable{
 		System.out.println("size: "+test.getQuestions().size());
 	}
 	public void retirerReponseJuste(){
-		
+		question.getReponsesJustes().remove(reponse);
 	}
 	public void ajouterReponseJuste(){
-		System.out.println("index : "+statut);
+		/*System.out.println("index : "+statut);
 		int i=0;
 		for(Question questionItem : test.getQuestions()){
 			if(i==Integer.parseInt(statut)) 
@@ -131,7 +147,48 @@ public class TestControllerNassima implements Serializable{
 				break;
 			}
 			else i++;
+		}*/
+		question.getReponsesJustes().add(reponse);
+	}
+	
+	public void retirerReponseFausse(){
+		question.getReponsesFausses().remove(reponse);
+	}
+	public void ajouterReponseFausse(){
+		question.getReponsesFausses().add(reponse);
+	}
+	public String modifierQuestion(){
+		int i=0;
+		for(Question questionItem : test.getQuestions()){
+			
+			if(i==Integer.parseInt(statut)) 
+			{
+				questionItem = question;
+				System.out.println("nbr : "+questionItem.getReponsesJustes().size());
+				break;
+			}
+			else i++;
 		}
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		question = (Question) context.getBean("question");
+		((ConfigurableApplicationContext) context).close();	
+		System.out.println("size: "+test.getQuestions().size());
+		this.setRedirection(1);
+		return "/views/entreprise/creerTest.xhtml?faces-redirect=true";
+	}
+	/* persister le test dans la BdD*/
+	public String validerTest(){
+		/* ajouter Test*/
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		TestDAO testDao = (TestDAO) context.getBean("testDao");
+		testDao.ajouterTest(test);
+		/* ajouter Questions*/
+		QuestionDAO questionDao = (QuestionDAO) context.getBean("questionDao");
+		for(Question questionItem : test.getQuestions()){
+			questionItem.setTest(test);
+			questionDao.ajouterQuestion(questionItem);
+		}
+		return "/views/entreprise/creerTest.xhtml?faces-redirect=true";
 	}
 	
 }
