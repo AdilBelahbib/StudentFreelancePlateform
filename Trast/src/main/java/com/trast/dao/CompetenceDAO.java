@@ -12,6 +12,6 @@ public interface CompetenceDAO {
 	public void supprimerCompetence(Long id);
 	public void modifierCompetence(Competence competence);
 	public Competence getCompetenceByIntitule(String intitule);
-	public boolean ajouterCompetenceIfNotExist(Competence competence);
+	public Competence ajouterCompetenceIfNotExist(Competence competence);
 
 }

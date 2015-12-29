@@ -14,7 +14,7 @@ template="../templates/common.xhtml">
 				          <div class="row">				
 				            <div class="col-md-offset-1 col-md-3">
 				              <div class="form-group">
-				                <label> Entreprise #{entrepriseControllerNassima.entreprise.sigle} </label>
+				                <label> Entreprise #{entrepriseController.entreprise.sigle} </label>
 				              </div>
 				            </div>
 				          </div>
@@ -23,7 +23,7 @@ template="../templates/common.xhtml">
 				            <h:panelGroup layout="block" id="secteursInput">
 								<label>Les secteurs</label>
 								
-								<h:dataTable value="#{entrepriseControllerNassima.entreprise.secteurActivites}" var="secteur" >
+								<h:dataTable value="#{entrepriseController.entreprise.secteurActivites}" var="secteur" >
 									<h:column>
 									#{secteur}
 									</h:column>
@@ -40,7 +40,7 @@ template="../templates/common.xhtml">
 								</ui:repeat> -->
 								<!-- <h:outputText id="inputName" value="#{entrepriseControllerNassima.secteur}"/> -->
 				                <label for="secteur"> Ajouter un secteur</label>			                
-				                <h:inputText type="text" class="form-control" id="secteurInput" value="#{entrepriseControllerNassima.secteur}"/>  
+				                <h:inputText type="text" class="form-control" id="secteurInput" value="#{entrepriseController.secteur}"/>  
 				                <div class="col-md-offset-11   col-md-5"><br/>
 				               <h:commandButton  value="ajouter"  class="btn btn-primary" >
 				                	<f:ajax execute="secteurInput" render="secteursInput" /> 
@@ -54,7 +54,7 @@ template="../templates/common.xhtml">
 				              <label for="apercu">Apercu</label>
 				              <div class="form-group">
 				                
-				                <h:inputTextarea id="apercu" cols="100" rows="8" class="form-control" value="#{entrepriseControllerNassima.entreprise.apercu}"/>
+				                <h:inputTextarea id="apercu" cols="100" rows="8" class="form-control" value="#{entrepriseController.entreprise.apercu}"/>
 				              </div>
 				            </div>
 				          </div>
@@ -62,7 +62,7 @@ template="../templates/common.xhtml">
 			      		<div class="row">
 			          <div class="col-md-offset-2 col-md-7">
 			          <div class="col-md-offset-11 col-md-5">
-			          	<h:commandButton value="Modification profil" class="btn btn-primary" action="#{entrepriseControllerNassima.modifierProfil}">
+			          	<h:commandButton value="Modification profil" class="btn btn-primary" action="#{entrepriseController.modifierProfil}">
 			          		<f:param name="requete" value="post" />
 			          	</h:commandButton>
 			            <!-- <button type="button" class="btn btn-primary">Modifier</button>

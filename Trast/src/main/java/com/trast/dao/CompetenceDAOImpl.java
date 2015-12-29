@@ -69,14 +69,17 @@ public class CompetenceDAOImpl implements CompetenceDAO{
 
 	@Override
 	@Transactional
-	public boolean ajouterCompetenceIfNotExist(Competence competence) {
+	public Competence ajouterCompetenceIfNotExist(Competence competence) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM Competence C WHERE C.intitule =:intitule";
 		Query query = session.createQuery(hql);
 		query.setParameter("intitule", competence.getIntitule());
-		if(query.list().size()>0) return false;
+		if(query.list().size()>0)
+		{
+			return (Competence) query.list().get(0);
+		}
 		session.save(competence);
-		return true;
+		return competence;
 	}
 
 }

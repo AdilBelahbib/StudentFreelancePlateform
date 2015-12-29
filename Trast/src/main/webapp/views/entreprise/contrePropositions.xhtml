@@ -9,7 +9,7 @@ template="../templates/common.xhtml"
 	<ui:define name="content">
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10">
-				<h3>Les contre propositions concernants <h:outputText  value="#{appelOffreControllerNassima.appelOffre.cahierDesCharges.sujet}" /></h3>				
+				<h3>Les contre propositions concernants <h:outputText  value="#{appelOffreController.appelOffre.cahierDesCharges.sujet}" /></h3>				
 			</div>
 		</div>
 		<div class="row">		
@@ -22,23 +22,23 @@ template="../templates/common.xhtml"
 								<th>Etudiant</th>
 								<th>Piece Jointe</th>
 							</tr>
-							<c:forEach items="#{appelOffreControllerNassima.appelOffre.contrePropositions}" var="item" varStatus="statut">
+							<c:forEach items="#{appelOffreController.appelOffre.contrePropositions}" var="item" varStatus="statut">
 							<tr>
 								<td>#{item.enchere} </td>
 								<td><button  data-toggle="modal" data-target="#detailsEtudiant-#{statut.count}" type="button" class="btn btn-default ">#{item.etudiant.nom} #{item.etudiant.prenom}</button> </td>
 								<td><a> download</a> </td>
 								<td>
-									<h:commandButton value="Accepter"  action="#{appelOffreControllerNassima.affecterAppelOffre}" class="btn btn-default" >
+									<h:commandButton value="Accepter"  action="#{appelOffreController.affecterAppelOffre}" class="btn btn-default" >
 			            
-										<f:setPropertyActionListener target="#{appelOffreControllerNassima.contreProposition}" value="#{item}" />
+										<f:setPropertyActionListener target="#{appelOffreController.contreProposition}" value="#{item}" />
 									</h:commandButton>
 								</td>
 								
 								
 								<td>
-									<h:commandButton value="Refuser"  action="#{appelOffreControllerNassima.refuserContreProposition()}" class="btn btn-default" >
+									<h:commandButton value="Refuser"  action="#{appelOffreController.refuserContreProposition()}" class="btn btn-default" >
 			            
-										<f:setPropertyActionListener target="#{appelOffreControllerNassima.contreProposition}" value="#{item}" />
+										<f:setPropertyActionListener target="#{appelOffreController.contreProposition}" value="#{item}" />
 									</h:commandButton>
 								</td>
 							</tr>
@@ -55,7 +55,7 @@ template="../templates/common.xhtml"
 	</ui:define>
 	
 <!-- modals -->
-<c:forEach items="#{appelOffreControllerNassima.appelOffre.contrePropositions}" var="item" varStatus="statut">
+<c:forEach items="#{appelOffreController.appelOffre.contrePropositions}" var="item" varStatus="statut">
 <div class="modal fade" id="detailsEtudiant-#{statut.count}" tabindex="-1"
 role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 <div class="modal-dialog">

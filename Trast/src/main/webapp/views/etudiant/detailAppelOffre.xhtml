@@ -21,14 +21,14 @@
 		
 								<div class="form-group">
 									<label>Date début: <h:outputText
-											value="#{appelOffreControllerKhouloud.appelOffre.dateDebut}" /></label>
+											value="#{appelOffreController.appelOffre.dateDebut}" /></label>
 								</div>
 								<div class="form-group">
 									<label>Date d'expiration: <h:outputText
-											value="#{appelOffreControllerKhouloud.appelOffre.dateExpiration}" /></label>
+											value="#{appelOffreController.appelOffre.dateExpiration}" /></label>
 								</div>
 								<div class="form-group">
-									<label>Statut: <h:outputText value="#{appelOffreControllerKhouloud.appelOffre.statut}" /></label>
+									<label>Statut: <h:outputText value="#{appelOffreController.appelOffre.statut}" /></label>
 								</div>
 						</div>
 					</div>
@@ -45,18 +45,18 @@
 							<br />
 								<div class="form-group">
 									<label>Sujet: <h:outputText
-											value="#{appelOffreControllerKhouloud.appelOffre.cahierDesCharges.sujet}" /></label>
+											value="#{appelOffreController.appelOffre.cahierDesCharges.sujet}" /></label>
 								</div>
-								<c:if test="#{appelOffreControllerKhouloud.appelOffre.cahierDesCharges.dateDebut != NULL}">
+								<c:if test="#{appelOffreController.appelOffre.cahierDesCharges.dateDebut != NULL}">
 									<div class="form-group">
 										<label>Date début du sujet: <h:outputText
-												value="#{appelOffreControllerKhouloud.appelOffre.cahierDesCharges.dateDebut}" /></label>
+												value="#{appelOffreController.appelOffre.cahierDesCharges.dateDebut}" /></label>
 									</div>
 								</c:if>
-								<c:if test="#{appelOffreControllerKhouloud.appelOffre.cahierDesCharges.dateFin != NULL}">
+								<c:if test="#{appelOffreController.appelOffre.cahierDesCharges.dateFin != NULL}">
 									<div class="form-group">
 										<label>Date fin du sujet: <h:outputText
-												value="#{appelOffreControllerKhouloud.appelOffre.cahierDesCharges.dateFin}" /></label>
+												value="#{appelOffreController.appelOffre.cahierDesCharges.dateFin}" /></label>
 									</div>
 								</c:if>
 								<div class="form-group">
@@ -81,7 +81,7 @@
 
 							<hr class="primary"></hr>
 							<br />
-								<c:forEach items="#{appelOffreControllerKhouloud.appelOffre.qualifications}" var="qualification"
+								<c:forEach items="#{appelOffreController.appelOffre.qualifications}" var="qualification"
 									varStatus="statut">
 									<div class="form-group">
 										<!-- Infos qualification -->
@@ -167,7 +167,7 @@
 							<h2 class="section-heading">Compétences</h2>
 							<hr class="primary"></hr>
 							<br />
-								<c:forEach items="#{appelOffreControllerKhouloud.appelOffre.competences}" var="competence"
+								<c:forEach items="#{appelOffreController.appelOffre.competences}" var="competence"
 									varStatus="statut">
 									<div class="form-group">
 										<c:if test="#{competence.intitule != NULL}">
@@ -191,7 +191,7 @@
 							<h2 class="section-heading">Rémunération</h2>
 							<hr class="primary"></hr>
 							<br />
-								<c:forEach items="#{appelOffreControllerKhouloud.appelOffre.remunerations}" var="remuneration"
+								<c:forEach items="#{appelOffreController.appelOffre.remunerations}" var="remuneration"
 									varStatus="statut">
 									<div class="form-group">
 										<c:if test="#{remuneration.intitule != NULL}">
@@ -226,10 +226,16 @@
 						<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 							<c:if test="#{sessionScope.utilisateur.nombreBids > 0}">
+								<c:if test="#{appelOffreController.dejaPostuler() == 0}">
 								<h:commandButton value="Ajouter une contre-proposition"
-									action="#{appelOffreControllerKhouloud.nouvelleContreProposition}"
+									action="#{appelOffreController.nouvelleContreProposition}"
 									class="btn btn-primary">
 								</h:commandButton>
+								</c:if>
+								<c:if test="#{appelOffreController.dejaPostuler() == 1 }">
+								<h3>Vous avez déja postuler !! </h3>
+								</c:if>
+								
 							</c:if>
 							<c:if test="#{sessionScope.utilisateur.nombreBids == 0}">
 								<h3>Vous n'avez pas le droit d'ajouter une

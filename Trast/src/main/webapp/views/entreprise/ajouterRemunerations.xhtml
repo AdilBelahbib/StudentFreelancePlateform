@@ -51,12 +51,12 @@ template="../templates/common.xhtml">
 								<th>Remuenerations</th>
 							</tr>
 
-							<c:forEach items="#{appelOffreControllerNassima.appelOffre.remunerations}" var="remuneration" varStatus="statut">
+							<c:forEach items="#{appelOffreController.appelOffre.remunerations}" var="remuneration" varStatus="statut">
 							<tr>
 								<td>#{remuneration.intitule} #{remuneration.somme} #{remuneration.devise}</td>
 								<td>
-									<h:commandButton action="#{appelOffreControllerNassima.retirerRemuneration()}" styleClass="close">
-									<f:setPropertyActionListener target="#{appelOffreControllerNassima.remuneration}" value="#{remuneration}" />
+									<h:commandButton action="#{appelOffreController.retirerRemuneration()}" styleClass="close">
+									<f:setPropertyActionListener target="#{appelOffreController.remuneration}" value="#{remuneration}" />
 								</h:commandButton>
 							</td>
 						</tr>
@@ -88,12 +88,12 @@ template="../templates/common.xhtml">
 								<th>Experiences</th>
 							</tr>
 
-							<c:forEach items="#{appelOffreControllerNassima.experiencesAppelOffre}" var="experience" varStatus="statut">
+							<c:forEach items="#{appelOffreController.experiencesAppelOffre}" var="experience" varStatus="statut">
 							<tr>
 								<td>#{experience.responsabilite} - #{experience.sujet} - #{experience.salaire}</td>
 								<td>
-									<h:commandButton action="#{appelOffreControllerNassima.retirerExperience()}" styleClass="close">
-									<f:setPropertyActionListener target="#{appelOffreControllerNassima.experience}" value="#{experience}" />
+									<h:commandButton action="#{appelOffreController.retirerExperience()}" styleClass="close">
+									<f:setPropertyActionListener target="#{appelOffreController.experience}" value="#{experience}" />
 								</h:commandButton>
 							</td>
 						</tr>
@@ -127,12 +127,12 @@ template="../templates/common.xhtml">
 								<th>Formations</th>
 							</tr>
 
-							<c:forEach items="#{appelOffreControllerNassima.formationsAppelOffre}" var="formation" varStatus="statut">
+							<c:forEach items="#{appelOffreController.formationsAppelOffre}" var="formation" varStatus="statut">
 							<tr>
 								<td>#{formation.intituleFormation}</td>
 								<td>
-									<h:commandButton action="#{appelOffreControllerNassima.retirerFormation()}" styleClass="close">
-									<f:setPropertyActionListener target="#{appelOffreControllerNassima.formation}" value="#{formation}" />
+									<h:commandButton action="#{appelOffreController.retirerFormation()}" styleClass="close">
+									<f:setPropertyActionListener target="#{appelOffreController.formation}" value="#{formation}" />
 								</h:commandButton>
 							</td>
 						</tr>
@@ -167,12 +167,12 @@ template="../templates/common.xhtml">
 								<th>Competences</th>
 							</tr>
 
-							<c:forEach items="#{appelOffreControllerNassima.appelOffre.competences}" var="competence" varStatus="statut">
+							<c:forEach items="#{appelOffreController.appelOffre.competences}" var="competence" varStatus="statut">
 							<tr>
 								<td>#{competence.intitule}</td>
 								<td>
-									<h:commandButton action="#{appelOffreControllerNassima.retirerCompetence()}" styleClass="close">
-									<f:setPropertyActionListener target="#{appelOffreControllerNassima.competence}" value="#{competence}" />
+									<h:commandButton action="#{appelOffreController.retirerCompetence()}" styleClass="close">
+									<f:setPropertyActionListener target="#{appelOffreController.competence}" value="#{competence}" />
 								</h:commandButton>
 							</td>
 						</tr>
@@ -180,7 +180,7 @@ template="../templates/common.xhtml">
 				</table>
 
 				<!-- <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Valider</button> -->
-				<h:commandButton  action="#{appelOffreControllerNassima.ajouterAppelOffre()}" styleClass="btn btn-success btn-lg pull-right" value="Terminer">
+				<h:commandButton  action="#{appelOffreController.ajouterAppelOffre()}" styleClass="btn btn-success btn-lg pull-right" value="Terminer">
 					<f:param name="requete" value="post" />
 				</h:commandButton>
 			</div>
@@ -215,13 +215,13 @@ template="../templates/common.xhtml">
 				<div class="form-group">
 					<label for="intitule">Intitule</label>
 					<div class='input-group date'>
-						<h:inputText id="intitule" value="#{appelOffreControllerNassima.remuneration.intitule}" styleClass="form-control" />
+						<h:inputText id="intitule" value="#{appelOffreController.remuneration.intitule}" styleClass="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="devise">Devise</label>
 					<div class='input-group date'>
-						<h:selectOneMenu class="form-control" id="devise" value="#{appelOffreControllerNassima.remuneration.devise}" >
+						<h:selectOneMenu class="form-control" id="devise" value="#{appelOffreController.remuneration.devise}" >
    							<f:selectItem itemValue="Euro" itemLabel="Euro"/>
    							<f:selectItem itemValue="Dirham" itemLabel="Dirham"/>
    							<f:selectItem itemValue="Dollar" itemLabel="Dollar"/>
@@ -229,11 +229,11 @@ template="../templates/common.xhtml">
 				</div>
 				<div class="form-group">
 					<label for="somme">Somme</label>
-					<h:inputText id="somme" value="#{appelOffreControllerNassima.remuneration.somme}" styleClass="form-control" />
+					<h:inputText id="somme" value="#{appelOffreController.remuneration.somme}" styleClass="form-control" />
 				</div>
 
 				<div class="btn-group" role="group">
-					<h:commandButton action="#{appelOffreControllerNassima.ajouterRemuneration()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+					<h:commandButton action="#{appelOffreController.ajouterRemuneration()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
 				</div>
 
 			</h:form>
@@ -268,29 +268,29 @@ template="../templates/common.xhtml">
 				<div class="form-group">
 					<label for="responsabilite">Responsabilite</label>
 					<div class='input-group date'>
-						<h:inputText id="responsabilite" value="#{appelOffreControllerNassima.experience.responsabilite}" styleClass="form-control" />
+						<h:inputText id="responsabilite" value="#{appelOffreController.experience.responsabilite}" styleClass="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="sujet">Sujet</label>
 					<div class='input-group date'>
-						<h:inputText id="sujet" value="#{appelOffreControllerNassima.experience.sujet}" styleClass="form-control" />
+						<h:inputText id="sujet" value="#{appelOffreController.experience.sujet}" styleClass="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="structure">Structure d'accueil</label>
 					<div class='input-group date'>
-						<h:inputText id="structure" value="#{appelOffreControllerNassima.experience.structureAccueil}" styleClass="form-control" />
+						<h:inputText id="structure" value="#{appelOffreController.experience.structureAccueil}" styleClass="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="salaire">Salaire</label>
-					<h:inputText id="salaire" value="#{appelOffreControllerNassima.experience.salaire}" styleClass="form-control" />
+					<h:inputText id="salaire" value="#{appelOffreController.experience.salaire}" styleClass="form-control" />
 				</div>
 				<div class="form-group">
             		<label for="dateExpiration">Date de debut</label>
                 	<div class='input-group date' id='dateD'>
-	                    <h:inputText type='text' class="form-control" value="#{appelOffreControllerNassima.experience.dateDebut}">
+	                    <h:inputText type='text' class="form-control" value="#{appelOffreController.experience.dateDebut}">
 	                    	<f:convertDateTime pattern="dd/mm/yyyy" />
 	                    </h:inputText>
 	                    <span class="input-group-addon">
@@ -301,7 +301,7 @@ template="../templates/common.xhtml">
             	<div class="form-group">
             		<label for="dateExpiration">Date de fin</label>
                 	<div class='input-group date' id='dateF'>
-	                    <h:inputText type='text' class="form-control" value="#{appelOffreControllerNassima.experience.dateFin}">
+	                    <h:inputText type='text' class="form-control" value="#{appelOffreController.experience.dateFin}">
 	                    	<f:convertDateTime pattern="dd/mm/yyyy" />
 	                    </h:inputText>
 	                    <span class="input-group-addon">
@@ -310,7 +310,7 @@ template="../templates/common.xhtml">
                 	</div>
             	</div>
 				<div class="btn-group" role="group">
-					<h:commandButton action="#{appelOffreControllerNassima.ajouterExperience()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+					<h:commandButton action="#{appelOffreController.ajouterExperience()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
 				</div>
 
 			</h:form>
@@ -345,20 +345,20 @@ template="../templates/common.xhtml">
 				<div class="form-group">
 					<label for="intitule">Intitule</label>
 					<div class='input-group date'>
-						<h:inputText id="intitule" value="#{appelOffreControllerNassima.formation.intituleFormation}" styleClass="form-control" />
+						<h:inputText id="intitule" value="#{appelOffreController.formation.intituleFormation}" styleClass="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="etablissement">Etablissement</label>
 					<div class='input-group date'>
-						<h:inputText id="etablissement" value="#{appelOffreControllerNassima.formation.etablissement}" styleClass="form-control" />
+						<h:inputText id="etablissement" value="#{appelOffreController.formation.etablissement}" styleClass="form-control" />
 					</div>
 				</div>
 				
 				<div class="form-group">
             		<label for="dateExpiration">Date de debut</label>
                 	<div class='input-group date' id='dateD'>
-	                    <h:inputText type='text' class="form-control" value="#{appelOffreControllerNassima.formation.dateDebut}">
+	                    <h:inputText type='text' class="form-control" value="#{appelOffreController.formation.dateDebut}">
 	                    	<f:convertDateTime pattern="dd/mm/yyyy" />
 	                    </h:inputText>
 	                    <span class="input-group-addon">
@@ -369,7 +369,7 @@ template="../templates/common.xhtml">
             	<div class="form-group">
             		<label for="dateExpiration">Date de fin</label>
                 	<div class='input-group date' id='dateF'>
-	                    <h:inputText type='text' class="form-control" value="#{appelOffreControllerNassima.formation.dateFin}">
+	                    <h:inputText type='text' class="form-control" value="#{appelOffreController.formation.dateFin}">
 	                    	<f:convertDateTime pattern="dd/mm/yyyy" />
 	                    </h:inputText>
 	                    <span class="input-group-addon">
@@ -378,7 +378,7 @@ template="../templates/common.xhtml">
                 	</div>
             	</div>
 				<div class="btn-group" role="group">
-					<h:commandButton action="#{appelOffreControllerNassima.ajouterFormation()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+					<h:commandButton action="#{appelOffreController.ajouterFormation()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
 				</div>
 
 			</h:form>
@@ -413,12 +413,12 @@ template="../templates/common.xhtml">
 				<div class="form-group">
 					<label for="intitule">Intitule</label>
 					<div class='input-group date'>
-						<h:inputText id="intitule" value="#{appelOffreControllerNassima.competence.intitule}" styleClass="form-control" />
+						<h:inputText id="intitule" value="#{appelOffreController.competence.intitule}" styleClass="form-control" />
 					</div>
 				</div>
 	
 				<div class="btn-group" role="group">
-					<h:commandButton action="#{appelOffreControllerNassima.ajouterCompetence()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+					<h:commandButton action="#{appelOffreController.ajouterCompetence()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
 				</div>
 
 			</h:form>

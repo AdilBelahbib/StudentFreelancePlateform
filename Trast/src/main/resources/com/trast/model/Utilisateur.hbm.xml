@@ -108,7 +108,7 @@
 			<subclass name="Etudiant" discriminator-value="ETU">
 
 				<set name="niveaux" table="etudiant_competence" inverse="true"
-					lazy="true" cascade="all">
+					lazy="false" cascade="all">
 					<key>
 						<column name="idEtudiant" />
 					</key>
@@ -122,7 +122,8 @@
 					</key>
 					<one-to-many class="Qualification" />
 				</set>
-
+				
+				
 				<set name="contrePropositions" table="contre_proposition"
 					inverse="true" lazy="false" cascade="all">
 					<key>

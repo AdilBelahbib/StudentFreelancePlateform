@@ -36,21 +36,24 @@ xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
         <ul class="sub-menu collapse" id="appeloffre">
 
         <li>
-        	<h:commandLink value = "Mes appels d'offre en cours" action="#{appelOffreControllerNassima.afficherAppelsOffreEnCours}">       
-          </h:commandLink>
+        	<i class="fa fa-user fa-lg"></i>
+            <h:link outcome="/views/entreprise/afficherAppelsOffreEnCours.xhtml?faces-redirect=true" value="Mes appels d'offre en cours" />
          </li>
         <li>
-        	<h:commandLink value = "Mes appels archivés" action="#{appelOffreControllerNassima.afficherAppelsOffreArchives}">       
+        	<h:commandLink value = "" action="#{appelOffreController.afficherAppelsOffreArchives}">       
           </h:commandLink>
+          <i class="fa fa-user fa-lg"></i>
+            <h:link outcome="/views/entreprise/afficherAppelsOffreArchives.xhtml?faces-redirect=true" value="Mes appels archivés" />
          </li>
       </ul>
 
       <li data-toggle="collapse" data-target="#projet" class="collapsed">
         <a href="#"><i class="fa fa-check-circle-o fa-lg"></i> Mes projets</a>
       </li>
-      <li>
-        	<h:commandLink value = "créer un test" action="#{testControllerNassima.creerTest}">       
-          </h:commandLink>
+	  <li>
+          <i class="fa fa-user fa-lg"></i>
+            <h:link outcome="/views/entreprise/creerTest.xhtml?faces-redirect=true" value="Créer un test" />
+
          </li>
     </ul>
   </div>

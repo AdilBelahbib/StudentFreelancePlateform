@@ -14,7 +14,7 @@ template="../templates/common.xhtml"
 					<h3>Le Cahier des Charges</h3>
 						<div class="form-group">
 							<label for="nom">Sujet :</label>
-							<h:outputText  value="#{appelOffreControllerNassima.appelOffre.cahierDesCharges.sujet}" />
+							<h:outputText  value="#{appelOffreController.appelOffre.cahierDesCharges.sujet}" />
 						</div>
 					</div>
 				</div>
@@ -23,7 +23,7 @@ template="../templates/common.xhtml"
 					<div class="col-md-offset-1 col-md-10">
 						<div class="form-group">
 							<label for="nom">Date debut :</label>
-							<h:outputText  value="#{appelOffreControllerNassima.appelOffre.cahierDesCharges.dateDebut}" />
+							<h:outputText  value="#{appelOffreController.appelOffre.cahierDesCharges.dateDebut}" />
 						</div>
 					</div>
 				</div>
@@ -31,7 +31,7 @@ template="../templates/common.xhtml"
 					<div class="col-md-offset-1 col-md-10">
 						<div class="form-group">
 							<label for="nom">Date fin :</label>
-							<h:outputText  value="#{appelOffreControllerNassima.appelOffre.cahierDesCharges.dateFin}" />
+							<h:outputText  value="#{appelOffreController.appelOffre.cahierDesCharges.dateFin}" />
 						</div>
 					</div>
 				</div>
@@ -39,7 +39,7 @@ template="../templates/common.xhtml"
 					<div class="col-md-offset-1 col-md-10">
 						<div class="form-group">
 							<label for="nom">Date d'expiration :</label>
-							<h:outputText  value="#{appelOffreControllerNassima.appelOffre.dateExpiration}" />
+							<h:outputText  value="#{appelOffreController.appelOffre.dateExpiration}" />
 						</div>
 					</div>
 				</div>
@@ -49,7 +49,7 @@ template="../templates/common.xhtml"
 				<h3>Les remunerations</h3>
 					<div class="form-group">
 					<table>
-						<c:forEach items="#{appelOffreControllerNassima.appelOffre.remunerations}" var="remuneration" varStatus="statut">
+						<c:forEach items="#{appelOffreController.appelOffre.remunerations}" var="remuneration" varStatus="statut">
 							<tr>
 								<td>#{remuneration.intitule} : #{remuneration.somme} #{remuneration.devise}</td>
 							</tr>
@@ -71,7 +71,7 @@ template="../templates/common.xhtml"
 								<th>Date de debut</th>
 								<th>Date de fin</th>
 							</tr>
-							<c:forEach items="#{appelOffreControllerNassima.formationsAppelOffre}" var="formation" varStatus="statut">
+							<c:forEach items="#{appelOffreController.formationsAppelOffre}" var="formation" varStatus="statut">
 							<tr>
 								<td>#{formation.intituleFormation} </td>
 								<td>#{formation.etablissement} </td>
@@ -97,7 +97,7 @@ template="../templates/common.xhtml"
 								<th>Date de debut</th>
 								<th>Date de fin</th>
 							</tr>
-							<c:forEach items="#{appelOffreControllerNassima.experiencesAppelOffre}" var="experience" varStatus="statut">
+							<c:forEach items="#{appelOffreController.experiencesAppelOffre}" var="experience" varStatus="statut">
 							<tr>
 								<td>#{experience.responsabilite} </td>
 								<td>#{experience.sujet} </td>
@@ -118,7 +118,7 @@ template="../templates/common.xhtml"
 				<h3>Les competences</h3>
 					<div class="form-group">
 					<table>
-						<c:forEach items="#{appelOffreControllerNassima.appelOffre.competences}" var="competence" varStatus="statut">
+						<c:forEach items="#{appelOffreController.appelOffre.competences}" var="competence" varStatus="statut">
 							<tr>
 								<td>#{competence.intitule}</td>
 							</tr>
@@ -133,7 +133,7 @@ template="../templates/common.xhtml"
 				<h:form>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			
- 				<h:commandButton value="retour" class="btn btn-default" action="#{appelOffreControllerNassima.afficherAppelsOffre}">
+ 				<h:commandButton value="retour" class="btn btn-default" action="#{appelOffreController.afficherAppelsOffre}">
 				</h:commandButton>
 				</h:form>
 				</div>

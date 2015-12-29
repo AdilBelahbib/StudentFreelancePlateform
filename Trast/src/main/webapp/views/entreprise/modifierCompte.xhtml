@@ -15,7 +15,7 @@ template="../templates/common.xhtml">
 				    <div class="col-md-offset-2 col-md-7">
 				      <div class="form-group">
 				        <label id="email">Email</label>
-				        <h:inputText type="text" class="form-control" id="email" value="#{entrepriseControllerNassima.entreprise.email}"/>
+				        <h:inputText type="text" class="form-control" id="email" value="#{entrepriseController.entreprise.email}"/>
 				      </div>
 				    </div>
 				  </div>
@@ -32,7 +32,7 @@ template="../templates/common.xhtml">
 				    <div class="col-md-offset-2 col-md-7">
 				      <div class="form-group">
 				        <label for="n_password">nouveau mot de passe</label>
-				        <h:inputText type="text" class="form-control" id="n_password" value="#{entrepriseControllerNassima.entreprise.motDePasse}"/>
+				        <h:inputText type="text" class="form-control" id="n_password" value="#{entrepriseController.entreprise.motDePasse}"/>
 				      </div>
 				    </div>
 				  </div>
@@ -49,7 +49,7 @@ template="../templates/common.xhtml">
 					<div>
 						<div class="row">
 				    <div class="col-md-offset-7 col-md-2">
-				    <h:commandButton value="Enregistrer" class="btn btn-primary" action="#{entrepriseControllerNassima.modifierCompte}">
+				    <h:commandButton value="Enregistrer" class="btn btn-primary" action="#{entrepriseController.modifierCompte}">
 				    	<f:param name="requete" value="post" />
 				    </h:commandButton>
 				      <!-- <button type="button" class="btn btn-primary">Enregistrer</button> -->

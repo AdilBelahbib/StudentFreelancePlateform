@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -24,7 +25,6 @@ import com.trast.dao.ExperienceDAO;
 import com.trast.dao.FormationDAO;
 import com.trast.dao.ProjetDAO;
 import com.trast.dao.RemunerationDAO;
-import com.trast.model.Adresse;
 import com.trast.model.AppelOffre;
 import com.trast.model.CahierDesCharges;
 import com.trast.model.Competence;
@@ -32,31 +32,50 @@ import com.trast.model.ContreProposition;
 import com.trast.model.Entreprise;
 import com.trast.model.EtatAppelOffre;
 import com.trast.model.EtatProjet;
+import com.trast.model.Etudiant;
 import com.trast.model.Experience;
 import com.trast.model.Fichier;
 import com.trast.model.Formation;
 import com.trast.model.Projet;
 import com.trast.model.Qualification;
 import com.trast.model.Remuneration;
+import com.trast.model.Utilisateur;
 
-@ManagedBean(name = "appelOffreControllerNassima", eager = true)
+@ManagedBean(name = "appelOffreController", eager = true)
 @SessionScoped
-public class AppelOffreControllerNassima implements Serializable{
+public class AppelOffreController implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2671155118015679305L;
+	
 	@ManagedProperty(value = "#{sessionScope.utilisateur}")
-	Entreprise entreprise;
+	Utilisateur utilisateur;
+	
+	private Etudiant etudiant;
+	private Entreprise entreprise;
+	
 	@ManagedProperty(value = "#{appelOffre}")
 	AppelOffre appelOffre;
+	
+	@ManagedProperty(value = "#{appelOffreDao}")
+	private AppelOffreDAO appelOffreDao;
+	
 	@ManagedProperty(value = "#{appelOffres}")
 	List<AppelOffre> appelOffres;
 	
 	@ManagedProperty(value = "#{contreProposition}")
 	ContreProposition contreProposition;
 	
+	@ManagedProperty(value = "#{contrePropositionDao}")
+	private ContrePropositionDAO contrePropositionDao;
+	
+	/*@ManagedProperty(value ="#{sessionScope.utilisateur}")
+	private Etudiant etudiant;*/
+	
+	@ManagedProperty(value = "#{etudiantDao}")
+	private EtudiantDAO etudiantDao;
+	//LISTES DES APPELS D'OFFRE
+	@ManagedProperty(value = "#{listes}")
+	private List<AppelOffre> listes;
 	
 	/* pour creation d'un appel offre*/
 	@ManagedProperty(value = "#{cahierDesCharges}")
@@ -79,13 +98,37 @@ public class AppelOffreControllerNassima implements Serializable{
 	List<Formation> formationsAppelOffre;
 	@ManagedProperty(value = "#{competence}")
 	Competence competence;
+	
 	/************************************************/
-	public Entreprise getEntreprise() {
-		return entreprise;
+	
+	
+	
+	public AppelOffreDAO getAppelOffreDao() {
+		return appelOffreDao;
 	}
-	public void setEntreprise(Entreprise entreprise) {
-		this.entreprise = entreprise;
+	public void setAppelOffreDao(AppelOffreDAO appelOffreDao) {
+		this.appelOffreDao = appelOffreDao;
 	}
+	public ContrePropositionDAO getContrePropositionDao() {
+		return contrePropositionDao;
+	}
+	public void setContrePropositionDao(ContrePropositionDAO contrePropositionDao) {
+		this.contrePropositionDao = contrePropositionDao;
+	}
+
+	public EtudiantDAO getEtudiantDao() {
+		return etudiantDao;
+	}
+	public void setEtudiantDao(EtudiantDAO etudiantDao) {
+		this.etudiantDao = etudiantDao;
+	}
+	public List<AppelOffre> getListes() {
+		return listes;
+	}
+	public void setListes(List<AppelOffre> listes) {
+		this.listes = listes;
+	}
+	
 	public Fichier getFichier() {
 		return fichier;
 	}
@@ -129,9 +172,7 @@ public class AppelOffreControllerNassima implements Serializable{
 	public void setExperience(Experience experience) {
 		this.experience = experience;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+	
 	public List<Experience> getExperiencesAppelOffre() {
 		return experiencesAppelOffre;
 	}
@@ -163,24 +204,54 @@ public class AppelOffreControllerNassima implements Serializable{
 	public void setContreProposition(ContreProposition contreProposition) {
 		this.contreProposition = contreProposition;
 	}
+	
 
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+	public Etudiant getEtudiant() {
+		return etudiant;
+	}
+	public void setEtudiant(Etudiant etudiant) {
+		this.etudiant = etudiant;
+	}
+	public Entreprise getEntreprise() {
+		return entreprise;
+	}
+	public void setEntreprise(Entreprise entreprise) {
+		this.entreprise = entreprise;
+	}
 /*****************************************************/
 	
 	public void ajouterCompetence(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
+		
 			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 			/* verifier si ca existe deja*/
 			CompetenceDAO competenceDao = (CompetenceDAO)context.getBean("competenceDao");
-			boolean exist = competenceDao.ajouterCompetenceIfNotExist(competence);
+			competence = competenceDao.ajouterCompetenceIfNotExist(competence);
 			appelOffre.getCompetences().add(competence);
 			competence = (Competence)context.getBean("competence");
 			((ConfigurableApplicationContext) context).close();	
 			
-			System.out.println("**** ajout "+competence.getIntitule()+" res "+exist);
+			//System.out.println("**** ajout "+competence.getIntitule()+" res "+exist);
 	}
+	
 	public void retirerCompetence(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
+		
 		this.appelOffre.getCompetences().remove(competence);
 	}
+	
 	public void ajouterRemuneration(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
+		
 		remuneration.setAppelOffre(appelOffre);
 		this.appelOffre.getRemunerations().add(remuneration);
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
@@ -189,21 +260,34 @@ public class AppelOffreControllerNassima implements Serializable{
 		remuneration= (Remuneration) context.getBean("remuneration");
 		((ConfigurableApplicationContext) context).close();
 	}
+	
 	public void retirerRemuneration(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
+		
 		this.appelOffre.getRemunerations().remove(remuneration);
 	}
 	
 	public void ajouterFormation(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
+		
 		formationsAppelOffre.add(formation);
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		formation= (Formation) context.getBean("formation");
 		((ConfigurableApplicationContext) context).close();
 	}
 	public void retirerFormation(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
+		
 		formationsAppelOffre.remove(formation);
 	}
 
 	public void ajouterExperience(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
+		
 		experiencesAppelOffre.add(experience);
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		experience= (Experience) context.getBean("experience");
@@ -218,6 +302,9 @@ public class AppelOffreControllerNassima implements Serializable{
 	public void relancerAppelOffre(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		AppelOffreDAO  appelDao = (AppelOffreDAO) context.getBean("appelOffreDao");
+		
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
 		
 		for(AppelOffre item :entreprise.getAppelOffres()){
 			if(item.getId()==appelOffre.getId()) 
@@ -235,6 +322,9 @@ public class AppelOffreControllerNassima implements Serializable{
 	public void archiverAppelOffre(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		AppelOffreDAO  appelDao = (AppelOffreDAO) context.getBean("appelOffreDao");
+		
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
 		
 		for(AppelOffre item :entreprise.getAppelOffres()){
 			if(item.getId()==appelOffre.getId()) 
@@ -254,6 +344,10 @@ public class AppelOffreControllerNassima implements Serializable{
 		AppelOffreDAO appelDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		ProjetDAO  projetDao = (ProjetDAO) context.getBean("projetDao");
 		ContrePropositionDAO  contrePropositionDao = (ContrePropositionDAO) context.getBean("contrePropositionDao");
+		
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
+		
 		EtudiantDAO  etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		System.out.println("************* "+entreprise.getId());
 		Projet projet = (Projet) context.getBean("projet");
@@ -298,14 +392,16 @@ public class AppelOffreControllerNassima implements Serializable{
 		
 		return "afficherEncours";
 		
-	}
-	
+	}	
 	
 	public String refuserContreProposition(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		AppelOffreDAO appelDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		ContrePropositionDAO  contrePropositionDao = (ContrePropositionDAO) context.getBean("contrePropositionDao");
 		EtudiantDAO  etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
+		
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
 		
 		contreProposition.getEtudiant().setNombreBids(contreProposition.getEtudiant().getNombreBids()+1);
 		etudiantDao.modifierEtudiant(contreProposition.getEtudiant());
@@ -326,8 +422,9 @@ public class AppelOffreControllerNassima implements Serializable{
 	
 	
 	/************************************************/
-	public String afficherAppelsOffre(){
-		
+	public void afficherAppelsOffre(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		/* recuperer entrprise avec ID*/
@@ -339,29 +436,32 @@ public class AppelOffreControllerNassima implements Serializable{
 		
 		((ConfigurableApplicationContext)context).close();
 
-		return "afficherAppelsOffre";
 	}
-	public String afficherAppelsOffreArchives(){
+	public void afficherAppelsOffreArchives(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
 	
 		appelOffres = new ArrayList<AppelOffre>();
 		/* recuperer les appels d'offre archive*/
 		for(AppelOffre item : entreprise.getAppelOffres()){
 			if(item.getStatut().equals(EtatAppelOffre.PREPARE)) appelOffres.add(item);
 		}
-		return "afficherArchives";
 	}
-	public String afficherAppelsOffreEnCours(){
-		
+	public void afficherAppelsOffreEnCours(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
 		
 		appelOffres = new ArrayList<AppelOffre>();
 		/* recuperer les appels d'offre archive*/
 		for(AppelOffre item : entreprise.getAppelOffres()){
 			if(item.getStatut().equals(EtatAppelOffre.ENCOURS)) appelOffres.add(item);
 		}
-		return "afficherEncours";
+		
 	}
 
 	public String ajouterAppelOffre(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
 		
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
 				.getRequest();
@@ -420,6 +520,9 @@ public class AppelOffreControllerNassima implements Serializable{
 		}
 	}
 	public String details(){
+		//recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise)utilisateur;
+		
 		formationsAppelOffre = new ArrayList<Formation>();
 		experiencesAppelOffre = new ArrayList<Experience>();
 		for(Qualification qualification : appelOffre.getQualifications()){
@@ -435,6 +538,83 @@ public class AppelOffreControllerNassima implements Serializable{
 	public String contrePropositions(){
 		return "contrePropositions";
 	}
+
+	/***
+	 * PARTIE KHOULOUD 
+	 */
 	
+	/**
+	 * La fonction permet de visualiser la liste des appels d'offre
+	 * qui ont le statut ENCOURS.
+	 * Elle redirige vers la vue "listeAppelOffres.xhtml"
+	 * */
+	
+	@Transactional
+	public String listerAppelOffres(){
+		//recuperer utilisateur sur etudiant
+		this.etudiant = (Etudiant)utilisateur;
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		this.appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
+		this.listes = this.appelOffreDao.getAppelOffresByStatus(EtatAppelOffre.ENCOURS);
+		//System.out.println(listes.get(0).getId()+" "+listes.get(0).getStatut());
+		((ConfigurableApplicationContext)context).close();
+		return "listeAppelOffres";
+	}
+
+	/**
+	 * La fonction est appelée lorsque l'étudiant visualise le détail 
+	 * d'un appel d'offre.
+	 */
+	public String enregistrerContreProposition() {
+		//recuperer utilisateur sur etudiant
+		this.etudiant = (Etudiant)utilisateur;
+		//Reduire le nombre de bids de l'étudiant
+		etudiant.setNombreBids(etudiant.getNombreBids() - 1);
+		
+		
+		//Initialiser les paramètres de l'instance contreProposition
+		contreProposition.setEtudiant(etudiant);
+		contreProposition.setAppelOffre(appelOffre);
+		appelOffre.getContrePropositions().add(contreProposition);
+		etudiant.getContrePropositions().add(contreProposition);
+		
+		//Ajouter unecontreProposition
+		contrePropositionDao.ajouterContreProposition(contreProposition);
+		etudiantDao.modifierEtudiant(etudiant);
+		//modifier l appel d'offre par le nouveau
+		//appelOffreDao.modifierAppelOffre(appelOffre);
+		
+		return "listeAppelOffre";
+	}
+	
+	/**
+	 * La fonction est appelée pour détailler un appel d'offre
+	 * Elle redirige vers la vue detailsAppelOffre.xhtml
+	 */
+	public String detailsAppelOffre(){
+		
+		return "detailsAppelOffres";
+	}
+	
+	/**
+	 * La fonction est appelée pour visualiser le formulaire 
+	 * d'ajout d'une contre-proposition
+	 * Elle redirige vers la vue ajoutContreProposition.xhtml
+	 */
+	public String nouvelleContreProposition(){
+		return "ajoutContreProposition";
+	}
+	
+	public int dejaPostuler(){
+		//recuperer utilisateur sur etudiant
+		this.etudiant = (Etudiant)utilisateur;
+		
+		for(ContreProposition contre : etudiant.getContrePropositions()){
+			if(contre.getAppelOffre().equals(appelOffre))
+				return 1;
+		}
+		return 0;
+	}
 
 }

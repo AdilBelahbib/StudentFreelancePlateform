@@ -36,18 +36,18 @@
 										<span>Username/NomEntreprise</span>
 										<p class="text-muted small">#{request.userPrincipal.name}</p>
 										<div class="divider"></div>
-										<a href="#" class="btn btn-primary btn-sm active">View
-											Profile</a>
+										<h:link class="btn btn-primary btn-sm active"
+										outcome="/views/entreprise/profil.xhtml?faces-redirect=true" value="View profil" />
 									</div>
 								</div>
 							</div>
 							<div class="navbar-footer">
 								<div class="navbar-footer-content">
 									<div class="row">
-										<div class="col-md-6">
+										<!-- <div class="col-md-6">
 											<a href="#" class="btn btn-default btn-sm">Change
 												Passowrd</a>
-										</div>
+										</div> -->
 										<div class="col-md-6">
 
 											<form action="${request.contextPath}/j_spring_security_logout" method="post">

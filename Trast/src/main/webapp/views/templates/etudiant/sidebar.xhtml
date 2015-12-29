@@ -34,30 +34,34 @@
                 </ul>
 
                 <li data-toggle="collapse" data-target="#appeloffre" class="collapsed">
-                  <h:commandLink action="#{appelOffreControllerKhouloud.listerAppelOffres}" value="Appels d'offre">
+                  Appels d'offre
                   <i class="fa fa-exchange fa-lg"></i> 
                   <span class="arrow"></span>
-                  </h:commandLink>
                 </li>  
                 <ul class="sub-menu collapse" id="appeloffre">
-                  <li>Parcourir les appels d'offre</li>
-                  <li>Parcourir les compétences</li>
+                  <li>
+                  <h:commandLink action="#{appelOffreController.listerAppelOffres}" value="Parcourir les appels d'offre">
+                  </h:commandLink>
+                  </li>
+                  <li><h:link outcome="/views/etudiant/listeCompetences.xhtml?faces-redirect=true" value="Parcourir les compétences" /></li>
                 </ul>
 
                 <li id="#projet">
                   <a href="#"><i class="fa fa-briefcase fa-lg"></i> Mes projets</a>
                 </li>
-                
-                <li data-toggle="collapse" data-target="#test" class="collapsed">
-                  <a href="#">
-                  <i class="fa fa-superscript fa-lg"></i> Les tests de connaissances
-                  <span class="arrow"></span></a>
-                  </li>
-                  <ul class="sub-menu collapse" id="test">
-                  <li><h:link outcome="/views/etudiant/listeTests.xhtml?faces-redirect=true" value="Passer un test" /></li>
-                  <li><h:link outcome="/views/etudiant/listeContrePropositions.xhtml?faces-redirect=true" value="Mes résultats" /></li>
-                </ul>
-                
+				
+					<li data-toggle="collapse" data-target="#test" class="collapsed">
+						<a href="#"> <i class="fa fa-superscript fa-lg"></i> Les tests
+							de connaissances <span class="arrow"></span></a>
+					</li>
+					<ul class="sub-menu collapse" id="test">
+						<li><h:link
+								outcome="/views/etudiant/listeTests.xhtml?faces-redirect=true"
+								value="Passer un test" /></li>
+						<li><h:link
+								outcome="/views/etudiant/listeResultatTest.xhtml?faces-redirect=true"
+								value="Mes résultats" /></li>
+					</ul>
             </ul>
      </div>
 </div>

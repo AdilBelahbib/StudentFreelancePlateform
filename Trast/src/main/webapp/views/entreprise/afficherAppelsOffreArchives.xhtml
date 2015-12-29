@@ -6,9 +6,12 @@ xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml">
-        <ui:define name="content">			   			       
+        <ui:define name="content">		
+          <f:metadata>
+			<f:viewAction action="#{appelOffreController.afficherAppelsOffreArchives}" />
+		</f:metadata>	   			       
 			      <h:form>
-			      <h:dataTable  class="table table-striped table-hover" value="#{appelOffreControllerNassima.appelOffres}" var="item" varStatus="statut"
+			      <h:dataTable  class="table table-striped table-hover" value="#{appelOffreController.appelOffres}" var="item" varStatus="statut"
 			         >	
 			         <h:column>    				
 			            <f:facet name="header">Appel Offre</f:facet>    				
@@ -17,17 +20,17 @@ template="../templates/common.xhtml">
 			         <h:column>
 			            <f:facet name="header">Details cahier des charges</f:facet>
 			            
-			            <h:commandButton value="..." class="btn btn-default" action="#{appelOffreControllerNassima.details}">
+			            <h:commandButton value="..." class="btn btn-default" action="#{appelOffreController.details}">
 			            
-						<f:setPropertyActionListener target="#{appelOffreControllerNassima.appelOffre}" value="#{item}" />
+						<f:setPropertyActionListener target="#{appelOffreController.appelOffre}" value="#{item}" />
 						</h:commandButton>
 			         </h:column>		         
 					 <h:column>
 			            <f:facet name="header">Relancer</f:facet>
 			            
-			            <h:commandButton value="=>"  action="#{appelOffreControllerNassima.relancerAppelOffre()}" class="btn btn-default" >
+			            <h:commandButton value="=>"  action="#{appelOffreController.relancerAppelOffre()}" class="btn btn-default" >
 			            
-						<f:setPropertyActionListener target="#{appelOffreControllerNassima.appelOffre}" value="#{item}" />
+						<f:setPropertyActionListener target="#{appelOffreController.appelOffre}" value="#{item}" />
 						</h:commandButton>
 			         </h:column>
 			      </h:dataTable>
@@ -57,7 +60,7 @@ template="../templates/common.xhtml">
 				<div class="form-group">
             		<label for="dateD">Date de debut</label>
                 	<div class='input-group date' id='dateD'>
-	                    <h:inputText type='text' class="form-control" value="#{appelOffreControllerNassima.appelOffre.dateDebut}">
+	                    <h:inputText type='text' class="form-control" value="#{appelOffreController.appelOffre.dateDebut}">
 	                    	<f:convertDateTime pattern="dd/mm/yyyy" />
 	                    </h:inputText>
 	                    <span class="input-group-addon">
@@ -68,7 +71,7 @@ template="../templates/common.xhtml">
             	<div class="form-group">
             		<label for="dateF">Date de fin</label>
                 	<div class='input-group date' id='dateF'>
-	                    <h:inputText type='text' class="form-control" value="#{appelOffreControllerNassima.appelOffre.cahierDesCharges.dateFin}">
+	                    <h:inputText type='text' class="form-control" value="#{appelOffreController.appelOffre.cahierDesCharges.dateFin}">
 	                    	<f:convertDateTime pattern="dd/mm/yyyy" />
 	                    </h:inputText>
 	                    <span class="input-group-addon">
@@ -79,7 +82,7 @@ template="../templates/common.xhtml">
             	<div class="form-group">
             		<label for="dateE">Date d'expiration</label>
                 	<div class='input-group date' id='dateE'>
-	                    <h:inputText type='text' class="form-control" value="#{appelOffreControllerNassima.appelOffre.dateExpiration}">
+	                    <h:inputText type='text' class="form-control" value="#{appelOffreController.appelOffre.dateExpiration}">
 	                    	<f:convertDateTime pattern="dd/mm/yyyy" />
 	                    </h:inputText>
 	                    <span class="input-group-addon">
@@ -88,7 +91,7 @@ template="../templates/common.xhtml">
                 	</div>
             	</div>
 				<div class="btn-group" role="group">
-					<h:commandButton action="#{appelOffreControllerNassima.relancerAppelOffre()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+					<h:commandButton action="#{appelOffreController.relancerAppelOffre()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
 				</div>
 
 			</h:form>

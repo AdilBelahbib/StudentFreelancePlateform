@@ -11,13 +11,17 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.AdresseDAO;
+import com.trast.dao.CompetenceDAO;
 import com.trast.dao.EtudiantDAO;
 import com.trast.dao.ExperienceDAO;
 import com.trast.dao.FormationDAO;
+import com.trast.dao.NiveauDAO;
 import com.trast.model.Adresse;
+import com.trast.model.Competence;
 import com.trast.model.Etudiant;
 import com.trast.model.Experience;
 import com.trast.model.Formation;
+import com.trast.model.Niveau;
 
 @ManagedBean(name = "etudiantController", eager = true)
 @SessionScoped
@@ -36,7 +40,10 @@ public class EtudiantController implements Serializable {
 
 	@ManagedProperty(value = "#{formationDao}")
 	private FormationDAO formationDao;
-
+	
+	@ManagedProperty(value = "#{competenceDao}")
+	private CompetenceDAO competenceDao;
+	
 	@ManagedProperty(value = "#{experienceDao}")
 	private ExperienceDAO experienceDao;
 
@@ -47,6 +54,9 @@ public class EtudiantController implements Serializable {
 	@ManagedProperty(value = "#{formation}")
 	private Formation formation;
 	// Utilisée pour récupérer les données d'une formation lors de l'inscription
+	@ManagedProperty(value = "#{competence}")
+	private Competence competence;
+	// Utilisée pour récupérer les données d'une formation lors de l'inscription
 	@ManagedProperty(value = "#{experience}")
 	private Experience experience;
 
@@ -54,6 +64,22 @@ public class EtudiantController implements Serializable {
 	
 	
 	
+	public CompetenceDAO getCompetenceDao() {
+		return competenceDao;
+	}
+
+	public void setCompetenceDao(CompetenceDAO competenceDao) {
+		this.competenceDao = competenceDao;
+	}
+
+	public Competence getCompetence() {
+		return competence;
+	}
+
+	public void setCompetence(Competence competence) {
+		this.competence = competence;
+	}
+
 	public String getMotDePasse() {
 		return motDePasse;
 	}
@@ -125,7 +151,8 @@ public class EtudiantController implements Serializable {
 	public void setExperience(Experience experience) {
 		this.experience = experience;
 	}
-
+	
+	
 	// La méthode appelée quand l'étudiant ajoute une adresse à sa liste
 	public void ajouterAdresse() {
 		adresse.setUtilisateur(etudiant);
@@ -168,6 +195,29 @@ public class EtudiantController implements Serializable {
 		formation = (Formation) context.getBean("formation");
 		((ConfigurableApplicationContext) context).close();
 	}
+	
+	// La méthode appelée quand l'étudiant ajoute une competence à sa liste des
+		// competences
+		public void ajouterCompetence() {
+			// Réinitialiser la formation par une nouvelle instance vide
+			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+			
+			Niveau niveau = (Niveau)context.getBean("niveau"); 
+			NiveauDAO niveauDao = (NiveauDAO) context.getBean("niveauDao");
+			
+			competence = competenceDao.ajouterCompetenceIfNotExist(competence);
+			
+			niveau.setCompetence(competence);
+			niveau.setEtudiant(etudiant);
+			System.out.println("id Competence ==> "+competence.getId());
+			System.out.println("id Etud ==> "+etudiant.getId());
+			niveauDao.ajouterNiveau(niveau);
+			etudiant.getNiveaux().add(niveau);
+			etudiantDao.modifierEtudiant(etudiant);
+			competence = (Competence)context.getBean("competence");
+			//maitrise a voir 
+			((ConfigurableApplicationContext) context).close();
+		}
 
 	// La méthode appelée quand l'étudiant retire une formation
 	public void retirerFormation() {

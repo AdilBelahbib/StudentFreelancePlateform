@@ -11,8 +11,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.trast.dao.AdministrateurDAO;
+import com.trast.dao.AdresseDAO;
 import com.trast.dao.EntrepriseDAO;
 import com.trast.model.Administrateur;
+import com.trast.model.Adresse;
 import com.trast.model.Entreprise;
 import com.trast.model.EtatCompte;
 
@@ -21,12 +24,23 @@ import com.trast.model.EtatCompte;
 public class AdministrateurController implements Serializable {
 
 	private static final long serialVersionUID = -3873111261048683675L;
-	
-	@ManagedProperty(value = "#{adminitrateur}")
+
+	@ManagedProperty(value = "#{sessionScope.utilisateur}")
 	private Administrateur admin;
+	
+	@ManagedProperty(value = "#{administrateurDao}")
+	private AdministrateurDAO adminDao;
+	
 	private List<Entreprise> entreprises;
 	private Entreprise entreprise;
+	private String motDePasse;
+
+	@ManagedProperty(value = "#{adresse}")
+	private Adresse adresse;
 	
+	@ManagedProperty(value = "#{adresseDao}")
+	private AdresseDAO adresseDao;
+
 	public Entreprise getEntreprise() {
 		return entreprise;
 	}
@@ -42,7 +56,7 @@ public class AdministrateurController implements Serializable {
 	public void setAdmin(Administrateur admin) {
 		this.admin = admin;
 	}
-	
+
 	public List<Entreprise> getEntreprises() {
 		return entreprises;
 	}
@@ -50,41 +64,110 @@ public class AdministrateurController implements Serializable {
 	public void setEntreprises(List<Entreprise> entreprises) {
 		this.entreprises = entreprises;
 	}
+	
+	
+	
+	public AdministrateurDAO getAdminDao() {
+		return adminDao;
+	}
 
-	public String getEntreprisesEnAttente()
-	{
+	public void setAdminDao(AdministrateurDAO adminDao) {
+		this.adminDao = adminDao;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+
+	public Adresse getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
+	}
+
+	public AdresseDAO getAdresseDao() {
+		return adresseDao;
+	}
+
+	public void setAdresseDao(AdresseDAO adresseDao) {
+		this.adresseDao = adresseDao;
+	}
+
+	public String getEntreprisesEnAttente() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		EntrepriseDAO entrepriseDAO = (EntrepriseDAO) context.getBean("entrepriseDao");
 		entreprises = entrepriseDAO.getEntreprisesByEtatCompte(EtatCompte.EN_ATTENTE);
-		((ConfigurableApplicationContext)context).close();
-		
+		((ConfigurableApplicationContext) context).close();
+
 		return "/views/admin/listedemandesinscriptions.xhtml";
 	}
-	
-	public void accepterEntreprise()
-	{
+
+	public void accepterEntreprise() {
 		System.out.println("ACCEPTER");
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		EntrepriseDAO entrepriseDAO = (EntrepriseDAO) context.getBean("entrepriseDao");
-		
-		//Mettre à jour l'état de l'entreprise
+
+		// Mettre à jour l'état de l'entreprise
 		entreprise.setEtatCompte(EtatCompte.ACTIVE);
 		entrepriseDAO.modifierEntreprise(entreprise);
-		((ConfigurableApplicationContext)context).close();
-		
+		((ConfigurableApplicationContext) context).close();
+
 		entreprises.remove(entreprise);
 	}
-	
-	public void refuserEntreprise()
-	{
+
+	public void refuserEntreprise() {
 		System.out.println("REFUSER");
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		EntrepriseDAO entrepriseDAO = (EntrepriseDAO) context.getBean("entrepriseDao");
-		
-		//Supprimer l'entreprise de la bdd
+
+		// Supprimer l'entreprise de la bdd
 		entrepriseDAO.supprimerEntreprise(entreprise.getId());
-		((ConfigurableApplicationContext)context).close();
-		
+		((ConfigurableApplicationContext) context).close();
+
 		entreprises.remove(entreprise);
 	}
+
+	// ajouter adresse a la liste des adresses de l admin
+	public void ajouterAdresse() {
+		adresse.setUtilisateur(admin);
+
+		// Mettre à jour l'étudiant
+		adresseDao.ajouterAdresse(adresse);
+
+		admin.getAdresses().add(adresse);
+
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		adresse = (Adresse) context.getBean("adresse");
+		((ConfigurableApplicationContext) context).close();
+	}
+
+	// La méthode appelée quand l'admin retire une adresse
+	public void retirerAdresse() {
+		admin.getAdresses().remove(adresse);
+
+		adresse.setUtilisateur(null);
+		adresseDao.modifierAdresse(adresse);
+		adresseDao.supprimerAdresse(adresse.getId());
+
+		// Réinitialiser l'adresse par une nouvelle instance vide
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		adresse = (Adresse) context.getBean("adresse");
+		((ConfigurableApplicationContext) context).close();
+	}
+	
+	public void modifierAdministrateur()
+	{
+		if(motDePasse != null)
+			if(!motDePasse.equals(""))
+				admin.setMotDePasse(motDePasse);
+		
+		adminDao.modifierAdministrateur(admin);;
+	}
+
 }

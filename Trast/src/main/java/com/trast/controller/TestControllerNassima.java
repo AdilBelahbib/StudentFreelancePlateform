@@ -79,7 +79,7 @@ public class TestControllerNassima implements Serializable{
 	}
 	/*-------------------------------------------*/
 	/******* method ***********************/
-	public String creerTest(){
+	public void creerTest(){
 		/* recuperer une instance test et l'initialiser */
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		test = (Test) context.getBean("test");
@@ -87,8 +87,7 @@ public class TestControllerNassima implements Serializable{
 		test.setNombrePassage(0);
 				
 		((ConfigurableApplicationContext)context).close();
-			
-		return "/views/entreprise/creerTest.xhtml?faces-redirect=true";
+		
 	}
 
 	public void retirerCompetence(){

@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -32,6 +35,11 @@ public class EntrepriseController implements Serializable {
 
 	@ManagedProperty(value = "#{adresseDao}")
 	private AdresseDAO adresseDao;
+	
+	//Attribut Fait par Nassima
+	/* pour l'ajout d'un secteur lors de la modifcation du profil*/
+	@ManagedProperty(value = "#{secteur}")
+	private String secteur;
 
 	private String secteurActivites;
 	private String motDePasse;
@@ -82,6 +90,16 @@ public class EntrepriseController implements Serializable {
 
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
+	}
+	
+	public String getSecteur() {
+		return secteur;
+	}
+
+	public void setSecteur(String secteur) {
+		this.secteur = secteur;
+		entreprise.getSecteurActivites().add(secteur);
+		secteur="";
 	}
 
 	// La méthode appelée quand l'entreprise ajoute une adresse à sa liste
@@ -137,4 +155,44 @@ public class EntrepriseController implements Serializable {
 		entrepriseDao.modifierEntreprise(entreprise);
 	}
 
+	//Methodes Nassima
+	public String profil(){
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+				.getRequest();
+				
+		HttpSession session = request.getSession();
+		this.entreprise = (Entreprise) session.getAttribute("utilisateur");
+		return "profil";
+	}
+	
+	public String modifierProfil(){
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+				.getRequest();
+		String requete = request.getParameter("requete");
+		System.out.println("********req "+requete);
+		if(requete.equals("get")) return "modifierProfil";
+		else{
+			secteur="";
+			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+			EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
+			entrepriseDao.modifierEntreprise(entreprise);
+			((ConfigurableApplicationContext)context).close();
+			return "profil";
+		}
+	}
+	
+	public String modifierCompte(){
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+				.getRequest();
+		String requete = request.getParameter("requete");
+		System.out.println("********req "+requete);
+		if(requete.equals("get")) return "modifierCompte";
+		else{
+			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+			EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
+			entrepriseDao.modifierEntreprise(entreprise);
+			((ConfigurableApplicationContext)context).close();
+			return "profil";
+		}
+	}
 }

@@ -16,7 +16,7 @@
 					<th>Statut</th>
 				</tr>
 
-				<c:forEach items="#{appelOffreControllerKhouloud.listes}" var="item"
+				<c:forEach items="#{appelOffreController.listes}" var="item"
 					varStatus="statut">
 
 					<tr>
@@ -27,9 +27,9 @@
 								data-target="#detailsAppelOffre-#{statut.count}" type="button"
 								class="btn btn-default ">...</button>-->
 							<h:commandButton value="Détails" class="btn btn-default"
-							action="#{appelOffreControllerKhouloud.details}">
+							action="#{appelOffreController.detailsAppelOffre}">
 							
-							<f:setPropertyActionListener target="#{appelOffreControllerKhouloud.appelOffre}" value="#{item}" />
+							<f:setPropertyActionListener target="#{appelOffreController.appelOffre}" value="#{item}" />
 							</h:commandButton>
 						</td>
 					</tr>
