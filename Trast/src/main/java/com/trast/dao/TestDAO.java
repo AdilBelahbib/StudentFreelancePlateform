@@ -9,4 +9,6 @@ public interface TestDAO {
 	public Test getTestParId(Long id);
 	public void ajouterTest(Test test);
 	public void supprimerTest(Long id);
+	public List<Test> getTestsAdmin();
+	public List<Test> getTestsEntreprises();
 }

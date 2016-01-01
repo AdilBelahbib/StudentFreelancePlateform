@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+template="../templates/common.xhtml">
+	<ui:define name="content">
+
+	    <f:metadata>
+			<f:viewAction action="#{testControllerNassima.listTests}" />
+		</f:metadata>
+
+		<div class="container">
+			<c:choose>
+			<c:when test="#{not empty testControllerNassima.tests}">
+			<h:form>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<div class="row">
+				<div class="col-md-10">
+				<table class="table table-striped table-hover">
+					<tr>
+						<th>Test</th>
+						<th>Durée en minutes </th>
+						
+					</tr>
+
+					<c:forEach items="#{testControllerNassima.tests}" var="test"
+						varStatus="statut">
+
+						<tr>
+							<td>#{test.titre}</td>
+							<td>#{test.duree}</td>
+							<td>
+									<h:commandButton action="/views/admin/detailsTest.xhtml?faces-redirect=true" class="btn btn-default " value="...">
+									<f:setPropertyActionListener target="#{testControllerNassima.test}" value="#{test}" />
+								</h:commandButton>
+							</td>
+							<td>
+									<h:commandButton action="#{testControllerNassima.supprimerTest()}" styleClass="close">
+									<f:setPropertyActionListener target="#{testControllerNassima.test}" value="#{test}" />
+								</h:commandButton>
+							</td>
+								
+						</tr>
+					</c:forEach>
+				</table>
+				</div>
+				</div>
+				</h:form>
+				</c:when>
+			<c:otherwise>
+				<h3>Aucun test!</h3>
+			</c:otherwise>
+		</c:choose>
+		</div>
+	</ui:define>
+</ui:composition>

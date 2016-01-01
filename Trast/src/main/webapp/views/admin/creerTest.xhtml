@@ -1,0 +1,191 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+template="../templates/common.xhtml">
+	<ui:define name="content">
+
+	    <f:metadata>
+			<f:viewAction action="#{testControllerNassima.creerTest}" />
+		</f:metadata>
+
+		<div class="container">
+
+	<h:form>
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	<!--ETAPE 1 : Durée et competences-->
+			<div class="row">
+				<div class="col-md-10">
+					<div class="form-group">
+						<label for="titre"> Titre:</label>
+						<h:inputText type="text" class="form-control" id="titre" value="#{testControllerNassima.test.titre}"/>  
+						
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10">
+					<div class="form-group">
+						<label for="duree"> La durée en minutes:</label>
+						<h:inputText type="text" class="form-control" id="duree" value="#{testControllerNassima.test.duree}"/>  
+						
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10">
+					<div class="form-group">
+						<button data-toggle="modal" data-target="#ajoutCompetence" class="btn btn-default btn-lg pull-right" type="button" >+</button>						
+						<table class="table table-striped table-hover">
+							<tr>
+								<th>Compétences</th>
+							</tr>
+
+							<c:forEach items="#{testControllerNassima.test.competences}" var="competenceItem" varStatus="statut">
+							<tr>
+								<td>#{competenceItem.intitule}</td>
+								<td>
+									<h:commandButton action="#{testControllerNassima.retirerCompetence()}" styleClass="close">
+									<f:setPropertyActionListener target="#{testControllerNassima.competence}" value="#{competenceItem}" />
+								</h:commandButton>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+				</div>
+			</div>
+	</div>
+
+			<div class="row">
+				<div class="col-md-10">
+					<div class="form-group">
+						<button data-toggle="modal" data-target="#ajoutQuestion" class="btn btn-default btn-lg pull-right" type="button" >+</button>						
+						<table class="table table-striped table-hover">
+							<tr>
+								<th>Questions</th>
+							</tr>
+
+							<c:forEach items="#{testControllerNassima.test.questions}" var="question" varStatus="statut">
+							<tr>
+								<td>#{question.question}</td>
+								<td>#{question.coefficient}</td>
+								<td>
+									<h:commandButton action="#{testControllerNassima.retirerQuestion()}" styleClass="close">
+										<f:setPropertyActionListener target="#{testControllerNassima.question}" value="#{question}" />									
+									</h:commandButton>
+								</td>
+								<td>
+									<h:commandButton value="Editer" action="/views/admin/modifierQuestion.xhtml" styleClass="close">
+										<f:setPropertyActionListener target="#{testControllerNassima.question}" value="#{question}" />	
+										<f:setPropertyActionListener target="#{testControllerNassima.statut}" value="#{statut.index}" />									
+									</h:commandButton>
+									
+								</td>
+							</tr>
+					</c:forEach>
+				</table>
+				
+				<h:commandButton value="Valider Test" action="#{testControllerNassima.validerTest()}" class="btn btn-primary nextBtn btn-lg pull-right">
+				</h:commandButton>
+			</div>
+		</div>
+	</div>
+
+
+</h:form>
+</div>	
+<!-- LES MODALS -->
+<!-- MODAL: Ajout Competence-->
+<div class="modal fade" id="ajoutCompetence" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+				<h3 class="modal-title" id="lineModalLabel">Ajout Competence</h3>
+			</div>
+			<div class="modal-body">
+
+				<!-- content goes here -->
+				<h:form >
+
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<div class="form-group">
+					<label for="intitule">Intitule</label>
+					<div class='input-group date'>
+						<h:inputText id="intitule" value="#{testControllerNassima.competence.intitule}" styleClass="form-control" />
+					</div>
+				</div>
+				
+				
+
+				<div class="btn-group" role="group">
+					<h:commandButton action="#{testControllerNassima.ajouterCompetence()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+				</div>
+
+			</h:form>
+
+		</div>
+		<div class="modal-footer">
+			<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- /MODAL: Ajout competence-->
+
+<!-- MODAL: Ajout question-->
+<div class="modal fade" id="ajoutQuestion" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+				<h3 class="modal-title" id="lineModalLabel">Ajout Competence</h3>
+			</div>
+			<div class="modal-body">
+
+				<!-- content goes here -->
+				<h:form >
+
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<div class="form-group">
+					<label for="quest">Question</label>
+					<div class='input-group date'>
+						<h:inputText id="quest" value="#{testControllerNassima.question.question}" styleClass="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="coef">Coefficient</label>
+					<div class='input-group date'>
+						<h:inputText id="coef" value="#{testControllerNassima.question.coefficient}" styleClass="form-control" />
+					</div>
+				</div>
+				
+				
+
+				<div class="btn-group" role="group">
+					<h:commandButton action="#{testControllerNassima.ajouterQuestion()}" styleClass="btn btn-success btn-hover-green" value="Ajouter"/>
+				</div>
+
+			</h:form>
+
+		</div>
+		<div class="modal-footer">
+			<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- /MODAL: Ajout question-->
+
+</ui:define>
+</ui:composition>

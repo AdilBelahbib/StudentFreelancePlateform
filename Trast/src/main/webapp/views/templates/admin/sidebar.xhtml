@@ -18,9 +18,10 @@
 				</a></li>
 
 				<li id="#profil">
+				<i class="fa fa-user fa-lg"></i>
 					<h:link value="Profil" outcome="/views/admin/profil.xhtml?faces-redirect=true">
 					</h:link>
-					<i class="fa fa-user fa-lg"></i>
+					
 				</li>
 
 				<li id="#demandesinscription" class="collapsed">
@@ -32,6 +33,21 @@
 							action="#{administrateurController.getEntreprisesEnAttente}">
 						</h:commandLink>
 					</h:form></li>
+				 <li>
+          <i class="fa fa-book fa-lg"></i>
+            <h:link outcome="/views/admin/creerTest.xhtml?faces-redirect=true" value="Créer un test" />
+
+         </li>
+         <li>
+          <i class="fa fa-list fa-lg"></i>
+            <h:link outcome="/views/admin/listeTests.xhtml?faces-redirect=true" value="Mes tests" />
+
+         </li>
+         <li>
+         <i class="fa fa-list fa-lg"></i>
+            <h:link outcome="/views/admin/listeTestsEntreprises.xhtml?faces-redirect=true" value="Tests des entreprises" />
+
+         </li>
 			</ul>
 		</div>
 	</div>

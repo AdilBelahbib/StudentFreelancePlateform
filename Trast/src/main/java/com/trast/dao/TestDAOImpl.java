@@ -53,4 +53,24 @@ public class TestDAOImpl implements TestDAO{
 		session.delete(test);		
 	}
 
+	@Override
+	@Transactional
+	public List<Test> getTestsAdmin() {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<Test> listeTests = session.createQuery("FROM Test T WHERE T.entreprise is null")
+				.list();
+		return listeTests;
+	}
+
+	@Override
+	@Transactional
+	public List<Test> getTestsEntreprises() {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<Test> listeTests = session.createQuery("FROM Test T WHERE T.entreprise is not null")
+				.list();
+		return listeTests;
+	}
+
 }

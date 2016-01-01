@@ -1,12 +1,12 @@
 package com.trast.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -15,10 +15,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.trast.dao.CompetenceDAO;
 import com.trast.dao.QuestionDAO;
 import com.trast.dao.TestDAO;
+import com.trast.model.Administrateur;
 import com.trast.model.Competence;
 import com.trast.model.Entreprise;
 import com.trast.model.Question;
 import com.trast.model.Test;
+import com.trast.model.Utilisateur;
 
 @ManagedBean(name = "testControllerNassima", eager = true)
 @SessionScoped
@@ -27,7 +29,8 @@ public class TestControllerNassima implements Serializable{
 	
 	/***************** managed properties ********************/
 	@ManagedProperty(value = "#{sessionScope.utilisateur}")
-	Entreprise entreprise;
+	Utilisateur utilisateur;
+	//Entreprise entreprise;
 	@ManagedProperty(value = "#{test}")
 	Test test;
 	@ManagedProperty(value = "#{competence}")
@@ -40,6 +43,8 @@ public class TestControllerNassima implements Serializable{
 	String reponse;
 	@ManagedProperty(value = "#{redirection}")
 	int redirection;
+	@ManagedProperty(value = "#{tests}")
+	List<Test> tests;
 	/************ getters & setters ***************/
 	public int getRedirection() {
 		return redirection;
@@ -53,14 +58,21 @@ public class TestControllerNassima implements Serializable{
 	public void setStatut(String statut) {
 		this.statut = statut;
 	}
-	public Entreprise getEntreprise() {
+	/*public Entreprise getEntreprise() {
 		return entreprise;
 	}
 	public void setEntreprise(Entreprise entreprise) {
 		this.entreprise = entreprise;
-	}
+	}*/
+	
 	public Test getTest() {
 		return test;
+	}
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 	public void setTest(Test test) {
 		this.test = test;
@@ -89,6 +101,13 @@ public class TestControllerNassima implements Serializable{
 	public void setReponse(String reponse) {
 		this.reponse = reponse;
 	}
+	
+	public List<Test> getTests() {
+		return tests;
+	}
+	public void setTests(List<Test> tests) {
+		this.tests = tests;
+	}
 	/*-------------------------------------------*/
 	/******* method ***********************/
 	public void creerTest(){
@@ -97,7 +116,7 @@ public class TestControllerNassima implements Serializable{
 		/* recuperer une instance test et l'initialiser */
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		test = (Test) context.getBean("test");
-		test.setEntreprise(entreprise);
+		if(utilisateur instanceof Entreprise) test.setEntreprise((Entreprise) utilisateur);
 		test.setNombrePassage(0);
 				
 		((ConfigurableApplicationContext)context).close();
@@ -174,7 +193,9 @@ public class TestControllerNassima implements Serializable{
 		((ConfigurableApplicationContext) context).close();	
 		System.out.println("size: "+test.getQuestions().size());
 		this.setRedirection(1);
+		if(utilisateur instanceof Entreprise)
 		return "/views/entreprise/creerTest.xhtml?faces-redirect=true";
+		else return "/views/admin/creerTest.xhtml?faces-redirect=true";
 	}
 	/* persister le test dans la BdD*/
 	public String validerTest(){
@@ -188,7 +209,42 @@ public class TestControllerNassima implements Serializable{
 			questionItem.setTest(test);
 			questionDao.ajouterQuestion(questionItem);
 		}
+		((ConfigurableApplicationContext) context).close();
+		if(utilisateur instanceof Entreprise)
 		return "/views/entreprise/creerTest.xhtml?faces-redirect=true";
+		else return "/views/admin/creerTest.xhtml?faces-redirect=true";
+	}
+	
+	/* recuperer liste de tests*/
+	public void listTests(){
+		if(utilisateur instanceof Administrateur)
+		{
+			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+			TestDAO testDao = (TestDAO) context.getBean("testDao");
+			tests = testDao.getTestsAdmin();
+			((ConfigurableApplicationContext) context).close();
+		}	
+		else tests = new ArrayList<Test>(((Entreprise)utilisateur).getTests());
+	}
+	public void listTestsEntreprises(){
+		if(utilisateur instanceof Administrateur)
+		{
+			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+			TestDAO testDao = (TestDAO) context.getBean("testDao");
+			tests = testDao.getTestsEntreprises();
+			((ConfigurableApplicationContext) context).close();
+		}	
+	}
+	public void supprimerTest(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		TestDAO testDao = (TestDAO) context.getBean("testDao");
+		testDao.supprimerTest(test.getId());
+		tests.remove(test);
+		if(utilisateur instanceof Entreprise)
+			((Entreprise)utilisateur).getTests().remove(test);
+		((ConfigurableApplicationContext) context).close();
+		
+		
 	}
 	
 }
