@@ -6,6 +6,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="content">
+	
+	 <f:metadata>
+			<f:viewAction action="#{appelOffreController.listerAppelOffres}" />
+		</f:metadata>
 		<h:form>
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
@@ -30,6 +34,7 @@
 							action="#{appelOffreController.detailsAppelOffre}">
 							
 							<f:setPropertyActionListener target="#{appelOffreController.appelOffre}" value="#{item}" />
+	   						 <f:param name="idAppelOffre" value="#{appelOffre.id}" />
 							</h:commandButton>
 						</td>
 					</tr>

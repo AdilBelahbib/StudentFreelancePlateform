@@ -208,9 +208,10 @@ public class EtudiantController implements Serializable {
 			competence = competenceDao.ajouterCompetenceIfNotExist(competence);
 			
 			niveau.setCompetence(competence);
+			niveau.setMaitrise(0);
 			niveau.setEtudiant(etudiant);
-			System.out.println("id Competence ==> "+competence.getId());
-			System.out.println("id Etud ==> "+etudiant.getId());
+			//System.out.println("id Competence ==> "+competence.getId());
+			//System.out.println("id Etud ==> "+etudiant.getId());
 			niveauDao.ajouterNiveau(niveau);
 			etudiant.getNiveaux().add(niveau);
 			etudiantDao.modifierEtudiant(etudiant);

@@ -227,10 +227,7 @@
 				value="${_csrf.token}" />
 							<c:if test="#{sessionScope.utilisateur.nombreBids > 0}">
 								<c:if test="#{appelOffreController.dejaPostuler() == 0}">
-								<h:commandButton value="Ajouter une contre-proposition"
-									action="#{appelOffreController.nouvelleContreProposition}"
-									class="btn btn-primary">
-								</h:commandButton>
+								<h:link class="btn btn-primary" outcome="/views/etudiant/ajoutContreProposition.xhtml?faces-redirect=true" value="Ajouter une contre-proposition" />
 								</c:if>
 								<c:if test="#{appelOffreController.dejaPostuler() == 1 }">
 								<h3>Vous avez déja postuler !! </h3>

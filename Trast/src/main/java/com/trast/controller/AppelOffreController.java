@@ -14,6 +14,8 @@ import javax.transaction.Transactional;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.trast.dao.AppelOffreDAO;
 import com.trast.dao.CahierDesChargesDAO;
@@ -550,7 +552,7 @@ public class AppelOffreController implements Serializable{
 	 * */
 	
 	@Transactional
-	public String listerAppelOffres(){
+	public void listerAppelOffres(){
 		//recuperer utilisateur sur etudiant
 		this.etudiant = (Etudiant)utilisateur;
 		
@@ -559,7 +561,7 @@ public class AppelOffreController implements Serializable{
 		this.listes = this.appelOffreDao.getAppelOffresByStatus(EtatAppelOffre.ENCOURS);
 		//System.out.println(listes.get(0).getId()+" "+listes.get(0).getStatut());
 		((ConfigurableApplicationContext)context).close();
-		return "listeAppelOffres";
+		
 	}
 
 	/**
@@ -585,26 +587,20 @@ public class AppelOffreController implements Serializable{
 		//modifier l appel d'offre par le nouveau
 		//appelOffreDao.modifierAppelOffre(appelOffre);
 		
-		return "listeAppelOffre";
+		return "listeAppelOffres.xhtml?faces-redirect=true";
 	}
 	
 	/**
 	 * La fonction est appelée pour détailler un appel d'offre
 	 * Elle redirige vers la vue detailsAppelOffre.xhtml
 	 */
+	@RequestMapping(method = RequestMethod.GET)
 	public String detailsAppelOffre(){
 		
-		return "detailsAppelOffres";
+		return "detailAppelOffre.xhtml?faces-redirect=true";
 	}
 	
-	/**
-	 * La fonction est appelée pour visualiser le formulaire 
-	 * d'ajout d'une contre-proposition
-	 * Elle redirige vers la vue ajoutContreProposition.xhtml
-	 */
-	public String nouvelleContreProposition(){
-		return "ajoutContreProposition";
-	}
+	
 	
 	public int dejaPostuler(){
 		//recuperer utilisateur sur etudiant
