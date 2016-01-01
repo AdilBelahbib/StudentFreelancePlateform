@@ -1,0 +1,64 @@
+<ui:composition template="../templates/common.xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{testController.verifierValiditeTest()}" />
+		</f:metadata>
+
+		<c:if test="#{empty flash.test}">
+			<h2>Ce test est expiré, vous pouvez le relancer à partir de la
+				liste des tests</h2>
+		</c:if>
+
+		<nav id="timernav" class="navbar navbar-fixed-top col-sm-offset-11">
+			<h2 id="countdown">01:20:02</h2>
+		</nav>
+
+		<h:form prependId="false">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<div class="test">
+				<c:forEach items="#{testController.test.questions}" var="question"
+					varStatus="statut">
+
+					<div class="jumbotron">
+						<div class="question">
+							<h4>Question #{statut.count}</h4>
+							#{question.question}
+						</div>
+
+						<div class="reponses">
+							<h:selectManyCheckbox
+								value="#{testController.reponses[statut.index]}"
+								layout="pageDirection">
+								<c:forEach items="#{question.reponsesMelangees}" var="reponse"
+									varStatus="statutQuestion">
+									<f:selectItem itemValue="#{reponse}" itemLabel="#{reponse}" />
+
+								</c:forEach>
+							</h:selectManyCheckbox>
+
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+
+			<div class="form-group">
+				<h:commandButton action="#{testController.evaluerTest()}"
+					id="testForm" styleClass="btn btn-success btn-hover-green col-md-6"
+					value="Valider les réponses !" type="submit" >
+				</h:commandButton>
+			</div>
+		</h:form>
+
+		<script>
+			countdown("countdown", #{flash.test.duree}, 0);
+		</script>
+	</ui:define>
+
+</ui:composition>

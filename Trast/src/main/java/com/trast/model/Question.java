@@ -1,5 +1,8 @@
 package com.trast.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 import java.util.Set;
 
 public class Question {
@@ -7,6 +10,7 @@ public class Question {
 	private String question;
 	private Set<String> reponsesJustes;
 	private Set<String> reponsesFausses;
+	private ArrayList<String> reponsesMelangees;
 	private double coefficient;
 	private Test test;
 	
@@ -69,6 +73,26 @@ public class Question {
 
 	public void setTest(Test test) {
 		this.test = test;
+	}
+
+	public ArrayList<String> getReponsesMelangees() {
+		return reponsesMelangees;
+	}
+
+	public void setReponsesMelangees(ArrayList<String> reponsesMelangees) {
+		this.reponsesMelangees = reponsesMelangees;
+	}
+	
+	public void melangerReponses()
+	{	
+		reponsesMelangees = new ArrayList<>();
+		for(String reponse : this.reponsesJustes)
+			reponsesMelangees.add(reponse);
+		
+		for(String reponse : this.reponsesFausses)
+			reponsesMelangees.add(reponse);
+		
+		Collections.shuffle(reponsesMelangees, new Random());
 	}
 
 	@Override

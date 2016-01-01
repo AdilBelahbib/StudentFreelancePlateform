@@ -1,0 +1,62 @@
+<ui:composition template="../templates/common.xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+
+		<c:choose>
+			<c:when test="#{testController.score >= 85}">
+				<h2>Félicitation vous avez réussi le test !</h2>
+			</c:when>
+			<c:otherwise>
+				<h2>Désolé, vous n'avez pas eu assez de points !</h2>
+			</c:otherwise>
+		</c:choose>
+
+		<ul>
+			<li><label>Score:</label> <h:outputText
+					value="#{testController.score}">
+					<f:convertNumber maxFractionDigits="2" />
+				</h:outputText> %</li>
+			<li><label>Meilleur score (enregistré):</label> <h:outputText
+					value="#{testController.resultatTest.score}">
+					<f:convertNumber maxFractionDigits="2" />
+				</h:outputText> %</li>
+			<li><label>Nombre d'essais:</label>
+				#{testController.resultatTest.nbPassage}</li>
+		</ul>
+
+		<c:if test="#{testController.reussi}">
+			<h3>Votre récompense : développement des compétences suivantes</h3>
+				<c:forEach items="#{testController.resultatTest.test.competences}"
+					var="competence" varStatus="statut">
+					<c:forEach items="#{sessionScope.utilisateur.niveaux}" var="niveau"
+						varStatus="statutNiveau">
+						<c:if test="#{niveau.competence == competence}">
+
+							<div class="progress">
+								<div class="progress-bar progress-bar-success"
+									role="progressbar" aria-valuenow="#{niveau.maitrise}" aria-valuemin="0"
+									aria-valuemax="100" style="width: #{niveau.maitrise}%">
+									<span class="sr-only">#{niveau.maitrise}% Complete</span>
+								</div>
+								<span class="progress-type">#{competence.intitule}</span> <span
+									class="progress-completed"> <h:outputText
+										value="#{niveau.maitrise}">
+										<f:convertNumber maxFractionDigits="2" />
+									</h:outputText></span>
+							</div>
+
+						</c:if>
+					</c:forEach>
+
+				</c:forEach>
+		</c:if>
+
+
+	</ui:define>
+
+</ui:composition>

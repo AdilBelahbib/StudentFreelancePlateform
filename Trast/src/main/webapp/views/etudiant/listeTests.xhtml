@@ -17,10 +17,101 @@
 
 			<c:forEach items="#{testController.tests}" var="test"
 				varStatus="statut">
-				<tr><td>#{test.titre}</td></tr>
+				<tr>
+					<td>#{test.titre}</td>
+					<td>
+						<button data-toggle="modal"
+							data-target="#detailstest-#{statut.count}" type="button"
+							class="btn btn-default ">...</button>
+					</td>
+				</tr>
+
 			</c:forEach>
 
 		</table>
+
+		<!-- Modal : Détails du Test -->
+		<c:forEach items="#{testController.tests}" var="test"
+			varStatus="statut">
+			<div class="modal fade" id="detailstest-#{statut.count}"
+				tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+							</button>
+							<h3 class="modal-title" id="lineModalLabel">#{test.titre}</h3>
+						</div>
+						<div class="modal-body">
+
+							<!-- content goes here -->
+
+							<div class="form-group">
+								<label>Durée: #{test.duree} minutes</label>
+							</div>
+							<div class="form-group">
+								<label>Compétences: </label>
+								<ul>
+									<c:forEach items="#{test.competences}" var="competence">
+										<li>#{competence.intitule}</li>
+									</c:forEach>
+								</ul>
+							</div>
+							<div class="form-group">
+								<label>Popularité: #{test.nombrePassage}"</label>
+							</div>
+
+							<c:forEach items="#{sessionScope.utilisateur.resultatTests}"
+								var="resultat">
+								<c:if test="#{resultat.test == test}">
+									<div class="form-group">
+										<label>Votre dernier résultat: </label>
+										<ul>
+											<li><label>Score:</label> #{resultat.score}</li>
+											<li><label>Date:</label> <h:outputText
+													value="#{resultat.dateDernierPassage}">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</h:outputText></li>
+											<li><label>Nombre de fois passé:</label>
+												#{resultat.nbPassage}</li>
+										</ul>
+									</div>
+
+								</c:if>
+							</c:forEach>
+
+							<div class="form-group">
+								<h:form>
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+
+									<h:commandButton action="#{testController.lancerTest}"
+										styleClass="btn btn-success btn-hover-green col-md-12"
+										value="Passer ce test !">
+										<f:setPropertyActionListener target="#{testController.test}"
+											value="#{test}" />
+									</h:commandButton>
+
+								</h:form>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<div class="btn-group btn-group-justified" role="group"
+								aria-label="group button">
+
+								<div class="btn-group" role="group">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" role="button">Fermer</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
 
 	</ui:define>
 
