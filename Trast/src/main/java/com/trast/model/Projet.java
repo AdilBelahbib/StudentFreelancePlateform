@@ -1,5 +1,7 @@
 package com.trast.model;
 
+import java.util.Set;
+
 public class Projet {	
 	private Long id;
 	private Etudiant etudiant;
@@ -8,14 +10,13 @@ public class Projet {
 	private EtatProjet statut;
 	private double cout;
 	private String devise;
+	private Set<Livrable> livrables;
 	
 	public Projet() {
 	}
-
 	
-
 	public Projet(Long id, Etudiant etudiant, CahierDesCharges cahierDesCharges, Entreprise entreprise,
-			EtatProjet statut, double cout, String devise) {
+			EtatProjet statut, double cout, String devise, Set<Livrable> livrables) {
 		this.id = id;
 		this.etudiant = etudiant;
 		this.cahierDesCharges = cahierDesCharges;
@@ -23,6 +24,7 @@ public class Projet {
 		this.statut = statut;
 		this.cout = cout;
 		this.devise = devise;
+		this.livrables = livrables;
 	}
 
 
@@ -79,13 +81,17 @@ public class Projet {
 		return entreprise;
 	}
 
-
-
 	public void setEntreprise(Entreprise entreprise) {
 		this.entreprise = entreprise;
 	}
 
+	public Set<Livrable> getLivrables() {
+		return livrables;
+	}
 
+	public void setLivrables(Set<Livrable> livrables) {
+		this.livrables = livrables;
+	}
 
 	@Override
 	public int hashCode() {

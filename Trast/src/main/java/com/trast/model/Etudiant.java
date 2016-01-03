@@ -5,25 +5,31 @@ import java.util.Set;
 
 public class Etudiant extends Particulier {
 	private int nombreBids;
+	private int avisPositifs;
+	private int avisNegatifs;
 	private Set<Qualification> qualifications;
 	private Set<Niveau> niveaux;
 	private Set<Projet> projets;
 	private Set<ContreProposition> contrePropositions;
 	private Set<ResultatTest> resultatTests;
+	private Set<Badge> badges;
 
 	public Etudiant() {
 	}
-
-	public Etudiant(String nom, String prenom, Date date, int nombreBids, Set<Qualification> qualifications,
-			Set<Niveau> niveaux, Set<Projet> projets, Set<ContreProposition> contrePropositions,
-			Set<ResultatTest> resultatTests) {
+	
+	public Etudiant(String nom, String prenom, Date date, int nombreBids, int avisPositifs, int avisNegatifs,
+			Set<Qualification> qualifications, Set<Niveau> niveaux, Set<Projet> projets,
+			Set<ContreProposition> contrePropositions, Set<ResultatTest> resultatTests, Set<Badge> badges) {
 		super(nom, prenom, date);
 		this.nombreBids = nombreBids;
+		this.avisPositifs = avisPositifs;
+		this.avisNegatifs = avisNegatifs;
 		this.qualifications = qualifications;
 		this.niveaux = niveaux;
 		this.projets = projets;
 		this.contrePropositions = contrePropositions;
 		this.resultatTests = resultatTests;
+		this.badges = badges;
 	}
 
 	public int getNombreBids() {
@@ -74,4 +80,27 @@ public class Etudiant extends Particulier {
 		this.resultatTests = resultatTests;
 	}
 
+	public int getAvisPositifs() {
+		return avisPositifs;
+	}
+
+	public void setAvisPositifs(int avisPositifs) {
+		this.avisPositifs = avisPositifs;
+	}
+
+	public int getAvisNegatifs() {
+		return avisNegatifs;
+	}
+
+	public void setAvisNegatifs(int avisNegatifs) {
+		this.avisNegatifs = avisNegatifs;
+	}
+
+	public Set<Badge> getBadges() {
+		return badges;
+	}
+
+	public void setBadges(Set<Badge> badges) {
+		this.badges = badges;
+	}
 }

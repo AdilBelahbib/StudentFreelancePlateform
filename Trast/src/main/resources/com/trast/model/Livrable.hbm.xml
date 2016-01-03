@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="com.trast.model.Livrable" table="LIVRABLE">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="dateLivraison" type="java.util.Date">
+			<column name="dateLivraison" />
+		</property>
+
+		<property name="pourcentageAvancement" type="double">
+			<column name="pourcentageAvancement" />
+		</property>
+
+		<property name="valide" type="boolean">
+			<column name="valide" />
+		</property>
+
+		<property name="remarqueEntreprise" type="java.lang.String">
+			<column name="remarqueEntreprise" />
+		</property>
+
+		<many-to-one name="fichier" column="idFichier" class="com.trast.model.Fichier" unique="true"
+			not-null="false" lazy="false"/>
+
+		<many-to-one name="projet" class="com.trast.model.Projet"
+			access="field" fetch="join" lazy="false">
+			<column name="idProjet" />
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

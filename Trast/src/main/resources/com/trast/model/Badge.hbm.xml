@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="com.trast.model.Badge" table="BADGE">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="intitule" type="java.lang.String">
+			<column name="intitule" />
+		</property>
+
+		<many-to-one name="icone" column="idFichier" class="com.trast.model.Fichier"
+			unique="true" not-null="false" lazy="false" />
+
+		<set name="etudiants" table="etudiant_badge" inverse="true" lazy="false">
+			<key column="idBadge" />
+			<many-to-many column="idEtudiant" class="com.trast.model.Etudiant" />
+		</set>
+
+		<one-to-one name="test" property-ref="badge" />
+
+	</class>
+</hibernate-mapping>

@@ -38,6 +38,10 @@
 		<many-to-one name="entreprise" class="Entreprise" fetch="join" lazy="false">
 			<column name="idEntreprise" />
 		</many-to-one>
+		
+		<many-to-one name="badge" class="Badge" lazy="false" unique="true" not-null="false">
+			<column name="idBadge" />
+		</many-to-one>
 
 	</class>
 </hibernate-mapping>

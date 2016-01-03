@@ -122,8 +122,8 @@
 					</key>
 					<one-to-many class="Qualification" />
 				</set>
-				
-				
+
+
 				<set name="contrePropositions" table="contre_proposition"
 					inverse="true" lazy="false" cascade="all">
 					<key>
@@ -148,11 +148,25 @@
 					<one-to-many class="ResultatTest" />
 				</set>
 
+				<set name="badges" table="etudiant_badge" inverse="true"
+					lazy="false">
+					<key column="idEtudiant" />
+					<many-to-many column="idBadge" class="Badge" />
+				</set>
+
 				<join table="etudiant">
 					<key column="id" />
 
 					<property name="nombreBids" type="int">
 						<column name="NOMBREBIDS" />
+					</property>
+					
+					<property name="avisPositifs" type="int">
+						<column name="avisPositifs" />
+					</property>
+					
+					<property name="avisNegatifs" type="int">
+						<column name="avisNegatifs" />
 					</property>
 				</join>
 			</subclass>

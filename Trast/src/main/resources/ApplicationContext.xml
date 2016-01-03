@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -50,6 +49,8 @@
 
 	<bean id="etudiant" class="com.trast.model.Etudiant" parent="particulier">
 		<property name="nombreBids" value="5" />
+		<property name="avisPositifs" value="0" />
+		<property name="avisNegatifs" value="0" />
 		<property name="qualifications">
 			<set>
 			</set>
@@ -63,6 +64,11 @@
 			</set>
 		</property>
 		<property name="contrePropositions">
+			<set>
+			</set>
+		</property>
+		
+		<property name="badges">
 			<set>
 			</set>
 		</property>
@@ -169,12 +175,14 @@
 		<!-- <property name="appelOffre" ref="appelOffre"> </property> -->
 	</bean>
 	<!-- bean: Formation -->
-	<bean id="formation" class="com.trast.model.Formation" parent="qualification" scope="prototype">
+	<bean id="formation" class="com.trast.model.Formation" parent="qualification"
+		scope="prototype">
 		<property name="intituleFormation" value="" />
 		<property name="etablissement" value="" />
 	</bean>
 	<!-- bean: Experience -->
-	<bean id="experience" class="com.trast.model.Experience" parent="qualification" scope="prototype">
+	<bean id="experience" class="com.trast.model.Experience" parent="qualification"
+		scope="prototype">
 		<property name="responsabilite" value="" />
 		<property name="typeExperience" value="" />
 		<property name="structureAccueil" value="" />
@@ -194,14 +202,18 @@
 		<property name="statut" value="ENCOURS" />
 		<property name="cout" value="0.0" />
 		<property name="devise" value="" />
-		<!-- <property name="entreprise" ref="entreprise" /> -->
+		<property name="livrables">
+			<set>
+			</set>
+		</property>
 	</bean>
 	<!-- bean: Administrateur -->
 	<bean id="administrateur" class="com.trast.model.Administrateur"
 		parent="particulier">
 	</bean>
 
-	<bean id="roleUtilisateur" class="com.trast.model.RoleUtilisateur" scope="prototype">
+	<bean id="roleUtilisateur" class="com.trast.model.RoleUtilisateur"
+		scope="prototype">
 		<property name="id" value="" />
 		<property name="role" value="" />
 		<property name="utilisateurs">
@@ -214,26 +226,27 @@
 		<property name="id" value="" />
 		<property name="duree" value="0.0" />
 		<property name="nombrePassage" value="0" />
-		<!-- <property name="entreprise" ref="entreprise" /> -->
+		<property name="badge" ref="badge" />
 		<property name="questions">
 			<set></set>
 		</property>
 		<property name="competences">
 			<set></set>
-		</property>	
+		</property>
 	</bean>
-<!-- bean ResultatTest -->
-	<bean id="resultatTest" class="com.trast.model.ResultatTest" scope="prototype">
+	<!-- bean ResultatTest -->
+	<bean id="resultatTest" class="com.trast.model.ResultatTest"
+		scope="prototype">
 		<property name="id" value="" />
 		<property name="score" value="0" />
-		<property name="dateDernierPassage" >
+		<property name="dateDernierPassage">
 			<bean class="java.util.Date" />
 		</property>
 		<property name="nbPassage" value="0" />
 		<property name="etudiant" ref="etudiant" />
 		<property name="test" ref="test" />
 	</bean>
-<!-- bean Question -->
+	<!-- bean Question -->
 	<bean id="question" class="com.trast.model.Question" scope="prototype">
 		<property name="id" value="" />
 		<property name="question" value="" />
@@ -241,11 +254,37 @@
 		<property name="test" ref="test" />
 		<property name="reponsesJustes">
 			<set></set>
-		</property>	
+		</property>
 		<property name="reponsesFausses">
 			<set></set>
-		</property>	
+		</property>
 	</bean>
+
+	<!-- bean Livrable -->
+	<bean id="livrable" class="com.trast.model.Livrable" scope="prototype">
+		<property name="id" value="" />
+		<property name="dateLivraison">
+			<bean class="java.util.Date" />
+		</property>
+		<property name="pourcentageAvancement" value="0.0" />
+		<property name="valide" value="false" />
+		<property name="remarqueEntreprise" value="" />
+		<property name="fichier" ref="fichier" />
+		<property name="projet" ref="projet" />
+	</bean>
+	
+	<!-- bean Badge -->
+	<bean id="badge" class="com.trast.model.Badge" scope="prototype">
+		<property name="id" value="" />
+		<property name="intitule" value="" />
+		<property name="icone" ref="fichier" />
+		<property name="test" ref="test" />
+		<property name="etudiants">
+			<set></set>
+		</property>
+	</bean>
+	
+	
 	<!-- Configuration des DAO bean -->
 	<bean id="administrateurDao" class="com.trast.dao.AdministrateurDAOImpl">
 		<constructor-arg>
@@ -348,14 +387,14 @@
 			<ref bean="sessionFactory" />
 		</constructor-arg>
 	</bean>
-	
+
 	<bean id="roleUtilisateurDao" class="com.trast.dao.RoleUtilisateurDAOImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
 		</constructor-arg>
 	</bean>
-	
-		<bean id="testDao" class="com.trast.dao.TestDAOImpl">
+
+	<bean id="testDao" class="com.trast.dao.TestDAOImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
 		</constructor-arg>
@@ -370,6 +409,19 @@
 			<ref bean="sessionFactory" />
 		</constructor-arg>
 	</bean>
+	
+	<bean id="badgeDao" class="com.trast.dao.BadgeDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="livrableDao" class="com.trast.dao.LivrableDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
 	<!-- Service beans -->
 	<bean id="utilisateurDetailsService" class="com.trast.service.UtilisateurDetailsService">
 		<property name="utilisateurDao" ref="utilisateurDao" />

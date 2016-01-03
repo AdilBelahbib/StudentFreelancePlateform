@@ -10,12 +10,13 @@ public class Test {
 	private int nombrePassage;
 	private Set<Competence> competences;
 	private Entreprise entreprise;
+	private Badge badge;
 	
 	public Test() {
 	}
 
 	public Test(Long id, String titre, Set<Question> questions, double duree, int nombrePassage,
-			Set<Competence> competences, Entreprise entreprise) {
+			Set<Competence> competences, Entreprise entreprise, Badge badge) {
 		this.id = id;
 		this.titre = titre;
 		this.questions = questions;
@@ -23,6 +24,7 @@ public class Test {
 		this.nombrePassage = nombrePassage;
 		this.competences = competences;
 		this.entreprise = entreprise;
+		this.badge = badge;
 	}
 
 	public Long getId() {
@@ -79,6 +81,14 @@ public class Test {
 
 	public void setTitre(String titre) {
 		this.titre = titre;
+	}
+
+	public Badge getBadge() {
+		return badge;
+	}
+
+	public void setBadge(Badge badge) {
+		this.badge = badge;
 	}
 
 	@Override
