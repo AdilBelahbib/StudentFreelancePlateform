@@ -21,6 +21,8 @@ public class TestTestDAOImpl {
 		 TestDAO testDao = (TestDAO) context.getBean("testDao");
 		  com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
 		  test.setDuree(60);
+		  
+		  test.setTitre("Test1");
 		  test.setNombrePassage(0);
 		  testDao.ajouterTest(test);
 		  List<com.trast.model.Test> tests = testDao.getTests();
@@ -35,6 +37,7 @@ public class TestTestDAOImpl {
 		 TestDAO testDao = (TestDAO) context.getBean("testDao");
 		  com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
 		  test.setDuree(60);
+		  test.setTitre("Test1");
 		  test.setNombrePassage(0);
 		  testDao.ajouterTest(test);
 		  test = testDao.getTestParId(test.getId());
@@ -49,6 +52,7 @@ public class TestTestDAOImpl {
 		 TestDAO testDao = (TestDAO) context.getBean("testDao");
 		  com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
 		  test.setDuree(60);
+		  test.setTitre("Test1");
 		  test.setNombrePassage(0);
 		  
 		  testDao.ajouterTest(test);
@@ -64,11 +68,15 @@ public class TestTestDAOImpl {
 		 TestDAO testDao = (TestDAO) context.getBean("testDao");
 		  com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
 		  test.setDuree(60);
+		  test.setTitre("Test1");
 		  test.setNombrePassage(0);
 		  testDao.ajouterTest(test);  
 		  testDao.supprimerTest(test.getId());	
-		  List<com.trast.model.Test> tests = testDao.getTests();
-		  Assert.assertEquals("vide",tests.size(),0);
+		 
+		  //List<com.trast.model.Test> tests = testDao.getTests();
+		  //Assert.assertEquals("vide",tests.size(),0);
+		  test = testDao.getTestParId(test.getId());
+		  Assert.assertNull(test);
 		  ((ConfigurableApplicationContext)context).close();
 	}
 

@@ -7,17 +7,17 @@ public class Badge {
 	private String intitule;
 	private Fichier icone;
 	private Set<Etudiant> etudiants;
-	private Test test;
+	//private Test test;
 	
 	public Badge() {
 	}
 
-	public Badge(Long id, String intitule, Fichier icone, Set<Etudiant> etudiants, Test test) {
+	public Badge(Long id, String intitule, Fichier icone, Set<Etudiant> etudiants) {
 		this.id = id;
 		this.intitule = intitule;
 		this.icone = icone;
 		this.etudiants = etudiants;
-		this.test = test;
+		//this.test = test;
 	}
 
 	public Long getId() {
@@ -51,7 +51,7 @@ public class Badge {
 	public void setEtudiants(Set<Etudiant> etudiants) {
 		this.etudiants = etudiants;
 	}
-
+/*
 	public Test getTest() {
 		return test;
 	}
@@ -59,7 +59,7 @@ public class Badge {
 	public void setTest(Test test) {
 		this.test = test;
 	}
-
+*/
 	@Override
 	public int hashCode() {
 		final int prime = 31;

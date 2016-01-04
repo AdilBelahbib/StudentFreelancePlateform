@@ -31,9 +31,10 @@ public class TestProjetDAOImpl {
 		Projet projet = (Projet) context.getBean("projet");
 		  
 		  projet.setCahierDesCharges(cahierDesCharges);
-		  projet.setEtudiant(etudiant);
+		 
 		  
 		  etudiantDao.ajouterEtudiant(etudiant);
+		  projet.setEtudiant(etudiant);
 		  cahierDesChargesDao.ajouterCahierDesCharges(cahierDesCharges);
 		  projetDao.ajouterProjet(projet);
 		  

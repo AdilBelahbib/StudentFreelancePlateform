@@ -22,7 +22,7 @@ public class TestAppelOffreDAOImpl {
 		
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
-		entreprise.setEmail("entreprise@gmail.com");
+		entreprise.setEmail("entreprise7@gmail.com");
 		
 		@SuppressWarnings("deprecation")
 		Date dateExpiration = new Date("11/12/2015");
@@ -55,7 +55,7 @@ public class TestAppelOffreDAOImpl {
 		
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
-		entreprise.setEmail("entreprise@gmail.com");
+		entreprise.setEmail("entreprise7@gmail.com");
 		
 		@SuppressWarnings("deprecation")
 		Date dateExpiration = new Date("11/12/2015");
@@ -87,7 +87,7 @@ public class TestAppelOffreDAOImpl {
 		
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
-		entreprise.setEmail("entreprise@gmail.com");
+		entreprise.setEmail("entreprise7@gmail.com");
 		
 		@SuppressWarnings("deprecation")
 		Date dateExpiration = new Date("11/12/2015");
@@ -119,7 +119,7 @@ public class TestAppelOffreDAOImpl {
 		
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
-		entreprise.setEmail("entreprise@gmail.com");
+		entreprise.setEmail("entreprise7@gmail.com");
 		
 		@SuppressWarnings("deprecation")
 		Date dateExpiration = new Date("11/12/2015");
@@ -152,7 +152,7 @@ public class TestAppelOffreDAOImpl {
 		
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise) context.getBean("entreprise");
-		entreprise.setEmail("entreprise@gmail.com");
+		entreprise.setEmail("entreprise7@gmail.com");
 		
 		Date dateExpiration = new Date("11/12/2015");
 		Date dateDebut = new Date("10/12/2015");

@@ -156,7 +156,7 @@ public class TestEntrepriseDAOImpl {
 		List<Entreprise> entreprisesEnAttente = entrepriseDao.getEntreprisesByEtatCompte(EtatCompte.EN_ATTENTE);
 		List<Entreprise> entreprisesActivees = entrepriseDao.getEntreprisesByEtatCompte(EtatCompte.ACTIVE);
 
-		Assert.assertEquals("Entreprises en attente", 2, entreprisesEnAttente.size());
+		Assert.assertEquals("Entreprises en attente", 3, entreprisesEnAttente.size());
 		Assert.assertEquals("Entreprises activée", 1, entreprisesActivees.size());
 
 		entrepriseDao.supprimerEntreprise(entreprise1.getId());

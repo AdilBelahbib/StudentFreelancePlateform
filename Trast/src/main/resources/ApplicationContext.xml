@@ -92,7 +92,7 @@
 		scope="prototype">
 		<property name="id" value="" />
 		<property name="enchere" value="" />
-		<property name="fichier" ref="fichier" />
+		<!-- <property name="fichier" ref="fichier" /> -->
 		<property name="appelOffre" ref="appelOffre" />
 		<property name="etudiant" ref="etudiant" />
 	</bean>
@@ -226,7 +226,7 @@
 		<property name="id" value="" />
 		<property name="duree" value="0.0" />
 		<property name="nombrePassage" value="0" />
-		<property name="badge" ref="badge" />
+		<!-- <property name="badge" ref="badge" /> -->
 		<property name="questions">
 			<set></set>
 		</property>
@@ -269,7 +269,7 @@
 		<property name="pourcentageAvancement" value="0.0" />
 		<property name="valide" value="false" />
 		<property name="remarqueEntreprise" value="" />
-		<property name="fichier" ref="fichier" />
+		<!-- <property name="fichier" ref="fichier" /> -->
 		<property name="projet" ref="projet" />
 	</bean>
 	
@@ -277,8 +277,8 @@
 	<bean id="badge" class="com.trast.model.Badge" scope="prototype">
 		<property name="id" value="" />
 		<property name="intitule" value="" />
-		<property name="icone" ref="fichier" />
-		<property name="test" ref="test" />
+		<!-- <property name="icone" ref="fichier" /> -->
+		<!-- <property name="test" ref="test" /> -->
 		<property name="etudiants">
 			<set></set>
 		</property>
@@ -459,6 +459,8 @@
 				<value>com/trast/model/Test.hbm.xml</value>
 				<value>com/trast/model/ResultatTest.hbm.xml</value>
 				<value>com/trast/model/Question.hbm.xml</value>
+				<value>com/trast/model/Livrable.hbm.xml</value>
+				<value>com/trast/model/Badge.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

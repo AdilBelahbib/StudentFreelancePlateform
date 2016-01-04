@@ -19,7 +19,6 @@ public class TestEtudiantDAOImpl {
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
 		
-		
 		etudiant.setNombreBids(5);
 		
 		List<Etudiant> etudiants;
@@ -62,7 +61,9 @@ public class TestEtudiantDAOImpl {
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
 		
-		
+		etudiant.setEmail("email@email.com");
+		etudiant.setNom("nomEtudiant");
+		etudiant.setPrenom("prenomEtudiant");
 		etudiant.setNombreBids(5);
 		
 		etudiantDao.ajouterEtudiant(etudiant);
@@ -81,7 +82,9 @@ public class TestEtudiantDAOImpl {
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
 		
-		
+		etudiant.setEmail("email@email.com");
+		etudiant.setNom("nomEtudiant");
+		etudiant.setPrenom("prenomEtudiant");
 		etudiant.setNombreBids(5);
 		
 		etudiantDao.ajouterEtudiant(etudiant);
@@ -100,7 +103,9 @@ public class TestEtudiantDAOImpl {
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
 		
-		
+		etudiant.setEmail("email@email.com");
+		etudiant.setNom("nomEtudiant");
+		etudiant.setPrenom("prenomEtudiant");
 		etudiant.setNombreBids(5);
 		
 		etudiantDao.ajouterEtudiant(etudiant);		

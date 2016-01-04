@@ -21,6 +21,7 @@ public class TestResultatTestDAOImpl {
 		 /* test*/
 		 TestDAO testDao = (TestDAO) context.getBean("testDao");
 		 com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
+		 test.setTitre("test1");
 		 testDao.ajouterTest(test);
 		  /* etudiant*/
 		 EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
@@ -50,6 +51,7 @@ public class TestResultatTestDAOImpl {
 		 /* test*/
 		 TestDAO testDao = (TestDAO) context.getBean("testDao");
 		 com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
+		 test.setTitre("test1");
 		 testDao.ajouterTest(test);
 		  /* etudiant*/
 		 EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
@@ -79,6 +81,7 @@ public class TestResultatTestDAOImpl {
 		 /* test*/
 		 TestDAO testDao = (TestDAO) context.getBean("testDao");
 		 com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
+		 test.setTitre("test1");
 		 testDao.ajouterTest(test);
 		  /* etudiant*/
 		 EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
@@ -92,8 +95,9 @@ public class TestResultatTestDAOImpl {
 		 resultatTest.setEtudiant(etudiant);
 		 resultatTest.setTest(test);
 		 resultatTestDao.ajouterResultatTest(resultatTest);
-		 List<ResultatTest> resultatsTest = resultatTestDao.getResultatsTest();
-		  Assert.assertNotNull(resultatsTest); 
+		 resultatTest = resultatTestDao.getResultatTestParId(resultatTest.getId());
+		 //List<ResultatTest> resultatsTest = resultatTestDao.getResultatsTest();
+		  Assert.assertNotNull(resultatTest); 
 		  
 		  /* clean up*/
 		  resultatTestDao.supprimerResultatTest(resultatTest.getId());
@@ -109,6 +113,7 @@ public class TestResultatTestDAOImpl {
 		 /* test*/
 		 TestDAO testDao = (TestDAO) context.getBean("testDao");
 		 com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
+		 test.setTitre("test1");
 		 testDao.ajouterTest(test);
 		  /* etudiant*/
 		 EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
@@ -141,6 +146,7 @@ public class TestResultatTestDAOImpl {
 		 /* test*/
 		 TestDAO testDao = (TestDAO) context.getBean("testDao");
 		 com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
+		 test.setTitre("test1");
 		 testDao.ajouterTest(test);
 		  /* etudiant*/
 		 EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
@@ -155,11 +161,10 @@ public class TestResultatTestDAOImpl {
 		 resultatTest.setTest(test);
 		 resultatTestDao.ajouterResultatTest(resultatTest);
 		 resultatTestDao.supprimerResultatTest(resultatTest.getId());
-		 List<ResultatTest> resultatsTest = resultatTestDao.getResultatsTest();
-		  Assert.assertEquals(resultatsTest.size(),0); 
-		  
-		  /* clean up*/
-		  
+		 //List<ResultatTest> resultatsTest = resultatTestDao.getResultatsTest();
+		 //Assert.assertEquals(resultatsTest.size(),0); 
+		 resultatTest = resultatTestDao.getResultatTestParId(resultatTest.getId());
+		 Assert.assertNull(resultatTest);
 		  etudiantDao.supprimerEtudiant(etudiant.getId());
 		  testDao.supprimerTest(test.getId());		  
 		  ((ConfigurableApplicationContext)context).close();

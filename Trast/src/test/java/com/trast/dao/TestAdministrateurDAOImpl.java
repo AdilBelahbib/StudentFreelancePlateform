@@ -21,7 +21,7 @@ public class TestAdministrateurDAOImpl {
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
-		admin.setEmail("admin@mail.com");
+		admin.setEmail("admintest@mail.com");
 		admin.setMotDePasse("mdp");
 		admin.setNom("nomAdmin");
 		admin.setPrenom("prenomAdmin");
@@ -41,7 +41,7 @@ public class TestAdministrateurDAOImpl {
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
-		admin.setEmail("admin@mail.com");
+		admin.setEmail("admintest@mail.com");
 		admin.setMotDePasse("mdp");
 		admin.setNom("nomAdmin");
 		admin.setPrenom("prenomAdmin");
@@ -59,7 +59,7 @@ public class TestAdministrateurDAOImpl {
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
-		admin.setEmail("admin@mail.com");
+		admin.setEmail("admintest@mail.com");
 		admin.setMotDePasse("mdp");
 		admin.setNom("nomAdmin");
 		admin.setPrenom("prenomAdmin");
@@ -77,7 +77,7 @@ public class TestAdministrateurDAOImpl {
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
-		admin.setEmail("admin@mail.com");
+		admin.setEmail("admintest@mail.com");
 		admin.setMotDePasse("mdp");
 		admin.setNom("nomAdmin");
 		admin.setPrenom("prenomAdmin");
@@ -95,7 +95,7 @@ public class TestAdministrateurDAOImpl {
 		
 		AdministrateurDAO adminDao = (AdministrateurDAO) context.getBean("administrateurDao");
 		Administrateur admin = (Administrateur) context.getBean("administrateur");
-		admin.setEmail("admin@mail.com");
+		admin.setEmail("admintest@mail.com");
 		admin.setMotDePasse("mdp");
 		admin.setNom("nomAdmin");
 		admin.setPrenom("prenomAdmin");

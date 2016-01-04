@@ -22,7 +22,12 @@
 				var="item" varStatus="statut">
 				<tr>
 					<td>#{item.test.titre}</td>
-					<td>#{item.score}</td>
+					<td>
+				<label>Score:</label> <h:outputText
+					value="#{item.score}">
+					<f:convertNumber maxFractionDigits="2" />
+				</h:outputText> %
+				</td>
 					<td>
 						<button data-toggle="modal"
 							data-target="#detailsResultatTest-#{statut.count}" type="button"

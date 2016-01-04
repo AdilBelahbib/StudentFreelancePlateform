@@ -24,7 +24,7 @@ public class TestContrePropositionDAOImpl {
 			
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
-		etudiant.setEmail("etudiant@gmail.com");
+		etudiant.setEmail("etudiant7@gmail.com");
 		etudiantDao.ajouterEtudiant(etudiant);
 		
 		AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
@@ -32,9 +32,10 @@ public class TestContrePropositionDAOImpl {
 		
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise)context.getBean("entreprise");
-		entreprise.setEmail("entreprise@gmail.com");
+		entreprise.setEmail("entreprise7@gmail.com");
 		entrepriseDao.ajouterEntreprise(entreprise);
-				
+		
+		appelOffre.setEntreprise(entreprise);
 		appelOffreDao.ajouterAppelOffre(appelOffre);
 		
 		double enchere = 1.2;
@@ -48,7 +49,7 @@ public class TestContrePropositionDAOImpl {
 		contrePropositionDao.ajouterContreProposition(contreProposition);
 		contrePropositions = contrePropositionDao.getContrePropositions();
 		Assert.assertNotNull(contrePropositions);
-		contrePropositionDao.supprimerContreProposition(contreProposition.getId());
+		//contrePropositionDao.supprimerContreProposition(contreProposition.getId());
 		etudiantDao.supprimerEtudiant(etudiant.getId());
 		appelOffreDao.supprimerAppelOffre(appelOffre.getId());
 		entrepriseDao.supprimerEntreprise(entreprise.getId());
@@ -65,7 +66,7 @@ public class TestContrePropositionDAOImpl {
 			
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
-		etudiant.setEmail("etudiant@gmail.com");
+		etudiant.setEmail("etudiant7@gmail.com");
 		etudiantDao.ajouterEtudiant(etudiant);
 		
 		AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
@@ -73,9 +74,10 @@ public class TestContrePropositionDAOImpl {
 		
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise)context.getBean("entreprise");
-		entreprise.setEmail("entreprise@gmail.com");
+		entreprise.setEmail("entreprise7@gmail.com");
 		entrepriseDao.ajouterEntreprise(entreprise);
-				
+		
+		appelOffre.setEntreprise(entreprise);
 		appelOffreDao.ajouterAppelOffre(appelOffre);
 		
 		double enchere = 1.2;
@@ -87,7 +89,7 @@ public class TestContrePropositionDAOImpl {
 		contrePropositionDao.ajouterContreProposition(contreProposition);
 		contreProposition = contrePropositionDao.getContrePropositionParId(contreProposition.getId());
 		Assert.assertNotNull(contreProposition);
-		contrePropositionDao.supprimerContreProposition(contreProposition.getId());
+		//contrePropositionDao.supprimerContreProposition(contreProposition.getId());
 		etudiantDao.supprimerEtudiant(etudiant.getId());
 		appelOffreDao.supprimerAppelOffre(appelOffre.getId());
 		entrepriseDao.supprimerEntreprise(entreprise.getId());
@@ -104,7 +106,7 @@ public class TestContrePropositionDAOImpl {
 			
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
-		etudiant.setEmail("etudiant@gmail.com");
+		etudiant.setEmail("etudiant7@gmail.com");
 		etudiantDao.ajouterEtudiant(etudiant);
 		
 		AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
@@ -112,9 +114,10 @@ public class TestContrePropositionDAOImpl {
 		
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise)context.getBean("entreprise");
-		entreprise.setEmail("entreprise@gmail.com");
+		entreprise.setEmail("entreprise7@gmail.com");
 		entrepriseDao.ajouterEntreprise(entreprise);
-				
+		
+		appelOffre.setEntreprise(entreprise);
 		appelOffreDao.ajouterAppelOffre(appelOffre);
 		
 		double enchere = 1.2;
@@ -126,7 +129,7 @@ public class TestContrePropositionDAOImpl {
 		contrePropositionDao.ajouterContreProposition(contreProposition);
 		contreProposition = contrePropositionDao.getContrePropositionParId(contreProposition.getId());
 		Assert.assertNotNull(contreProposition);
-		contrePropositionDao.supprimerContreProposition(contreProposition.getId());
+		//contrePropositionDao.supprimerContreProposition(contreProposition.getId());
 		etudiantDao.supprimerEtudiant(etudiant.getId());
 		appelOffreDao.supprimerAppelOffre(appelOffre.getId());
 		entrepriseDao.supprimerEntreprise(entreprise.getId());
@@ -143,7 +146,7 @@ public class TestContrePropositionDAOImpl {
 			
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
-		etudiant.setEmail("etudiant@gmail.com");
+		etudiant.setEmail("etudiant7@gmail.com");
 		etudiantDao.ajouterEtudiant(etudiant);
 		
 		AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
@@ -151,9 +154,10 @@ public class TestContrePropositionDAOImpl {
 		
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise)context.getBean("entreprise");
-		entreprise.setEmail("entreprise@gmail.com");
+		entreprise.setEmail("entreprise7@gmail.com");
 		entrepriseDao.ajouterEntreprise(entreprise);
 				
+		appelOffre.setEntreprise(entreprise);
 		appelOffreDao.ajouterAppelOffre(appelOffre);
 		
 		double enchere = 1.2;
@@ -167,7 +171,7 @@ public class TestContrePropositionDAOImpl {
 		contrePropositionDao.modifierContreProposition(contreProposition);
 		contreProposition = contrePropositionDao.getContrePropositionParId(contreProposition.getId());
 		Assert.assertNotNull(contreProposition);
-		contrePropositionDao.supprimerContreProposition(contreProposition.getId());
+		//contrePropositionDao.supprimerContreProposition(contreProposition.getId());
 		etudiantDao.supprimerEtudiant(etudiant.getId());
 		appelOffreDao.supprimerAppelOffre(appelOffre.getId());
 		entrepriseDao.supprimerEntreprise(entreprise.getId());
@@ -184,7 +188,7 @@ public class TestContrePropositionDAOImpl {
 			
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
-		etudiant.setEmail("etudiant@gmail.com");
+		etudiant.setEmail("etudiant7@gmail.com");
 		etudiantDao.ajouterEtudiant(etudiant);
 		
 		AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
@@ -192,9 +196,10 @@ public class TestContrePropositionDAOImpl {
 		
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise)context.getBean("entreprise");
-		entreprise.setEmail("entreprise@gmail.com");
+		entreprise.setEmail("entreprise7@gmail.com");
 		entrepriseDao.ajouterEntreprise(entreprise);
 				
+		appelOffre.setEntreprise(entreprise);
 		appelOffreDao.ajouterAppelOffre(appelOffre);
 		
 		double enchere = 1.2;
@@ -204,11 +209,14 @@ public class TestContrePropositionDAOImpl {
 		contreProposition.setAppelOffre(appelOffre);
 
 		contrePropositionDao.ajouterContreProposition(contreProposition);
-		contreProposition = contrePropositionDao.getContrePropositionParId(contreProposition.getId());
-		Assert.assertNotNull(contreProposition);
+		
 		contrePropositionDao.supprimerContreProposition(contreProposition.getId());
-		etudiantDao.supprimerEtudiant(etudiant.getId());
+		contreProposition = contrePropositionDao.getContrePropositionParId(contreProposition.getId());
+
+		Assert.assertNull(contreProposition);
 		appelOffreDao.supprimerAppelOffre(appelOffre.getId());
+
+		etudiantDao.supprimerEtudiant(etudiant.getId());
 		entrepriseDao.supprimerEntreprise(entreprise.getId());
 		
 		((ConfigurableApplicationContext)context).close();
@@ -222,19 +230,22 @@ public class TestContrePropositionDAOImpl {
 			
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
-		etudiant.setEmail("etudiant@gmail.com");
+		etudiant.setEmail("etudiant7@gmail.com");
 		etudiantDao.ajouterEtudiant(etudiant);
 		
 		AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 		
 		EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 		Entreprise entreprise = (Entreprise)context.getBean("entreprise");
-		entreprise.setEmail("entreprise@gmail.com");
+		entreprise.setEmail("entreprise7@gmail.com");
 		entrepriseDao.ajouterEntreprise(entreprise);
 		
+		
 		AppelOffre appelOffre1 = (AppelOffre) context.getBean("appelOffre");
+		appelOffre1.setEntreprise(entreprise);
 		appelOffreDao.ajouterAppelOffre(appelOffre1);
 		AppelOffre appelOffre2 = (AppelOffre) context.getBean("appelOffre");
+		appelOffre2.setEntreprise(entreprise);
 		appelOffreDao.ajouterAppelOffre(appelOffre2);
 		
 		System.out.println("Appel 1: "+appelOffre1.getId());
@@ -270,9 +281,9 @@ public class TestContrePropositionDAOImpl {
 		Assert.assertEquals("Liste contre-propositions 1", 2, contrePropositions1.size());
 		Assert.assertEquals("Liste contre-propositions 2", 1, contrePropositions2.size());
 		
-		contrePropositionDao.supprimerContreProposition(contreProposition.getId());
-		contrePropositionDao.supprimerContreProposition(contreProposition2.getId());
-		contrePropositionDao.supprimerContreProposition(contreProposition3.getId());
+		//contrePropositionDao.supprimerContreProposition(contreProposition.getId());
+		//contrePropositionDao.supprimerContreProposition(contreProposition2.getId());
+		//contrePropositionDao.supprimerContreProposition(contreProposition3.getId());
 		etudiantDao.supprimerEtudiant(etudiant.getId());
 		appelOffreDao.supprimerAppelOffre(appelOffre1.getId());
 		appelOffreDao.supprimerAppelOffre(appelOffre2.getId());

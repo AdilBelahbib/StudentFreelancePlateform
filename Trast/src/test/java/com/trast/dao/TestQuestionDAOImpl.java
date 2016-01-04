@@ -19,6 +19,7 @@ public class TestQuestionDAOImpl {
 		  TestDAO testDao = (TestDAO) context.getBean("testDao");
 		  com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
 		  test.setDuree(60);
+		  test.setTitre("Test1");
 		  test.setNombrePassage(0);
 		  testDao.ajouterTest(test);
 		  QuestionDAO questionDao = (QuestionDAO) context.getBean("questionDao");
@@ -45,6 +46,7 @@ public class TestQuestionDAOImpl {
 		  TestDAO testDao = (TestDAO) context.getBean("testDao");
 		  com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
 		  test.setDuree(60);
+		  test.setTitre("Test1");
 		  test.setNombrePassage(0);
 		  testDao.ajouterTest(test);
 		  QuestionDAO questionDao = (QuestionDAO) context.getBean("questionDao");
@@ -56,10 +58,8 @@ public class TestQuestionDAOImpl {
 		  question.getReponsesJustes().add("reponse juste");
 		  questionDao.ajouterQuestion(question);
 		  List<Question> questions = questionDao.getQuestions();
-		  Assert.assertEquals(1,questions.size());
+		  Assert.assertEquals(14,questions.size());
 		  Assert.assertEquals(1,question.getReponsesFausses().size());
-		  
-		  
 		  /////////// Clean up /////////////
 		  questionDao.supprimerQuestion(question);
 		  testDao.supprimerTest(test.getId());		  
@@ -72,6 +72,7 @@ public class TestQuestionDAOImpl {
 		  TestDAO testDao = (TestDAO) context.getBean("testDao");
 		  com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
 		  test.setDuree(60);
+		  test.setTitre("Test1");
 		  test.setNombrePassage(0);
 		  testDao.ajouterTest(test);
 		  QuestionDAO questionDao = (QuestionDAO) context.getBean("questionDao");
@@ -99,6 +100,7 @@ public class TestQuestionDAOImpl {
 		  TestDAO testDao = (TestDAO) context.getBean("testDao");
 		  com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
 		  test.setDuree(60);
+		  test.setTitre("Test1");
 		  test.setNombrePassage(0);
 		  testDao.ajouterTest(test);
 		  QuestionDAO questionDao = (QuestionDAO) context.getBean("questionDao");
@@ -128,6 +130,7 @@ public class TestQuestionDAOImpl {
 		  TestDAO testDao = (TestDAO) context.getBean("testDao");
 		  com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
 		  test.setDuree(60);
+		  test.setTitre("Test1");
 		  test.setNombrePassage(0);
 		  testDao.ajouterTest(test);
 		  QuestionDAO questionDao = (QuestionDAO) context.getBean("questionDao");

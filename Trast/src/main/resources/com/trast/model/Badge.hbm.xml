@@ -22,7 +22,7 @@
 			<many-to-many column="idEtudiant" class="com.trast.model.Etudiant" />
 		</set>
 
-		<one-to-one name="test" property-ref="badge" />
+		<!-- <one-to-one name="test" property-ref="badge" /> -->
 
 	</class>
 </hibernate-mapping>
