@@ -13,7 +13,7 @@ template="../templates/common.xhtml">
 
 		<div class="container">
 
-	<h:form>
+	<h:form enctype="multipart/form-data">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<!--ETAPE 1 : Durée et competences-->
 			<div class="row">
@@ -98,7 +98,8 @@ template="../templates/common.xhtml">
 						  </div>
 						  <div class="form-group">
 								<label for="iconBadge"> L'icone du badge:</label>
-								<h:inputText type="text" class="form-control" id="iconBadge" />  				
+								<h:inputFile id="iconBadge" class="form-control" value="#{uploadFileService.myFile}"> 
+      							</h:inputFile>
 						  </div>
    							 
    							 </div>

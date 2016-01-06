@@ -14,15 +14,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.BadgeDAO;
 import com.trast.dao.CompetenceDAO;
+import com.trast.dao.FichierDAO;
 import com.trast.dao.QuestionDAO;
 import com.trast.dao.TestDAO;
 import com.trast.model.Administrateur;
 import com.trast.model.Badge;
 import com.trast.model.Competence;
 import com.trast.model.Entreprise;
+import com.trast.model.Fichier;
 import com.trast.model.Question;
 import com.trast.model.Test;
 import com.trast.model.Utilisateur;
+import com.trast.service.UploadFileService;
 
 @ManagedBean(name = "testControllerNassima", eager = true)
 @SessionScoped
@@ -210,11 +213,22 @@ public class TestControllerNassima implements Serializable{
 	/* persister le test dans la BdD*/
 	public String validerTest(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		/* recupere icone */
+		Fichier fichier = (Fichier)context.getBean("fichier");
+		FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+		fichier.setChemin("C:\\Users\\monpc\\Desktop\\testUpload");
+		
+		fichier.setTitre(badge.getIntitule()+utilisateur.getId());
+		fichierDao.ajouterFichier(fichier);
 		/* ajout Badge*/
+		badge.setIcone(fichier);
 		BadgeDAO badgeDao = (BadgeDAO) context.getBean("badgeDao");
 		badgeDao.ajouterBadge(badge);
-		/* ajouter Test*/
+		UploadFileService.uploadFichier(badge.getIcone());
 		test.setBadge(badge);
+		
+		
+		/* ajouter Test*/
 		TestDAO testDao = (TestDAO) context.getBean("testDao");
 		testDao.ajouterTest(test);
 		/* ajouter Questions*/
@@ -223,7 +237,12 @@ public class TestControllerNassima implements Serializable{
 			questionItem.setTest(test);
 			questionDao.ajouterQuestion(questionItem);
 		}
+		
+		/* fichier */
+	
 		((ConfigurableApplicationContext) context).close();
+		
+		
 		
 		if(utilisateur instanceof Entreprise){
 			((Entreprise)utilisateur).getTests().add(test);
