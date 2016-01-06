@@ -23,14 +23,20 @@ public class TestNiveauDAOImpl {
 		Competence competence = (Competence) context.getBean("competence");	
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
-		etudiant.setEmail("email");	  
 		NiveauDAO niveauDao = (NiveauDAO) context.getBean("niveauDao");
-		Niveau niveau = (Niveau) context.getBean("niveau");		  
+		Niveau niveau = (Niveau) context.getBean("niveau");	
+		/* etudiant*/
+		etudiant.setEmail("emailTest");	  
+		etudiantDao.ajouterEtudiant(etudiant);
+		Assert.assertNotNull(etudiant.getId());
+		/* competence*/
+		competence.setIntitule("competenceTest");
+		competence = competenceDao.ajouterCompetenceIfNotExist(competence);
+		/* niveau*/
 		 niveau.setEtudiant(etudiant);
 		 niveau.setCompetence(competence);		  
-		  etudiantDao.ajouterEtudiant(etudiant);
-		  competenceDao.ajouterCompetence(competence);
-		  niveauDao.ajouterNiveau(niveau);		  
+		  niveauDao.ajouterNiveau(niveau);	
+		  /* recuperation*/
 		  List<Niveau> niveaux = niveauDao.getNiveaux();	  
 		  Assert.assertNotNull(niveaux);
 		  etudiantDao.supprimerEtudiant(etudiant.getId());
@@ -47,14 +53,21 @@ public class TestNiveauDAOImpl {
 		Competence competence = (Competence) context.getBean("competence");	
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
-		etudiant.setEmail("email");	  
 		NiveauDAO niveauDao = (NiveauDAO) context.getBean("niveauDao");
-		Niveau niveau = (Niveau) context.getBean("niveau");		  
+		Niveau niveau = (Niveau) context.getBean("niveau");	
+		
+		/* etudiant*/
+		etudiant.setEmail("emailTest");	  
+		etudiantDao.ajouterEtudiant(etudiant);
+		Assert.assertNotNull(etudiant.getId());
+		/* competence*/
+		competence.setIntitule("competenceTest");
+		competence = competenceDao.ajouterCompetenceIfNotExist(competence);
+		/* niveau*/
 		 niveau.setEtudiant(etudiant);
 		 niveau.setCompetence(competence);		  
-		  etudiantDao.ajouterEtudiant(etudiant);
-		  competenceDao.ajouterCompetence(competence);
-		  niveauDao.ajouterNiveau(niveau);		  
+		  niveauDao.ajouterNiveau(niveau);	
+		  /* recuperer */
 		  niveau = niveauDao.getNiveau(niveau.getId());	  
 		  Assert.assertNotNull(niveau);
 
@@ -71,14 +84,20 @@ public class TestNiveauDAOImpl {
 		Competence competence = (Competence) context.getBean("competence");	
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
-		etudiant.setEmail("email");	  
 		NiveauDAO niveauDao = (NiveauDAO) context.getBean("niveauDao");
 		Niveau niveau = (Niveau) context.getBean("niveau");		  
+		/* etudiant*/
+		etudiant.setEmail("emailTest");	  
+		etudiantDao.ajouterEtudiant(etudiant);
+		Assert.assertNotNull(etudiant.getId());
+		/* competence*/
+		competence.setIntitule("competenceTest");
+		competence = competenceDao.ajouterCompetenceIfNotExist(competence);
+		/* niveau*/
 		 niveau.setEtudiant(etudiant);
 		 niveau.setCompetence(competence);		  
-		  etudiantDao.ajouterEtudiant(etudiant);
-		  competenceDao.ajouterCompetence(competence);
-		  niveauDao.ajouterNiveau(niveau);		  
+		  niveauDao.ajouterNiveau(niveau);	
+		  /* recuperer */	  
 		  niveau = niveauDao.getNiveau(niveau.getId());	  
 		  Assert.assertNotNull(niveau);
 		  //niveauDao.supprimerNiveau(niveau.getId());
@@ -95,20 +114,25 @@ public class TestNiveauDAOImpl {
 		Competence competence = (Competence) context.getBean("competence");	
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
-		etudiant.setEmail("email");	  
 		NiveauDAO niveauDao = (NiveauDAO) context.getBean("niveauDao");
-		Niveau niveau = (Niveau) context.getBean("niveau");		  
+		Niveau niveau = (Niveau) context.getBean("niveau");	
+		
+		/* ajout etudiant*/
+		etudiant.setEmail("email");	  
+		etudiantDao.ajouterEtudiant(etudiant);
+		 Assert.assertNotNull(etudiant.getId());
+		/*ajout competence*/
+		 competence.setIntitule("competenceTest");
+		  competence = competenceDao.ajouterCompetenceIfNotExist(competence);
+		  /**/	  
+		 niveau.setCompetence(competence);	
 		 niveau.setEtudiant(etudiant);
-		 niveau.setCompetence(competence);		  
-		  etudiantDao.ajouterEtudiant(etudiant);
-		  competenceDao.ajouterCompetence(competence);
 		  niveauDao.ajouterNiveau(niveau);		  
 		  niveau = niveauDao.getNiveau(niveau.getId());	
 		  niveau.setMaitrise(1);
 		  niveauDao.modifierNiveau(niveau);
 		  niveau = niveauDao.getNiveau(niveau.getId());	
-		  Assert.assertNotNull(niveau.getId());
-		  //niveauDao.supprimerNiveau(niveau.getId());
+		  Assert.assertNotNull(niveau);
 		  etudiantDao.supprimerEtudiant(etudiant.getId());
 		  competenceDao.supprimerCompetence(competence.getId());
 		  
@@ -122,14 +146,23 @@ public class TestNiveauDAOImpl {
 		Competence competence = (Competence) context.getBean("competence");	
 		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		Etudiant etudiant = (Etudiant) context.getBean("etudiant");
-		etudiant.setEmail("email");	  
 		NiveauDAO niveauDao = (NiveauDAO) context.getBean("niveauDao");
-		Niveau niveau = (Niveau) context.getBean("niveau");		  
+		Niveau niveau = (Niveau) context.getBean("niveau");	
+		/* etudiant*/
+		etudiant.setEmail("emailTest");	  
+		etudiantDao.ajouterEtudiant(etudiant);
+		Assert.assertNotNull(etudiant.getId());
+		/* competence*/
+		competence.setIntitule("competenceTest");
+		competence = competenceDao.ajouterCompetenceIfNotExist(competence);
+		/* niveau*/
 		 niveau.setEtudiant(etudiant);
 		 niveau.setCompetence(competence);		  
-		  etudiantDao.ajouterEtudiant(etudiant);
-		  competenceDao.ajouterCompetence(competence);
-		  niveauDao.ajouterNiveau(niveau);
+		  niveauDao.ajouterNiveau(niveau);	
+		  /* supprimer */	
+		  etudiant.getNiveaux().remove(niveau);
+		  niveau.setEtudiant(null);
+		  niveauDao.modifierNiveau(niveau);
 		  niveauDao.supprimerNiveau(niveau.getId());
 		  niveau = niveauDao.getNiveau(niveau.getId());	  
 		  Assert.assertNull(niveau);

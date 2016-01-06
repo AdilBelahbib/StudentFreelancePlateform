@@ -12,10 +12,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.trast.dao.BadgeDAO;
 import com.trast.dao.CompetenceDAO;
 import com.trast.dao.QuestionDAO;
 import com.trast.dao.TestDAO;
 import com.trast.model.Administrateur;
+import com.trast.model.Badge;
 import com.trast.model.Competence;
 import com.trast.model.Entreprise;
 import com.trast.model.Question;
@@ -45,7 +47,15 @@ public class TestControllerNassima implements Serializable{
 	int redirection;
 	@ManagedProperty(value = "#{tests}")
 	List<Test> tests;
+	@ManagedProperty(value = "#{badge}")
+	Badge badge;
 	/************ getters & setters ***************/
+	public Badge getBadge() {
+		return badge;
+	}
+	public void setBadge(Badge badge) {
+		this.badge = badge;
+	}
 	public int getRedirection() {
 		return redirection;
 	}
@@ -199,8 +209,12 @@ public class TestControllerNassima implements Serializable{
 	}
 	/* persister le test dans la BdD*/
 	public String validerTest(){
-		/* ajouter Test*/
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		/* ajout Badge*/
+		BadgeDAO badgeDao = (BadgeDAO) context.getBean("badgeDao");
+		badgeDao.ajouterBadge(badge);
+		/* ajouter Test*/
+		test.setBadge(badge);
 		TestDAO testDao = (TestDAO) context.getBean("testDao");
 		testDao.ajouterTest(test);
 		/* ajouter Questions*/
@@ -210,10 +224,15 @@ public class TestControllerNassima implements Serializable{
 			questionDao.ajouterQuestion(questionItem);
 		}
 		((ConfigurableApplicationContext) context).close();
-		if(utilisateur instanceof Entreprise)
-		return "/views/entreprise/creerTest.xhtml?faces-redirect=true";
-		else return "/views/admin/creerTest.xhtml?faces-redirect=true";
+		
+		if(utilisateur instanceof Entreprise){
+			((Entreprise)utilisateur).getTests().add(test);
+			return "/views/entreprise/listeTests.xhtml?faces-redirect=true";
+		}
+		
+		else return "/views/admin/listeTests.xhtml?faces-redirect=true";
 	}
+	
 	
 	/* recuperer liste de tests*/
 	public void listTests(){
