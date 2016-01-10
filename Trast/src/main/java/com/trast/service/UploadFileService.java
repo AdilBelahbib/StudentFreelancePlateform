@@ -32,6 +32,7 @@ public class UploadFileService {
 		        Files.copy(input, new File(fichier.getChemin(),fichier.getTitre()).toPath());
 		    }
 		    catch (IOException e) {
+		    	System.out.println("exception "+e.toString());
 		    }
 		
 	}
