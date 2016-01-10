@@ -21,7 +21,7 @@ public class UploadFileService {
 	
 	/*****************************************/
 	public static void uploadFichier(Fichier fichier){
-		System.out.println("dddddddddddd");
+
 		String extens="";
 		int i = myFile.getSubmittedFileName().lastIndexOf('.');
 		if (i > 0) {
@@ -33,9 +33,8 @@ public class UploadFileService {
 		        Files.copy(input, new File(fichier.getChemin(),fichier.getTitre()).toPath());
 		    }
 		    catch (IOException e) {
-		    	System.out.println("bbbbbbbbbbbbbbbbb"+e.toString());
+		    	e.printStackTrace();
 		    }
-		 System.out.println("ccccccccccccccccccccccccccc");
 		
 	}
 

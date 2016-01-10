@@ -148,7 +148,7 @@
 					<one-to-many class="ResultatTest" />
 				</set>
 
-				<set name="badges" table="etudiant_badge" inverse="true"
+				<set name="badges" table="etudiant_badge" inverse="false"
 					lazy="false">
 					<key column="idEtudiant" />
 					<many-to-many column="idBadge" class="Badge" />

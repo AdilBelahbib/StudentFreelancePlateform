@@ -128,4 +128,45 @@ public class TestEvenementBadgeDAOImpl {
 		((ConfigurableApplicationContext)context).close();
 	}
 
+	@Test
+	public void testGetEvenementsBadgesBySource() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");		
+		EvenementBadgeDAO evenementBadgeDAO = (EvenementBadgeDAO) context.getBean("evenementBadgeDao");
+		EvenementBadge evenementBadge1 = (EvenementBadge) context.getBean("evenementBadge");
+		EvenementBadge evenementBadge2 = (EvenementBadge) context.getBean("evenementBadge");
+		EvenementBadge evenementBadge3 = (EvenementBadge) context.getBean("evenementBadge");
+		
+		
+		Badge badge1 = (Badge) context.getBean("badge");
+		badge1.setIntitule("Badge de test");
+		
+		Badge badge2 = (Badge) context.getBean("badge");
+		badge2.setIntitule("Badge de test");
+		
+		Badge badge3 = (Badge) context.getBean("badge");
+		badge3.setIntitule("Badge de test");
+		
+		evenementBadge1.setSourceEvenement(SourceEvenement.COMPETENCE);
+		evenementBadge1.setBadge(badge1);
+		
+		evenementBadge2.setSourceEvenement(SourceEvenement.AVISPOSITIF);
+		evenementBadge2.setBadge(badge2);
+		
+		evenementBadge3.setSourceEvenement(SourceEvenement.COMPETENCE);
+		evenementBadge3.setBadge(badge3);
+		
+		evenementBadgeDAO.ajouterEvenementBadge(evenementBadge1);
+		evenementBadgeDAO.ajouterEvenementBadge(evenementBadge2);
+		evenementBadgeDAO.ajouterEvenementBadge(evenementBadge3);
+		
+		List<EvenementBadge> evenementBadges = evenementBadgeDAO.getEvenementsBadgesBySource(SourceEvenement.COMPETENCE);
+		
+		Assert.assertEquals("Nombre des évenements COMPETENCE est incorrect", 2, evenementBadges.size());
+		
+		evenementBadgeDAO.supprimerEvenementBadge(evenementBadge1);
+		evenementBadgeDAO.supprimerEvenementBadge(evenementBadge2);
+		evenementBadgeDAO.supprimerEvenementBadge(evenementBadge3);
+		((ConfigurableApplicationContext)context).close();	
+	}
+	
 }
