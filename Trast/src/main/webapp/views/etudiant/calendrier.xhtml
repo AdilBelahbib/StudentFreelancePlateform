@@ -1,0 +1,44 @@
+<ui:composition template="../templates/common.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+	<ui:define name="content">
+		
+		<div id='calendar'></div>
+		
+		<script type="text/javascript">
+		
+			var eventsArray = [];
+			
+			<c:forEach items="#{calendrierController.eventModel.events}" var="event">
+				eventsArray.push({title: '#{event.title}',
+					start:
+						 '<h:outputText value="#{event.startDate}">
+						 <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+						 </h:outputText>',
+					end:
+						 '<h:outputText value="#{event.endDate}" >
+							 <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+						</h:outputText>'
+				});
+			</c:forEach>
+			
+		
+			$('#calendar').fullCalendar({
+				header: {
+	                 left: 'prev,next,today',
+	                 center: 'title',
+	                 right: 'month,agendaWeek,agendaDay'
+	             },
+	             lang:'fr',
+			    events: eventsArray
+
+			});
+		</script>
+
+	</ui:define>
+</ui:composition>

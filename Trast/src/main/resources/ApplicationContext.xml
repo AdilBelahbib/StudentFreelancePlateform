@@ -285,6 +285,14 @@
 	</bean>
 	
 	
+	<!-- bean EvenementBadge -->
+	<bean id="evenementBadge" class="com.trast.model.EvenementBadge" scope="prototype">
+		<property name="id" value="" />
+		<property name="sourceEvenement" value="" />
+		<property name="valeur" value="0" />
+		<property name="badge" ref="badge" />
+	</bean>
+	
 	<!-- Configuration des DAO bean -->
 	<bean id="administrateurDao" class="com.trast.dao.AdministrateurDAOImpl">
 		<constructor-arg>
@@ -422,6 +430,12 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="evenementBadgeDao" class="com.trast.dao.EvenementBadgeDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
 	<!-- Service beans -->
 	<bean id="utilisateurDetailsService" class="com.trast.service.UtilisateurDetailsService">
 		<property name="utilisateurDao" ref="utilisateurDao" />
@@ -461,6 +475,7 @@
 				<value>com/trast/model/Question.hbm.xml</value>
 				<value>com/trast/model/Livrable.hbm.xml</value>
 				<value>com/trast/model/Badge.hbm.xml</value>
+				<value>com/trast/model/EvenementBadge.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
