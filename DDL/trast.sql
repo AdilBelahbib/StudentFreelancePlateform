@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2016 at 04:10 PM
+-- Generation Time: Jan 10, 2016 at 06:47 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -98,7 +98,18 @@ CREATE TABLE IF NOT EXISTS `badge` (
   `idFichier` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idFichier` (`idFichier`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `badge`
+--
+
+INSERT INTO `badge` (`id`, `intitule`, `idFichier`) VALUES
+(1, 'Badge 2 tests', 1),
+(6, 'Badge 1 parfait', 1),
+(7, 'Badge 4 tests', 1),
+(8, 'Badge 3 tests', 1),
+(9, 'ssss', 2);
 
 -- --------------------------------------------------------
 
@@ -235,6 +246,13 @@ CREATE TABLE IF NOT EXISTS `etudiant_badge` (
   KEY `idBadge` (`idBadge`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `etudiant_badge`
+--
+
+INSERT INTO `etudiant_badge` (`idEtudiant`, `idBadge`) VALUES
+(3, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -248,17 +266,44 @@ CREATE TABLE IF NOT EXISTS `etudiant_competence` (
   `maitrise` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idEtudiant` (`idEtudiant`,`idCompetence`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `etudiant_competence`
 --
 
 INSERT INTO `etudiant_competence` (`id`, `idEtudiant`, `idCompetence`, `maitrise`) VALUES
-(7, 3, 2, 3),
-(8, 3, 4, 2),
-(9, 3, 1, 1),
-(10, 3, 5, 1);
+(7, 3, 2, 11),
+(8, 3, 4, 9),
+(9, 3, 1, 2),
+(10, 3, 5, 1),
+(11, 3, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `evenement_badge`
+--
+
+CREATE TABLE IF NOT EXISTS `evenement_badge` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sourceEvenement` varchar(64) COLLATE utf8_bin NOT NULL,
+  `valeur` double NOT NULL,
+  `idBadge` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idBadge` (`idBadge`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `evenement_badge`
+--
+
+INSERT INTO `evenement_badge` (`id`, `sourceEvenement`, `valeur`, `idBadge`) VALUES
+(1, 'TEST', 2, 1),
+(8, 'SCOREPARFAIT', 1, 6),
+(9, 'TEST', 4, 7),
+(10, 'TEST', 3, 7),
+(11, 'SCOREPARFAIT', 0, 9);
 
 -- --------------------------------------------------------
 
@@ -301,7 +346,15 @@ CREATE TABLE IF NOT EXISTS `fichier` (
   KEY `idUtilisateur` (`idUtilisateur`),
   KEY `idCahierDesCharges` (`idCahierDesCharges`),
   KEY `idQualification` (`idQualification`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=54 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `fichier`
+--
+
+INSERT INTO `fichier` (`id`, `titre`, `chemin`, `idUtilisateur`, `idCahierDesCharges`, `idQualification`) VALUES
+(1, '1Badge de test1', '/apache-tomcat-8.0.28/webapps/trast-uploads/badges', NULL, NULL, NULL),
+(2, '9ssss1', '/apache-tomcat-8.0.28/webapps/trast-uploads/badges', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -424,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `idTest` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idTest` (`idTest`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `question`
@@ -440,7 +493,8 @@ INSERT INTO `question` (`id`, `question`, `coefficient`, `idTest`) VALUES
 (7, 'Question G Lorem ipsum dolor sit amet, consectetur adipiscing e', 2, 3),
 (8, 'Question H Lorem ipsum dolor sit amet, consectetur adipiscing e', 2, 3),
 (9, 'Question I Lorem ipsum dolor sit amet, consectetur adipiscing e', 1, 3),
-(10, 'Question J Lorem ipsum dolor sit amet, consectetur adipiscing e', 2, 3);
+(10, 'Question J Lorem ipsum dolor sit amet, consectetur adipiscing e', 2, 3),
+(11, 'ttere', 2, 4);
 
 -- --------------------------------------------------------
 
@@ -495,7 +549,8 @@ INSERT INTO `reponse_fausse` (`reponse`, `idQuestion`) VALUES
 ('Reponse 2 fausse 8', 8),
 ('Reponse 1 fausse 9', 9),
 ('Reponse 1 fausse 10', 10),
-('Reponse 2 fausse 10', 10);
+('Reponse 2 fausse 10', 10),
+('ddff', 11);
 
 -- --------------------------------------------------------
 
@@ -526,7 +581,8 @@ INSERT INTO `reponse_juste` (`reponse`, `idQuestion`) VALUES
 ('Juste 2 Lorem 8', 8),
 ('Juste Lorem 8', 8),
 ('Juste Lorem 9', 9),
-('Juste Lorem 10', 10);
+('Juste Lorem 10', 10),
+('dd', 11);
 
 -- --------------------------------------------------------
 
@@ -544,15 +600,14 @@ CREATE TABLE IF NOT EXISTS `resultat_test` (
   PRIMARY KEY (`id`),
   KEY `idEtudiant` (`idEtudiant`),
   KEY `idTest` (`idTest`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `resultat_test`
 --
 
 INSERT INTO `resultat_test` (`id`, `score`, `nombrePassage`, `dateDernierPassage`, `idEtudiant`, `idTest`) VALUES
-(3, 100, 1, '2015-12-31 23:51:14', 3, 2),
-(4, 100, 11, '2016-01-01 19:16:19', 3, 1);
+(12, 100, 1, '2016-01-10 17:34:04', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -612,16 +667,17 @@ CREATE TABLE IF NOT EXISTS `test` (
   PRIMARY KEY (`id`),
   KEY `idEntreprise` (`idEntreprise`),
   KEY `idBadge` (`idBadge`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `test`
 --
 
 INSERT INTO `test` (`id`, `titre`, `duree`, `nombrePassage`, `idEntreprise`, `idBadge`) VALUES
-(1, 'Test Numéro 1', 20, 0, NULL, NULL),
+(1, 'Test Numéro 1', 20, 9, NULL, NULL),
 (2, 'Test Numéro 2', 30, 2, NULL, NULL),
-(3, 'Test Numéro 3', 25, 5, 4, NULL);
+(3, 'Test Numéro 3', 25, 5, 4, NULL),
+(4, 'Test 4', 20, 0, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -717,9 +773,9 @@ ALTER TABLE `cahier_des_charges`
 -- Constraints for table `contre_proposition`
 --
 ALTER TABLE `contre_proposition`
-  ADD CONSTRAINT `contre_proposition_ibfk_3` FOREIGN KEY (`idFichier`) REFERENCES `fichier` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `contre_proposition_ibfk_1` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `contre_proposition_ibfk_2` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `contre_proposition_ibfk_2` FOREIGN KEY (`idAppelOffre`) REFERENCES `appel_offre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `contre_proposition_ibfk_3` FOREIGN KEY (`idFichier`) REFERENCES `fichier` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `entreprise`
@@ -737,8 +793,14 @@ ALTER TABLE `etudiant`
 -- Constraints for table `etudiant_badge`
 --
 ALTER TABLE `etudiant_badge`
-  ADD CONSTRAINT `etudiant_badge_ibfk_2` FOREIGN KEY (`idBadge`) REFERENCES `badge` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `etudiant_badge_ibfk_1` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `etudiant_badge_ibfk_1` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `etudiant_badge_ibfk_2` FOREIGN KEY (`idBadge`) REFERENCES `badge` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `evenement_badge`
+--
+ALTER TABLE `evenement_badge`
+  ADD CONSTRAINT `evenement_badge_ibfk_1` FOREIGN KEY (`idBadge`) REFERENCES `badge` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `experience`
@@ -764,8 +826,8 @@ ALTER TABLE `formation`
 -- Constraints for table `livrable`
 --
 ALTER TABLE `livrable`
-  ADD CONSTRAINT `livrable_ibfk_2` FOREIGN KEY (`idFichier`) REFERENCES `fichier` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `livrable_ibfk_1` FOREIGN KEY (`idProjet`) REFERENCES `projet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `livrable_ibfk_1` FOREIGN KEY (`idProjet`) REFERENCES `projet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `livrable_ibfk_2` FOREIGN KEY (`idFichier`) REFERENCES `fichier` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `particulier`
@@ -829,8 +891,8 @@ ALTER TABLE `secteur_activite`
 -- Constraints for table `test`
 --
 ALTER TABLE `test`
-  ADD CONSTRAINT `test_ibfk_2` FOREIGN KEY (`idBadge`) REFERENCES `badge` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `test_ibfk_1` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `test_ibfk_1` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `test_ibfk_2` FOREIGN KEY (`idBadge`) REFERENCES `badge` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `test_competence`

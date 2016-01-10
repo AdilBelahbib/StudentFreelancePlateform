@@ -47,9 +47,16 @@
                   <li><h:link outcome="/views/etudiant/listeCompetences.xhtml?faces-redirect=true" value="Parcourir les compétences" /></li>
                 </ul>
 
-                <li id="#projet">
-                  <a href="#"><i class="fa fa-briefcase fa-lg"></i> Mes projets</a>
+                
+                <li  data-toggle="collapse" data-target="#projet" class="collapsed">
+                  <a href="#"><i class="fa fa-briefcase fa-lg"></i> Mes projets
+                  <span class="arrow"></span></a>
                 </li>
+                <ul class="sub-menu collapse" id="projet">
+						<li><h:link
+								outcome="/views/etudiant/listeProjets.xhtml?faces-redirect=true"
+								value="Parcourir les projets" /></li>
+					</ul>
 				
 					<li data-toggle="collapse" data-target="#test" class="collapsed">
 						<a href="#"> <i class="fa fa-superscript fa-lg"></i> Les tests

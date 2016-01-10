@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.trast.model.EvenementBadge;
+import com.trast.model.SourceEvenement;
 
 public class EvenementBadgeDAOImpl implements EvenementBadgeDAO {
 	private SessionFactory sessionFactory;
@@ -54,6 +55,15 @@ public class EvenementBadgeDAOImpl implements EvenementBadgeDAO {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(evenementBadge);
 		
+	}
+
+	@Override
+	@Transactional
+	public List<EvenementBadge> getEvenementsBadgesBySource(SourceEvenement source) {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<EvenementBadge> evenementBadges = session.createQuery("FROM EvenementBadge WHERE sourceEvenement = :source").setString("source", source.name()).list();
+		return evenementBadges;
 	}
 
 }

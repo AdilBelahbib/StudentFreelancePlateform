@@ -1,7 +1,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+	<link
+		href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+		rel="stylesheet" />
 	<div class="nav-side-menu">
 		<div class="brand">
 			#{sessionScope.utilisateur.prenom} #{sessionScope.utilisateur.nom} <span
@@ -17,41 +19,40 @@
 						Accueil
 				</a></li>
 
-				<li id="#profil">
-				<i class="fa fa-user fa-lg"></i>
-					<h:link value="Profil" outcome="/views/admin/profil.xhtml?faces-redirect=true">
-					</h:link>
-					
-				</li>
+				<li id="#profil"><i class="fa fa-user fa-lg"></i> <h:link
+						value="Profil"
+						outcome="/views/admin/profil.xhtml?faces-redirect=true">
+					</h:link></li>
 
-				<li id="#demandesinscription" class="collapsed">
-				<h:form>
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				
+				<li id="#demandesinscription" class="collapsed"><h:form>
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+
 						<i class="fa fa-check-circle-o fa-lg"></i>
 						<h:commandLink value="Demandes d'inscription"
 							action="#{administrateurController.getEntreprisesEnAttente}">
 						</h:commandLink>
 					</h:form></li>
 				<li data-toggle="collapse" data-target="#test" class="collapsed">
-          <a href="#">
-          <i class="fa fa-superscript fa-lg">
-          </i> Tests de connaissances <span class="arrow"></span></a>
-        </li>
-       <ul class="sub-menu collapse" id="test"> 
-				 <li>
-            <h:link outcome="/views/admin/creerTest.xhtml?faces-redirect=true" value="Créer un test" />
+					<a href="#"> <i class="fa fa-superscript fa-lg"> </i> Tests de
+						connaissances <span class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="test">
+					<li><h:link
+							outcome="/views/admin/creerTest.xhtml?faces-redirect=true"
+							value="Créer un test" /></li>
+					<li><h:link
+							outcome="/views/admin/listeTests.xhtml?faces-redirect=true"
+							value="Mes tests" /></li>
+					<li><h:link
+							outcome="/views/admin/listeTestsEntreprises.xhtml?faces-redirect=true"
+							value="Tests des entreprises" /></li>
+				</ul>
 
-         </li>
-         <li>
-            <h:link outcome="/views/admin/listeTests.xhtml?faces-redirect=true" value="Mes tests" />
+				<li><i class="fa fa-book fa-lg"></i> <h:link
+						outcome="/views/admin/listeBadges.xhtml?faces-redirect=true"
+						value="Gestion des badges" /></li>
 
-         </li>
-         <li>
-            <h:link outcome="/views/admin/listeTestsEntreprises.xhtml?faces-redirect=true" value="Tests des entreprises" />
-
-         </li>
-         </ul>
 			</ul>
 		</div>
 	</div>

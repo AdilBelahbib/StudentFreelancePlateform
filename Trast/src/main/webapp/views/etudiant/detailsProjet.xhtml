@@ -1,0 +1,110 @@
+<ui:composition template="../templates/common.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="content">
+		<h:form>
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<div class="form-group">
+				<h3>
+					<label>Sujet: <h:outputText
+							value="#{projetControllerKhouloud.projet.cahierDesCharges.sujet}">
+						</h:outputText>
+					</label>
+				</h3>
+			</div>
+			<hr></hr>
+			<div class="row">
+				<div class="col-md-offset-3 col-md-6">
+					<div class="form-group">
+						<h4>
+							<label>Date début: <h:outputText
+									value="#{projetControllerKhouloud.projet.cahierDesCharges.dateDebut}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</label>
+						</h4>
+
+						<h4>
+							<label>Date fin: <h:outputText
+									value="#{projetControllerKhouloud.projet.cahierDesCharges.dateFin}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</label>
+						</h4>
+
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-offset-4 col-md-4">
+					<div class="alert alert-warning">
+						<i class="icon icon-exclamation-circle icon-lg"></i>  Reste: <i> #{projetControllerKhouloud.nbJoursRestants} jours</i>.
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-offset-3 col-md-5">
+
+					<div class="form-group">
+						<h4>
+							<label> Statut: <h:outputText
+									value="#{projetControllerKhouloud.projet.statut}">
+
+								</h:outputText>
+							</label>
+						</h4>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-offset-3 col-md-5">
+					<div class="form-group">
+						<h4>
+							<label>Cout: <h:outputText
+									value="#{projetControllerKhouloud.projet.cout} #{projetControllerKhouloud.projet.devise}" /></label>
+						</h4>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-offset-3 col-md-5">
+					<div>
+						<label>Avancement de votre projet:</label>
+						<div class="progress">
+							<i>#{projetControllerKhouloud.avancementProjet}%</i>
+							<div class="progress-bar" role="progressbar" aria-valuenow="#{projetControllerKhouloud.avancementProjet}"
+								aria-valuemin="0" aria-valuemax="100" style="width: #{projetControllerKhouloud.avancementProjet}%">
+								<span class="sr-only">#{projetControllerKhouloud.avancementProjet}%</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-offset-9">
+
+					<h:link class="btn btn-default"
+						outcome="/views/etudiant/ajoutLivrable.xhtml?faces-redirect=true"
+						value="Ajouter livrable" />
+					<br />
+					<br />
+					<h:commandButton value="Liste des livrables"
+						class="btn btn-default"
+						action="#{projetControllerKhouloud.listerLivrables}">
+						<f:setPropertyActionListener
+							target="#{projetControllerKhouloud.projet}"
+							value="#{projetControllerKhouloud.projet}" />
+					</h:commandButton>
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

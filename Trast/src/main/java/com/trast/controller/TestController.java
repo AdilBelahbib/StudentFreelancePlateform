@@ -14,14 +14,18 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.trast.dao.EtudiantDAO;
+import com.trast.dao.EvenementBadgeDAO;
 import com.trast.dao.NiveauDAO;
 import com.trast.dao.ResultatTestDAO;
 import com.trast.dao.TestDAO;
 import com.trast.model.Competence;
 import com.trast.model.Etudiant;
+import com.trast.model.EvenementBadge;
 import com.trast.model.Niveau;
 import com.trast.model.Question;
 import com.trast.model.ResultatTest;
+import com.trast.model.SourceEvenement;
 import com.trast.model.Test;
 
 @ManagedBean(name = "testController", eager = true)
@@ -35,12 +39,21 @@ public class TestController implements Serializable {
 
 	@ManagedProperty(value = "#{resultatTestDao}")
 	private ResultatTestDAO resultatTestDao;
+	
+	@ManagedProperty(value = "#{etudiantDao}")
+	private EtudiantDAO etudiantDao;
 
 	@ManagedProperty(value = "#{testDao}")
 	private TestDAO testDao;
 
 	@ManagedProperty(value = "#{niveauDao}")
 	private NiveauDAO niveauDao;
+
+	@ManagedProperty(value = "#{evenementBadgeDao}")
+	private EvenementBadgeDAO evenementBadgeDAO;
+	
+	@ManagedProperty(value = "#{proprietes['seuil']}")
+	private double seuil;
 
 	// Tous les tests existant
 	private List<Test> tests;
@@ -142,6 +155,30 @@ public class TestController implements Serializable {
 		this.score = score;
 	}
 
+	public EvenementBadgeDAO getEvenementBadgeDAO() {
+		return evenementBadgeDAO;
+	}
+
+	public void setEvenementBadgeDAO(EvenementBadgeDAO evenementBadgeDAO) {
+		this.evenementBadgeDAO = evenementBadgeDAO;
+	}
+	
+	public double getSeuil() {
+		return seuil;
+	}
+
+	public void setSeuil(double seuil) {
+		this.seuil = seuil;
+	}
+
+	public EtudiantDAO getEtudiantDao() {
+		return etudiantDao;
+	}
+
+	public void setEtudiantDao(EtudiantDAO etudiantDao) {
+		this.etudiantDao = etudiantDao;
+	}
+
 	public void getAllTests() {
 		tests = testDao.getTests();
 	}
@@ -209,7 +246,6 @@ public class TestController implements Serializable {
 		boolean correct;
 
 		for (Question question : test.getQuestions()) {
-			System.out.println(question.getQuestion());
 			correct = false;
 
 			// Parcourir les réponses de la question en cours
@@ -242,11 +278,9 @@ public class TestController implements Serializable {
 		// uniquement s'il réussi le test pour la 1ère fois
 		this.reussi = false;
 
-		System.out.println("SCORE: " + score + " | resultatScore: " + this.resultatTest.getScore());
-
 		if (score > this.resultatTest.getScore()) {
 			// Si la première fois le test est réussi
-			if ((this.resultatTest.getScore() < 85) && (score >= 85)) {
+			if ((this.resultatTest.getScore() < seuil) && (score >= seuil)) {
 				boolean found;
 
 				for (Competence competence : test.getCompetences()) {
@@ -278,31 +312,78 @@ public class TestController implements Serializable {
 				}
 
 				this.reussi = true;
-				
-				/*** ajout badge*************/
-				etudiant.getBadges().add(test.getBadge());
+
+				/*** ajout badge *************/
+				if(test.getBadge() != null)
+				{
+					etudiant.getBadges().add(test.getBadge());
+					etudiantDao.modifierEtudiant(etudiant);
+				}
 			}
 
 			this.resultatTest.setScore(score);
 			resultatTestDao.modifierResultatTest(this.resultatTest);
 		}
-		/*** Incrementer nbr passage test + modification test************/
-		test.setNombrePassage(test.getNombrePassage()+1);
-		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-		TestDAO testDao = (TestDAO) context.getBean("testDao");
+		/*** Incrementer nbr passage test + modification test ************/
+		test.setNombrePassage(test.getNombrePassage() + 1);
 		testDao.modifierTest(test);
-		((ConfigurableApplicationContext) context).close();
+		
+		//Vérifier si l'étudiant mérite un badge
+		verifierMeriteBadge();
+		
 		return "/views/etudiant/resultatTest.xhtml";
 	}
 
 	public String verifierValiditeTest() {
-		// Vérifier s'il y a un test dans le scope Flash. Sinon, effectuer une redirection
+		// Vérifier s'il y a un test dans le scope Flash. Sinon, effectuer une
+		// redirection
 		Flash flash = (Flash) FacesContext.getCurrentInstance().getExternalContext().getFlash();
 
-		if(!flash.containsKey("test"))
+		if (!flash.containsKey("test"))
 			return "/views/etudiant/listeTests.xhtml";
-		
+
 		return null;
+	}
+
+	private void verifierMeriteBadge() {
+		// On vérifie si l'étudiant a fait un achévement méritant un badge
+		// On récupère les evenements ayant comme source: Les testes et les scores parfait (100%)
+		List<EvenementBadge> evenementBadgesTest = evenementBadgeDAO.getEvenementsBadgesBySource(SourceEvenement.TEST);
+		List<EvenementBadge> evenementBadgesScoreParfait = evenementBadgeDAO.getEvenementsBadgesBySource(SourceEvenement.SCOREPARFAIT);
+		
+		// Calculer le nombre des tests réussis par l'étudiant
+		int nombreTestsReussis = 0;
+
+		// Calculer le nombre des tests réussis par l'étudiant avec un score parfait
+		int nombreTestsScoreParfait = 0;
+		
+		for (ResultatTest resultat : etudiant.getResultatTests())
+		{
+			if (resultat.getScore() >= seuil) {
+				nombreTestsReussis++;
+			}
+			
+			if (resultat.getScore() == 100) {
+				nombreTestsScoreParfait++;
+			}
+			
+		}
+		
+		//Vérifier si le resultat obtenu mérite un badge que l'étudiant n'a pas déjà
+		for(EvenementBadge evenementBadge : evenementBadgesTest)
+			if((evenementBadge.getValeur() == nombreTestsReussis) && (!etudiant.getBadges().contains(evenementBadge.getBadge())))
+			{
+				etudiant.getBadges().add(evenementBadge.getBadge());
+				etudiantDao.modifierEtudiant(etudiant);
+			}
+		
+		for(EvenementBadge evenementBadge : evenementBadgesScoreParfait)
+			if((evenementBadge.getValeur() == nombreTestsScoreParfait) && (!etudiant.getBadges().contains(evenementBadge.getBadge())))
+			{
+				etudiant.getBadges().add(evenementBadge.getBadge());
+				etudiantDao.modifierEtudiant(etudiant);
+			}
+		
 	}
 
 }

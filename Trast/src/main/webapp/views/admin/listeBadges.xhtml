@@ -1,0 +1,128 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="../templates/common.xhtml">
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction
+				action="#{evenementBadgeController.getAllEvenementBadges}" />
+		</f:metadata>
+
+		<button data-toggle="modal" data-target="#ajoutbadge"
+			class="btn btn-default btn-lg pull-right" type="button">+</button>
+
+		<c:choose>
+			<c:when test="#{not empty evenementBadgeController.evenementBadges}">
+				<table class="table table-striped table-hover">
+
+					<tr>
+						<th>sourceEvenement</th>
+						<th>valeur</th>
+						<th>intitule badge</th>
+						<th>titre icone</th>
+						<th>chemin icone</th>
+					</tr>
+
+					<c:forEach items="#{evenementBadgeController.evenementBadges}"
+						var="evenement" varStatus="statut">
+						<tr>
+							<td>#{evenement.sourceEvenement}</td>
+							<td><h:outputText
+									value="#{evenement.valeur}">
+									<f:convertNumber maxFractionDigits="2" />
+								</h:outputText></td>
+							<td>#{evenement.badge.intitule}</td>
+							<td>#{evenement.badge.icone.titre}</td>
+							<td>#{evenement.badge.icone.chemin}</td>
+						</tr>
+					</c:forEach>
+
+				</table>
+
+			</c:when>
+			<c:otherwise>
+				<h5>Aucun badge n'est crée</h5>
+			</c:otherwise>
+		</c:choose>
+
+		<!-- MODAL: ajout badge-->
+		<div class="modal fade" id="ajoutbadge" tabindex="-1" role="dialog"
+			aria-labelledby="modalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+						</button>
+						<h3 class="modal-title" id="lineModalLabel">Ajout d'un badge</h3>
+					</div>
+					<div class="modal-body">
+
+						<!-- content goes here -->
+						<h:form enctype="multipart/form-data">
+
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+
+							<div class="form-group">
+								<label for="sujet">La source de l'évenement:</label>
+
+								<h:selectOneMenu
+									value="#{evenementBadgeController.evenementBadge.sourceEvenement}">
+									<f:selectItems
+										value="#{evenementBadgeController.sourceEvenementValues}"
+										var="source" itemValue="#{source}" itemLabel="#{source}" />
+								</h:selectOneMenu>
+							</div>
+
+							<div class="form-group">
+								<label for="valeur">Valeur à atteindre:</label>
+								<h:inputText id="valeur"
+									value="#{evenementBadgeController.evenementBadge.valeur}"
+									styleClass="form-control">
+									<f:convertNumber minFractionDigits="2" />
+								</h:inputText>
+							</div>
+
+							<div class="form-group">
+								<label for="intituleBadge">Intitulé du badge:</label>
+								<h:inputText id="intituleBadge"
+									value="#{evenementBadgeController.evenementBadge.badge.intitule}"
+									styleClass="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="iconBadge"> L'icone du badge:</label>
+								<h:inputFile id="iconBadge" class="form-control"
+									value="#{uploadFileService.myFile}">
+								</h:inputFile>
+							</div>
+
+							<div class="btn-group" role="group">
+								<h:commandButton
+									action="#{evenementBadgeController.ajouterEvenementBadge}"
+									styleClass="btn btn-success btn-hover-green" value="Ajouter" />
+							</div>
+						</h:form>
+
+					</div>
+					<div class="modal-footer">
+						<div class="btn-group btn-group-justified" role="group"
+							aria-label="group button">
+							<div class="btn-group" role="group">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal" role="button">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /MODAL: ajout badge-->
+
+
+	</ui:define>
+</ui:composition>
