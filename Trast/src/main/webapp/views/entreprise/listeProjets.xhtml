@@ -8,7 +8,7 @@
 	<ui:define name="content">
 
 		<f:metadata>
-			<f:viewAction action="#{appelOffreController.listerAppelOffres}" />
+			<f:viewAction action="#{projetControllerKhouloud.getAllProjetsByEntreprise}" />
 		</f:metadata>
 		<h:form>
 			<input type="hidden" name="${_csrf.parameterName}"
@@ -16,26 +16,23 @@
 
 			<table class="table table-striped table-hover">
 				<tr>
-					<th>Sujet</th>
-					<th>Statut</th>
+					<th>Sujet du projet</th>
+					<th>Statut du projet</th>
 				</tr>
 
-				<c:forEach items="#{appelOffreController.listes}" var="item"
-					varStatus="statut">
+				<c:forEach items="#{projetControllerKhouloud.listeProjets}"
+					var="item" varStatus="statut">
 
 					<tr>
 						<td>#{item.cahierDesCharges.sujet}</td>
-						<td>#{item.statut}</td>
-						<td>
-							<!--  <button data-toggle="modal"
-								data-target="#detailsAppelOffre-#{statut.count}" type="button"
-								class="btn btn-default ">...</button>--> <h:commandButton
-								value="Détails" class="btn btn-default"
-								action="#{appelOffreController.detailsAppelOffre}">
+						<td>#{item.statut}
+						</td>
+						<td><h:commandButton value="Détails" class="btn btn-default"
+								action="#{projetControllerKhouloud.detailProjetLivrable}">
 
 								<f:setPropertyActionListener
-									target="#{appelOffreController.appelOffre}" value="#{item}" />
-								<f:param name="idAppelOffre" value="#{appelOffre.id}" />
+									target="#{projetControllerKhouloud.projet}" value="#{item}" />
+
 							</h:commandButton>
 						</td>
 					</tr>

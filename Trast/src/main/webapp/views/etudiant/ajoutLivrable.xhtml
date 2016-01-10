@@ -1,0 +1,46 @@
+<ui:composition template="../templates/common.xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="content">
+		<h3>Ajout de livrable</h3>
+		<h:form>
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<hr></hr>
+			<div class="row">
+				<div class="col-md-offset-3 col-md-5">
+					<div class="form-group">
+						<label for="pourcentageAvancement">Pourcentage d'avancement</label>
+						<h:inputText class="form-control" id="avancement"
+							value="#{projetControllerKhouloud.livrable.pourcentageAvancement}">
+						</h:inputText>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-offset-3 col-md-5">
+					<div class="form-group">
+						<label for="fichierAttache">Joindre un fichier</label> <input
+							type="file" id="fichierAttache" />
+					</div>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-offset-7">
+					<h:commandButton styleClass="btn btn-primary btn-hover-green"
+						value="Enregistrer"
+						action="#{projetControllerKhouloud.enregistrerLivrable()}">
+
+					</h:commandButton>
+				</div>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
