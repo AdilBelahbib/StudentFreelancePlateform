@@ -7,21 +7,20 @@ xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml">
  <ui:define name="content">
 
-	 <div class="container">
+	 <div class="container demo-3" >
 	 <c:choose>
 	 <c:when test="#{ not empty etudiantController.etudiant.badges}">
-	 	<ul class="grid cs-style-1">
+	 	<ul class="grid cs-style-6" >
 	 	<c:forEach items="#{etudiantController.etudiant.badges}" var="badge"
 						varStatus="statut">
 
 	<li>
-		<figure>
-			 <h:graphicImage value="#{badge.icone.chemin}/#{badge.icone.titre}" width="200" height="200"/> 
+		<figure class="illustration">
+			 <div>
+			 <img src="#{badge.icone.chemin}/#{badge.icone.titre}" width="200" height="200"/>
+			 </div> 
 			<figcaption>
 				<h3>#{badge.intitule}</h3>
-				<c:if test="{ not empty badge.test}">
-				<span>Pour réussite du test : #{badge.test.titre}</span>
-				</c:if>
 			</figcaption>
 		</figure>
 	</li>					

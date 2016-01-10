@@ -1,14 +1,12 @@
 package com.trast.controller;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.servlet.ServletContext;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -98,7 +96,6 @@ public class TestControllerNassima implements Serializable{
 	public void setCompetence(Competence competence) {
 		this.competence = competence;
 		/*if(test!=null){
-			System.out.println("ajout comp : "+competence.getIntitule()+" taille "+test.getCompetences().size());
 			test.getCompetences().add(competence);
 			competence = null;
 		}*/
@@ -133,7 +130,6 @@ public class TestControllerNassima implements Serializable{
 		test = (Test) context.getBean("test");
 		if(utilisateur instanceof Entreprise) test.setEntreprise((Entreprise) utilisateur);
 		test.setNombrePassage(0);
-				
 		((ConfigurableApplicationContext)context).close();
 		}
 		else this.setRedirection(0);
@@ -154,7 +150,6 @@ public class TestControllerNassima implements Serializable{
 	}
 	public void retirerQuestion(){
 		test.getQuestions().remove(question);
-		//System.out.println("sssssssssssss "+statut );
 	}
 	public void ajouterQuestion(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
@@ -164,27 +159,21 @@ public class TestControllerNassima implements Serializable{
 	}
 	public void retirerReponseJuste(){
 		question.getReponsesJustes().remove(reponse);
+		reponse = "";
 	}
 	public void ajouterReponseJuste(){
-		/*System.out.println("index : "+statut);
-		int i=0;
-		for(Question questionItem : test.getQuestions()){
-			if(i==Integer.parseInt(statut)) 
-			{
-				questionItem.getReponsesJustes().add(reponse);
-				System.out.println("nbr : "+questionItem.getReponsesJustes().size());
-				break;
-			}
-			else i++;
-		}*/
+		
 		question.getReponsesJustes().add(reponse);
+		reponse = "";
 	}
 	
 	public void retirerReponseFausse(){
 		question.getReponsesFausses().remove(reponse);
+		reponse = "";
 	}
 	public void ajouterReponseFausse(){
 		question.getReponsesFausses().add(reponse);
+		reponse = "";
 	}
 	public String modifierQuestion(){
 		int i=0;
@@ -193,7 +182,6 @@ public class TestControllerNassima implements Serializable{
 			if(i==Integer.parseInt(statut)) 
 			{
 				questionItem = question;
-				System.out.println("nbr : "+questionItem.getReponsesJustes().size());
 				break;
 			}
 			else i++;
@@ -210,10 +198,12 @@ public class TestControllerNassima implements Serializable{
 	public String validerTest(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		/* recupere icone */
-		if(!badge.getIntitule().equals("")){
+		if(UploadFileService.fileSelected()){
 		Fichier fichier = (Fichier)context.getBean("fichier");
 		FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
 
+		/* intitule badge*/
+		badge.setIntitule("Test "+test.getTitre());
 		/** chemin ????**/
 		fichier.setChemin("../../resources/uploadedImages");
 		fichier.setTitre(badge.getIntitule()+utilisateur.getId());
