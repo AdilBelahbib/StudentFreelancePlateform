@@ -37,13 +37,11 @@ xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
         <ul class="sub-menu collapse" id="appeloffre">
 
         <li>
-        	<i class="fa fa-folder-open fa-lg"></i>
             <h:link outcome="/views/entreprise/afficherAppelsOffreEnCours.xhtml?faces-redirect=true" value="Mes appels d'offre en cours" />
          </li>
         <li>
         	<h:commandLink value = "" action="#{appelOffreController.afficherAppelsOffreArchives}">       
           </h:commandLink>
-          <i class="fa fa-folder-minus fa-lg"></i>
             <h:link outcome="/views/entreprise/afficherAppelsOffreArchives.xhtml?faces-redirect=true" value="Mes appels archivés" />
          </li>
       </ul>
@@ -51,16 +49,21 @@ xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
       <li data-toggle="collapse" data-target="#projet" class="collapsed">
         <a href="#"><i class="fa fa-check-circle-o fa-lg"></i> Mes projets</a>
       </li>
+      <li data-toggle="collapse" data-target="#test" class="collapsed">
+          <a href="#">
+          <i class="fa fa-superscript fa-lg">
+          </i> Tests de connaissances <span class="arrow"></span></a>
+        </li>
+       <ul class="sub-menu collapse" id="test"> 
 	  <li>
-          <i class="fa fa-book fa-lg"></i>
             <h:link outcome="/views/entreprise/creerTest.xhtml?faces-redirect=true" value="Créer un test" />
 
        </li>
        <li>
-          <i class="fa fa-list fa-lg"></i>
             <h:link outcome="/views/entreprise/listeTests.xhtml?faces-redirect=true" value="Mes tests" />
 
        </li>
+       </ul>
     </ul>
   </div>
 </div>

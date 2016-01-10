@@ -73,4 +73,12 @@ public class TestDAOImpl implements TestDAO{
 		return listeTests;
 	}
 
+	@Override
+	@Transactional
+	public void modifierTest(Test test) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(test);
+		
+	}
+
 }

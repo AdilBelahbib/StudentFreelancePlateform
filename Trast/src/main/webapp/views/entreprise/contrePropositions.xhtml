@@ -7,6 +7,8 @@ xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml"
                 xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="content">
+	<c:choose>
+	<c:when test="#{not empty appelOffreController.appelOffre.contrePropositions}">
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10">
 				<h3>Les contre propositions concernants <h:outputText  value="#{appelOffreController.appelOffre.cahierDesCharges.sujet}" /></h3>				
@@ -50,8 +52,11 @@ template="../templates/common.xhtml"
 					</h:form>
 				</div>
 				</div>
-		
-	
+		</c:when>
+		<c:otherwise>
+		Il n'y a aucune contre-proposition pour cet appel d'offre!
+		</c:otherwise>
+	</c:choose>
 	</ui:define>
 	
 <!-- modals -->

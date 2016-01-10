@@ -11,4 +11,5 @@ public interface TestDAO {
 	public void supprimerTest(Long id);
 	public List<Test> getTestsAdmin();
 	public List<Test> getTestsEntreprises();
+	public void modifierTest(Test test);
 }

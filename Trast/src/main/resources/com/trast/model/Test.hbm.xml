@@ -29,7 +29,7 @@
 			<one-to-many class="Question" />
 		</set>
 
-		<set name="competences" table="test_competence" inverse="true"
+		<set name="competences" table="test_competence" inverse="false"
 			lazy="false">
 			<key column="idTest" />
 			<many-to-many column="idCompetence" class="Competence" />

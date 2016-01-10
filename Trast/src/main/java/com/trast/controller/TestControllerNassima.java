@@ -1,12 +1,14 @@
 package com.trast.controller;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.ServletContext;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -139,16 +141,13 @@ public class TestControllerNassima implements Serializable{
 	}
 
 	public void retirerCompetence(){
-		System.out.println("suppr : "+test.getCompetences().size()+" ***");
 		test.getCompetences().remove(competence);	
-		System.out.println("fin supp");
 	}
 	public void ajouterCompetence(){
-		System.out.println("ajout**************");
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		/* verifier si ca existe deja*/
 		CompetenceDAO competenceDao = (CompetenceDAO)context.getBean("competenceDao");
-		competenceDao.ajouterCompetenceIfNotExist(competence);
+		competence = competenceDao.ajouterCompetenceIfNotExist(competence);
 		test.getCompetences().add(competence);
 		competence = (Competence)context.getBean("competence");
 		((ConfigurableApplicationContext) context).close();	
@@ -159,11 +158,9 @@ public class TestControllerNassima implements Serializable{
 	}
 	public void ajouterQuestion(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-		System.out.println("quest : "+question.getQuestion()+", coef "+question.getCoefficient());
 		test.getQuestions().add(question);
 		question = (Question) context.getBean("question");
 		((ConfigurableApplicationContext) context).close();	
-		System.out.println("size: "+test.getQuestions().size());
 	}
 	public void retirerReponseJuste(){
 		question.getReponsesJustes().remove(reponse);
@@ -204,7 +201,6 @@ public class TestControllerNassima implements Serializable{
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		question = (Question) context.getBean("question");
 		((ConfigurableApplicationContext) context).close();	
-		System.out.println("size: "+test.getQuestions().size());
 		this.setRedirection(1);
 		if(utilisateur instanceof Entreprise)
 		return "/views/entreprise/creerTest.xhtml?faces-redirect=true";
@@ -214,23 +210,37 @@ public class TestControllerNassima implements Serializable{
 	public String validerTest(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		/* recupere icone */
+		if(!badge.getIntitule().equals("")){
 		Fichier fichier = (Fichier)context.getBean("fichier");
 		FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
-		fichier.setChemin("C:\\Users\\monpc\\Desktop\\testUpload");
-		
+
+		/** chemin ????**/
+		fichier.setChemin("../../resources/uploadedImages");
 		fichier.setTitre(badge.getIntitule()+utilisateur.getId());
+		UploadFileService.uploadFichier(fichier);
+		
 		fichierDao.ajouterFichier(fichier);
 		/* ajout Badge*/
 		badge.setIcone(fichier);
 		BadgeDAO badgeDao = (BadgeDAO) context.getBean("badgeDao");
 		badgeDao.ajouterBadge(badge);
-		UploadFileService.uploadFichier(badge.getIcone());
+		
 		test.setBadge(badge);
+		}
 		
 		
 		/* ajouter Test*/
 		TestDAO testDao = (TestDAO) context.getBean("testDao");
 		testDao.ajouterTest(test);
+		
+		/**/
+		CompetenceDAO competenceDao = (CompetenceDAO)context.getBean("competenceDao");
+		for(Competence compItem : test.getCompetences())
+		{
+			compItem = competenceDao.ajouterCompetenceIfNotExist(compItem);
+
+		}
+		/**/
 		/* ajouter Questions*/
 		QuestionDAO questionDao = (QuestionDAO) context.getBean("questionDao");
 		for(Question questionItem : test.getQuestions()){
@@ -239,6 +249,7 @@ public class TestControllerNassima implements Serializable{
 		}
 		
 		/* fichier */
+		badge = (Badge) context.getBean("badge");
 	
 		((ConfigurableApplicationContext) context).close();
 		

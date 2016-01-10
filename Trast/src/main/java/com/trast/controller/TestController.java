@@ -278,12 +278,20 @@ public class TestController implements Serializable {
 				}
 
 				this.reussi = true;
+				
+				/*** ajout badge*************/
+				etudiant.getBadges().add(test.getBadge());
 			}
 
 			this.resultatTest.setScore(score);
 			resultatTestDao.modifierResultatTest(this.resultatTest);
 		}
-
+		/*** Incrementer nbr passage test + modification test************/
+		test.setNombrePassage(test.getNombrePassage()+1);
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		TestDAO testDao = (TestDAO) context.getBean("testDao");
+		testDao.modifierTest(test);
+		((ConfigurableApplicationContext) context).close();
 		return "/views/etudiant/resultatTest.xhtml";
 	}
 

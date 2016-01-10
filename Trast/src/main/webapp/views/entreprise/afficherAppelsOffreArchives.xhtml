@@ -9,7 +9,9 @@ template="../templates/common.xhtml">
         <ui:define name="content">		
           <f:metadata>
 			<f:viewAction action="#{appelOffreController.afficherAppelsOffreArchives}" />
-		</f:metadata>	   			       
+		</f:metadata>	
+			<c:choose>
+			<c:when test="#{not empty appelOffreController.appelOffres}">   			       
 			      <h:form>
 			      <h:dataTable  class="table table-striped table-hover" value="#{appelOffreController.appelOffres}" var="item" varStatus="statut"
 			         >	
@@ -36,6 +38,12 @@ template="../templates/common.xhtml">
 			      </h:dataTable>
 			      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			      </h:form>
+			      
+			  </c:when>
+			  <c:otherwise>
+			  Vous n'avez aucun appel d'offre archivé!
+			  </c:otherwise>
+			  </c:choose>
         </ui:define> 
          
          

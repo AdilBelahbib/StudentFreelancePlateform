@@ -13,7 +13,7 @@ template="../templates/common.xhtml">
 
 		<div class="container">
 
-	<h:form>
+	<h:form enctype="multipart/form-data">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<!--ETAPE 1 : Durée et competences-->
 			<div class="row">
@@ -86,7 +86,25 @@ template="../templates/common.xhtml">
 							</tr>
 					</c:forEach>
 				</table>
-				
+				<div>
+					<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseBadge" aria-expanded="false" aria-controls="collapseBadge">
+  							associer un badge à ce test
+					</a>
+					<div class="collapse" id="collapseBadge">
+  						<div class="well">
+   						  <div class="form-group">
+								<label for="intituleBadge"> L'intitulé:</label>
+								<h:inputText type="text" class="form-control" id="intituleBadge" value="#{testControllerNassima.badge.intitule}"/>  				
+						  </div>
+						  <div class="form-group">
+								<label for="iconBadge"> L'icone du badge:</label>
+								<h:inputFile id="iconBadge" class="form-control" value="#{uploadFileService.myFile}"> 
+      							</h:inputFile>
+						  </div>
+   							 
+   							 </div>
+  							</div>
+				</div>
 				<h:commandButton value="Valider Test" action="#{testControllerNassima.validerTest()}" class="btn btn-primary nextBtn btn-lg pull-right">
 				</h:commandButton>
 			</div>

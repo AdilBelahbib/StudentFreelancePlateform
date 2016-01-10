@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.trast.model.Competence;
 import com.trast.model.Question;
 
 public class TestTestDAOImpl {
@@ -51,12 +52,20 @@ public class TestTestDAOImpl {
 		 ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");	  
 		 TestDAO testDao = (TestDAO) context.getBean("testDao");
 		  com.trast.model.Test test = (com.trast.model.Test) context.getBean("test");	
+		  CompetenceDAO competenceDao = (CompetenceDAO) context.getBean("competenceDao");
+		  Competence competence = (Competence) context.getBean("competence");
+		  competence.setIntitule("Langage java EE");
+		
+		  competence = competenceDao.ajouterCompetenceIfNotExist(competence);
+		  Assert.assertNotNull(competence.getId());
 		  test.setDuree(60);
 		  test.setTitre("Test1");
 		  test.setNombrePassage(0);
-		  
+		  test.getCompetences().add(competence);
+		  Assert.assertEquals(1, test.getCompetences().size());
 		  testDao.ajouterTest(test);
 		  test = testDao.getTestParId(test.getId());
+		  Assert.assertEquals(1, test.getCompetences().size());
 		  Assert.assertNotNull(test);  
 		  testDao.supprimerTest(test.getId());		  
 		  ((ConfigurableApplicationContext)context).close();

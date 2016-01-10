@@ -21,16 +21,21 @@ public class UploadFileService {
 	
 	/*****************************************/
 	public static void uploadFichier(Fichier fichier){
+		System.out.println("dddddddddddd");
 		String extens="";
 		int i = myFile.getSubmittedFileName().lastIndexOf('.');
 		if (i > 0) {
 		    extens =  myFile.getSubmittedFileName().substring(i+1);
+		    fichier.setTitre(fichier.getTitre()+"."+extens);
+		    
 		}
 		 try (InputStream input = myFile.getInputStream()) {
-		        Files.copy(input, new File(fichier.getChemin(),fichier.getTitre()+"."+extens).toPath());
+		        Files.copy(input, new File(fichier.getChemin(),fichier.getTitre()).toPath());
 		    }
 		    catch (IOException e) {
+		    	System.out.println("bbbbbbbbbbbbbbbbb"+e.toString());
 		    }
+		 System.out.println("ccccccccccccccccccccccccccc");
 		
 	}
 
