@@ -41,15 +41,17 @@
 						</div>
 					</div>
 				</div>
+				<c:if test="#{projetControllerKhouloud.projet.statut == 'ENCOURS'}">
 				<div class="row">
 					<div class="col-md-offset-4 col-md-4">
 						<div class="alert alert-warning">
 							<i class="icon icon-exclamation-circle icon-lg"></i> 
-							 Reste: <i> #{projetControllerKhouloud.nbJoursRestants}
-								jours</i>.
+							 <i> #{projetControllerKhouloud.nbJoursRestants}
+								</i>
 						</div>
 					</div>
 				</div>
+				</c:if>
 				<div class="row">
 					<div class="col-md-offset-3 col-md-5">
 
@@ -129,13 +131,28 @@
 								</td>
 								<!-- valider livrable -->
 								<c:if test="#{! item.valide}">
-								<td><h:commandButton
+								<td>
+								<c:choose>
+								<c:when test="#{item.pourcentageAvancement == 100}">
+								<h:commandButton
+										action="#{projetControllerKhouloud.validerProjet}"
+										styleClass="close" class="btn btn-success" value="Valider projet">
+
+										<f:setPropertyActionListener
+											target="#{projetControllerKhouloud.livrable}" value="#{item}" />
+								</h:commandButton>
+								</c:when>
+								<c:otherwise>
+								<h:commandButton
 										action="#{projetControllerKhouloud.validerLivrable}"
 										styleClass="close" class="btn btn-success" value="Y">
 
 										<f:setPropertyActionListener
 											target="#{projetControllerKhouloud.livrable}" value="#{item}" />
-									</h:commandButton></td>
+								</h:commandButton>
+								</c:otherwise>
+								</c:choose>
+								</td>
 								</c:if>
 								<!-- refuser livrable -->
 								<c:if test="#{! item.valide}">

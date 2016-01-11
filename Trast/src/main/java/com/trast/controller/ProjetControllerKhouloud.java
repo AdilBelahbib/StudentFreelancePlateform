@@ -1,7 +1,5 @@
 package com.trast.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -19,12 +17,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.LivrableDAO;
 import com.trast.dao.ProjetDAO;
-import com.trast.model.Adresse;
 import com.trast.model.Entreprise;
+import com.trast.model.EtatProjet;
 import com.trast.model.Etudiant;
 import com.trast.model.Livrable;
 import com.trast.model.Projet;
 import com.trast.model.Utilisateur;
+import com.trast.service.DateCalculService;
 
 @ManagedBean(name = "projetControllerKhouloud", eager = true)
 @SessionScoped
@@ -52,9 +51,9 @@ public class ProjetControllerKhouloud {
 	private Projet projet;
 
 	private List<Projet> listeProjets;
-
+	private List<Projet> listeProjetsTermines;
 	private List<Livrable> listeLivrables;
-	private int nbJoursRestants;
+	private String nbJoursRestants;
 	private double avancementProjet;
 
 	public Utilisateur getUtilisateur() {
@@ -121,16 +120,14 @@ public class ProjetControllerKhouloud {
 		this.livrableDao = livrableDao;
 	}
 	
-
-	public int getNbJoursRestants() {
+	public String getNbJoursRestants() {
 		return nbJoursRestants;
 	}
 
-	public void setNbJoursRestants(int nbJoursRestants) {
+	public void setNbJoursRestants(String nbJoursRestants) {
 		this.nbJoursRestants = nbJoursRestants;
 	}
-	
-	
+
 	public double getAvancementProjet() {
 		return avancementProjet;
 	}
@@ -146,6 +143,15 @@ public class ProjetControllerKhouloud {
 
 	public void setEntreprise(Entreprise entreprise) {
 		this.entreprise = entreprise;
+	}
+	
+
+	public List<Projet> getListeProjetsTermines() {
+		return listeProjetsTermines;
+	}
+
+	public void setListeProjetsTermines(List<Projet> listeProjetsTermines) {
+		this.listeProjetsTermines = listeProjetsTermines;
 	}
 
 	/**
@@ -166,10 +172,38 @@ public class ProjetControllerKhouloud {
 
 	public void getAllProjetsByEntreprise() {
 		//recuperer utilisateur sur entreprise
-		this.entreprise = (Entreprise)utilisateur;
-		listeProjets = projetDao.getProjetsByEntreprise(entreprise);
+		/*this.entreprise = (Entreprise)utilisateur;
+		listeProjets = projetDao.getProjetsByEntreprise(entreprise);*/
+		if(listeProjets==null){
+			listeProjets = new ArrayList<Projet>();
+			if(listeProjetsTermines==null) listeProjetsTermines = new ArrayList<Projet>();
+			this.entreprise = (Entreprise)utilisateur;
+			for(Projet item : entreprise.getProjets()){
+				if(item.getStatut().equals(EtatProjet.ENCOURS))
+					listeProjets.add(item);
+				else if(item.getStatut().equals(EtatProjet.TERMINE))
+					listeProjetsTermines.add(item);
+			}
+		}
+		
 	}
-	
+	public void getAllProjetsTermines() {
+		//recuperer utilisateur sur entreprise
+		/*this.entreprise = (Entreprise)utilisateur;
+		listeProjets = projetDao.getProjetsByEntreprise(entreprise);*/
+		if(listeProjetsTermines == null){
+			if(listeProjets==null) listeProjets = new ArrayList<Projet>();
+			listeProjetsTermines = new ArrayList<Projet>();
+			this.entreprise = (Entreprise)utilisateur;
+			for(Projet item : entreprise.getProjets()){
+				if(item.getStatut().equals(EtatProjet.ENCOURS))
+					listeProjets.add(item);
+				else if(item.getStatut().equals(EtatProjet.TERMINE))
+					listeProjetsTermines.add(item);
+			}
+		}
+		
+	}
 	
 	/**
 	 * Cette fonction est appelée à parti du détail d'un projet, et elle affiche
@@ -206,14 +240,13 @@ public class ProjetControllerKhouloud {
 	 * et pour récuperer l'avancement du projet
 	 */
 	
-	@SuppressWarnings("deprecation")
 	public String detailProjet() {
 		Date d=new Date();
 		//DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		//String dat = dateFormat.format(d);
 		System.out.println("date jour = "+ d.getTime());
 		System.out.println("Date fin == "+ projet.getCahierDesCharges().getDateFin().getTime());
-		nbJoursRestants = (projet.getCahierDesCharges().getDateFin().getDate() -  d.getDate());
+		nbJoursRestants = DateCalculService.calculDuree(new Date(), projet.getCahierDesCharges().getDateFin());
 		//Recuperer le dernier livrable 
 		//System.out.println("Taille livr liste = "+projet.getLivrables().size() );
 		if(projet.getLivrables().size() > 0)
@@ -237,14 +270,13 @@ public class ProjetControllerKhouloud {
 	 * 
 	 * Elle redirige vers la page detailsProjet
 	 */
-	@SuppressWarnings("deprecation")
 	public String detailProjetLivrable() {
 		Date d=new Date();
 		//DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		//String dat = dateFormat.format(d);
 		System.out.println("date jour = "+ d.getTime());
 		System.out.println("Date fin == "+ projet.getCahierDesCharges().getDateFin().getTime());
-		nbJoursRestants = (projet.getCahierDesCharges().getDateFin().getDate() -  d.getDate());
+		nbJoursRestants =  DateCalculService.calculDuree(new Date(), projet.getCahierDesCharges().getDateFin());
 		//Recuperer le dernier livrable 
 		//System.out.println("Taille livr liste = "+projet.getLivrables().size() );
 		if(projet.getLivrables().size() > 0)
@@ -320,5 +352,24 @@ public class ProjetControllerKhouloud {
 		livrable = (Livrable) context.getBean("livrable");
 		((ConfigurableApplicationContext) context).close();
 
+	}
+	/** valide le projet*/
+	public void validerProjet(){
+		/* livrable : */
+		livrable.setProjet(projet);
+		livrable.setValide(true);
+		// Modifier le livrable
+		livrableDao.modifierLivrable(livrable);
+		// Réinitialiser par une nouvelle instance vide
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		livrable = (Livrable) context.getBean("livrable");
+		/* projet : */
+		projet.setStatut(EtatProjet.TERMINE);
+		projetDao.modifierProjet(projet);
+		((ConfigurableApplicationContext) context).close();
+		
+		/* add projet to projets terminés*/
+		listeProjetsTermines.add(projet);
+		listeProjets.remove(projet);
 	}
 }
