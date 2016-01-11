@@ -7,9 +7,6 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="content">
 		<div>
-			<h:form>
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
 				<div class="form-group">
 					<h3>
 						<label>Sujet: <h:outputText
@@ -95,7 +92,6 @@
 					</div>
 				</div>
 
-			</h:form>
 		</div>
 
 		<!-- Liste livrables entreprise -->
@@ -134,13 +130,11 @@
 								<td>
 								<c:choose>
 								<c:when test="#{item.pourcentageAvancement == 100}">
-								<h:commandButton
-										action="#{projetControllerKhouloud.validerProjet}"
-										styleClass="close" class="btn btn-success" value="Valider projet">
-
-										<f:setPropertyActionListener
-											target="#{projetControllerKhouloud.livrable}" value="#{item}" />
-								</h:commandButton>
+								<button data-toggle="modal"
+      data-target="#validerProjetModal" type="button"
+      class="btn btn-default btn-lg pull-right">Valider P</button>
+								
+								
 								</c:when>
 								<c:otherwise>
 								<h:commandButton
@@ -243,6 +237,81 @@ aria-hidden="true">
 		<!-- End of ajoutInfosLivrable -->
 
 
+<!-- modal validation Projet: -->
+<div class="modal fade" id="validerProjetModal"
+tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+			
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+							</button>
+							<h3 class="modal-title">Valider Projet</h3>
+						</div>
+						<div class="modal-body">
 
+
+
+							<!-- content goes here -->
+							<h:form enctype="multipart/form-data">
+
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+
+								<div class="form-group">
+									<label for="remarques">Votre avis sur: #{projetControllerKhouloud.projet.etudiant.nom} #{projetControllerKhouloud.projet.etudiant.prenom}</label> <br />
+									
+										
+										<div class="btn-group" role="group">
+										<div class="row">
+										
+										<div class="col-md-5">										
+										<h:commandLink id="AvisPositif" class="avis"
+										    action="#{projetControllerKhouloud.validerProjet(1)}"
+										    styleClass="btn btn-success btn-hover-green"
+										    >
+										    <i class="fa fa-thumbs-up fa-lg"></i>
+										</h:commandLink>
+										</div>
+										<div class="col-md-5">
+										<h:commandLink id="AvisNegatif" class="avis"
+										    action="#{projetControllerKhouloud.validerProjet(0)}"
+										    styleClass="btn btn-danger btn-hover-green"
+										    >
+										    <i class="fa fa-thumbs-down fa-lg"></i>
+										</h:commandLink>
+										</div>
+										</div>
+											<!-- <h:commandButton
+												action="#{projetControllerKhouloud.validerProjet(1)}"
+												styleClass="btn btn-success btn-hover-green"
+												value="Positif">
+												<i class="fa fa-superscript fa-lg">
+          										</i>
+											</h:commandButton> -->
+											
+											
+										</div>
+
+								</div>
+
+
+							</h:form>
+
+						</div>
+						<div class="modal-footer">
+							<div class="btn-group btn-group-justified" role="group"
+								aria-label="group button">
+								<div class="btn-group" role="group">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" role="button">Fermer</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+</div>
 	</ui:define>
 </ui:composition>

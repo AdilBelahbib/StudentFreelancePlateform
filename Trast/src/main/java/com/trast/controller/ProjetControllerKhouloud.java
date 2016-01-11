@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.trast.dao.EtudiantDAO;
 import com.trast.dao.LivrableDAO;
 import com.trast.dao.ProjetDAO;
 import com.trast.model.Entreprise;
@@ -354,22 +355,41 @@ public class ProjetControllerKhouloud {
 
 	}
 	/** valide le projet*/
-	public void validerProjet(){
+	public void validerProjet(String v){
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		/* livrable : */
-		livrable.setProjet(projet);
+		/*livrable.setProjet(projet);
 		livrable.setValide(true);
 		// Modifier le livrable
-		livrableDao.modifierLivrable(livrable);
+		livrableDao.modifierLivrable(livrable);*/
 		// Réinitialiser par une nouvelle instance vide
-		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-		livrable = (Livrable) context.getBean("livrable");
+		/*
+		livrable = (Livrable) context.getBean("livrable");*/
+		/* Livrables*/
+		for(Livrable item : projet.getLivrables()){
+			if(!item.getValide())
+			{
+				item.setProjet(projet);
+				item.setValide(true);
+				livrableDao.modifierLivrable(item);
+				
+			}
+		}
 		/* projet : */
 		projet.setStatut(EtatProjet.TERMINE);
 		projetDao.modifierProjet(projet);
-		((ConfigurableApplicationContext) context).close();
+		//
 		
 		/* add projet to projets terminés*/
 		listeProjetsTermines.add(projet);
 		listeProjets.remove(projet);
+		
+		/* avis sur etudiant*/
+		System.out.println("vvvvvvvvvv "+v);
+		if(v.equals("1")) projet.getEtudiant().setAvisPositifs(projet.getEtudiant().getAvisPositifs()+1);
+		else projet.getEtudiant().setAvisNegatifs(projet.getEtudiant().getAvisNegatifs()+1);
+		EtudiantDAO etudiantDao = (EtudiantDAO)context.getBean("etudiantDao");
+		etudiantDao.modifierEtudiant(projet.getEtudiant());
+		((ConfigurableApplicationContext) context).close();
 	}
 }
