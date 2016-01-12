@@ -34,10 +34,21 @@
                   	<h:link outcome="/views/etudiant/galerieBadge.xhtml?faces-redirect=true" value="Ma galerie" />
                  </li>
                 </ul>
-
+                
+                <li data-toggle="collapse" data-target="#calendrier" class="collapsed">
+                  <a href="#">
+                  <i class="fa fa-calendar fa-lg"></i> Calendrier
+                  <span class="arrow"></span></a>
+                  </li>
+                  <ul class="sub-menu collapse" id="calendrier">
+                 <li>
+                  	<h:link outcome="/views/etudiant/calendrier.xhtml?faces-redirect=true" value="Calendrier" />
+                 </li>
+                </ul>
+				
                 <li data-toggle="collapse" data-target="#appeloffre" class="collapsed">
-                  Appels d'offre
-                  <i class="fa fa-exchange fa-lg"></i> 
+                  
+                  <i class="fa fa-exchange fa-lg"></i> Appels d'offre
                   <span class="arrow"></span>
                 </li>  
                 <ul class="sub-menu collapse" id="appeloffre">

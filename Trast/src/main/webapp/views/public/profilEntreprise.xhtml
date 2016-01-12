@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+template="../templates/common.xhtml">
+<ui:define name="content">
+<div class="container">
+	<!-- Informations de l'entreprise -->
+	<div class="row" style="border:1px solid #ddd;">
+		<div class="col-md-3">
+	      <div class="text-center">
+	        <img src="" class="avatar img-circle" alt="avatar"/>  
+	      </div>
+	    </div>
+	    
+	    <div class="col-md-9 personal-info">
+	        <div class="form-group">
+	          <b>
+	          	<h:outputText value="Societe TRAST" />
+	          </b>
+	          <br/>
+	          <h:outputText value="Trast A Student"/>
+	          <br/>
+	          <h:outputText value="MAROC | Casablanca"/>
+	        </div>   
+    	</div>
+	</div>
+	<!-- End of Informations de l'entreprise -->	
+</div>
+</ui:define>
+</ui:composition>

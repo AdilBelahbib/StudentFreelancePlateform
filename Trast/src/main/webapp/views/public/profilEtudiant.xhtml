@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+template="../templates/common.xhtml">
+<ui:define name="content">
+<div class="container">
+	<!-- Informations personnelles de l'étudiant -->
+	<div class="row" style="border:1px solid #ddd;">
+		<div class="col-md-3">
+	      <div class="text-center">
+	        <img src="" class="avatar img-circle" alt="avatar"/>  
+	      </div>
+	    </div>
+	    
+	    <div class="col-md-9 personal-info">
+	        <div class="form-group">
+	          <b>
+	          	<h:outputText value="NomEtudiant PrenomEtudiant" />
+	          </b>
+	          <br/>
+	          <h:outputText value="Etudiant(e) Ingénieur (Faculté
+	          	des sciences et techniques Mohammedia) ILIS"/>
+	          <br/>
+	          <h:outputText value="MAROC | Casablanca"/>
+	        </div>   
+    	</div>
+	</div>	
+	<div  class="row" style="border:1px solid #ddd;">
+		<button type="button" class="btn btn-default"
+			 aria-label="Left Align">Coordonnées
+  			<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+		</button>
+	</div>
+	<!-- End of Informations personnelles de l'étudiant -->
+	
+	<!-- Parcours professionnel -->
+	<div class="row" style="border:1px solid #ddd;">
+		<h3>Expériences </h3>
+	</div>
+	<!-- End of Parcours professionnel -->
+	<hr></hr>
+	<!-- Parcours fondamental -->
+	<div class="row" style="border:1px solid #ddd;">
+		<h3>Formations </h3>
+	</div>
+	<!-- End of Parcours foncdamental -->
+	<hr></hr>
+	<!-- Projets réalisés -->
+	<div class="row" style="border:1px solid #ddd;">
+		<h3>Projets </h3>
+	</div>
+	<!-- End of projets réalisés-->
+	<hr></hr>
+	<!-- Badges -->
+	<div class="row" style="border:1px solid #ddd;">
+		<h3>Badges </h3>
+	</div>
+	<!-- End of badges-->
+</div>
+</ui:define>
+</ui:composition>
