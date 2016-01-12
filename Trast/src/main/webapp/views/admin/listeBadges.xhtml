@@ -16,31 +16,27 @@
 
 		<c:choose>
 			<c:when test="#{not empty evenementBadgeController.evenementBadges}">
-				<table class="table table-striped table-hover">
 
-					<tr>
-						<th>sourceEvenement</th>
-						<th>valeur</th>
-						<th>intitule badge</th>
-						<th>titre icone</th>
-						<th>chemin icone</th>
-					</tr>
+				<ul class="grid cs-style-3">
 
 					<c:forEach items="#{evenementBadgeController.evenementBadges}"
 						var="evenement" varStatus="statut">
-						<tr>
-							<td>#{evenement.sourceEvenement}</td>
-							<td><h:outputText
-									value="#{evenement.valeur}">
-									<f:convertNumber maxFractionDigits="2" />
-								</h:outputText></td>
-							<td>#{evenement.badge.intitule}</td>
-							<td>#{evenement.badge.icone.titre}</td>
-							<td>#{evenement.badge.icone.chemin}</td>
-						</tr>
-					</c:forEach>
+						<li>
+							<figure class="illustration">
+								<div>
+									<img
+										src="http://localhost:8080/trast-uploads/badges/#{evenement.badge.icone.titre}.png"
+										width="200" height="200" />
+								</div>
+								<figcaption>
+									<h3>#{evenement.badge.intitule}</h3>
+								</figcaption>
+							</figure>
+						</li>
 
-				</table>
+
+					</c:forEach>
+				</ul>
 
 			</c:when>
 			<c:otherwise>

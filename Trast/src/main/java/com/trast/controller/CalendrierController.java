@@ -12,6 +12,7 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
 
 import com.trast.model.Etudiant;
+import com.trast.model.Projet;
 import com.trast.model.ResultatTest;
 
 @ManagedBean(name = "calendrierController", eager = true)
@@ -42,14 +43,15 @@ public class CalendrierController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		System.out.println("INIT STARTING ...");
 		eventModel = new DefaultScheduleModel();
 
 		for (ResultatTest resultat : etudiant.getResultatTests())
 			eventModel.addEvent(new DefaultScheduleEvent(resultat.getTest().getTitre(),
 					resultat.getDateDernierPassage(), resultat.getDateDernierPassage()));
-
-		System.out.println("INIT FINISHED.");
+		
+		for(Projet projet: etudiant.getProjets())
+			eventModel.addEvent(new DefaultScheduleEvent(projet.getCahierDesCharges().getSujet(),
+					projet.getCahierDesCharges().getDateDebut(), projet.getCahierDesCharges().getDateFin()));
 	}
 
 }
