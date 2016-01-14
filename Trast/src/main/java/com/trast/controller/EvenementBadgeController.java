@@ -105,17 +105,14 @@ public class EvenementBadgeController implements Serializable {
 		Fichier fichier = (Fichier) context.getBean("fichier");
 		fichier.setChemin("/badges");
 		fichier.setTitre(evenementBadge.getBadge().getIntitule() + administrateur.getId());
-
+		
+		UploadFileService.uploadFichier(fichier);
+		
 		fichierDao.ajouterFichier(fichier);
+
 		evenementBadge.getBadge().setIcone(fichier);
 
 		badgeDao.ajouterBadge(evenementBadge.getBadge());
-		evenementBadge.getBadge().getIcone().setTitre(
-				evenementBadge.getBadge().getId() + evenementBadge.getBadge().getIntitule() + administrateur.getId());
-		fichierDao.modifierFichier(evenementBadge.getBadge().getIcone());
-
-		UploadFileService.uploadFichier(evenementBadge.getBadge().getIcone());
-
 		evenementBadgeDAO.ajouterEvenementBadge(evenementBadge);
 
 		evenementBadge = (EvenementBadge) context.getBean("evenementBadge");

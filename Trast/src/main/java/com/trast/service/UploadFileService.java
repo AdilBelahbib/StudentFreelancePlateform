@@ -22,9 +22,6 @@ public class UploadFileService {
 
 	@ManagedProperty(value = "#{proprietes['racineuploads']}")
 	static String racine;
-	
-	@ManagedProperty(value = "#{fichierDao}")
-	static FichierDAO fichierDao;
 
 	/*****************************************/
 	public static void uploadFichier(Fichier fichier) {
@@ -40,9 +37,6 @@ public class UploadFileService {
 		} catch (IOException e) {
 			System.out.println("exception " + e.toString());
 		}
-		
-		//Persister l'extension du fichier
-		fichierDao.modifierFichier(fichier);
 
 	}
 
@@ -67,14 +61,5 @@ public class UploadFileService {
 	public void setRacine(String racine) {
 		UploadFileService.racine = racine;
 	}
-
-	public FichierDAO getFichierDao() {
-		return fichierDao;
-	}
-
-	public void setFichierDao(FichierDAO fichierDao) {
-		UploadFileService.fichierDao = fichierDao;
-	}
-	
 	
 }
