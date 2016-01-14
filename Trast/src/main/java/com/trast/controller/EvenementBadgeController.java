@@ -22,30 +22,27 @@ import com.trast.service.UploadFileService;
 
 @ManagedBean(name = "evenementBadgeController", eager = true)
 @SessionScoped
-public class EvenementBadgeController implements Serializable{
+public class EvenementBadgeController implements Serializable {
 
 	private static final long serialVersionUID = 1931800391036448012L;
-	
+
 	@ManagedProperty(value = "#{evenementBadgeDao}")
 	private EvenementBadgeDAO evenementBadgeDAO;
-	
+
 	@ManagedProperty(value = "#{sessionScope.utilisateur}")
 	private Administrateur administrateur;
-	
+
 	@ManagedProperty(value = "#{evenementBadge}")
 	private EvenementBadge evenementBadge;
-	
+
 	@ManagedProperty(value = "#{fichierDao}")
 	private FichierDAO fichierDao;
-	
+
 	@ManagedProperty(value = "#{badgeDao}")
 	private BadgeDAO badgeDao;
-	
-	@ManagedProperty(value = "#{proprietes['racineuploads']}")
-	private String racine;
-	
+
 	private List<EvenementBadge> evenementBadges;
-	
+
 	public EvenementBadgeDAO getEvenementBadgeDAO() {
 		return evenementBadgeDAO;
 	}
@@ -77,7 +74,7 @@ public class EvenementBadgeController implements Serializable{
 	public void setEvenementBadge(EvenementBadge evenementBadge) {
 		this.evenementBadge = evenementBadge;
 	}
-	
+
 	public FichierDAO getFichierDao() {
 		return fichierDao;
 	}
@@ -94,46 +91,51 @@ public class EvenementBadgeController implements Serializable{
 		this.badgeDao = badgeDao;
 	}
 
-	public String getRacine() {
-		return racine;
-	}
-
-	public void setRacine(String racine) {
-		this.racine = racine;
-	}
-
-	public void getAllEvenementBadges()
-	{
+	public void getAllEvenementBadges() {
 		evenementBadges = evenementBadgeDAO.getEvenementBadges();
 	}
-	
-	public SourceEvenement[] getSourceEvenementValues()
-	{
+
+	public SourceEvenement[] getSourceEvenementValues() {
 		return SourceEvenement.values();
 	}
-	
-	public void ajouterEvenementBadge()
-	{
+
+	public String ajouterEvenementBadge() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
-		Fichier fichier = (Fichier)context.getBean("fichier");
-		fichier.setChemin(racine+"/badges");
-		fichier.setTitre(evenementBadge.getBadge().getIntitule()+administrateur.getId());
-		
+		Fichier fichier = (Fichier) context.getBean("fichier");
+		fichier.setChemin("/badges");
+		fichier.setTitre(evenementBadge.getBadge().getIntitule() + administrateur.getId());
+
 		fichierDao.ajouterFichier(fichier);
 		evenementBadge.getBadge().setIcone(fichier);
-		
+
 		badgeDao.ajouterBadge(evenementBadge.getBadge());
-		evenementBadge.getBadge().getIcone().setTitre(evenementBadge.getBadge().getId()+evenementBadge.getBadge().getIntitule()+administrateur.getId());
+		evenementBadge.getBadge().getIcone().setTitre(
+				evenementBadge.getBadge().getId() + evenementBadge.getBadge().getIntitule() + administrateur.getId());
 		fichierDao.modifierFichier(evenementBadge.getBadge().getIcone());
-		
+
 		UploadFileService.uploadFichier(evenementBadge.getBadge().getIcone());
-		
+
 		evenementBadgeDAO.ajouterEvenementBadge(evenementBadge);
-		
+
 		evenementBadge = (EvenementBadge) context.getBean("evenementBadge");
-		
+
 		((ConfigurableApplicationContext) context).close();
+
+		return "/views/admin/listeBadges.xhtml?faces-redirect=true";
 	}
-	
+
+	public String supprimerEvenementBadge() {
+		
+		evenementBadgeDAO.supprimerEvenementBadge(evenementBadge);
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+
+		evenementBadge = (EvenementBadge) context.getBean("evenementBadge");
+
+		((ConfigurableApplicationContext) context).close();
+
+		return "/views/admin/listeBadges.xhtml?faces-redirect=true";
+	}
+
 }

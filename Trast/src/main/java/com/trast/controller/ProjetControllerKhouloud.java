@@ -16,13 +16,16 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.EtudiantDAO;
+import com.trast.dao.EvenementBadgeDAO;
 import com.trast.dao.LivrableDAO;
 import com.trast.dao.ProjetDAO;
 import com.trast.model.Entreprise;
 import com.trast.model.EtatProjet;
 import com.trast.model.Etudiant;
+import com.trast.model.EvenementBadge;
 import com.trast.model.Livrable;
 import com.trast.model.Projet;
+import com.trast.model.SourceEvenement;
 import com.trast.model.Utilisateur;
 import com.trast.service.DateCalculService;
 
@@ -35,10 +38,10 @@ public class ProjetControllerKhouloud {
 
 	@ManagedProperty(value = "#{etudiant}")
 	private Etudiant etudiant;
-	
+
 	@ManagedProperty(value = "#{entreprise}")
 	private Entreprise entreprise;
-	
+
 	@ManagedProperty(value = "#{livrable}")
 	private Livrable livrable;
 
@@ -50,6 +53,12 @@ public class ProjetControllerKhouloud {
 
 	@ManagedProperty(value = "#{projet}")
 	private Projet projet;
+	
+	@ManagedProperty(value = "#{evenementBadgeDao}")
+	private EvenementBadgeDAO evenementBadgeDAO;
+	
+	@ManagedProperty(value = "#{etudiantDao}")
+	private EtudiantDAO etudiantDao;
 
 	private List<Projet> listeProjets;
 	private List<Projet> listeProjetsTermines;
@@ -120,7 +129,7 @@ public class ProjetControllerKhouloud {
 	public void setLivrableDao(LivrableDAO livrableDao) {
 		this.livrableDao = livrableDao;
 	}
-	
+
 	public String getNbJoursRestants() {
 		return nbJoursRestants;
 	}
@@ -136,8 +145,7 @@ public class ProjetControllerKhouloud {
 	public void setAvancementProjet(double avancementProjet) {
 		this.avancementProjet = avancementProjet;
 	}
-	
-	
+
 	public Entreprise getEntreprise() {
 		return entreprise;
 	}
@@ -145,7 +153,6 @@ public class ProjetControllerKhouloud {
 	public void setEntreprise(Entreprise entreprise) {
 		this.entreprise = entreprise;
 	}
-	
 
 	public List<Projet> getListeProjetsTermines() {
 		return listeProjetsTermines;
@@ -155,59 +162,82 @@ public class ProjetControllerKhouloud {
 		this.listeProjetsTermines = listeProjetsTermines;
 	}
 
+	public EvenementBadgeDAO getEvenementBadgeDAO() {
+		return evenementBadgeDAO;
+	}
+
+	public void setEvenementBadgeDAO(EvenementBadgeDAO evenementBadgeDAO) {
+		this.evenementBadgeDAO = evenementBadgeDAO;
+	}
+	
+	public EtudiantDAO getEtudiantDao() {
+		return etudiantDao;
+	}
+
+	public void setEtudiantDao(EtudiantDAO etudiantDao) {
+		this.etudiantDao = etudiantDao;
+	}
+
 	/**
-	 * Cette fonction récupère l'ensemble des projets d'un étudiant. Elle est
-	 * appelée pour visualiser la liste de ses projets.
+	 * Cette fonction rï¿½cupï¿½re l'ensemble des projets d'un ï¿½tudiant. Elle est
+	 * appelï¿½e pour visualiser la liste de ses projets.
 	 */
 
 	public void getAllProjetsByEtudiant() {
-		//recuperer utilisateur sur etudiant
-		this.etudiant = (Etudiant)utilisateur;
+		// recuperer utilisateur sur etudiant
+		this.etudiant = (Etudiant) utilisateur;
 		listeProjets = projetDao.getProjetsByEtudiant(etudiant);
 	}
-	
+
 	/**
-	 * Cette fonction récupère l'ensemble des projets d'une entreprise. Elle est
-	 * appelée pour visualiser la liste de ses projets.
+	 * Cette fonction rï¿½cupï¿½re l'ensemble des projets d'une entreprise. Elle est
+	 * appelï¿½e pour visualiser la liste de ses projets.
 	 */
 
 	public void getAllProjetsByEntreprise() {
-		//recuperer utilisateur sur entreprise
-		/*this.entreprise = (Entreprise)utilisateur;
-		listeProjets = projetDao.getProjetsByEntreprise(entreprise);*/
-		if(listeProjets==null){
+		// recuperer utilisateur sur entreprise
+		/*
+		 * this.entreprise = (Entreprise)utilisateur; listeProjets =
+		 * projetDao.getProjetsByEntreprise(entreprise);
+		 */
+		if (listeProjets == null) {
 			listeProjets = new ArrayList<Projet>();
-			if(listeProjetsTermines==null) listeProjetsTermines = new ArrayList<Projet>();
-			this.entreprise = (Entreprise)utilisateur;
-			for(Projet item : entreprise.getProjets()){
-				if(item.getStatut().equals(EtatProjet.ENCOURS))
+			if (listeProjetsTermines == null)
+				listeProjetsTermines = new ArrayList<Projet>();
+			this.entreprise = (Entreprise) utilisateur;
+			for (Projet item : entreprise.getProjets()) {
+				if (item.getStatut().equals(EtatProjet.ENCOURS))
 					listeProjets.add(item);
-				else if(item.getStatut().equals(EtatProjet.TERMINE))
+				else if (item.getStatut().equals(EtatProjet.TERMINE))
 					listeProjetsTermines.add(item);
 			}
 		}
-		
+
 	}
+
 	public void getAllProjetsTermines() {
-		//recuperer utilisateur sur entreprise
-		/*this.entreprise = (Entreprise)utilisateur;
-		listeProjets = projetDao.getProjetsByEntreprise(entreprise);*/
-		if(listeProjetsTermines == null){
-			if(listeProjets==null) listeProjets = new ArrayList<Projet>();
+		// recuperer utilisateur sur entreprise
+		/*
+		 * this.entreprise = (Entreprise)utilisateur; listeProjets =
+		 * projetDao.getProjetsByEntreprise(entreprise);
+		 */
+		if (listeProjetsTermines == null) {
+			if (listeProjets == null)
+				listeProjets = new ArrayList<Projet>();
 			listeProjetsTermines = new ArrayList<Projet>();
-			this.entreprise = (Entreprise)utilisateur;
-			for(Projet item : entreprise.getProjets()){
-				if(item.getStatut().equals(EtatProjet.ENCOURS))
+			this.entreprise = (Entreprise) utilisateur;
+			for (Projet item : entreprise.getProjets()) {
+				if (item.getStatut().equals(EtatProjet.ENCOURS))
 					listeProjets.add(item);
-				else if(item.getStatut().equals(EtatProjet.TERMINE))
+				else if (item.getStatut().equals(EtatProjet.TERMINE))
 					listeProjetsTermines.add(item);
 			}
 		}
-		
+
 	}
-	
+
 	/**
-	 * Cette fonction est appelée à parti du détail d'un projet, et elle affiche
+	 * Cette fonction est appelï¿½e ï¿½ parti du dï¿½tail d'un projet, et elle affiche
 	 * la liste des livrables du projet choisi.
 	 *
 	 * Elle redirige vers la vue listeLivrable.xhtml
@@ -219,80 +249,76 @@ public class ProjetControllerKhouloud {
 
 		return "listeLivrables.xhtml?faces-redirect=true";
 	}
-	
+
 	/**
-	 * Une méthode pour récupérer le dernier élement d'une collection
-	 * Utilisé pour: 
-	 * - recuperer le dernier livrable
+	 * Une mï¿½thode pour rï¿½cupï¿½rer le dernier ï¿½lement d'une collection Utilisï¿½
+	 * pour: - recuperer le dernier livrable
 	 */
-	
+
 	public Object getLastElement(final Collection<?> c) {
-	    final Iterator<?> itr = c.iterator();
-	    Object lastElement = itr.next();
-	    while(itr.hasNext()) {
-	        lastElement=itr.next();
-	    }
-	    return lastElement;
-	}
-	
-	/**
-	 * Fonction redirection vers details d'un projet
-	 * Utilisé pour calculer la durée restante pour la fin du projet 
-	 * et pour récuperer l'avancement du projet
-	 */
-	
-	public String detailProjet() {
-		Date d=new Date();
-		//DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		//String dat = dateFormat.format(d);
-		System.out.println("date jour = "+ d.getTime());
-		System.out.println("Date fin == "+ projet.getCahierDesCharges().getDateFin().getTime());
-		nbJoursRestants = DateCalculService.calculDuree(new Date(), projet.getCahierDesCharges().getDateFin());
-		//Recuperer le dernier livrable 
-		//System.out.println("Taille livr liste = "+projet.getLivrables().size() );
-		if(projet.getLivrables().size() > 0)
-		{
-			livrable = (Livrable) getLastElement(projet.getLivrables());
-		
-			avancementProjet = livrable.getPourcentageAvancement();
+		final Iterator<?> itr = c.iterator();
+		Object lastElement = itr.next();
+		while (itr.hasNext()) {
+			lastElement = itr.next();
 		}
-		else
+		return lastElement;
+	}
+
+	/**
+	 * Fonction redirection vers details d'un projet Utilisï¿½ pour calculer la
+	 * durï¿½e restante pour la fin du projet et pour rï¿½cuperer l'avancement du
+	 * projet
+	 */
+
+	public String detailProjet() {
+		Date d = new Date();
+		// DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		// String dat = dateFormat.format(d);
+		System.out.println("date jour = " + d.getTime());
+		System.out.println("Date fin == " + projet.getCahierDesCharges().getDateFin().getTime());
+		nbJoursRestants = DateCalculService.calculDuree(new Date(), projet.getCahierDesCharges().getDateFin());
+		// Recuperer le dernier livrable
+		// System.out.println("Taille livr liste =
+		// "+projet.getLivrables().size() );
+		if (projet.getLivrables().size() > 0) {
+			livrable = (Livrable) getLastElement(projet.getLivrables());
+
+			avancementProjet = livrable.getPourcentageAvancement();
+		} else
 			avancementProjet = 0;
-		// Réinitialiser par une nouvelle instance vide
+		// Rï¿½initialiser par une nouvelle instance vide
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		livrable = (Livrable) context.getBean("livrable");
 		((ConfigurableApplicationContext) context).close();
 		return "detailsProjet.xhtml?faces-redirect=true";
 	}
-	
+
 	/**
-	 * Cette méthode est appelée par liste des projets cote ENTREPRISE;
-	 * Elle permet de visualiser le détail des projets et leurs livrables
+	 * Cette mï¿½thode est appelï¿½e par liste des projets cote ENTREPRISE; Elle
+	 * permet de visualiser le dï¿½tail des projets et leurs livrables
 	 * 
 	 * Elle redirige vers la page detailsProjet
 	 */
 	public String detailProjetLivrable() {
-		Date d=new Date();
-		//DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		//String dat = dateFormat.format(d);
-		System.out.println("date jour = "+ d.getTime());
-		System.out.println("Date fin == "+ projet.getCahierDesCharges().getDateFin().getTime());
-		nbJoursRestants =  DateCalculService.calculDuree(new Date(), projet.getCahierDesCharges().getDateFin());
-		//Recuperer le dernier livrable 
-		//System.out.println("Taille livr liste = "+projet.getLivrables().size() );
-		if(projet.getLivrables().size() > 0)
-		{
+		Date d = new Date();
+		// DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		// String dat = dateFormat.format(d);
+		System.out.println("date jour = " + d.getTime());
+		System.out.println("Date fin == " + projet.getCahierDesCharges().getDateFin().getTime());
+		nbJoursRestants = DateCalculService.calculDuree(new Date(), projet.getCahierDesCharges().getDateFin());
+		// Recuperer le dernier livrable
+		// System.out.println("Taille livr liste =
+		// "+projet.getLivrables().size() );
+		if (projet.getLivrables().size() > 0) {
 			livrable = (Livrable) getLastElement(projet.getLivrables());
-		
+
 			avancementProjet = livrable.getPourcentageAvancement();
-			
 
 			Set<Livrable> listes = projet.getLivrables();
 			listeLivrables = new ArrayList<Livrable>(listes);
-		}
-		else
+		} else
 			avancementProjet = 0;
-		// Réinitialiser par une nouvelle instance vide
+		// Rï¿½initialiser par une nouvelle instance vide
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		livrable = (Livrable) context.getBean("livrable");
 		((ConfigurableApplicationContext) context).close();
@@ -304,92 +330,111 @@ public class ProjetControllerKhouloud {
 	 * redirige vers la liste des projets
 	 */
 	public String enregistrerLivrable() {
-		//System.out.println(" id projet " + projet.getId());
-		// Initialiser les paramètres de l'instance projet
+		// System.out.println(" id projet " + projet.getId());
+		// Initialiser les paramï¿½tres de l'instance projet
 		livrable.setProjet(projet);
-		Date d=new Date();
+		Date d = new Date();
 		livrable.setDateLivraison(d);
 		projet.getLivrables().add(livrable);
 
 		// Ajouter un livrable
 		livrableDao.ajouterLivrable(livrable);
-		// Réinitialiser par une nouvelle instance vide
+		// Rï¿½initialiser par une nouvelle instance vide
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		livrable = (Livrable) context.getBean("livrable");
 		((ConfigurableApplicationContext) context).close();
 
 		return "listeProjets.xhtml?faces-redirect=true";
 	}
-	
-	public void validerLivrable(){
+
+	public void validerLivrable() {
 		livrable.setProjet(projet);
 		livrable.setValide(true);
 		// Modifier le livrable
 		livrableDao.modifierLivrable(livrable);
-		// Réinitialiser par une nouvelle instance vide
+		// Rï¿½initialiser par une nouvelle instance vide
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		livrable = (Livrable) context.getBean("livrable");
 		((ConfigurableApplicationContext) context).close();
 	}
-	
-	public void refuserLivrable(){
+
+	public void refuserLivrable() {
 		livrable.setProjet(projet);
 		livrable.setValide(false);
 		// Modifier le livrable
 		livrableDao.modifierLivrable(livrable);
-		// Réinitialiser par une nouvelle instance vide
+		// Rï¿½initialiser par une nouvelle instance vide
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		livrable = (Livrable) context.getBean("livrable");
 		((ConfigurableApplicationContext) context).close();
 	}
-	
-	public void modifierLivrable(){
+
+	public void modifierLivrable() {
 		livrable.setProjet(projet);
 
 		// Modifier le livrable
 		livrableDao.modifierLivrable(livrable);
-		// Réinitialiser par une nouvelle instance vide
+		// Rï¿½initialiser par une nouvelle instance vide
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		livrable = (Livrable) context.getBean("livrable");
 		((ConfigurableApplicationContext) context).close();
 
 	}
-	/** valide le projet*/
-	public void validerProjet(String v){
+
+	/** valide le projet */
+	public void validerProjet(String v) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		/* livrable : */
-		/*livrable.setProjet(projet);
-		livrable.setValide(true);
-		// Modifier le livrable
-		livrableDao.modifierLivrable(livrable);*/
-		// Réinitialiser par une nouvelle instance vide
 		/*
-		livrable = (Livrable) context.getBean("livrable");*/
-		/* Livrables*/
-		for(Livrable item : projet.getLivrables()){
-			if(!item.getValide())
-			{
+		 * livrable.setProjet(projet); livrable.setValide(true); // Modifier le
+		 * livrable livrableDao.modifierLivrable(livrable);
+		 */
+		// Rï¿½initialiser par une nouvelle instance vide
+		/*
+		 * livrable = (Livrable) context.getBean("livrable");
+		 */
+		/* Livrables */
+		for (Livrable item : projet.getLivrables()) {
+			if (!item.getValide()) {
 				item.setProjet(projet);
 				item.setValide(true);
 				livrableDao.modifierLivrable(item);
-				
+
 			}
 		}
 		/* projet : */
 		projet.setStatut(EtatProjet.TERMINE);
 		projetDao.modifierProjet(projet);
 		//
-		
-		/* add projet to projets terminés*/
+
+		/* add projet to projets terminï¿½s */
 		listeProjetsTermines.add(projet);
 		listeProjets.remove(projet);
-		
-		/* avis sur etudiant*/
-		System.out.println("vvvvvvvvvv "+v);
-		if(v.equals("1")) projet.getEtudiant().setAvisPositifs(projet.getEtudiant().getAvisPositifs()+1);
-		else projet.getEtudiant().setAvisNegatifs(projet.getEtudiant().getAvisNegatifs()+1);
-		EtudiantDAO etudiantDao = (EtudiantDAO)context.getBean("etudiantDao");
+
+		/* avis sur etudiant */
+		if (v.equals("1")) {
+			projet.getEtudiant().setAvisPositifs(projet.getEtudiant().getAvisPositifs() + 1);
+			verifierMeriteBadge();
+		} else
+			projet.getEtudiant().setAvisNegatifs(projet.getEtudiant().getAvisNegatifs() + 1);
+
+		EtudiantDAO etudiantDao = (EtudiantDAO) context.getBean("etudiantDao");
 		etudiantDao.modifierEtudiant(projet.getEtudiant());
 		((ConfigurableApplicationContext) context).close();
+	}
+
+	private void verifierMeriteBadge() {
+		// On vÃ©rifie si l'Ã©tudiant a fait un achÃ©vement mÃ©ritant un badge
+		// On rÃ©cupÃ¨re les evenements ayant comme source: Avis positif
+		List<EvenementBadge> evenementBadgesProjet = evenementBadgeDAO.getEvenementsBadgesBySource(SourceEvenement.AVISPOSITIF);
+
+		// VÃ©rifier si le nombre de projet mÃ©rite un badge que l'Ã©tudiant n'a
+		// pas dÃ©jÃ  obtenu
+		for (EvenementBadge evenementBadge : evenementBadgesProjet)
+			if ((evenementBadge.getValeur() <= etudiant.getAvisPositifs())
+					&& (!etudiant.getBadges().contains(evenementBadge.getBadge()))) {
+				etudiant.getBadges().add(evenementBadge.getBadge());
+				etudiantDao.modifierEtudiant(etudiant);
+			}
 	}
 }

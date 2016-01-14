@@ -25,13 +25,25 @@
 							<figure class="illustration">
 								<div>
 									<img
-										src="http://localhost:8080/trast-uploads/badges/#{evenement.badge.icone.titre}.png"
+										src="#{proprietes['racinedownloads']}#{evenement.badge.icone.chemin}/#{evenement.badge.icone.titre}"
 										width="200" height="200" />
 								</div>
 								<figcaption>
 									<h3>#{evenement.badge.intitule}</h3>
+									<h:form>
+										<input type="hidden" name="${_csrf.parameterName}"
+											value="${_csrf.token}" />
+										<h:commandButton
+											action="#{evenementBadgeController.supprimerEvenementBadge}"
+											styleClass="btn btn-link" value="Supprimer">
+											<f:setPropertyActionListener
+												target="#{evenementBadgeController.evenementBadge}"
+												value="#{evenement}" />
+										</h:commandButton>
+									</h:form>
 								</figcaption>
 							</figure>
+
 						</li>
 
 

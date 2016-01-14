@@ -369,16 +369,16 @@ public class TestController implements Serializable {
 			
 		}
 		
-		//Vérifier si le resultat obtenu mérite un badge que l'étudiant n'a pas déjà
+		//Vérifier si le resultat obtenu mérite un badge que l'étudiant n'a pas déjà obtenu
 		for(EvenementBadge evenementBadge : evenementBadgesTest)
-			if((evenementBadge.getValeur() == nombreTestsReussis) && (!etudiant.getBadges().contains(evenementBadge.getBadge())))
+			if((evenementBadge.getValeur() <= nombreTestsReussis) && (!etudiant.getBadges().contains(evenementBadge.getBadge())))
 			{
 				etudiant.getBadges().add(evenementBadge.getBadge());
 				etudiantDao.modifierEtudiant(etudiant);
 			}
 		
 		for(EvenementBadge evenementBadge : evenementBadgesScoreParfait)
-			if((evenementBadge.getValeur() == nombreTestsScoreParfait) && (!etudiant.getBadges().contains(evenementBadge.getBadge())))
+			if((evenementBadge.getValeur() <= nombreTestsScoreParfait) && (!etudiant.getBadges().contains(evenementBadge.getBadge())))
 			{
 				etudiant.getBadges().add(evenementBadge.getBadge());
 				etudiantDao.modifierEtudiant(etudiant);
