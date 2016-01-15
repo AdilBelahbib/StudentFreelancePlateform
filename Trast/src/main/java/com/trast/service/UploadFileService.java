@@ -32,16 +32,26 @@ public class UploadFileService {
 			fichier.setTitre(fichier.getTitre() + "." + extens);
 
 		}
+		 System.out.println("Upload ---- chemin: "+fichier.getChemin()+", titre: "+fichier.getTitre());
+
+		/* créer repertoire si ca n'existe pas*/
+		if((new File(racine+fichier.getChemin())).mkdirs()){
+			
 		try (InputStream input = myFile.getInputStream()) {
-			Files.copy(input, new File(racine+fichier.getChemin(), fichier.getTitre()).toPath());
+			Files.copy(input, (new File(racine+fichier.getChemin(), fichier.getTitre()).toPath()));
 		} catch (IOException e) {
 			System.out.println("exception " + e.toString());
 		}
+		}
+		else System.out.println("failed to create folder");
 
 	}
 
 	public static boolean fileSelected() {
 		return (myFile != null);
+	}
+	public static void definirPart(Part part){
+		UploadFileService.myFile=part;
 	}
 
 	/*****************************************/

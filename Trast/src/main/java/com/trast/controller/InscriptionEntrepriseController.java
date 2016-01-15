@@ -11,8 +11,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.EntrepriseDAO;
+import com.trast.dao.FichierDAO;
 import com.trast.model.Adresse;
 import com.trast.model.Entreprise;
+import com.trast.model.Fichier;
+import com.trast.service.UploadFileService;
 
 @ManagedBean(name = "inscriptionEntrepriseController", eager = true)
 @SessionScoped
@@ -84,6 +87,23 @@ public class InscriptionEntrepriseController implements Serializable {
 		EntrepriseDAO entrepriseDAO = (EntrepriseDAO) context.getBean("entrepriseDao");
 
 		entrepriseDAO.ajouterEntreprise(entreprise);
+		
+		/*** ajout pièce d'identité**/
+		if(UploadFileService.fileSelected()){
+			Fichier fichier = (Fichier)context.getBean("fichier");
+			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+
+			fichier.setChemin("/entreprise/"+entreprise.getId());
+			fichier.setTitre("ficheIdentite");
+			UploadFileService.uploadFichier(fichier);
+			fichierDao.ajouterFichier(fichier);
+			/* associer file a l'entreprise*/
+			entreprise.getFichiers().add(fichier);
+			entrepriseDAO.modifierEntreprise(entreprise);
+		}
+		
+		/******/
+		
 
 		// RÃ©initialiser l'entreprise
 		entreprise = (Entreprise) context.getBean("entreprise");

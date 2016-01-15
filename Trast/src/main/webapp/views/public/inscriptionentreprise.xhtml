@@ -32,7 +32,7 @@ template="../templates/common.xhtml">
 		</div>
 	</div>
 	
-	<h:form>
+	<h:form enctype="multipart/form-data">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
 	<!--ETAPE 1 : Données professionnelles-->
@@ -155,8 +155,10 @@ type="button">Suivant</button>
 			<h3>Step 3: Joindre une pièce d'identité</h3>
 
 			<div class="form-group">
-				<label for="fichierAttache">Joindre un fichier</label> <input
-				type="file" id="fichierAttache" />
+				<label for="fichierAttache">Joindre un fichier</label> 
+
+				<h:inputFile id="fichierAttache" class="form-control" value="#{uploadFileService.myFile}"> 
+      			</h:inputFile>
 			</div>
 
 		<button class="btn btn-primary nextBtn btn-lg pull-right"
