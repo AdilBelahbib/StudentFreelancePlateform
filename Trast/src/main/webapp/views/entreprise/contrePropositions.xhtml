@@ -27,7 +27,15 @@ template="../templates/common.xhtml"
 							<c:forEach items="#{appelOffreController.appelOffre.contrePropositions}" var="item" varStatus="statut">
 							<tr>
 								<td>#{item.enchere} </td>
-								<td><button  data-toggle="modal" data-target="#detailsEtudiant-#{statut.count}" type="button" class="btn btn-default ">#{item.etudiant.nom} #{item.etudiant.prenom}</button> </td>
+								<!-- Visualisation du profil public de l'étudiant -->
+								<td>
+								 <h:commandLink action="#{profilPublicController.getInfosEtudiant}" 
+            value="#{item.etudiant.nom} #{item.etudiant.prenom}">
+          	<f:setPropertyActionListener
+            target="#{profilPublicController.etudiant}"
+            value="#{item.etudiant}" />
+            </h:commandLink>
+								</td>
 								<td><a> download</a> </td>
 								<td>
 									<h:commandButton value="Accepter"  action="#{appelOffreController.affecterAppelOffre}" class="btn btn-default" >
@@ -58,48 +66,5 @@ template="../templates/common.xhtml"
 		</c:otherwise>
 	</c:choose>
 	</ui:define>
-	
-<!-- modals -->
-<c:forEach items="#{appelOffreController.appelOffre.contrePropositions}" var="item" varStatus="statut">
-<div class="modal fade" id="detailsEtudiant-#{statut.count}" tabindex="-1"
-role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-<div class="modal-dialog">
-	<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">
-				<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-			</button>
-			<h3 class="modal-title" id="lineModalLabel">Details Etudiant</h3>
-		</div>
-	<div class="modal-body">
 
-				<!-- content goes here -->
-		<div class="row">
-				<div class="form-group">
-					<label >Nom :</label>
-					<h:outputText  value="#{item.etudiant.nom}" />
-				</div>
-		</div>
-		<div class="row">
-				<div class="form-group">
-					<label >Prenom :</label>
-					<h:outputText  value="#{item.etudiant.prenom}" />
-				</div>
-		</div>
-		<div class="row">
-			<label>Les competences :</label>
-			<c:forEach items="#{item.etudiant.competences}" var="comp" varStatus="statut">
-				<li>#{comp.intitule}</li>
-			</c:forEach>		
-		</div>
-	<div class="btn-group" role="group">
-		<button type="button" class="btn btn-default"
-		data-dismiss="modal" role="button">Fermer</button>
-	</div>
-</div>
-</div>
-</div>
-</div>
-
-</c:forEach>
 </ui:composition>

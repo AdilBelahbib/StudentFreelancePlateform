@@ -445,7 +445,8 @@ public class AppelOffreController implements Serializable {
 		((ConfigurableApplicationContext) context).close();
 		appelOffres.remove(appelOffre);
 
-		return "afficherEncours";
+		//return "afficherEncours";
+		return "/views/entreprise/afficherAppelsOffreEnCours.xhtml?faces-redirect=true";
 
 	}
 
@@ -471,7 +472,8 @@ public class AppelOffreController implements Serializable {
 		/* recuperer les appels d'offre archive */
 		appelOffres.remove(appelOffre);
 
-		return "afficherEncours";
+		//return "afficherEncours";
+		return "/views/entreprise/afficherAppelsOffreEnCours.xhtml?faces-redirect=true";
 
 	}
 
@@ -591,11 +593,12 @@ public class AppelOffreController implements Serializable {
 			} else
 				this.experiencesAppelOffre.add((Experience) qualification);
 		}
-		return "detailsAppelOffre";
+		return "detailsAppelOffre.xhtml?faces-redirect=true";
 	}
 
 	public String contrePropositions() {
-		return "contrePropositions";
+	
+		return "/views/entreprise/contrePropositions.xhtml?faces-redirect=true";
 	}
 
 	/***

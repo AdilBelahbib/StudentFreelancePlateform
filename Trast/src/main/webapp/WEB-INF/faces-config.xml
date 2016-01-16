@@ -37,51 +37,10 @@
         </navigation-case>      
        </navigation-rule>
        
-       	<!--navigation­rule for etudiant -->
-       <navigation-rule>
-         
-           <!-- navigation­case for method profil() -->
-           <navigation-case>
-               <from-action>#{etudiantController.profileEtudiant}</from-action>
-               <from-outcome>profil</from-outcome>
-               <to-view-id>/views/etudiant/profil.xhtml</to-view-id>
-           </navigation-case>
-        
-       </navigation-rule>
        
        
-       <!--navigation­rule for appelOffre -->
-       <navigation-rule>
-         
-           <!-- navigation­case for method listerAppelOffre() -->
-           <navigation-case>
-               <from-action>#{appelOffreController.listerAppelOffres}</from-action>
-               <from-outcome>listeAppelOffres</from-outcome>
-               <to-view-id>/views/etudiant/listeAppelOffres.xhtml?faces-redirect=true</to-view-id>
-           </navigation-case>
-           
-           <!-- navigation­case for method details() -->
-           <navigation-case>
-               <from-action>#{appelOffreController.detailsAppelOffre}</from-action>
-               <from-outcome>detailsAppelOffres</from-outcome>
-               <to-view-id>/views/etudiant/detailAppelOffre.xhtml?faces-redirect=true</to-view-id>
-           </navigation-case>
-           
-           <!-- navigation­case for method nouvelleContreProposition() -->
-           <navigation-case>
-               <from-action>#{appelOffreController.nouvelleContreProposition}</from-action>
-               <from-outcome>ajoutContreProposition</from-outcome>
-               <to-view-id>/views/etudiant/ajoutContreProposition.xhtml?faces-redirect=true</to-view-id>
-           </navigation-case>
-        
-			<!-- navigation­case for method enregistrerContreProp() -->
-           <navigation-case>
-               <from-action>#{appelOffreController.enregistrerContreProposition}</from-action>
-               <from-outcome>listeAppelOffre</from-outcome>
-               <to-view-id>/views/etudiant/listeAppelOffres.xhtml?faces-redirect=true</to-view-id>
-           </navigation-case>        	
-        
-       </navigation-rule>
+       
+   
        
        <!--navigation­rule for entreprise -->
        <navigation-rule>
@@ -109,25 +68,14 @@
                <from-outcome>afficherArchives</from-outcome>
                <to-view-id>/views/entreprise/afficherAppelsOffreArchives.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
-           <navigation-case>
-               <from-action>#{appelOffreController.afficherAppelsOffreEnCours}</from-action>
-               <from-outcome>afficherEncours</from-outcome>
-               <to-view-id>/views/entreprise/afficherAppelsOffreEnCours.xhtml?faces-redirect=true</to-view-id>
-           </navigation-case>
+         
            <navigation-case>
                <from-action>#{appelOffreController.relancerAppelOffre}</from-action>
                <from-outcome>afficherArchives</from-outcome>
                <to-view-id>/views/entreprise/afficherAppelsOffreArchives.xhtml?faces-redirect=true</to-view-id>
            </navigation-case>
-           <navigation-case>
-               <from-action>#{appelOffreController.affecterAppelOffre}</from-action>
-               <from-outcome>afficherEncours</from-outcome>
-               <to-view-id>/views/entreprise/afficherAppelsOffreEnCours.xhtml?faces-redirect=true</to-view-id>
-           </navigation-case>
-            <navigation-case>
-               <from-action>#{appelOffreController.refuserContreProposition}</from-action>
-               <from-outcome>afficherEncours</from-outcome>
-               <to-view-id>/views/entreprise/afficherAppelsOffreEnCours.xhtml?faces-redirect=true</to-view-id>
-           </navigation-case>
+         
+          
        </navigation-rule>
+      
 </faces-config>

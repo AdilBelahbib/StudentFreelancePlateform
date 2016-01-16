@@ -247,7 +247,7 @@ public class EtudiantController implements Serializable {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		experience = (Experience) context.getBean("experience");
 		((ConfigurableApplicationContext) context).close();
-		return "/views/etudiant/profil.xhtml";
+		return "/views/etudiant/profil.xhtml?faces-redirect=true";
 	}
 
 	// La méthode appelée quand l'étudiant retire une experience

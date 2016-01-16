@@ -8,8 +8,19 @@
 	<ui:define name="content">
 
 		<div>
-
-
+			<h:form>
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<div class="form-group">
+            <h:commandLink action="#{profilPublicController.getInfosEntreprise}" 
+            value="#{appelOffreController.appelOffre.entreprise.sigle}">
+          	<f:setPropertyActionListener
+            target="#{profilPublicController.entreprise}"
+            value="#{appelOffreController.appelOffre.entreprise}" />
+            </h:commandLink>
+           
+          </div>
+           </h:form>
 			<section class="bg-default" id="appelOffres">
 				<div class="container">
 					<div class="row">

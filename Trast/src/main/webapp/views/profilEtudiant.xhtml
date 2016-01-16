@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+template="templates/common.xhtml">
+<ui:define name="content">
+<div class="container">
+	<!-- Informations personnelles de l'étudiant -->
+	<div class="row" style="border:1px solid #ddd;">
+		<div class="col-md-3">
+	      <div class="text-center">
+	        <img src="" class="avatar img-circle" alt="avatar"/>  
+	      </div>
+	    </div>
+	    
+	    <div class="col-md-9 personal-info">
+	        <div class="form-group">
+	          <b>
+	          	<h:outputText value="#{profilPublicController.etudiant.nom} #{profilPublicController.etudiant.prenom}" />
+	          </b>
+	          <br/>
+	          <h:outputText value="Etudiant(e) Ingénieur (Faculté
+	          	des sciences et techniques Mohammedia) ILIS"/>
+	          <br/>
+	          <c:forEach items="#{profilPublicController.etudiant.adresses}" var="adresse" varStatus="statut">
+	          <h:outputText value="#{adresse.pays} | #{adresse.ville}"/>
+	          </c:forEach>
+	        </div>   
+    	</div>
+	</div>	
+	<div  class="row" style="border:1px solid #ddd;">
+		<button type="button" class="btn btn-default"
+			 aria-label="Left Align">Coordonnées
+  			<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+		</button>
+	</div>
+	<!-- End of Informations personnelles de l'étudiant -->
+	
+	<!-- Parcours professionnel -->
+	<div class="row" style="border:1px solid #ddd;">
+		<h3>Expériences </h3>
+		<c:forEach items="#{profilPublicController.etudiant.qualifications}" var="experience" varStatus="statut">
+	    <c:if test="${experience['class'].simpleName == 'Experience'}">
+	    <h:outputText value="#{experience.dateDebut}">
+		<f:convertDateTime pattern="dd/MM/yyyy" />
+		 </h:outputText>
+		 =>
+		<h:outputText value="#{experience.dateFin}">
+		<f:convertDateTime pattern="dd/MM/yyyy" />
+		</h:outputText>
+		<br/>
+	    #{experience.sujet}
+	    <br/>
+	    #{experience.structureAccueil}
+	    <br/>
+	    
+		<br/>
+	    </c:if>
+	    </c:forEach>        
+	</div>
+	<!-- End of Parcours professionnel -->
+	<hr></hr>
+	<!-- Parcours fondamental -->
+	<div class="row" style="border:1px solid #ddd;">
+		<h3>Formations </h3>
+		<c:forEach items="#{profilPublicController.etudiant.qualifications}" var="experience" varStatus="statut">
+	    <c:if test="${experience['class'].simpleName == 'Formation'}">
+	      <h:outputText value="#{formation.dateDebut}">
+              <f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+            =>
+            <h:outputText value="#{formation.dateFin}">
+            <f:convertDateTime pattern="dd/MM/yyyy" />
+          </h:outputText>
+          <br/>
+          #{formation.intituleFormation}
+          <br/>
+          #{formation.etablissement}
+          <br/>
+          
+          <br/>
+	    </c:if>
+	    </c:forEach>
+	</div>
+	<!-- End of Parcours foncdamental -->
+	<hr></hr>
+	<!-- Projets réalisés -->
+	<div class="row" style="border:1px solid #ddd;">
+		<h3>Projets </h3>
+		<c:forEach items="#{profilPublicController.etudiant.projets}" var="projet" varStatus="statut">
+	    <h:outputText value="#{projet.cahierDesCharges.dateDebut}">
+              <f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+            =>
+            <h:outputText value="#{projet.cahierDesCharges.dateFin}">
+            <f:convertDateTime pattern="dd/MM/yyyy" />
+          </h:outputText>
+         <br/>
+	    #{projet.cahierDesCharges.sujet}
+	    <br/>
+	    <br/>
+	    </c:forEach>
+	</div>
+	<!-- End of projets réalisés-->
+	<hr></hr>
+	<!-- Badges -->
+	<div class="row" style="border:1px solid #ddd;">
+		<h3>Badges </h3>
+		<div class="container demo-3" >
+		<ul class="grid cs-style-6" >
+		<c:forEach items="#{profilPublicController.etudiant.badges}" var="badge" varStatus="statut">
+		
+			<figure class="illustration">
+			 <div>
+			 <img src="#{proprietes['racinedownloads']}/#{badge.icone.chemin}/#{badge.icone.titre}" width="200" height="200"/>
+			 </div> 
+			<figcaption>
+				<h3>#{badge.intitule}</h3>
+			</figcaption>
+		</figure> 
+		
+		</c:forEach>
+		</ul>
+		</div>
+	</div>
+	<!-- End of badges-->
+</div>
+</ui:define>
+</ui:composition>
