@@ -1,12 +1,8 @@
 package com.trast.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -18,13 +14,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.EtudiantDAO;
-import com.trast.dao.FichierDAO;
 import com.trast.model.Adresse;
 import com.trast.model.Etudiant;
 import com.trast.model.Experience;
-import com.trast.model.Fichier;
 import com.trast.model.Formation;
-import com.trast.service.UploadFileService;
+import com.trast.service.Security;
 
 @ManagedBean(name = "inscriptionEtudiantController", eager = true)
 @SessionScoped
@@ -187,6 +181,9 @@ public class InscriptionEtudiantController implements Serializable {
 		//Récupérer le DAO de l'étudiant et l'insérer dans la bdd
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		EtudiantDAO etudiantDAO = (EtudiantDAO) context.getBean("etudiantDao");
+		
+		//Hacher le mot de passe de l'étudiant
+		etudiant.setMotDePasse(Security.get_SHA_1_SecurePassword(etudiant.getMotDePasse()));
 		
 		etudiantDAO.ajouterEtudiant(etudiant);
 		

@@ -22,6 +22,7 @@ import com.trast.model.Etudiant;
 import com.trast.model.Experience;
 import com.trast.model.Formation;
 import com.trast.model.Niveau;
+import com.trast.service.Security;
 
 @ManagedBean(name = "etudiantController", eager = true)
 @SessionScoped
@@ -269,7 +270,7 @@ public class EtudiantController implements Serializable {
 	{
 		if(motDePasse != null)
 			if(!motDePasse.equals(""))
-				etudiant.setMotDePasse(motDePasse);
+				etudiant.setMotDePasse(Security.get_SHA_1_SecurePassword(motDePasse));
 		
 		etudiantDao.modifierEtudiant(etudiant);
 	}

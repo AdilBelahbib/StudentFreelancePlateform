@@ -17,7 +17,7 @@
 	
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider user-service-ref="utilisateurDetailsService">
-			<password-encoder hash="plaintext"></password-encoder>
+			<password-encoder hash="sha"></password-encoder>
 		</authentication-provider>
 	</authentication-manager>
 	

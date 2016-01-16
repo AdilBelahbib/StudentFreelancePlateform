@@ -17,6 +17,7 @@ import com.trast.dao.AdresseDAO;
 import com.trast.dao.EntrepriseDAO;
 import com.trast.model.Adresse;
 import com.trast.model.Entreprise;
+import com.trast.service.Security;
 
 @ManagedBean(name = "entrepriseController", eager = true)
 @SessionScoped
@@ -98,8 +99,6 @@ public class EntrepriseController implements Serializable {
 
 	public void setSecteur(String secteur) {
 		this.secteur = secteur;
-		entreprise.getSecteurActivites().add(secteur);
-		secteur="";
 	}
 
 	// La méthode appelée quand l'entreprise ajoute une adresse à sa liste
@@ -150,8 +149,8 @@ public class EntrepriseController implements Serializable {
 	{
 		if(motDePasse != null)
 			if(!motDePasse.equals(""))
-				entreprise.setMotDePasse(motDePasse);
-		
+				entreprise.setMotDePasse(Security.get_SHA_1_SecurePassword(motDePasse));
+
 		entrepriseDao.modifierEntreprise(entreprise);
 	}
 

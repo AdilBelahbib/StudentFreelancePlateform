@@ -15,6 +15,7 @@ import com.trast.dao.FichierDAO;
 import com.trast.model.Adresse;
 import com.trast.model.Entreprise;
 import com.trast.model.Fichier;
+import com.trast.service.Security;
 import com.trast.service.UploadFileService;
 
 @ManagedBean(name = "inscriptionEntrepriseController", eager = true)
@@ -85,10 +86,13 @@ public class InscriptionEntrepriseController implements Serializable {
 		// Récupérer le DAO de l'entreprise et l'insérer dans la bdd
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		EntrepriseDAO entrepriseDAO = (EntrepriseDAO) context.getBean("entrepriseDao");
-
+		
+		//Hacher le mot de passe de l'étudiant
+		entreprise.setMotDePasse(Security.get_SHA_1_SecurePassword(entreprise.getMotDePasse()));
+		
 		entrepriseDAO.ajouterEntreprise(entreprise);
 		
-		/*** ajout pi�ce d'identit�**/
+		/*** ajout pi�ce d'identit�**/
 		if(UploadFileService.fileSelected()){
 			Fichier fichier = (Fichier)context.getBean("fichier");
 			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
