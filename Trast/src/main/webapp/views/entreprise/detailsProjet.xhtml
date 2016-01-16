@@ -117,7 +117,10 @@
 										<f:convertDateTime pattern="dd/MM/yyyy" />
 									</h:outputText></td>
 								<td>#{item.pourcentageAvancement}%</td>
-								<td><a href="#">Télécharger le fichier joint</a></td>
+								<td>
+								<h:outputLink value="#{proprietes['racinedownloads']}/#{item.fichier.chemin}/#{item.fichier.titre}">Télécharger le fichier joint
+								</h:outputLink>
+								<a href="#"></a></td>
 								<td>
 
 									<button data-toggle="modal"

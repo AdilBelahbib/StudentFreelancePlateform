@@ -25,6 +25,7 @@ import com.trast.dao.EntrepriseDAO;
 import com.trast.dao.EtudiantDAO;
 import com.trast.dao.EvenementBadgeDAO;
 import com.trast.dao.ExperienceDAO;
+import com.trast.dao.FichierDAO;
 import com.trast.dao.FormationDAO;
 import com.trast.dao.ProjetDAO;
 import com.trast.dao.RemunerationDAO;
@@ -45,6 +46,7 @@ import com.trast.model.Qualification;
 import com.trast.model.Remuneration;
 import com.trast.model.SourceEvenement;
 import com.trast.model.Utilisateur;
+import com.trast.service.UploadFileService;
 
 @ManagedBean(name = "appelOffreController", eager = true)
 @SessionScoped
@@ -544,6 +546,20 @@ public class AppelOffreController implements Serializable {
 			appelOffre.setStatut(EtatAppelOffre.ENCOURS);
 			appelDao.ajouterAppelOffre(appelOffre);
 			cahierDao.ajouterCahierDesCharges(cahierDesCharges);
+			/***** ajouter fichier cahier des charges****/
+			
+			if(UploadFileService.fileSelected()){
+				Fichier fichier = (Fichier)context.getBean("fichier");
+				FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+				fichier.setChemin("/entreprise/"+entreprise.getId());
+				fichier.setTitre(cahierDesCharges.getSujet()+cahierDesCharges.getId());
+				UploadFileService.uploadFichier(fichier);
+				fichierDao.ajouterFichier(fichier);
+				cahierDesCharges.getFichiers().add(fichier);
+			}
+			
+			/*************/
+			cahierDao.modifierCahierDesCharges(cahierDesCharges);
 			entrepriseDao.modifierEntreprise(entreprise);
 			// cahierDesCharges = null;
 

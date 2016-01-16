@@ -16,9 +16,15 @@ template="../templates/common.xhtml">
     <div class="col-md-3">
       <div class="text-center">
         <img src="" class="avatar img-circle" alt="avatar"/>
+        <h:form enctype="multipart/form-data">
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        
         <h6>Modifier votre photo de profil</h6>
         
-        <h:inputFile class="form-control"/>
+        <h:inputFile id="fichierAvatar" class="form-control" value="#{uploadFileService.myFile}"> 
+		</h:inputFile>
+		<h:commandButton action="#{entrepriseController.modifierAvatar()}" value="Modifier avatar" />
+		</h:form>
       </div>
     </div>
     
