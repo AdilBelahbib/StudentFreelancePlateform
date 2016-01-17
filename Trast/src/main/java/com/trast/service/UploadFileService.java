@@ -1,13 +1,21 @@
 package com.trast.service;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.trast.dao.FichierDAO;
@@ -22,6 +30,12 @@ public class UploadFileService {
 
 	@ManagedProperty(value = "#{proprietes['racineuploads']}")
 	static String racine;
+	
+	@ManagedProperty(value = "#{fileToDownload}")
+	static String fileToDownload;
+
+	
+
 
 	/*****************************************/
 	public static void uploadFichier(Fichier fichier) {
@@ -35,17 +49,44 @@ public class UploadFileService {
 		 System.out.println("Upload ---- chemin: "+fichier.getChemin()+", titre: "+fichier.getTitre());
 
 		/* créer repertoire si ca n'existe pas*/
-		if((new File(racine+fichier.getChemin())).mkdirs()){
+		 File rep = new File(racine+fichier.getChemin());
+		 if(!rep.exists()) rep.mkdirs();
 			
 		try (InputStream input = myFile.getInputStream()) {
 			Files.copy(input, (new File(racine+fichier.getChemin(), fichier.getTitre()).toPath()));
 		} catch (IOException e) {
 			System.out.println("exception " + e.toString());
 		}
-		}
-		else System.out.println("failed to create folder");
 
 	}
+
+	
+
+	/*********************************************/
+	/*cette fonction permet à l'utilisateur de télécharger le fichier : fileToDownload*/
+	public void downloadFile() {
+	    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+	    
+		try{  
+			File fichier = new File(fileToDownload);
+		     System.out.println("mime: "+ec.getMimeType(fichier.getName())+" ,name: "+fichier.getName());
+			
+			 
+		     HttpServletResponse response =(HttpServletResponse) ec.getResponse();
+		     response.setContentType(ec.getMimeType(fichier.getName()));
+		     response.setHeader("Content-Disposition", "attachment;filename="+fichier.getName());
+		     response.setContentLength((int)fichier.length());
+		     
+		     OutputStream output = response.getOutputStream();
+		     Files.copy(fichier.toPath(), output);
+		     FacesContext.getCurrentInstance().responseComplete();
+		}
+		catch(IOException e){
+			System.out.println("exception: "+e.toString());
+		}
+         
+}
+
 
 	public static boolean fileSelected() {
 		return (myFile != null);
@@ -72,4 +113,14 @@ public class UploadFileService {
 		UploadFileService.racine = racine;
 	}
 	
+	public String getFileToDownload() {
+		return fileToDownload;
+	}
+
+
+
+	public  void setFileToDownload(String fileToDownload) {
+		UploadFileService.fileToDownload = fileToDownload;
+	}
+
 }

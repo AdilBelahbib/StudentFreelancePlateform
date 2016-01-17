@@ -5,6 +5,9 @@ xmlns:f="http://java.sun.com/jsf/core"
 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml">
         <ui:define name="content">
+    <c:choose>
+<c:when test="${entrepriseController.entreprise.etatCompte == 'ACTIVE'}">
+    
         <f:metadata>
 			<f:viewAction action="#{appelOffreController.afficherAppelsOffreEnCours}" />
 		</f:metadata>
@@ -189,7 +192,11 @@ template="../templates/common.xhtml">
          </div>
       </div>
 </ui:repeat>
-
+</c:when>
+<c:otherwise>
+<div> votre compte n'est pas encore active!!!</div>
+</c:otherwise>
+</c:choose>
         </ui:define> 
          
      <ui:define name="footer">

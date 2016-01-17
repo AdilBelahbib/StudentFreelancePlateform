@@ -6,7 +6,10 @@ xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml">
-        <ui:define name="content">		
+        <ui:define name="content">	
+  <c:choose>
+<c:when test="${entrepriseController.entreprise.etatCompte == 'ACTIVE'}">
+  	
           <f:metadata>
 			<f:viewAction action="#{appelOffreController.afficherAppelsOffreArchives}" />
 		</f:metadata>	
@@ -44,6 +47,12 @@ template="../templates/common.xhtml">
 			  Vous n'avez aucun appel d'offre archivé!
 			  </c:otherwise>
 			  </c:choose>
+	
+	</c:when>
+<c:otherwise>
+<div> votre compte n'est pas encore active!!!</div>
+</c:otherwise>
+	</c:choose>
         </ui:define> 
          
          

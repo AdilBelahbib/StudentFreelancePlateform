@@ -6,6 +6,9 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml">
 	<ui:define name="content">
+<c:choose>
+<c:when test="${entrepriseController.entreprise.etatCompte == 'ACTIVE'}">
+
 <div class="container">
 	<h:form>
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -157,5 +160,10 @@ template="../templates/common.xhtml">
 </div>
 </div>
 <!-- /MODAL: Ajout reponse fausse-->
+</c:when>
+<c:otherwise>
+<div> votre compte n'est pas encore active!!!</div>
+</c:otherwise>
+</c:choose>
 </ui:define>
 </ui:composition>

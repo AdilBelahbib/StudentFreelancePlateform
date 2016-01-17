@@ -7,6 +7,9 @@ xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml">
 
 <ui:define name="content">
+<c:choose>
+<c:when test="${entrepriseController.entreprise.etatCompte == 'ACTIVE'}">
+
 <div class="container">
   
   <h1>Profil</h1>
@@ -285,7 +288,11 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 </div>
 
 <!-- /MODAL: Ajout secteur d'activités-->
-
+</c:when>
+<c:otherwise>
+<div> votre compte n'est pas encore active!!!</div>
+</c:otherwise>
+</c:choose>
 </ui:define> 
 
 <ui:define name="footer">

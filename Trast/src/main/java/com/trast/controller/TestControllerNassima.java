@@ -52,16 +52,10 @@ public class TestControllerNassima implements Serializable{
 	List<Test> tests;
 	@ManagedProperty(value = "#{badge}")
 	Badge badge;
-	@ManagedProperty(value = "#{proprietes['racineuploads']}")
-	String chemin;
+	
 	
 	/************ getters & setters ***************/
-	public String getChemin() {
-		return chemin;
-	}
-	public void setChemin(String chemin) {
-		this.chemin = chemin;
-	}
+
 	public Badge getBadge() {
 		return badge;
 	}
@@ -212,9 +206,11 @@ public class TestControllerNassima implements Serializable{
 		FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
 
 		/* intitule badge*/
-		badge.setIntitule("Test "+test.getTitre());
+		badge.setIntitule("badge_"+test.getTitre());
 		/** chemin ????**/
-		fichier.setChemin(chemin);
+		if(utilisateur instanceof Entreprise)
+			fichier.setChemin("/entreprise/"+utilisateur.getId());
+		else fichier.setChemin("/admin/"+utilisateur.getId());
 		fichier.setTitre(badge.getIntitule()+utilisateur.getId());
 		UploadFileService.uploadFichier(fichier);
 		

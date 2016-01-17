@@ -7,6 +7,9 @@ xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml"
                 xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="content">
+<c:choose>
+<c:when test="${entrepriseController.entreprise.etatCompte == 'ACTIVE'}">
+
 	<c:choose>
 	<c:when test="#{not empty appelOffreController.appelOffre.contrePropositions}">
 		<div class="row">
@@ -36,7 +39,20 @@ template="../templates/common.xhtml"
             value="#{item.etudiant}" />
             </h:commandLink>
 								</td>
-								<td><a> download</a> </td>
+								<td>
+								<c:choose>
+								<c:when test="#{ not empty item.fichier}">
+								  <h:commandLink action="#{uploadFileService.downloadFile()}">Télécharger le fichier joint
+									<f:setPropertyActionListener
+									   target="#{uploadFileService.fileToDownload}"
+										value="#{proprietes['racineuploads']}#{item.fichier.chemin}/#{item.fichier.titre}" />
+								  </h:commandLink>
+								</c:when>
+								<c:otherwise>
+									Pas de pièce jointe
+								</c:otherwise>
+								</c:choose>
+								</td>
 								<td>
 									<h:commandButton value="Accepter"  action="#{appelOffreController.affecterAppelOffre}" class="btn btn-default" >
 			            
@@ -65,6 +81,11 @@ template="../templates/common.xhtml"
 		Il n'y a aucune contre-proposition pour cet appel d'offre!
 		</c:otherwise>
 	</c:choose>
+</c:when>
+<c:otherwise>
+<div> votre compte n'est pas encore active!!!</div>
+</c:otherwise>
+</c:choose>
 	</ui:define>
 
 </ui:composition>

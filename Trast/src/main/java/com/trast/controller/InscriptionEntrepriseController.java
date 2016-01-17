@@ -32,6 +32,18 @@ public class InscriptionEntrepriseController implements Serializable {
 	// Utilisée pour récupérer le secteur d'activités saisi
 	private String secteurActivites;
 
+	// valeur du titre de fichier identite de l'entrprise
+	@ManagedProperty(value = "#{proprietes['entrepriseIdentiteFile']}")
+	String titreFichierIdentite;
+	
+	public String getTitreFichierIdentite() {
+		return titreFichierIdentite;
+	}
+
+	public void setTitreFichierIdentite(String titreFichierIdentite) {
+		this.titreFichierIdentite = titreFichierIdentite;
+	}
+
 	public Entreprise getEntreprise() {
 		return entreprise;
 	}
@@ -98,7 +110,7 @@ public class InscriptionEntrepriseController implements Serializable {
 			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
 
 			fichier.setChemin("/entreprise/"+entreprise.getId());
-			fichier.setTitre("ficheIdentite");
+			fichier.setTitre(titreFichierIdentite);
 			UploadFileService.uploadFichier(fichier);
 			fichierDao.ajouterFichier(fichier);
 			/* associer file a l'entreprise*/

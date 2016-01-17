@@ -6,7 +6,9 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml">
 	<ui:define name="content">
-	
+<c:choose>
+<c:when test="${entrepriseController.entreprise.etatCompte == 'ACTIVE'}">
+
 		<div class="container">
 	<div class="stepwizard">
 		<div class="stepwizard-row setup-panel">
@@ -434,6 +436,11 @@ template="../templates/common.xhtml">
 	</div>
 </div>
 </div>
+</c:when>
+<c:otherwise>
+<div> votre compte n'est pas encore active!!!</div>
+</c:otherwise>
+</c:choose>
 <!-- /MODAL: Ajout experience-->
 	</ui:define>	
 </ui:composition>

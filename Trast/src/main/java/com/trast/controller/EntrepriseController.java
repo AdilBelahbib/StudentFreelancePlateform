@@ -15,9 +15,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.AdresseDAO;
 import com.trast.dao.EntrepriseDAO;
+import com.trast.dao.FichierDAO;
 import com.trast.model.Adresse;
 import com.trast.model.Entreprise;
+import com.trast.model.Fichier;
 import com.trast.service.Security;
+import com.trast.service.UploadFileService;
 
 @ManagedBean(name = "entrepriseController", eager = true)
 @SessionScoped
@@ -37,10 +40,7 @@ public class EntrepriseController implements Serializable {
 	@ManagedProperty(value = "#{adresseDao}")
 	private AdresseDAO adresseDao;
 	
-	//Attribut Fait par Nassima
-	/* pour l'ajout d'un secteur lors de la modifcation du profil*/
-	@ManagedProperty(value = "#{secteur}")
-	private String secteur;
+	
 
 	private String secteurActivites;
 	private String motDePasse;
@@ -93,13 +93,7 @@ public class EntrepriseController implements Serializable {
 		this.motDePasse = motDePasse;
 	}
 	
-	public String getSecteur() {
-		return secteur;
-	}
-
-	public void setSecteur(String secteur) {
-		this.secteur = secteur;
-	}
+	
 
 	// La mÃ©thode appelÃ©e quand l'entreprise ajoute une adresse Ã  sa liste
 	public void ajouterAdresse() {
@@ -171,7 +165,6 @@ public class EntrepriseController implements Serializable {
 		System.out.println("********req "+requete);
 		if(requete.equals("get")) return "modifierProfil";
 		else{
-			secteur="";
 			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 			EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 			entrepriseDao.modifierEntreprise(entreprise);
@@ -193,5 +186,34 @@ public class EntrepriseController implements Serializable {
 			((ConfigurableApplicationContext)context).close();
 			return "profil";
 		}
+	}
+	
+
+	/***********************************************/
+	
+	/* modifier avatar de l'entreprise*/
+	
+	/*************************************************/
+	public void modifierAvatar(){
+		// Si un fichier est sélectionné:
+		if(UploadFileService.fileSelected()){
+			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+			EntrepriseDAO entrepriseDAO = (EntrepriseDAO) context.getBean("entrepriseDao");
+			Fichier fichier = (Fichier)context.getBean("fichier");
+			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+			/* avatar a pour nom avatar*/
+			fichier.setChemin("/entreprise/"+entreprise.getId());
+			fichier.setTitre("avatar");
+			UploadFileService.uploadFichier(fichier);
+			fichierDao.ajouterFichier(fichier);
+			
+			/* attribut avatar non implementé ***/
+			/****************/
+			/* associer file a l'entreprise*/
+			entreprise.getFichiers().add(fichier);
+			entrepriseDAO.modifierEntreprise(entreprise);
+			((ConfigurableApplicationContext) context).close();
+		}
+		
 	}
 }

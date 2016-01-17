@@ -4,6 +4,8 @@ xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
 template="../templates/common.xhtml">
         <ui:define name="content">
+<c:choose>
+<c:when test="${entrepriseController.entreprise.etatCompte == 'ACTIVE'}">
         <div>
         <button data-toggle="modal" data-target="#ajoutAppelOffre" type="button" class="btn btn-primary" >
         Ajouter un appel d'offre
@@ -168,6 +170,12 @@ template="../templates/common.xhtml">
          </div>
       </div>
 </ui:repeat>
+</c:when>
+<c:otherwise>
+
+<div> votre compte n'est pas encore active!!!</div>
+</c:otherwise>
+</c:choose>
         </ui:define> 
          
      <ui:define name="footer">

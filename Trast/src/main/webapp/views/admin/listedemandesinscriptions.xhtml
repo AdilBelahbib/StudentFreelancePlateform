@@ -3,6 +3,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="../templates/common.xhtml">
 	<ui:define name="content">
 
@@ -44,7 +45,7 @@
 								<div class="modal-body">
 
 									<!-- content goes here -->
-									<form>
+									<h:form>
 
 										<div class="form-group">
 											<label>SIGLE: <h:outputText
@@ -64,7 +65,16 @@
 											</ul>
 										</div>
 										<div class="form-group">
-											<a href="#">Télécharger le fichier joint</a>
+										<c:forEach items="#{entreprise.fichiers}" var="itemFichier" varStatus="statut">
+										<c:if test="${fn:startsWith(itemFichier.titre, proprietes['entrepriseIdentiteFile'])}">
+										<h:commandLink action="#{uploadFileService.downloadFile()}">Télécharger le fichier joint
+									<f:setPropertyActionListener
+									   target="#{uploadFileService.fileToDownload}"
+										value="#{proprietes['racineuploads']}#{itemFichier.chemin}/#{itemFichier.titre}" />
+									<!--  le fichier joint de l'inscription ???????? -->
+								</h:commandLink>
+								</c:if>
+								</c:forEach>
 										</div>
 										
 										<div class="form-group">
@@ -93,7 +103,7 @@
 												</h:commandButton>
 												</h:form>
 										</div>
-									</form>
+									</h:form>
 
 								</div>
 								<div class="modal-footer">

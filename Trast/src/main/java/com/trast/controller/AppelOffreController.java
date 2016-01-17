@@ -571,7 +571,7 @@ public class AppelOffreController implements Serializable {
 			/* initialiser pour ajout apppel offre */
 			formationsAppelOffre = new ArrayList<Formation>();
 			experiencesAppelOffre = new ArrayList<Experience>();
-			return "ajouterRemunerations";
+			return "ajouterRemunerations.xhtml?faces-redirect=true";
 		} else {
 			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 			FormationDAO formationDao = (FormationDAO) context.getBean("formationDao");
@@ -591,7 +591,7 @@ public class AppelOffreController implements Serializable {
 			appelOffreDao.modifierAppelOffre(appelOffre);
 			((ConfigurableApplicationContext) context).close();
 			appelOffres.add(appelOffre);
-			return "afficherAppelsOffre";
+			return "afficherAppelsOffreEnCours.xhtml?faces-redirect=true";
 		}
 	}
 

@@ -6,6 +6,8 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 template="../templates/common.xhtml">
 	<ui:define name="content">
+<c:choose>
+<c:when test="${entrepriseController.entreprise.etatCompte == 'ACTIVE'}">
 
 		<div class="container">
   <div class="row">
@@ -85,7 +87,7 @@ template="../templates/common.xhtml">
         </div>
         <div class="row">
          <div class="col-sm-1 col-md-1">
-          <h:graphicImage value="#{testControllerNassima.test.badge.icone.chemin}/#{testControllerNassima.test.badge.icone.titre}" width="100" height="100"/> 
+          <h:graphicImage value="#{proprietes['racinedownloads']}#{testControllerNassima.test.badge.icone.chemin}/#{testControllerNassima.test.badge.icone.titre}" width="100" height="100"/> 
         </div>
         </div>
 	</c:if>
@@ -93,5 +95,11 @@ template="../templates/common.xhtml">
   </div>
   </div>
 		</div>
+</c:when>
+<c:otherwise>
+<div> votre compte n'est pas encore active!!!</div>
+</c:otherwise>
+</c:choose>
 	</ui:define>
+
 </ui:composition>

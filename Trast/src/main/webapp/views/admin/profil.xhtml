@@ -18,8 +18,12 @@
 					<div class="text-center">
 						<img src="" class="avatar img-circle" alt="avatar" />
 						<h6>Modifier votre photo de profil</h6>
-
-						<h:inputFile class="form-control" />
+      <h:form enctype="multipart/form-data">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <h:inputFile id="fichierAvatar" class="form-control" value="#{uploadFileService.myFile}"> 
+		</h:inputFile>
+		<h:commandButton action="#{administrateurController.modifierAvatar()}" value="Modifier avatar" />
+		</h:form>
 					</div>
 				</div>
 
