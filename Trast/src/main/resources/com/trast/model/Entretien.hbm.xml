@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2015 8:15:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="com.trast.model.Entretien" table="ENTRETIEN">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="dateEntretien" type="java.util.Date">
+			<column name="dateEntretien" />
+		</property>
+
+		<property name="termine" type="boolean">
+			<column name="termine" />
+		</property>
+
+		<set name="notes" table="note" inverse="false"
+			lazy="false">
+			<key>
+				<column name="idEntretien" />
+			</key>
+			<element type="java.lang.String">
+				<column name="note" />
+			</element>
+		</set>
+
+		<many-to-one name="contreProposition" class="com.trast.model.ContreProposition"
+			fetch="join" lazy="false">
+			<column name="idContreProposition" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

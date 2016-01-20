@@ -24,5 +24,7 @@
 			fetch="join" lazy="false">
 			<column name="idEtudiant" />
 		</many-to-one>
+		
+		<one-to-one name="entretien" property-ref="contreProposition" />
 	</class>
 </hibernate-mapping>

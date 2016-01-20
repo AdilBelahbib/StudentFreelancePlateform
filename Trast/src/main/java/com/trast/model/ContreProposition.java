@@ -6,16 +6,19 @@ public class ContreProposition {
 	private Fichier fichier;
 	private AppelOffre appelOffre;
 	private Etudiant etudiant;
+	private Entretien entretien;
 	
 	public ContreProposition(){
 	}
-	
-	public ContreProposition(Long id, Double enchere, Fichier fichier, AppelOffre offre, Etudiant etudiant){
+
+	public ContreProposition(Long id, Double enchere, Fichier fichier, AppelOffre appelOffre, Etudiant etudiant,
+			Entretien entretien) {
 		this.id = id;
 		this.enchere = enchere;
 		this.fichier = fichier;
-		this.appelOffre = offre;
+		this.appelOffre = appelOffre;
 		this.etudiant = etudiant;
+		this.entretien = entretien;
 	}
 
 	@Override
@@ -84,6 +87,14 @@ public class ContreProposition {
 
 	public void setEtudiant(Etudiant etudiant) {
 		this.etudiant = etudiant;
+	}
+
+	public Entretien getEntretien() {
+		return entretien;
+	}
+
+	public void setEntretien(Entretien entretien) {
+		this.entretien = entretien;
 	}
 	
 	

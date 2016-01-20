@@ -96,6 +96,7 @@
 		<!-- <property name="fichier" ref="fichier" /> -->
 		<property name="appelOffre" ref="appelOffre" />
 		<property name="etudiant" ref="etudiant" />
+<!-- 		<property name="entretien" ref="entretien" /> -->
 	</bean>
 
 	<bean id="cahierDesCharges" class="com.trast.model.CahierDesCharges"
@@ -140,6 +141,7 @@
 		<property name="entreprise" ref="entreprise" />
 		<!-- <property name="cahierDesCharges" ref="cahierDesCharges" /> -->
 		<property name="statut" value="PREPARE" />
+		<property name="entretien" value="false" />
 	</bean>
 
 	<bean id="niveau" class="com.trast.model.Niveau" scope="prototype">
@@ -294,6 +296,19 @@
 		<property name="badge" ref="badge" />
 	</bean>
 	
+	<!-- bean Entretien -->
+	<bean id="entretien" class="com.trast.model.Entretien" scope="prototype">
+		<property name="id" value="" />
+		<property name="dateEntretien">
+			<bean class="java.util.Date" />
+		</property>
+		<property name="termine" value="false" />
+		<property name="notes">
+			<set></set>
+		</property>
+		<property name="contreProposition" ref="contreProposition" />
+	</bean>
+	
 	<!-- Configuration des DAO bean -->
 	<bean id="administrateurDao" class="com.trast.dao.AdministrateurDAOImpl">
 		<constructor-arg>
@@ -437,6 +452,12 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="entretienDao" class="com.trast.dao.EntretienDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
 	<!-- Service beans -->
 	<bean id="utilisateurDetailsService" class="com.trast.service.UtilisateurDetailsService">
 		<property name="utilisateurDao" ref="utilisateurDao" />
@@ -477,6 +498,7 @@
 				<value>com/trast/model/Livrable.hbm.xml</value>
 				<value>com/trast/model/Badge.hbm.xml</value>
 				<value>com/trast/model/EvenementBadge.hbm.xml</value>
+				<value>com/trast/model/Entretien.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

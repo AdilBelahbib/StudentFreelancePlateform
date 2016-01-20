@@ -18,6 +18,10 @@
 			<column name="DATEDEBUT" />
 		</property>
 		
+		<property name="entretien" type="boolean">
+			<column name="entretien" />
+		</property>
+		
 		<property name="statut" column="statut" >
 			<type name="org.hibernate.type.EnumType">
 				<param name="enumClass">com.trast.model.EtatAppelOffre</param>

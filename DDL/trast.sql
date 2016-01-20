@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2016 at 06:47 PM
+-- Generation Time: Jan 19, 2016 at 11:39 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `appel_offre` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dateDebut` datetime NOT NULL,
   `dateExpiration` datetime NOT NULL,
+  `entretien` bit(1) NOT NULL DEFAULT b'0',
   `statut` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `idEntreprise` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -66,12 +67,11 @@ CREATE TABLE IF NOT EXISTS `appel_offre` (
 -- Dumping data for table `appel_offre`
 --
 
-INSERT INTO `appel_offre` (`id`, `dateDebut`, `dateExpiration`, `statut`, `idEntreprise`) VALUES
-(1, '2015-12-01 00:00:00', '2015-12-25 00:00:00', 'ENCOURS', 4),
-(2, '2015-12-23 00:00:00', '2015-12-10 00:00:00', 'ENCOURS', 4),
-(3, '2015-12-10 00:00:00', '2015-12-22 00:00:00', 'ENCOURS', 26),
-(4, '2015-12-09 00:00:00', '2015-12-23 00:00:00', 'ENCOURS', 4),
-(5, '2015-12-25 14:48:12', '2015-01-25 00:48:00', 'PREPARE', 4);
+INSERT INTO `appel_offre` (`id`, `dateDebut`, `dateExpiration`, `entretien`, `statut`, `idEntreprise`) VALUES
+(1, '2015-12-01 00:00:00', '2015-12-25 00:00:00', b'0', 'ENCOURS', 4),
+(2, '2015-12-23 00:00:00', '2015-12-10 00:00:00', b'0', 'ENCOURS', 4),
+(4, '2015-12-09 00:00:00', '2015-12-23 00:00:00', b'0', 'ENCOURS', 4),
+(5, '2015-12-25 14:48:12', '2015-01-25 00:48:00', b'0', 'PREPARE', 4);
 
 -- --------------------------------------------------------
 
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `badge` (
   `idFichier` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idFichier` (`idFichier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `badge`
@@ -109,7 +109,8 @@ INSERT INTO `badge` (`id`, `intitule`, `idFichier`) VALUES
 (6, 'Badge 1 parfait', 1),
 (7, 'Badge 4 tests', 1),
 (8, 'Badge 3 tests', 1),
-(9, 'ssss', 2);
+(9, 'ssss', 2),
+(10, 'lalalalalala', 3);
 
 -- --------------------------------------------------------
 
@@ -136,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `cahier_des_charges` (
 INSERT INTO `cahier_des_charges` (`id`, `sujet`, `dateDebut`, `dateFin`, `idAppelOffre`, `idProjet`) VALUES
 (1, 'Sujet cahier des charge 1', '2015-12-02', '2015-12-16', 1, NULL),
 (2, 'Sujet cahier des charge 2', '2015-12-04', '2015-12-23', 2, NULL),
-(3, 'Sujet cahier des charge 3', '2015-05-12', '2016-05-11', 3, NULL),
+(3, 'Sujet cahier des charge 3', '2015-05-12', '2016-05-11', NULL, NULL),
 (4, 'Sujet cahier des charge 4', '2015-04-02', '2015-08-10', 4, NULL),
 (5, '', '2015-12-25', '2015-12-25', 5, NULL);
 
@@ -210,7 +211,22 @@ CREATE TABLE IF NOT EXISTS `entreprise` (
 
 INSERT INTO `entreprise` (`id`, `sigle`, `apercu`, `etatCompte`) VALUES
 (4, 'TRAST ModifiÃ?Â©', 'Plateforme de gestion des appels d''offre ModifiÃ?Â©', 'EN_ATTENTE'),
-(26, 'TRAST2', 'Plateforme de gestion des appels d''offre', 'ACTIVE');
+(27, 'aaaa', 'ssss', 'EN_ATTENTE');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `entretien`
+--
+
+CREATE TABLE IF NOT EXISTS `entretien` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dateEntretien` datetime NOT NULL,
+  `termine` bit(1) NOT NULL DEFAULT b'0',
+  `idContreProposition` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idContreProposition` (`idContreProposition`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -292,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `evenement_badge` (
   `idBadge` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idBadge` (`idBadge`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `evenement_badge`
@@ -303,7 +319,8 @@ INSERT INTO `evenement_badge` (`id`, `sourceEvenement`, `valeur`, `idBadge`) VAL
 (8, 'SCOREPARFAIT', 1, 6),
 (9, 'TEST', 4, 7),
 (10, 'TEST', 3, 7),
-(11, 'SCOREPARFAIT', 0, 9);
+(11, 'SCOREPARFAIT', 0, 9),
+(12, 'PROJET', 0, 10);
 
 -- --------------------------------------------------------
 
@@ -346,15 +363,18 @@ CREATE TABLE IF NOT EXISTS `fichier` (
   KEY `idUtilisateur` (`idUtilisateur`),
   KEY `idCahierDesCharges` (`idCahierDesCharges`),
   KEY `idQualification` (`idQualification`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `fichier`
 --
 
 INSERT INTO `fichier` (`id`, `titre`, `chemin`, `idUtilisateur`, `idCahierDesCharges`, `idQualification`) VALUES
-(1, '1Badge de test1', '/apache-tomcat-8.0.28/webapps/trast-uploads/badges', NULL, NULL, NULL),
-(2, '9ssss1', '/apache-tomcat-8.0.28/webapps/trast-uploads/badges', NULL, NULL, NULL);
+(1, '1Badge de test1.png', '/badges', NULL, NULL, NULL),
+(2, '9ssss1.png', '/badges', NULL, NULL, NULL),
+(3, '10lalalalalala1.png', '/badges', NULL, NULL, NULL),
+(4, '11lalalalalala1.png', '/badges', NULL, NULL, NULL),
+(5, '12dfsdfsdf1.jpg', '/badges', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -395,6 +415,18 @@ CREATE TABLE IF NOT EXISTS `livrable` (
   KEY `idProjet` (`idProjet`),
   KEY `idFichier` (`idFichier`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `note`
+--
+
+CREATE TABLE IF NOT EXISTS `note` (
+  `note` text COLLATE utf8_bin NOT NULL,
+  `idEntretien` int(11) NOT NULL,
+  KEY `idEntretien` (`idEntretien`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -649,7 +681,8 @@ CREATE TABLE IF NOT EXISTS `secteur_activite` (
 
 INSERT INTO `secteur_activite` (`secteur`, `idEntreprise`) VALUES
 ('Secteur A', 4),
-('Secteur C', 4);
+('Secteur C', 4),
+('Secteur Z', 27);
 
 -- --------------------------------------------------------
 
@@ -721,17 +754,17 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `fk_role` (`idRole`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id`, `email`, `motDePasse`, `typeUtilisateur`, `idRole`) VALUES
-(1, 'admin@mail.com', 'mdp', 'ADM', 1),
-(3, 'etudiant@mail.com', 'mdp', 'ETU', 2),
-(4, 'entreprise@mail.com', 'mdp', 'ENT', 3),
-(26, 'entreprise2@mail.com', 'mdpEntr', 'ENT', 3);
+(1, 'admin@mail.com', '00d70c561892a94980befd12a400e26aeb4b8599', 'ADM', 1),
+(3, 'etudiant@mail.com', '00d70c561892a94980befd12a400e26aeb4b8599', 'ETU', 2),
+(4, 'entreprise@mail.com', '00d70c561892a94980befd12a400e26aeb4b8599', 'ENT', 3),
+(27, 'entreprise2@mail.com', '00d70c561892a94980befd12a400e26aeb4b8599', 'ENT', 3);
 
 --
 -- Constraints for dumped tables
@@ -784,6 +817,12 @@ ALTER TABLE `entreprise`
   ADD CONSTRAINT `entreprise_ibfk_1` FOREIGN KEY (`id`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `entretien`
+--
+ALTER TABLE `entretien`
+  ADD CONSTRAINT `entretien_ibfk_1` FOREIGN KEY (`idContreProposition`) REFERENCES `contre_proposition` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `etudiant`
 --
 ALTER TABLE `etudiant`
@@ -828,6 +867,12 @@ ALTER TABLE `formation`
 ALTER TABLE `livrable`
   ADD CONSTRAINT `livrable_ibfk_1` FOREIGN KEY (`idProjet`) REFERENCES `projet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `livrable_ibfk_2` FOREIGN KEY (`idFichier`) REFERENCES `fichier` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `note`
+--
+ALTER TABLE `note`
+  ADD CONSTRAINT `note_ibfk_1` FOREIGN KEY (`idEntretien`) REFERENCES `entretien` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `particulier`

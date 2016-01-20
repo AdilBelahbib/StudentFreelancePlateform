@@ -14,13 +14,14 @@ public class AppelOffre {
 	private Entreprise entreprise;
 	private CahierDesCharges cahierDesCharges;
 	private EtatAppelOffre statut;
+	private boolean entretien;
 
 	public AppelOffre(){
 	}
 
 	public AppelOffre(Long id, Date dateExpiration, Date dateDebut, Set<Remuneration> remunerations,
 			Set<Qualification> qualifications, Set<ContreProposition> contrePropositions, Set<Competence> competences,
-			Entreprise entreprise, CahierDesCharges cahierDesCharges, EtatAppelOffre status) {
+			Entreprise entreprise, CahierDesCharges cahierDesCharges, EtatAppelOffre statut, boolean entretien) {
 		this.id = id;
 		this.dateExpiration = dateExpiration;
 		this.dateDebut = dateDebut;
@@ -30,8 +31,11 @@ public class AppelOffre {
 		this.competences = competences;
 		this.entreprise = entreprise;
 		this.cahierDesCharges = cahierDesCharges;
-		this.statut = status;
+		this.statut = statut;
+		this.entretien = entretien;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -112,7 +116,14 @@ public class AppelOffre {
 	public void setCahierDesCharges(CahierDesCharges cahierDesCharges) {
 		this.cahierDesCharges = cahierDesCharges;
 	}
-	
+
+	public boolean isEntretien() {
+		return entretien;
+	}
+
+	public void setEntretien(boolean entretien) {
+		this.entretien = entretien;
+	}
 
 	@Override
 	public int hashCode() {
