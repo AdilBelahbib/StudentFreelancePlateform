@@ -28,7 +28,7 @@ public class ContreProposition {
 		if(id != null)
 			result = prime * result + id.intValue();
 		else
-			result = (prime * result + fichier.hashCode());
+			result = (prime * result + etudiant.hashCode());
 		return result;
 	}
 

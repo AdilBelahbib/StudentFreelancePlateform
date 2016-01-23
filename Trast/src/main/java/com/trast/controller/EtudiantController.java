@@ -12,17 +12,21 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.AdresseDAO;
 import com.trast.dao.CompetenceDAO;
+import com.trast.dao.EntrepriseDAO;
 import com.trast.dao.EtudiantDAO;
 import com.trast.dao.ExperienceDAO;
+import com.trast.dao.FichierDAO;
 import com.trast.dao.FormationDAO;
 import com.trast.dao.NiveauDAO;
 import com.trast.model.Adresse;
 import com.trast.model.Competence;
 import com.trast.model.Etudiant;
 import com.trast.model.Experience;
+import com.trast.model.Fichier;
 import com.trast.model.Formation;
 import com.trast.model.Niveau;
 import com.trast.service.Security;
+import com.trast.service.UploadFileService;
 
 @ManagedBean(name = "etudiantController", eager = true)
 @SessionScoped
@@ -185,16 +189,31 @@ public class EtudiantController implements Serializable {
 
 	// La méthode appelée quand l'étudiant ajoute une formation à sa liste des
 	// formations
-	public void ajouterFormation() {
+	public String ajouterFormation() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		
 		formation.setEtudiant(etudiant);
-		etudiant.getQualifications().add(formation);
-
+		etudiant.getQualifications().add(formation);		
 		formationDao.ajouterFormation(formation);
+		/**** ajouter fichier *****/
+		if(UploadFileService.fileSelected()){
+			Fichier fichier = (Fichier)context.getBean("fichier");
+			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+			/* avatar a pour nom avatar*/
+			fichier.setChemin("/etudiant/"+etudiant.getId());
+			fichier.setTitre(formation.getIntituleFormation()+"_"+formation.getId());
+			UploadFileService.uploadFichier(fichier);
+			fichierDao.ajouterFichier(fichier);
+			formation.getFichiers().add(fichier);
+			formationDao.modifierFormation(formation);
+		}
+		/* fin ajout fichier***/
 
 		// Réinitialiser la formation par une nouvelle instance vide
-		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		formation = (Formation) context.getBean("formation");
 		((ConfigurableApplicationContext) context).close();
+		
+		return "/views/etudiant/profil.xhtml";
 	}
 	
 	// La méthode appelée quand l'étudiant ajoute une competence à sa liste des
@@ -222,7 +241,15 @@ public class EtudiantController implements Serializable {
 		}
 
 	// La méthode appelée quand l'étudiant retire une formation
-	public void retirerFormation() {
+	public String retirerFormation() {
+		
+		// suppression du File associ�
+				for(Fichier fichier : formation.getFichiers()){
+					UploadFileService.supprimerFile(fichier);
+
+				}
+				
+				///
 		etudiant.getQualifications().remove(formation);
 
 		formation.setEtudiant(null);
@@ -234,6 +261,7 @@ public class EtudiantController implements Serializable {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		formation = (Formation) context.getBean("formation");
 		((ConfigurableApplicationContext) context).close();
+		return "/views/etudiant/profil.xhtml";
 	}
 
 	// La méthode appelée quand l'étudiant ajoute une expérience à sa liste
@@ -241,18 +269,39 @@ public class EtudiantController implements Serializable {
 		
 		experience.setEtudiant(etudiant);
 		etudiant.getQualifications().add(experience);
-		
 		experienceDao.ajouterExperience(experience);
-		
-		// Réinitialiser l'experience par une nouvelle instance vide
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		/**** ajouter fichier *****/
+		if(UploadFileService.fileSelected()){
+			Fichier fichier = (Fichier)context.getBean("fichier");
+			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+			/* avatar a pour nom avatar*/
+			fichier.setChemin("/etudiant/"+etudiant.getId());
+			fichier.setTitre(experience.getSujet()+"_"+experience.getId());
+			UploadFileService.uploadFichier(fichier);
+			fichierDao.ajouterFichier(fichier);
+			experience.getFichiers().add(fichier);
+			experienceDao.modifierExperience(experience);
+			
+		}
+		/* fin ajout fichier***/
+		// Réinitialiser l'experience par une nouvelle instance vide
 		experience = (Experience) context.getBean("experience");
 		((ConfigurableApplicationContext) context).close();
 		return "/views/etudiant/profil.xhtml?faces-redirect=true";
 	}
 
 	// La méthode appelée quand l'étudiant retire une experience
-	public void retirerExperience() {
+	public String retirerExperience() {
+		
+		// suppression du File associ�
+		for(Fichier fichier : experience.getFichiers()){
+			UploadFileService.supprimerFile(fichier);
+
+		}
+		
+		///
+		
 		etudiant.getQualifications().remove(experience);
 		
 		experience.setEtudiant(null);
@@ -264,6 +313,7 @@ public class EtudiantController implements Serializable {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		experience = (Experience) context.getBean("experience");
 		((ConfigurableApplicationContext) context).close();
+		return "/views/etudiant/profil.xhtml?faces-redirect=true";
 	}
 	
 	public void modifierEtudiant()
@@ -273,6 +323,33 @@ public class EtudiantController implements Serializable {
 				etudiant.setMotDePasse(Security.get_SHA_1_SecurePassword(motDePasse));
 		
 		etudiantDao.modifierEtudiant(etudiant);
+	}
+	
+/***********************************************/
+	
+	/* modifier avatar de l'entreprise*/
+	
+	/*************************************************/
+	public void modifierAvatar(){
+		// Si un fichier est s�lectionn�:
+		if(UploadFileService.fileSelected()){
+			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+			Fichier fichier = (Fichier)context.getBean("fichier");
+			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+			/* avatar a pour nom avatar*/
+			fichier.setChemin("/etudiant/"+etudiant.getId());
+			fichier.setTitre("avatar");
+			UploadFileService.uploadFichier(fichier);
+			fichierDao.ajouterFichier(fichier);
+			
+			/* attribut avatar non implement� ***/
+			/****************/
+			/* associer file a l'entreprise*/
+			etudiant.getFichiers().add(fichier);
+			etudiantDao.modifierEtudiant(etudiant);
+			((ConfigurableApplicationContext) context).close();
+		}
+		
 	}
 
 }

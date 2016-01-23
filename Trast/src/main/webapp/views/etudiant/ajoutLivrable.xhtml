@@ -7,7 +7,7 @@
 
 	<ui:define name="content">
 		<h3>Ajout de livrable</h3>
-		<h:form>
+		<h:form enctype="multipart/form-data">
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 			<hr></hr>
@@ -25,8 +25,10 @@
 			<div class="row">
 				<div class="col-md-offset-3 col-md-5">
 					<div class="form-group">
-						<label for="fichierAttache">Joindre un fichier</label> <input
-							type="file" id="fichierAttache" />
+						<label for="fichierAttache">Joindre un fichier</label> 
+						<h:inputFile id="fichierAttache" class="form-control" value="#{uploadFileService.myFile}"> 
+						</h:inputFile>
+						
 					</div>
 				</div>
 			</div>

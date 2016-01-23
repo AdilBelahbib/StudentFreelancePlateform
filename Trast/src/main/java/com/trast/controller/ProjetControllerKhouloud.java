@@ -17,17 +17,20 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.EtudiantDAO;
 import com.trast.dao.EvenementBadgeDAO;
+import com.trast.dao.FichierDAO;
 import com.trast.dao.LivrableDAO;
 import com.trast.dao.ProjetDAO;
 import com.trast.model.Entreprise;
 import com.trast.model.EtatProjet;
 import com.trast.model.Etudiant;
 import com.trast.model.EvenementBadge;
+import com.trast.model.Fichier;
 import com.trast.model.Livrable;
 import com.trast.model.Projet;
 import com.trast.model.SourceEvenement;
 import com.trast.model.Utilisateur;
 import com.trast.service.DateCalculService;
+import com.trast.service.UploadFileService;
 
 @ManagedBean(name = "projetControllerKhouloud", eager = true)
 @SessionScoped
@@ -336,11 +339,25 @@ public class ProjetControllerKhouloud {
 		Date d = new Date();
 		livrable.setDateLivraison(d);
 		projet.getLivrables().add(livrable);
-
 		// Ajouter un livrable
 		livrableDao.ajouterLivrable(livrable);
-		// R�initialiser par une nouvelle instance vide
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		
+		/* ajouter fichier*/
+		if(UploadFileService.fileSelected()){
+			Fichier fichier = (Fichier)context.getBean("fichier");
+			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+			/* titre et chemin du fichier*/
+			fichier.setChemin("/etudiant/"+etudiant.getId());
+			fichier.setTitre("livrable_"+projet.getCahierDesCharges().getSujet()+"_"+livrable.getId());
+			UploadFileService.uploadFichier(fichier);
+			fichierDao.ajouterFichier(fichier);
+			livrable.setFichier(fichier);
+			livrableDao.modifierLivrable(livrable);
+		}
+		/* fin ajout fichier*/
+		
+		// R�initialiser par une nouvelle instance vide
 		livrable = (Livrable) context.getBean("livrable");
 		((ConfigurableApplicationContext) context).close();
 

@@ -14,7 +14,9 @@
 				<th>Date de livraison</th>
 				<th>Pourcentage</th>
 			</tr>
-
+	<h:form enctype="multipart/form-data">
+								<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 			<c:forEach items="#{projetControllerKhouloud.listeLivrables}"
 				var="item" varStatus="statut">
 				<tr>
@@ -22,10 +24,17 @@
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText></td>
 					<td>#{item.pourcentageAvancement}%</td>
-					<td><a href="#">Télécharger le fichier joint</a></td>
+					<td>
+						<h:commandLink action="#{uploadFileService.downloadFile()}">
+		   								Télécharger le fichier joint   
+										<f:setPropertyActionListener
+											target="#{uploadFileService.fileToDownload}"
+			    							value="#{proprietes['racineuploads']}#{item.fichier.chemin}/#{item.fichier.titre}" />
+			
+									</h:commandLink></td>
 				</tr>
 			</c:forEach>
-
+</h:form>
 		</table>
 
 	</ui:define>

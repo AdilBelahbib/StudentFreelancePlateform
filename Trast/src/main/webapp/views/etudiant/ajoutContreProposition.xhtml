@@ -7,7 +7,7 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="content">
 		<h3>Ajout de contre-proposition</h3>
-		<h:form>
+		<h:form enctype="multipart/form-data">
 		<input type="hidden" name="${_csrf.parameterName}"
 										value="${_csrf.token}" />
 		
@@ -18,8 +18,10 @@
 				</h:inputText>
 			</div>
 			<div class="form-group">
-				<label for="fichierAttache">Joindre un fichier</label> <input
-						type="file" id="fichierAttache" />
+				<label for="fichierAttache">Joindre un fichier</label>
+				<!-- fichier attache formation-->
+		<h:inputFile id="fichierAttache" class="form-control" value="#{uploadFileService.myFile}"> 
+      	</h:inputFile>
 			</div>
 			<h:commandButton
 					styleClass="btn btn-success btn-hover-green"

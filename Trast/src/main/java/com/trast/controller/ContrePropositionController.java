@@ -14,6 +14,8 @@ import com.trast.dao.ContrePropositionDAO;
 import com.trast.dao.EtudiantDAO;
 import com.trast.model.ContreProposition;
 import com.trast.model.Etudiant;
+import com.trast.model.Fichier;
+import com.trast.service.UploadFileService;
 
 @ManagedBean(name = "contrePropositionController", eager = true)
 @RequestScoped
@@ -67,6 +69,13 @@ public class ContrePropositionController implements Serializable {
 
 	public void retirerContreProposition()
 	{
+		// suppression du File associé
+				
+			if(contreProposition.getFichier()!=null)
+				UploadFileService.supprimerFile(contreProposition.getFichier());
+
+		// fin suppr du File 		
+				
 		etudiant.getContrePropositions().remove(contreProposition);
 		etudiant.setNombreBids(etudiant.getNombreBids()+1);
 		

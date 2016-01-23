@@ -653,14 +653,35 @@ public class AppelOffreController implements Serializable {
 		// Initialiser les param�tres de l'instance contreProposition
 		contreProposition.setEtudiant(etudiant);
 		contreProposition.setAppelOffre(appelOffre);
+		if(contreProposition!=null) 
+			{
+			 	System.out.println("contreProp: "+contreProposition.getEnchere()+", "+contreProposition.getEtudiant().getNom());
+			 	if(appelOffre.getContrePropositions().size()>0) System.out.println("cccccccc");
+			}
+
 		appelOffre.getContrePropositions().add(contreProposition);
 		etudiant.getContrePropositions().add(contreProposition);
-
 		// Ajouter unecontreProposition
-		contrePropositionDao.ajouterContreProposition(contreProposition);
+				contrePropositionDao.ajouterContreProposition(contreProposition);
+
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		/**** ajouter fichier *****/
+		if(UploadFileService.fileSelected()){
+			Fichier fichier = (Fichier)context.getBean("fichier");
+			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+			/* avatar a pour nom avatar*/
+			fichier.setChemin("/etudiant/"+etudiant.getId());
+			fichier.setTitre(""+contreProposition.getId());
+			UploadFileService.uploadFichier(fichier);
+			fichierDao.ajouterFichier(fichier);
+			contreProposition.setFichier(fichier);
+
+		}
+		contrePropositionDao.modifierContreProposition(contreProposition);
 		etudiantDao.modifierEtudiant(etudiant);
 		// modifier l appel d'offre par le nouveau
 		// appelOffreDao.modifierAppelOffre(appelOffre);
+		((ConfigurableApplicationContext) context).close();
 
 		return "listeAppelOffres.xhtml?faces-redirect=true";
 	}

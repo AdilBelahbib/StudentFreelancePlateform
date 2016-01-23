@@ -70,9 +70,21 @@
 												value="#{appelOffreController.appelOffre.cahierDesCharges.dateFin}" /></label>
 									</div>
 								</c:if>
+								<h:form enctype="multipart/form-data">
+								<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 								<div class="form-group">
-									<a href="#">Télécharger le fichier joint</a>
+								  <c:forEach items="#{appelOffreController.appelOffre.cahierDesCharges.fichiers}" var="itemFichier">
+									<h:commandLink action="#{uploadFileService.downloadFile()}">
+		   								Télécharger le fichier joint  
+										<f:setPropertyActionListener
+											target="#{uploadFileService.fileToDownload}"
+			    							value="#{proprietes['racineuploads']}#{itemFichier.chemin}/#{itemFichier.titre}" />
+			
+									</h:commandLink>
+								 </c:forEach>								
 								</div>
+								</h:form>
 
 						</div>
 					</div>

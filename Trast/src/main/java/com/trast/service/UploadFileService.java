@@ -1,8 +1,6 @@
 package com.trast.service;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,12 +11,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.trast.dao.FichierDAO;
 import com.trast.model.Fichier;
 
 @ManagedBean(name = "uploadFileService", eager = true)
@@ -52,6 +47,8 @@ public class UploadFileService {
 		 File rep = new File(racine+fichier.getChemin());
 		 if(!rep.exists()) rep.mkdirs();
 			
+		 File oldFile = new File(racine+fichier.getChemin()+"/"+fichier.getTitre());
+		 if(oldFile.exists()) oldFile.delete();
 		try (InputStream input = myFile.getInputStream()) {
 			Files.copy(input, (new File(racine+fichier.getChemin(), fichier.getTitre()).toPath()));
 		} catch (IOException e) {
@@ -65,9 +62,11 @@ public class UploadFileService {
 	/*********************************************/
 	/*cette fonction permet à l'utilisateur de télécharger le fichier : fileToDownload*/
 	public void downloadFile() {
+		System.out.println("download file");
 	    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 	    
 		try{  
+			System.out.println("download file");
 			File fichier = new File(fileToDownload);
 		     System.out.println("mime: "+ec.getMimeType(fichier.getName())+" ,name: "+fichier.getName());
 			
@@ -87,6 +86,12 @@ public class UploadFileService {
          
 }
 
+	public static void supprimerFile(Fichier fichier){
+		// tester l'existence du fichier et le supprimer du dossier
+		File fileASupprimer = new File(racine+fichier.getChemin()+"/"+fichier.getTitre());
+		if(fileASupprimer.exists()) fileASupprimer.delete();
+		
+	}
 
 	public static boolean fileSelected() {
 		return (myFile != null);

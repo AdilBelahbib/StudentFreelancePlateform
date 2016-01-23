@@ -17,9 +17,13 @@ xmlns:sec="http://www.springframework.org/security/tags">
     <div class="col-md-3">
       <div class="text-center">
         <img src="" class="avatar img-circle" alt="avatar"/>
+        <h:form enctype="multipart/form-data">
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <h6>Modifier votre photo de profil</h6>
-        
-        <h:inputFile class="form-control"/>
+         <h:inputFile id="fichierAvatar" class="form-control" value="#{uploadFileService.myFile}"> 
+		</h:inputFile>
+		<h:commandButton action="#{etudiantController.modifierAvatar()}" value="Modifier avatar" />
+		</h:form>
       </div>
     </div>
     
@@ -54,6 +58,10 @@ xmlns:sec="http://www.springframework.org/security/tags">
   </form>
 </div>
 
+
+<div>
+
+</div>
 <!-- LES ADRESSES -->
 <div class="col-md-9 personal-info">
   <h3>Adresses</h3>
@@ -99,19 +107,19 @@ xmlns:sec="http://www.springframework.org/security/tags">
       type="button">+</button>
 
       <table class="table table-striped table-hover">
-        <c:forEach items="#{sessionScope.utilisateur.qualifications}" var="formation" varStatus="statut">
-        <c:if test="${formation['class'].simpleName == 'Formation'}">
+        <c:forEach items="#{sessionScope.utilisateur.qualifications}" var="itemFormation" varStatus="statut">
+        <c:if test="${itemFormation['class'].simpleName == 'Formation'}">
         
         <tr>
           <td>
-            <h3>#{formation.intituleFormation}</h3>
-            <h4>#{formation.etablissement}</h4>
+            <h3>#{itemFormation.intituleFormation}</h3>
+            <h4>#{itemFormation.etablissement}</h4>
             <h5>
-              <h:outputText value="#{formation.dateDebut}">
+              <h:outputText value="#{itemFormation.dateDebut}">
               <f:convertDateTime pattern="dd/MM/yyyy" />
             </h:outputText>
             =>
-            <h:outputText value="#{formation.dateFin}">
+            <h:outputText value="#{itemFormation.dateFin}">
             <f:convertDateTime pattern="dd/MM/yyyy" />
           </h:outputText>
         </h5>
@@ -143,19 +151,19 @@ xmlns:sec="http://www.springframework.org/security/tags">
 			class="btn btn-default btn-lg pull-right inscriptionAjoutButton">+</button>
 			<table class="table table-striped table-hover">
 			
-				<c:forEach items="#{sessionScope.utilisateur.qualifications}" var="experience" varStatus="statut">
-				<c:if test="${experience['class'].simpleName == 'Experience'}">
+				<c:forEach items="#{sessionScope.utilisateur.qualifications}" var="itemExperience" varStatus="statut">
+				<c:if test="${itemExperience['class'].simpleName == 'Experience'}">
 				<tr>
 					<td>
-					<h3>#{experience.sujet}</h3>
-					<h4>#{experience.structureAccueil}</h4>
+					<h3>#{itemExperience.sujet}</h3>
+					<h4>#{itemExperience.structureAccueil}</h4>
 					
 					<h5>
-			              <h:outputText value="#{experience.dateDebut}">
+			              <h:outputText value="#{itemExperience.dateDebut}">
 			              <f:convertDateTime pattern="dd/MM/yyyy" />
 			            </h:outputText>
 			            =>
-			            <h:outputText value="#{experience.dateFin}">
+			            <h:outputText value="#{itemExperience.dateFin}">
 			            <f:convertDateTime pattern="dd/MM/yyyy" />
 			          </h:outputText>
 			        </h5>
@@ -283,8 +291,10 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="fichierAttache">Joindre un fichier</label> <input
-			type="file" id="fichierAttache" />
+			<label for="fichierAttache">Joindre un fichier</label> 
+			<!-- fichier attache formation-->
+			<h:inputFile id="fichierAttache" class="form-control" value="#{uploadFileService.myFile}"> 
+      		</h:inputFile>
 		</div>
 
 		<div class="btn-group" role="group">
@@ -310,8 +320,8 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 
 <!-- MODAL: Détails formation-->
 
-<c:forEach items="#{sessionScope.utilisateur.qualifications}" var="formation" varStatus="statut">
-<c:if test="${formation['class'].simpleName == 'Formation'}">
+<c:forEach items="#{sessionScope.utilisateur.qualifications}" var="itemFormation" varStatus="statut">
+<c:if test="${itemFormation['class'].simpleName == 'Formation'}">
 <div class="modal fade" id="detailsformation-#{statut.count}" tabindex="-1"
 role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 <div class="modal-dialog">
@@ -328,27 +338,54 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 				<!-- content goes here -->
 				<div class="form-group">
 					<label>Date début: 
-						<h:outputText value="#{formation.dateDebut}">
+						<h:outputText value="#{itemFormation.dateDebut}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</label>
 			</div>
 			<div class="form-group">
 				<label>Date fin:
-					<h:outputText value="#{formation.dateFin}">
+					<h:outputText value="#{itemFormation.dateFin}">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</h:outputText>
 			</label>
 		</div>
 		<div class="form-group">
-			<label>Intitulé: <h:outputText value="#{formation.intituleFormation}" /></label>
+			<label>Intitulé: <h:outputText value="#{itemFormation.intituleFormation}" /></label>
 		</div>
 		<div class="form-group">
-			<label>Etablissement: <h:outputText value="#{formation.etablissement}" /></label>
+			<label>Etablissement: <h:outputText value="#{itemFormation.etablissement}" /></label>
 		</div>
+		<!-- telechargement du fichier concerné -->
+	<c:choose>
+	<c:when test="#{not empty itemFormation.fichiers}">
 		<div class="form-group">
-			<a href="#">Télécharger le fichier joint</a>
+		<h:form enctype="multipart/form-data">
+		<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+		
+			
+		<c:forEach items="#{itemFormation.fichiers}" var="itemF">
+		   <h:commandButton  class="btn btn-default" action="#{uploadFileService.downloadFile()}" value="Télécharger le fichier joint">
+		   
+		   
+				<f:setPropertyActionListener
+					target="#{uploadFileService.fileToDownload}"
+			    value="#{proprietes['racineuploads']}#{itemF.chemin}/#{itemF.titre}" />
+			
+			</h:commandButton>
+			</c:forEach>
+		
+			
+		</h:form>
 		</div>
+	</c:when>
+	<c:otherwise>
+		<div class="form-group">
+			Pas de fichier joint!
+		</div>
+	</c:otherwise>
+	</c:choose>
 	</div>
 	<div class="modal-footer">
 		<div class="btn-group btn-group-justified" role="group"
@@ -357,7 +394,7 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 		<h:form enctype="multipart/form-data">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<h:commandButton action="#{etudiantController.retirerFormation()}" styleClass="btn btn-danger btn-hover-green" value="Supprimer">
-			<f:setPropertyActionListener target="#{etudiantController.formation}" value="#{formation}" />
+			<f:setPropertyActionListener target="#{etudiantController.formation}" value="#{itemFormation}" />
 			</h:commandButton>
 		</h:form>
 	</div>
@@ -376,8 +413,8 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 
 <!-- MODAL: détails expérience-->
 
-<c:forEach items="#{sessionScope.utilisateur.qualifications}" var="experience" varStatus="statut">
-<c:if test="${experience['class'].simpleName == 'Experience'}">
+<c:forEach items="#{sessionScope.utilisateur.qualifications}" var="itemExperience" varStatus="statut">
+<c:if test="${itemExperience['class'].simpleName == 'Experience'}">
 <div class="modal fade" id="detailsexperience-#{statut.count}" tabindex="-1"
 role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 <div class="modal-dialog">
@@ -394,41 +431,70 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 			<form>
 
 				<div class="form-group">
-					<label>Sujet: <h:outputText value="#{experience.sujet}" /></label>
+					<label>Sujet: <h:outputText value="#{itemExperience.sujet}" /></label>
 				</div>
 				<div class="form-group">
-					<label>Structure d'accueil: <h:outputText value="#{experience.structureAccueil}" /></label>
+					<label>Structure d'accueil: <h:outputText value="#{itemExperience.structureAccueil}" /></label>
 				</div>
 				<div class="form-group">
 					<label>Date début:
-						<h:outputText value="#{experience.dateDebut}">
+						<h:outputText value="#{itemExperience.dateDebut}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</label>
 			</div>
 			<div class="form-group">
 				<label>Date fin:
-					<h:outputText value="#{experience.dateFin}">
+					<h:outputText value="#{itemExperience.dateFin}">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</h:outputText>
 			</label>
 		</div>
 		<div class="form-group">
-			<label>Responsabilité: <h:outputText value="#{experience.responsabilite}" /></label>
+			<label>Responsabilité: <h:outputText value="#{itemExperience.responsabilite}" /></label>
 		</div>
 		<div class="form-group">
-			<label>Type d'expérience: <h:outputText value="#{experience.typeExperience}" /></label>
+			<label>Type d'expérience: <h:outputText value="#{itemExperience.typeExperience}" /></label>
 		</div>
 		<div class="form-group">
 			<label>Salaire: 
-				<h:outputText value="#{experience.salaire}">
+				<h:outputText value="#{itemExperience.salaire}">
 				<f:convertNumber minFractionDigits="2" />
 			</h:outputText>
 		</label>
 	</div>
-	<div class="form-group">
-		<a href="#">Télécharger le fichier joint</a>
-	</div>
+	<!-- telechargement du fichier concerné -->
+	<c:choose>
+	<c:when test="#{not empty itemExperience.fichiers}">
+		<div class="form-group">
+		<h:form enctype="multipart/form-data">
+		<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+		
+			
+		<c:forEach items="#{itemExperience.fichiers}" var="itemF">
+		   <h:commandButton  class="btn btn-default" action="#{uploadFileService.downloadFile()}" value="Télécharger le fichier joint">
+		   
+		   
+				<f:setPropertyActionListener
+					target="#{uploadFileService.fileToDownload}"
+			    value="#{proprietes['racineuploads']}#{itemF.chemin}/#{itemF.titre}" />
+			
+			</h:commandButton>
+			</c:forEach>
+		
+			
+		</h:form>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<div class="form-group">
+			Pas de fichier joint!
+		</div>
+	</c:otherwise>
+	</c:choose>
+	
+	
 </form>
 
 </div>
@@ -442,7 +508,7 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		
 		<h:commandButton action="#{etudiantController.retirerExperience()}" styleClass="btn btn-danger btn-hover-green" value="Supprimer">
-		<f:setPropertyActionListener target="#{etudiantController.experience}" value="#{experience}" />
+		<f:setPropertyActionListener target="#{etudiantController.experience}" value="#{itemExperience}" />
 	</h:commandButton>
 </h:form>
 </div>
@@ -531,8 +597,10 @@ role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 		</h:inputText>
 	</div>
 	<div class="form-group">
-		<label for="fichierAttache">Joindre un fichier</label> <input
-		type="file" id="fichierAttache" />
+		<label for="fichierAttache">Joindre un fichier</label>
+		<!-- fichier attache formation-->
+		<h:inputFile id="fichierAttache" class="form-control" value="#{uploadFileService.myFile}"> 
+      	</h:inputFile>
 	</div>
 
 	<div class="btn-group" role="group">
