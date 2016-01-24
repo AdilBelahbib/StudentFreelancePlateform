@@ -2,9 +2,12 @@ package com.trast.controller;
 
 import java.io.Serializable;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -30,6 +33,7 @@ public class InscriptionEntrepriseController implements Serializable {
 	@ManagedProperty(value = "#{adresse}")
 	private Adresse adresse;
 	// Utilisée pour récupérer le secteur d'activités saisi
+	@NotNull( message = "Veuillez saisir un secteur" )
 	private String secteurActivites;
 
 	// valeur du titre de fichier identite de l'entrprise
@@ -92,7 +96,7 @@ public class InscriptionEntrepriseController implements Serializable {
 	public void retirerSecteurActivites() {
 		entreprise.getSecteurActivites().remove(secteurActivites);
 	}
-
+	
 	// La méthode appelée quand l'entreprise valide son inscription
 	public void inscrire() {
 		// Récupérer le DAO de l'entreprise et l'insérer dans la bdd
@@ -103,6 +107,10 @@ public class InscriptionEntrepriseController implements Serializable {
 		entreprise.setMotDePasse(Security.get_SHA_1_SecurePassword(entreprise.getMotDePasse()));
 		
 		entrepriseDAO.ajouterEntreprise(entreprise);
+		
+		//Traitement des messages des erreus /Controle\
+		FacesMessage message = new FacesMessage( "Inscription r�ussie !" );
+        FacesContext.getCurrentInstance().addMessage( null, message );
 		
 		/*** ajout pi�ce d'identit�**/
 		if(UploadFileService.fileSelected()){
