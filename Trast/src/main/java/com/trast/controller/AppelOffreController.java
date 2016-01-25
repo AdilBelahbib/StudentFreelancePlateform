@@ -2,6 +2,7 @@ package com.trast.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -22,6 +23,7 @@ import com.trast.dao.CahierDesChargesDAO;
 import com.trast.dao.CompetenceDAO;
 import com.trast.dao.ContrePropositionDAO;
 import com.trast.dao.EntrepriseDAO;
+import com.trast.dao.EntretienDAO;
 import com.trast.dao.EtudiantDAO;
 import com.trast.dao.EvenementBadgeDAO;
 import com.trast.dao.ExperienceDAO;
@@ -34,6 +36,7 @@ import com.trast.model.CahierDesCharges;
 import com.trast.model.Competence;
 import com.trast.model.ContreProposition;
 import com.trast.model.Entreprise;
+import com.trast.model.Entretien;
 import com.trast.model.EtatAppelOffre;
 import com.trast.model.EtatProjet;
 import com.trast.model.Etudiant;
@@ -78,10 +81,21 @@ public class AppelOffreController implements Serializable {
 	@ManagedProperty(value = "#{evenementBadgeDao}")
 	private EvenementBadgeDAO evenementBadgeDAO;
 	
+	private Date dateEntretien;
+	
+	
 	/*
 	 * @ManagedProperty(value ="#{sessionScope.utilisateur}") private Etudiant
 	 * etudiant;
 	 */
+
+	public Date getDateEntretien() {
+		return dateEntretien;
+	}
+
+	public void setDateEntretien(Date dateEntretien) {
+		this.dateEntretien = dateEntretien;
+	}
 
 	@ManagedProperty(value = "#{etudiantDao}")
 	private EtudiantDAO etudiantDao;
@@ -288,7 +302,7 @@ public class AppelOffreController implements Serializable {
 		competence = (Competence) context.getBean("competence");
 		((ConfigurableApplicationContext) context).close();
 
-		// System.out.println("**** ajout "+competence.getIntitule()+" res
+		// **** ajout "+competence.getIntitule()+" res
 		// "+exist);
 	}
 
@@ -537,7 +551,6 @@ public class AppelOffreController implements Serializable {
 			AppelOffreDAO appelDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 			EntrepriseDAO entrepriseDao = (EntrepriseDAO) context.getBean("entrepriseDao");
 
-			System.out.println("date " + appelOffre.getDateExpiration() + " , " + fichier.getTitre());
 			appelOffre.setDateDebut(cahierDesCharges.getDateDebut());
 			appelOffre.setEntreprise(entreprise);
 			appelOffre.setCahierDesCharges(cahierDesCharges);
@@ -586,11 +599,13 @@ public class AppelOffreController implements Serializable {
 				experienceDao.ajouterExperience(item);
 				appelOffre.getQualifications().add(item);
 			}
-
 			AppelOffreDAO appelOffreDao = (AppelOffreDAO) context.getBean("appelOffreDao");
 			appelOffreDao.modifierAppelOffre(appelOffre);
+			entreprise.getAppelOffres().add(appelOffre);
+			appelOffre = (AppelOffre)context.getBean("appelOffre");
+			cahierDesCharges = (CahierDesCharges) context.getBean("cahierDesCharges");
 			((ConfigurableApplicationContext) context).close();
-			appelOffres.add(appelOffre);
+			
 			return "afficherAppelsOffreEnCours.xhtml?faces-redirect=true";
 		}
 	}
@@ -616,7 +631,25 @@ public class AppelOffreController implements Serializable {
 	
 		return "/views/entreprise/contrePropositions.xhtml?faces-redirect=true";
 	}
-
+	
+	
+	/***
+	 * inviter un etudiant à une visioconference*
+	 */
+	public void inviterAVisioConference(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		ContrePropositionDAO contrePropositionDao = (ContrePropositionDAO) context.getBean("contrePropositionDao");
+		EntretienDAO entretienDao = (EntretienDAO) context.getBean("entretienDao");
+		Entretien entretien= (Entretien) context.getBean("entretien");
+		entretien.setDateEntretien(dateEntretien);
+		entretien.setContreProposition(contreProposition);
+		entretienDao.ajouterEntretien(entretien);
+		contreProposition.setEntretien(entretien);
+		contrePropositionDao.modifierContreProposition(contreProposition);
+		((ConfigurableApplicationContext) context).close();
+		
+		
+	}
 	/***
 	 * PARTIE KHOULOUD
 	 */

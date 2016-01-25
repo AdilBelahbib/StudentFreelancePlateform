@@ -281,6 +281,7 @@ public class TestControllerNassima implements Serializable{
 	}
 	public void supprimerTest(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+				
 		TestDAO testDao = (TestDAO) context.getBean("testDao");
 		testDao.supprimerTest(test.getId());
 		tests.remove(test);

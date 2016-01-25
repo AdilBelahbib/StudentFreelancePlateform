@@ -57,7 +57,7 @@
 			<column name="idEntreprise" />
 		</many-to-one>
 
-		<set name="competences" table="appel_offre_competence" inverse="true"
+		<set name="competences" table="appel_offre_competence" inverse="false"
 			lazy="false">
 			<key column="idAppelOffre" />
 			<many-to-many column="idCompetence" class="com.trast.model.Competence" />

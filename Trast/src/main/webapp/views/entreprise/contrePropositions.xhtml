@@ -4,6 +4,8 @@ xmlns:f="http://java.sun.com/jsf/core"
 xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+xmlns:p="http://primefaces.org/ui"
+
 template="../templates/common.xhtml"
                 xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="content">
@@ -12,6 +14,7 @@ template="../templates/common.xhtml"
 
 	<c:choose>
 	<c:when test="#{not empty appelOffreController.appelOffre.contrePropositions}">
+	
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10">
 				<h3>Les contre propositions concernants <h:outputText  value="#{appelOffreController.appelOffre.cahierDesCharges.sujet}" /></h3>				
@@ -28,6 +31,9 @@ template="../templates/common.xhtml"
 								<th>Piece Jointe</th>
 							</tr>
 							<c:forEach items="#{appelOffreController.appelOffre.contrePropositions}" var="item" varStatus="statut">
+							<!-- Est ce qu'il ya un entretien pour cet appelOffre -->
+							<c:choose>
+							<c:when test="#{appelOffreController.appelOffre.entretien}">
 							<tr>
 								<td>#{item.enchere} </td>
 								<!-- Visualisation du profil public de l'étudiant -->
@@ -67,7 +73,65 @@ template="../templates/common.xhtml"
 										<f:setPropertyActionListener target="#{appelOffreController.contreProposition}" value="#{item}" />
 									</h:commandButton>
 								</td>
+								<td>
+								<c:choose>
+								<c:when test="#{empty item.entretien}">
+									<p:calendar value="#{appelOffreController.dateEntretien}" id="calId"  mode="popup" showOn="both" mindate="15-06-2012" pattern="dd-MM-yyyy hh:mm" effect="fadeIn" />
+		                     		<h:commandButton value="Inviter à une visioconférence"  action="#{appelOffreController.inviterAVisioConference()}" class="btn btn-default" >
+			            
+										<f:setPropertyActionListener target="#{appelOffreController.contreProposition}" value="#{item}" />
+									</h:commandButton>
+		                     	</c:when>
+		                     	<c:otherwise>
+		                     		une visioconférence est programmée
+		                     	</c:otherwise>	
+		                     	</c:choose>									
+								</td>
 							</tr>
+							</c:when>
+							<c:otherwise>
+								<tr>
+								<td>#{item.enchere} </td>
+								<!-- Visualisation du profil public de l'étudiant -->
+								<td>
+								 <h:commandLink action="#{profilPublicController.getInfosEtudiant}" 
+            value="#{item.etudiant.nom} #{item.etudiant.prenom}">
+          	<f:setPropertyActionListener
+            target="#{profilPublicController.etudiant}"
+            value="#{item.etudiant}" />
+            </h:commandLink>
+								</td>
+								<td>
+								<c:choose>
+								<c:when test="#{ not empty item.fichier}">
+								  <h:commandLink action="#{uploadFileService.downloadFile()}">Télécharger le fichier joint
+									<f:setPropertyActionListener
+									   target="#{uploadFileService.fileToDownload}"
+										value="#{proprietes['racineuploads']}#{item.fichier.chemin}/#{item.fichier.titre}" />
+								  </h:commandLink>
+								</c:when>
+								<c:otherwise>
+									Pas de pièce jointe
+								</c:otherwise>
+								</c:choose>
+								</td>
+								<td>
+									<h:commandButton value="Accepter"  action="#{appelOffreController.affecterAppelOffre}" class="btn btn-default" >
+			            
+										<f:setPropertyActionListener target="#{appelOffreController.contreProposition}" value="#{item}" />
+									</h:commandButton>
+								</td>
+								
+								
+								<td>
+									<h:commandButton value="Refuser"  action="#{appelOffreController.refuserContreProposition()}" class="btn btn-default" >
+			            
+										<f:setPropertyActionListener target="#{appelOffreController.contreProposition}" value="#{item}" />
+									</h:commandButton>
+								</td>
+							</tr>
+							</c:otherwise>
+							</c:choose>
 							</c:forEach>
 						</table>
 					</div>
@@ -86,6 +150,35 @@ template="../templates/common.xhtml"
 <div> votre compte n'est pas encore active!!!</div>
 </c:otherwise>
 </c:choose>
+<!-- myModal: -->
+
+<c:forEach items="#{appelOffreController.appelOffre.contrePropositions}" var="itemContreProp" varStatus="statut">
+<div class="modal fade" id="inviter-#{statut.count}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      		<button type="button" class="close" data-dismiss="modal">
+				<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+			</button>
+			<h3 class="modal-title" id="lineModalLabel">Inviter à une visioconférence</h3>
+      </div>
+      <div class="modal-body">
+      <h:form>
+      		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+									<p:calendar value="#{itemContreProp.entretien.dateEntretien}" id="calId"  mode="popup" showOn="both" mindate="15-06-2012" pattern="dd-MM-yyyy hh:mm" effect="fadeIn"/>
+   
+   
+      		
+      </h:form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+      </div>
+  </div>
+  </div>
+</div>
+</c:forEach>
 	</ui:define>
+
 
 </ui:composition>

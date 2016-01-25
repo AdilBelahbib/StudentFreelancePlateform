@@ -61,3 +61,12 @@ aside
 	padding: 20px;
 	margin: 20px;
 }
+
+/*************************************/
+/* CSS calendar*/
+#calId{
+		z-index: 91000 ;
+}
+.calId{
+		z-index: 91000;
+}

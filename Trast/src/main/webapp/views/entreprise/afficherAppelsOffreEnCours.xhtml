@@ -145,6 +145,16 @@ template="../templates/common.xhtml">
             </div>
             </div>
             <div class="row">
+            <div class='col-sm-6'>
+            <div class="form-group">         
+          	
+          	<h:selectBooleanCheckbox value="#{appelOffreController.appelOffre.entretien}" id="entretienBox" />
+                        <label for="dateExpiration">Passer des entretiens en ligne</label> 
+         </div>
+         </div>
+         </div>
+         
+            <div class="row">
 			<div class="form-group">
 				<label for="fichierAttache">Joindre un fichier</label>
 				<h:inputFile id="fichierAttache" class="form-control" value="#{uploadFileService.myFile}"> 
