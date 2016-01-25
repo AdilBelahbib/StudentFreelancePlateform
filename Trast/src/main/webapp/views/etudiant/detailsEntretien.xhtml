@@ -40,7 +40,8 @@
 			</div>
 			<!-- Fin date d'entretien -->
 			
-			<!-- Affichage nombre de jours restants -->
+			<!-- Affichage nombre de jours restants pour les entretiens non encore passés-->
+			<c:if test="#{entretienControllerKhouloud.entretien.termine == false}">
 			<div class="row">
 				<div class="col-md-offset-4 col-md-4">
 					<div class="alert alert-warning">
@@ -49,6 +50,7 @@
 					</div>
 				</div>
 			</div>
+			</c:if>
 			<!-- Fin d'affichage du nombre de jours restants -->
 			
 			<!-- Ligne état de l'entretien -->
