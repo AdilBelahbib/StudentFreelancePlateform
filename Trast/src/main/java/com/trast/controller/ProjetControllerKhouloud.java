@@ -277,8 +277,7 @@ public class ProjetControllerKhouloud {
 		Date d = new Date();
 		// DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		// String dat = dateFormat.format(d);
-		System.out.println("date jour = " + d.getTime());
-		System.out.println("Date fin == " + projet.getCahierDesCharges().getDateFin().getTime());
+		
 		nbJoursRestants = DateCalculService.calculDuree(new Date(), projet.getCahierDesCharges().getDateFin());
 		// Recuperer le dernier livrable
 		// System.out.println("Taille livr liste =

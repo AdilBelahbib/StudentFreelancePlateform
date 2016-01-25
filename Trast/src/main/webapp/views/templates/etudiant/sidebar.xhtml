@@ -77,12 +77,18 @@
 								outcome="/views/etudiant/listeResultatTest.xhtml?faces-redirect=true"
 								value="Mes résultats" /></li>
 					</ul>
-
-					<li id="calendrier"><i class="fa fa-calendar fa-lg"></i>
-					<h:link
+					
+					<li id="entretien"> <i class="fa fa-briefcase fa-lg"></i> 
+					<h:link	outcome="/views/etudiant/listeEntretiens.xhtml?faces-redirect=true"
+							value="  Mes entretiens" /></li>
+							
+										
+					<li id="calendrier"><i class="fa fa-calendar fa-lg"></i> <h:link
 							outcome="/views/etudiant/calendrier.xhtml?faces-redirect=true"
 							value="Calendrier" /></li>
 				</ul>
+
+
 			</div>
 		</div>
 	</h:form>
