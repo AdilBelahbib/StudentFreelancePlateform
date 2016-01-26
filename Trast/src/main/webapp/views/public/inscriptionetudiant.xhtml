@@ -41,14 +41,31 @@ template="../templates/common.xhtml">
 				<div class="row">
 					<div class="col-md-5">
 						<div class="form-group">
-							<label for="nom">Nom</label>
-							<h:inputText id="nom" value="#{inscriptionEtudiantController.etudiant.nom}" styleClass="form-control" />
+							<label for="nom">Nom<span style="color: red" class="requis">*</span></label>
+							<h:inputText id="nom" value="#{inscriptionEtudiantController.etudiant.nom}" 
+							styleClass="form-control" required="true" label="Nom"
+							requiredMessage="Veuillez saisir un nom !!"
+							validatorMessage="Votre nom ne respecte pas la forme !!">
+							<f:ajax event="blur" render="nomMessage" />
+							<f:validateRegex pattern="([a-zA-Z])*" />
+							</h:inputText>
+							
+							<h:message id="nomMessage" for="nom" errorClass="erreur"
+											style="color:red" />
 						</div>
 					</div>
 					<div class="col-md-5">
 						<div class="form-group">
-							<label for="prenom">Prénom</label>
-							<h:inputText id="prenom" value="#{inscriptionEtudiantController.etudiant.prenom}" styleClass="form-control" />
+							<label for="prenom">Prénom<span style="color: red" class="requis">*</span></label>
+							<h:inputText id="prenom" value="#{inscriptionEtudiantController.etudiant.prenom}"
+							 styleClass="form-control" required="true" label="Prenom"
+							requiredMessage="Veuillez saisir un prénom !!"
+							validatorMessage="Votre prenom ne respecte pas la forme !!">
+							<f:ajax event="blur" render="prenomMessage" />
+							<f:validateRegex	pattern="([a-zA-Z])*" />
+							</h:inputText>							
+							<h:message id="prenomMessage" for="prenom" errorClass="erreur"
+											style="color:red" />
 						</div>
 					</div>
 				</div>
@@ -56,8 +73,18 @@ template="../templates/common.xhtml">
 				<div class="row">
 					<div class="col-md-5">
 						<div class="form-group">
-							<label for="email">Adresse Email</label>
-							<h:inputText id="email" value="#{inscriptionEtudiantController.etudiant.email}" styleClass="form-control" />
+							<label for="email">Adresse Email<span style="color: red" class="requis">*</span></label>
+							<h:inputText id="email" value="#{inscriptionEtudiantController.etudiant.email}" styleClass="form-control" 
+							required="true" label="Email"
+							requiredMessage="Veuillez saisir une adresse email !!"
+							validatorMessage="Votre email ne respecte pas la forme !!">
+							<f:ajax event="blur" render="emailMessage" />
+							<f:validateRegex
+							pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]{2,}[.][a-zA-Z]{2,4}$" />
+							<f:validator binding="#{existenceEmailValidator}" />
+							</h:inputText>
+							<h:message id="emailMessage" for="email" errorClass="erreur"
+											style="color:red" />
 						</div>
 					</div>
 				</div>
@@ -65,14 +92,37 @@ template="../templates/common.xhtml">
 				<div class="row">
 					<div class="col-md-5">
 						<div class="form-group">
-							<label for="motDePasse">Mot de passe</label>
-							<h:inputSecret id="motDePasse" value="#{inscriptionEtudiantController.etudiant.motDePasse}" styleClass="form-control" />
+							<label for="motDePasse">Mot de passe<span style="color: red" class="requis">*</span></label>
+							<h:inputSecret id="motDePasse" value="#{inscriptionEtudiantController.etudiant.motDePasse}" styleClass="form-control" 
+							required="true" label="Mot de passe"
+							requiredMessage="Veuillez saisir un mot de passe !!"
+							binding="#{composantMotDePasse}"
+							validatorMessage="Vous avez choisi un mot de passe non sécurisé!!">
+							<f:ajax event="blur" execute="motdepasse vMotDePasse" render="mdpMessage vMdpMessage"  />
+							<!-- Mot de passe sécurisé -->
+							<f:validateRegex
+								pattern=".*(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*" />
+							</h:inputSecret>
+							<h:message id="mdpMessage" for="motDePasse"
+											errorClass="erreur" style="color:red" />
 						</div>
 					</div>
 					<div class="col-md-5">
 						<div class="form-group">
-							<label for="vMotDePasse">Vérification mot de passe</label>
-							<h:inputSecret id="vMotDePasse" styleClass="form-control" />
+							<label for="vMotDePasse">Vérification mot de passe <span
+											style="color: red" class="requis">*</span></label>
+							<h:inputSecret id="vMotDePasse" styleClass="form-control" 
+							required="true"
+							requiredMessage="Veuillez saisir la confirmation de mot de passe !!"
+							label="Confirmation">
+							<!-- Utilisé pour vérifier si les deux mots de passe se correspondent -->
+							<f:attribute name="composantMotDePasse" value="#{composantMotDePasse}" />
+    						<f:validator validatorId="confirmationMotDePasseValidator" />
+							<f:ajax event="blur" execute="motdepasse vMotDePasse" render="mdpMessage vMdpMessage"  />
+							</h:inputSecret>
+
+							<h:message id="vMdpMessage" for="vMotDePasse"
+											errorClass="erreur" style="color:red" />
 						</div>
 					</div>
 				</div>

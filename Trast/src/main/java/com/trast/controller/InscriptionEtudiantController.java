@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 
 import org.springframework.context.ApplicationContext;
@@ -186,6 +188,10 @@ public class InscriptionEtudiantController implements Serializable {
 		etudiant.setMotDePasse(Security.get_SHA_1_SecurePassword(etudiant.getMotDePasse()));
 		
 		etudiantDAO.ajouterEtudiant(etudiant);
+		
+		//Traitement des messages des erreus /Controle\
+		FacesMessage message = new FacesMessage( "Inscription réussie !" );
+        FacesContext.getCurrentInstance().addMessage( null, message );
 		
 		
 		/*** ajouter les fichiers de l'etudiant**/

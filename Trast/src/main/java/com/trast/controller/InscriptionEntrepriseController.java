@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -33,7 +32,6 @@ public class InscriptionEntrepriseController implements Serializable {
 	@ManagedProperty(value = "#{adresse}")
 	private Adresse adresse;
 	// Utilisée pour récupérer le secteur d'activités saisi
-	@NotNull( message = "Veuillez saisir un secteur" )
 	private String secteurActivites;
 
 	// valeur du titre de fichier identite de l'entrprise
