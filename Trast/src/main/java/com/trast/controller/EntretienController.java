@@ -17,36 +17,39 @@ import com.trast.model.Etudiant;
 import com.trast.model.Utilisateur;
 import com.trast.service.DateCalculService;
 
-@ManagedBean(name = "entretienControllerKhouloud", eager = true)
+@ManagedBean(name = "entretienController", eager = true)
 @SessionScoped
-public class EntretienControllerKhouloud {
-	//Utilisateur connecté
-	@ManagedProperty(value = "#{sessionScope.utilisateur}")
-	Utilisateur utilisateur;
-	
-	//Utilisé pour différencier l'utilisateur connecté
-	private Etudiant etudiant;
-	private Entreprise entreprise;
-	
-	private ContreProposition contreProposition;
-	private AppelOffre appelOffre;
-	
-	private String nbJoursRestants;
-	
+public class EntretienController {
+
 	@ManagedProperty(value = "#{entretienDao}")
 	private EntretienDAO entretienDao;
-	
+
 	@ManagedProperty(value = "#{entretien}")
 	private Entretien entretien;
-	
-	//Stockage de la liste des entretiens à partir des contresPropositions
-		//de l'étudiant connecté
+
+	// Utilisateur connectï¿½
+	@ManagedProperty(value = "#{sessionScope.utilisateur}")
+	Utilisateur utilisateur;
+
+	// Utilisï¿½ pour diffï¿½rencier l'utilisateur connectï¿½
+	private Etudiant etudiant;
+	private Entreprise entreprise;
+
+	private ContreProposition contreProposition;
+	private AppelOffre appelOffre;
+
+	private String nbJoursRestants;
+
+	private String note;
+
+	// Stockage de la liste des entretiens ï¿½ partir des contresPropositions
+	// de l'ï¿½tudiant connectï¿½
 	private List<Entretien> listeEntretiens;
-	
+
 	public String getNbJoursRestants() {
 		return nbJoursRestants;
 	}
-	
+
 	public AppelOffre getAppelOffre() {
 		return appelOffre;
 	}
@@ -62,7 +65,7 @@ public class EntretienControllerKhouloud {
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
-	
+
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
@@ -81,7 +84,7 @@ public class EntretienControllerKhouloud {
 
 	public void setEntreprise(Entreprise entreprise) {
 		this.entreprise = entreprise;
-	}	
+	}
 
 	public ContreProposition getContreProposition() {
 		return contreProposition;
@@ -91,6 +94,14 @@ public class EntretienControllerKhouloud {
 		this.contreProposition = contreProposition;
 	}
 
+	public List<Entretien> getListeEntretiens() {
+		return listeEntretiens;
+	}
+
+	public void setListeEntretiens(List<Entretien> listeEntretiens) {
+		this.listeEntretiens = listeEntretiens;
+	}
+	
 	public EntretienDAO getEntretienDao() {
 		return entretienDao;
 	}
@@ -107,80 +118,90 @@ public class EntretienControllerKhouloud {
 		this.entretien = entretien;
 	}
 
-	public List<Entretien> getListeEntretiens() {
-		return listeEntretiens;
+	public String getNote() {
+		return note;
 	}
 
-	public void setListeEntretiens(List<Entretien> listeEntretiens) {
-		this.listeEntretiens = listeEntretiens;
+	public void setNote(String note) {
+		this.note = note;
 	}
+
 
 	/**
-	 * Cette fonction récupère la liste des entretiens de la part 
-	 * de l'étudiant connecté. 
-	 * Elle est appelée par la vue listeEntretiens.xhtml
+	 * Cette fonction rï¿½cupï¿½re la liste des entretiens de la part de l'ï¿½tudiant
+	 * connectï¿½. Elle est appelï¿½e par la vue listeEntretiens.xhtml
 	 */
-	public void getAllEntretiensByEtudiant(){
+	public void getAllEntretiensByEtudiant() {
 		// recuperer utilisateur sur etudiant
 		this.etudiant = (Etudiant) utilisateur;
-		//Instanciation de la liste des entretiens
+		// Instanciation de la liste des entretiens
 		listeEntretiens = new ArrayList<Entretien>();
-		//Pour chaque élément de la liste des contre-propositions 
-			//extraire et remplir la liste des entretiens
-		for(ContreProposition item : etudiant.getContrePropositions()){
-			if(item.getEntretien() != null)
-			{
+		// Pour chaque ï¿½lï¿½ment de la liste des contre-propositions
+		// extraire et remplir la liste des entretiens
+		for (ContreProposition item : etudiant.getContrePropositions()) {
+			if (item.getEntretien() != null) {
 				listeEntretiens.add(item.getEntretien());
 			}
 		}
 	}
-	
+
 	/**
-	 * Cette fonction récupère la liste des entretiens de la 
-	 * part de l'entreprise connecté.
-	 * Elle est appelée de la page détails de la liste des apples 
-	 * d'offre
+	 * Cette fonction rï¿½cupï¿½re la liste des entretiens de la part de
+	 * l'entreprise connectï¿½. Elle est appelï¿½e de la page dï¿½tails de la liste
+	 * des apples d'offre
 	 */
-	public String getEntretiensByEntreprise(){
+	public String getEntretiensByEntreprise() {
 		// recuperer utilisateur sur entreprise
 		this.entreprise = (Entreprise) utilisateur;
-		//Instanciation de la liste des entretiens
+		// Instanciation de la liste des entretiens
 		listeEntretiens = new ArrayList<Entretien>();
-		//Pour chaque élément de la liste des appels d'offre
-			//extraire et remplir la liste des entretiens
-		//for(AppelOffre item : entreprise.getAppelOffres()){
-			for(ContreProposition objet : appelOffre.getContrePropositions() )
-			{
-				if(objet.getEntretien() != null)
-				{
-					listeEntretiens.add(objet.getEntretien());
-				}				
+		// Pour chaque ï¿½lï¿½ment de la liste des appels d'offre
+		// extraire et remplir la liste des entretiens
+		// for(AppelOffre item : entreprise.getAppelOffres()){
+		for (ContreProposition objet : appelOffre.getContrePropositions()) {
+			if (objet.getEntretien() != null) {
+				listeEntretiens.add(objet.getEntretien());
 			}
-		//}
+		}
+		// }
 		return "/views/entreprise/listeEntretiens.xhtml?faces-redirect=true";
 	}
-	
+
 	/**
-	 * Fonction détails des entretiens, elle est appelée à partir
-	 * de la liste des entretiens des étudiants
+	 * Fonction dï¿½tails des entretiens, elle est appelï¿½e ï¿½ partir de la liste
+	 * des entretiens des ï¿½tudiants
 	 */
-	public String detailsEntretien(){
-		//calculer nombre des jours restants pour l'entretien
+	public String detailsEntretien() {
+		// calculer nombre des jours restants pour l'entretien
 		nbJoursRestants = DateCalculService.calculDuree(new Date(), entretien.getDateEntretien());
-		
+
 		return "detailsEntretien.xhtml?faces-redirect=true";
 	}
-	
+
 	/**
-	 * Fonction détails des entretiens, elle est appelée à partir 
-	 * de la liste des entretiens des entreprises.
+	 * Fonction dï¿½tails des entretiens, elle est appelï¿½e ï¿½ partir de la liste
+	 * des entretiens des entreprises.
 	 * 
 	 * Elle permet d'afficher les notes prises durant les entretiens.
 	 */
-	public String detailsEntretienEntreprise(){
-		//Calculer le nombre de jours restants
+	public String detailsEntretienEntreprise() {
+		// Calculer le nombre de jours restants
 		nbJoursRestants = DateCalculService.calculDuree(new Date(), entretien.getDateEntretien());
-		
+
 		return "detailsEntretien.xhtml?faces-redirect=true";
 	}
+
+	public void ajouterNote() {
+		if (!note.equals("")) {
+			entretien.getNotes().add(note);
+			entretienDao.modifierEntretien(entretien);
+			note = "";
+		}
+	}
+
+	public void terminerEntretien() {
+		entretien.setTermine(true);
+		entretienDao.modifierEntretien(entretien);
+	}
+
 }

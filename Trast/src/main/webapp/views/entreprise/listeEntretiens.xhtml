@@ -18,11 +18,11 @@
 					<th>Date de passage</th>
 				</tr>
 
-				<c:forEach items="#{entretienControllerKhouloud.listeEntretiens}"
+				<c:forEach items="#{entretienController.listeEntretiens}"
 					var="item" varStatus="statut">
 
 					<tr>
-						<td>#{item.contreProposition.appelOffre.cahierDesCharges.sujet}</td>
+						<td>#{item.contreProposition.etudiant.prenom} #{item.contreProposition.etudiant.nom}</td>
 						<td>
 						<c:if test="#{item.termine == false}">
 						En attente
@@ -38,10 +38,10 @@
 						</td>
 						<td>
 						<h:commandButton value="Détails" class="btn btn-default"
-								action="#{entretienControllerKhouloud.detailsEntretien}">
+								action="#{entretienController.detailsEntretien}">
 
 								<f:setPropertyActionListener
-									target="#{entretienControllerKhouloud.entretien}" 
+									target="#{entretienController.entretien}" 
 									value="#{item}" />
 
 							</h:commandButton>

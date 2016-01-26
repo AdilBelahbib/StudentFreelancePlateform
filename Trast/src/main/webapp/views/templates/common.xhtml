@@ -20,23 +20,28 @@
 	<h:outputStylesheet library="css" name="component.css" />
 	<h:outputStylesheet library="css" name="default.css" />
 	<h:outputStylesheet library="fullcalendar" name="fullcalendar.css" />
-	
+
 	<h:outputStylesheet library="css" name="main.css" />
-	
-	
-	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+
+
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
 	<h:outputScript library="js" name="bootstrap.min.js" />
 	<h:outputScript library="js" name="inscription-wizard.js" />
 	<h:outputScript library="js" name="countdown-timer.js" />
 	<!--  -->
 	<h:outputScript library="js" name="modernizr.custom.js" />
 	<h:outputScript library="js" name="toucheffects.js" />
-	
+
 	<h:outputScript library="js" name="main.js" />
-	
+
 	<h:outputScript library="fullcalendar" name="lib/moment.min.js" />
 	<h:outputScript library="fullcalendar" name="fullcalendar.js" />
 	<h:outputScript library="fullcalendar" name="lang/fr.js" />
+
+	<script src="https://cdn.pubnub.com/pubnub-3.7.14.min.js"></script>
+	<script src="https://cdn.pubnub.com/webrtc/webrtc.js"></script>
+	<script src="https://cdn.pubnub.com/webrtc/rtc-controller.js"></script>
 
 	<title>Trast - Trust A Student !</title>
 </h:head>
@@ -71,9 +76,9 @@
 			</ui:include>
 		</ui:insert>
 		<aside>
-		<ui:insert name="content">
-			<ui:include src="/views/templates/entreprise/content.xhtml" />
-		</ui:insert>
+			<ui:insert name="content">
+				<ui:include src="/views/templates/entreprise/content.xhtml" />
+			</ui:insert>
 		</aside>
 		<ui:insert name="footer">
 			<ui:include src="/views/templates/entreprise/footer.xhtml" />

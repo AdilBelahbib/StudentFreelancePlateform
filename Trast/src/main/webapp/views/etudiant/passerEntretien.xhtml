@@ -1,0 +1,84 @@
+<ui:composition template="../templates/common.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="content">
+
+		<div id="vid-box"></div>
+		
+		<div id="inCall" style="display: none;">
+			<!-- Buttons for in call features -->
+			<button id="end" onclick="end()">End</button>
+			<button id="mute" onclick="mute()">Mute</button>
+			<button id="pause" onclick="pause()">Pause</button>
+		</div>
+		
+		<div id="vid-thumb"></div>
+
+		<script type="text/javascript">
+			var video_out = document.getElementById("vid-box");
+			var vid_thumb = document.getElementById("vid-thumb");
+
+			console.log("logging in ...");
+			var phone = window.phone = PHONE({
+				number : "#{sessionScope.utilisateur.id}", // listen on username line
+				publish_key : 'pub-c-34e40b7f-1ad5-45c7-a1b5-e912b079e075',
+				subscribe_key : 'sub-c-fba6c1d2-bd15-11e5-8a35-0619f8945a4f',
+			});
+			console.log(" Phone created !");
+
+			var ctrl = window.ctrl = CONTROLLER(phone);
+
+			ctrl.ready(function() {
+				
+			});
+
+			ctrl
+					.receive(function(session) {
+						session.connected(function(session) {
+							console.log("Call received !");
+							video_out.appendChild(session.video);
+							ctrl.addLocalStream(vid_thumb); // Place local stream in div
+							document.getElementById('inCall').style.display = 'block';
+						});
+						session
+								.ended(function(session) {
+									video_out.innerHTML = '';
+									vid_thumb.innerHTML = '';
+									ctrl.getVideoElement(session.number)
+											.remove();
+									document.getElementById('inCall').style.display = 'none';
+								});
+
+					});
+
+			console.log(" Phone configured !");
+			
+			function end(){
+				ctrl.hangup();
+			}
+			
+			function mute(){
+				var audio = ctrl.toggleAudio();
+				if (!audio) $("#mute").html("Unmute");
+				else $("#mute").html("Mute");
+			}
+
+			function pause(){
+				var video = ctrl.toggleVideo();
+				if (!video) $('#pause').html('Unpause');
+				else $('#pause').html('Pause');
+			}
+			
+			ctrl.videoToggled(function(session, isEnabled){
+				ctrl.getVideoElement(session.number).toggle(isEnabled); // Hide video is stream paused
+			});
+			ctrl.audioToggled(function(session, isEnabled){
+				ctrl.getVideoElement(session.number).css("opacity",isEnabled ? 1 : 0.75); // 0.75 opacity is audio muted
+			});
+		</script>
+
+	</ui:define>
+</ui:composition>

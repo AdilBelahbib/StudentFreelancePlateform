@@ -8,7 +8,7 @@
 	<ui:define name="content">
 
 		<f:metadata>
-			<f:viewAction action="#{entretienControllerKhouloud.getAllEntretiensByEtudiant}" />
+			<f:viewAction action="#{entretienController.getAllEntretiensByEtudiant}" />
 		</f:metadata>
 		<h:form>
 			<input type="hidden" name="${_csrf.parameterName}"
@@ -21,7 +21,7 @@
 					<th>Date de passage</th>
 				</tr>
 
-				<c:forEach items="#{entretienControllerKhouloud.listeEntretiens}"
+				<c:forEach items="#{entretienController.listeEntretiens}"
 					var="item" varStatus="statut">
 
 					<tr>
@@ -41,10 +41,10 @@
 						</td>
 						<td>
 						<h:commandButton value="Détails" class="btn btn-default"
-								action="#{entretienControllerKhouloud.detailsEntretien}">
+								action="#{entretienController.detailsEntretien}">
 
 								<f:setPropertyActionListener
-									target="#{entretienControllerKhouloud.entretien}" 
+									target="#{entretienController.entretien}" 
 									value="#{item}" />
 
 							</h:commandButton>

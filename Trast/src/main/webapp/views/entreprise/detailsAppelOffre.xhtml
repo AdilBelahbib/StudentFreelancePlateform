@@ -162,9 +162,9 @@ template="../templates/common.xhtml"
 			
 					<h:commandButton value="Liste des entretiens"
 						class="btn btn-default"
-						action="#{entretienControllerKhouloud.getEntretiensByEntreprise}">
+						action="#{entretienController.getEntretiensByEntreprise}">
 						<f:setPropertyActionListener
-							target="#{entretienControllerKhouloud.appelOffre}"
+							target="#{entretienController.appelOffre}"
 							value="#{appelOffreController.appelOffre}" />
 					</h:commandButton>
 				</h:form>

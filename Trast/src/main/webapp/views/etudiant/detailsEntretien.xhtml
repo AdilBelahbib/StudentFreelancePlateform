@@ -14,7 +14,7 @@
 				<h3>
 					<label>Sujet:
 					<h:outputText
-							value="#{entretienControllerKhouloud.entretien.contreProposition.appelOffre.cahierDesCharges.sujet}">
+							value="#{entretienController.entretien.contreProposition.appelOffre.cahierDesCharges.sujet}">
 					</h:outputText>
 					</label>
 				</h3>
@@ -30,7 +30,7 @@
 						<h4>
 							<label>Date d'entretien: 
 							<h:outputText
-								value="#{entretienControllerKhouloud.entretien.dateEntretien}">
+								value="#{entretienController.entretien.dateEntretien}">
 								<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
 							</h:outputText>
 							</label>
@@ -41,12 +41,12 @@
 			<!-- Fin date d'entretien -->
 			
 			<!-- Affichage nombre de jours restants pour les entretiens non encore passés-->
-			<c:if test="#{entretienControllerKhouloud.entretien.termine == false}">
+			<c:if test="#{entretienController.entretien.termine == false}">
 			<div class="row">
 				<div class="col-md-offset-4 col-md-4">
 					<div class="alert alert-warning">
 						<i class="icon icon-exclamation-circle icon-lg"></i> <i>
-							#{entretienControllerKhouloud.nbJoursRestants} </i>
+							#{entretienController.nbJoursRestants} </i>
 					</div>
 				</div>
 			</div>
@@ -59,10 +59,10 @@
 					<div class="form-group">
 						<h4>
 							<label> Statut: 
-							<c:if test="#{entretienControllerKhouloud.entretien.termine == false}">
+							<c:if test="#{entretienController.entretien.termine == false}">
 								En attente
 							</c:if> 
-							<c:if test="#{entretienControllerKhouloud.entretien.termine == true}">
+							<c:if test="#{entretienController.entretien.termine == true}">
 								Terminé
 							</c:if>
 							</label>
@@ -77,18 +77,18 @@
 				<div class="col-md-offset-5">
 					<!-- Entretien non encore passé -->
 					<c:if
-						test="#{entretienControllerKhouloud.entretien.termine == false}">
+						test="#{entretienController.entretien.termine == false}">
 						<h:commandButton value=" > Se présenter à l'entretien"
-							class="btn btn-primary" action="#">
+							class="btn btn-primary" action="/views/etudiant/passerEntretien.xhtml?faces-redirect=true">
 							<f:setPropertyActionListener
-								target="#{entretienControllerKhouloud.entretien}"
-								value="#{entretienControllerKhouloud.entretien}" />
+								target="#{entretienController.entretien}"
+								value="#{entretienController.entretien}" />
 						</h:commandButton>
 					</c:if>
 					<!-- Fin entretien non encore passé -->
 					<!-- Entretien terminé -->
 					<c:if
-						test="#{entretienControllerKhouloud.entretien.termine == true}">
+						test="#{entretienController.entretien.termine == true}">
 						<h3>
 							<h:outputText
 								value="Vous vous êtes déja présenté à l'entretien !!">
