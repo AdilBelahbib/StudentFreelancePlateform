@@ -136,23 +136,50 @@ template="../templates/common.xhtml"
 				</div>
 				</div>
 				</c:if>
-				<div class="row">
 				
-				<div class="col-md-offset-1 col-md-10">
+				<!-- Redirection vers la liste des contrePropositions -->
+				<div class="row">
+				<div class="col-md-offset-9">
 				<h:form>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			
- 				<h:commandButton value="retour" class="btn btn-default" action="#{appelOffreController.afficherAppelsOffre}">
-				</h:commandButton>
+					<h:commandButton class="btn btn-primary" value="Contre-propositions"
+				 		action="#{appelOffreController.contrePropositions}">
+						
+						<f:setPropertyActionListener target="#{appelOffreController.appelOffre}"
+						 value="#{appelOffreController.appelOffre}" />
+					</h:commandButton>
 				</h:form>
 				</div>
 				</div>
+				<!-- Fin redirection vers la liste des contrePropositions -->
+				<br/>
+				<!-- Redirection vers la liste des entretiens -->
+				<div class="row">
+				<div class="col-md-offset-9">
+				<h:form>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			
+					<h:commandButton value="Liste des entretiens"
+						class="btn btn-default"
+						action="#{entretienControllerKhouloud.getEntretiensByEntreprise}">
+						<f:setPropertyActionListener
+							target="#{entretienControllerKhouloud.appelOffre}"
+							value="#{appelOffreController.appelOffre}" />
+					</h:commandButton>
+				</h:form>
+				</div>
+				</div>
+				<!-- Fin redirection vers la liste des entretiens -->
+
 </c:when>
 <c:otherwise>
 <div> votre compte n'est pas encore active!!!</div>
 </c:otherwise>
 </c:choose>
+	
 	</ui:define>
+	
 
 
 </ui:composition>

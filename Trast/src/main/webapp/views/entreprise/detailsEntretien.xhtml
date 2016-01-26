@@ -1,0 +1,112 @@
+<ui:composition template="../templates/common.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="content">
+		<h:form>
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<!-- Sujet d'entretien -->
+			<div class="form-group">
+				<h3>
+					<label>Sujet:
+					<h:outputText
+							value="#{entretienControllerKhouloud.entretien.contreProposition.appelOffre.cahierDesCharges.sujet}">
+					</h:outputText>
+					</label>
+				</h3>
+			</div>
+			<!-- Fin sujet d'entretien -->
+			
+			<hr></hr>
+			
+			<!-- Date d'entretien -->
+			<div class="row">
+				<div class="col-md-offset-3 col-md-6">
+					<div class="form-group">
+						<h4>
+							<label>Date d'entretien: 
+							<h:outputText
+								value="#{entretienControllerKhouloud.entretien.dateEntretien}">
+								<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
+							</h:outputText>
+							</label>
+						</h4>
+					</div>
+				</div>
+			</div>
+			<!-- Fin date d'entretien -->
+			
+			<!-- Affichage nombre de jours restants pour les entretiens non encore passés-->
+			<c:if test="#{entretienControllerKhouloud.entretien.termine == false}">
+			<div class="row">
+				<div class="col-md-offset-4 col-md-4">
+					<div class="alert alert-warning">
+						<i class="icon icon-exclamation-circle icon-lg"></i> <i>
+							#{entretienControllerKhouloud.nbJoursRestants} </i>
+					</div>
+				</div>
+			</div>
+			</c:if>
+			<!-- Fin d'affichage du nombre de jours restants -->
+			
+			<!-- Ligne état de l'entretien -->
+			<div class="row">
+				<div class="col-md-offset-3 col-md-5">
+					<div class="form-group">
+						<h4>
+							<label> Statut: 
+							<c:if test="#{entretienControllerKhouloud.entretien.termine == false}">
+								En attente
+							</c:if> 
+							<c:if test="#{entretienControllerKhouloud.entretien.termine == true}">
+								Terminé
+							</c:if>
+							</label>
+						</h4>
+					</div>
+				</div>
+			</div>
+			<!-- Fin de ligne état de l'entretien -->
+			
+			<!-- Row des boutons de lancement d'entretien -->
+			<div class="row">
+				<div class="col-md-offset-3 col-md-5">
+					<!-- Entretien non encore passé -->
+					<c:if
+						test="#{entretienControllerKhouloud.entretien.termine == false}">
+						<h:commandButton value=" > Faire passer un entretien"
+							class="btn btn-primary" action="#">
+							<f:setPropertyActionListener
+								target="#{entretienControllerKhouloud.entretien}"
+								value="#{entretienControllerKhouloud.entretien}" />
+						</h:commandButton>
+					</c:if>
+					<!-- Fin entretien non encore passé -->
+					<!-- Entretien terminé -->
+					<c:if
+						test="#{entretienControllerKhouloud.entretien.termine == true}">
+						
+						<!-- Table des notes prises -->
+						<h3>> Notes prises</h3>
+						<table class="table table-striped table-hover">
+						<c:forEach items="#{entretienControllerKhouloud.entretien.notes}"
+						var="item" varStatus="statut">
+						<tr>
+							<td>#{item}</td>
+						</tr>
+						</c:forEach>
+						</table>
+						<!-- End of table des notes prises -->
+					</c:if>
+					<!-- Fin entretien terminé -->
+				</div>
+			</div>
+			<!-- Fin des rows des boutons de lancement d'entretien -->
+		</h:form>
+
+	</ui:define>
+</ui:composition>

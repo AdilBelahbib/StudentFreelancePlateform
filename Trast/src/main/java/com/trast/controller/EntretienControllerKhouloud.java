@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.trast.dao.EntretienDAO;
+import com.trast.model.AppelOffre;
 import com.trast.model.ContreProposition;
 import com.trast.model.Entreprise;
 import com.trast.model.Entretien;
@@ -28,6 +29,7 @@ public class EntretienControllerKhouloud {
 	private Entreprise entreprise;
 	
 	private ContreProposition contreProposition;
+	private AppelOffre appelOffre;
 	
 	private String nbJoursRestants;
 	
@@ -43,6 +45,14 @@ public class EntretienControllerKhouloud {
 	
 	public String getNbJoursRestants() {
 		return nbJoursRestants;
+	}
+	
+	public AppelOffre getAppelOffre() {
+		return appelOffre;
+	}
+
+	public void setAppelOffre(AppelOffre appelOffre) {
+		this.appelOffre = appelOffre;
 	}
 
 	public void setNbJoursRestants(String nbJoursRestants) {
@@ -108,7 +118,7 @@ public class EntretienControllerKhouloud {
 	/**
 	 * Cette fonction récupère la liste des entretiens de la part 
 	 * de l'étudiant connecté. 
-	 * Elle est appellée par la vue listeEntretiens.xhtml
+	 * Elle est appelée par la vue listeEntretiens.xhtml
 	 */
 	public void getAllEntretiensByEtudiant(){
 		// recuperer utilisateur sur etudiant
@@ -126,11 +136,49 @@ public class EntretienControllerKhouloud {
 	}
 	
 	/**
-	 * Fonction détails des entretiens, elle est appellée à partir
-	 * de la liste des entretiens
+	 * Cette fonction récupère la liste des entretiens de la 
+	 * part de l'entreprise connecté.
+	 * Elle est appelée de la page détails de la liste des apples 
+	 * d'offre
+	 */
+	public String getEntretiensByEntreprise(){
+		// recuperer utilisateur sur entreprise
+		this.entreprise = (Entreprise) utilisateur;
+		//Instanciation de la liste des entretiens
+		listeEntretiens = new ArrayList<Entretien>();
+		//Pour chaque élément de la liste des appels d'offre
+			//extraire et remplir la liste des entretiens
+		//for(AppelOffre item : entreprise.getAppelOffres()){
+			for(ContreProposition objet : appelOffre.getContrePropositions() )
+			{
+				if(objet.getEntretien() != null)
+				{
+					listeEntretiens.add(objet.getEntretien());
+				}				
+			}
+		//}
+		return "/views/entreprise/listeEntretiens.xhtml?faces-redirect=true";
+	}
+	
+	/**
+	 * Fonction détails des entretiens, elle est appelée à partir
+	 * de la liste des entretiens des étudiants
 	 */
 	public String detailsEntretien(){
 		//calculer nombre des jours restants pour l'entretien
+		nbJoursRestants = DateCalculService.calculDuree(new Date(), entretien.getDateEntretien());
+		
+		return "detailsEntretien.xhtml?faces-redirect=true";
+	}
+	
+	/**
+	 * Fonction détails des entretiens, elle est appelée à partir 
+	 * de la liste des entretiens des entreprises.
+	 * 
+	 * Elle permet d'afficher les notes prises durant les entretiens.
+	 */
+	public String detailsEntretienEntreprise(){
+		//Calculer le nombre de jours restants
 		nbJoursRestants = DateCalculService.calculDuree(new Date(), entretien.getDateEntretien());
 		
 		return "detailsEntretien.xhtml?faces-redirect=true";

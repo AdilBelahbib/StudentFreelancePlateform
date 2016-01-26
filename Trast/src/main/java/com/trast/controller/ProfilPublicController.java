@@ -45,7 +45,7 @@ public class ProfilPublicController {
 	public String getInfosEntreprise(){
 		this.etudiant = (Etudiant) this.utilisateur;
 		
-		return "/views/profilEntreprise.xhtml";
+		return "/views/profilEntreprise.xhtml?faces-redirect=true";
 	}
 	
 	/**
