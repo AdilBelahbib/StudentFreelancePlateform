@@ -45,7 +45,7 @@ public class ProfilPublicController {
 	public String getInfosEntreprise(){
 		this.etudiant = (Etudiant) this.utilisateur;
 		
-		return "/views/profilEntreprise.xhtml?faces-redirect=true";
+		return "/views/profilEntreprise.xhtml?faces-redirect=true?id="+entreprise.getId();
 	}
 	
 	/**
@@ -58,6 +58,6 @@ public class ProfilPublicController {
 	public String getInfosEtudiant(){
 		this.entreprise = (Entreprise) this.utilisateur;
 		
-		return "/views/profilEtudiant.xhtml?faces-redirect=true";
+		return "/views/profilEtudiant.xhtml?faces-redirect=true?id="+etudiant.getId();
 	}
 }

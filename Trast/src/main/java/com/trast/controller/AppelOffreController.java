@@ -624,7 +624,7 @@ public class AppelOffreController implements Serializable {
 			} else
 				this.experiencesAppelOffre.add((Experience) qualification);
 		}
-		return "detailsAppelOffre.xhtml?faces-redirect=true";
+		return "detailsAppelOffre.xhtml?faces-redirect=true?id="+appelOffre.getId();
 	}
 
 	public String contrePropositions() {
@@ -726,7 +726,7 @@ public class AppelOffreController implements Serializable {
 	@RequestMapping(method = RequestMethod.GET)
 	public String detailsAppelOffre() {
 
-		return "detailAppelOffre.xhtml?faces-redirect=true";
+		return "detailAppelOffre.xhtml?faces-redirect=true?id="+appelOffre.getId();
 	}
 
 	public int dejaPostuler() {

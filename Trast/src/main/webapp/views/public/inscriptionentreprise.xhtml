@@ -198,6 +198,7 @@
 												<f:setPropertyActionListener
 													target="#{inscriptionEntrepriseController.secteurActivites}"
 													value="#{secteur}" />
+												<f:ajax event="action" execute="@form" render="@all"/>
 											</h:commandButton></td>
 									</tr>
 								</c:forEach>
