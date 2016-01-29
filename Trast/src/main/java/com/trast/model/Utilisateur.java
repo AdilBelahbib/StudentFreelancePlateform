@@ -9,6 +9,7 @@ public class Utilisateur{
 	private Set<Fichier> fichiers;
 	private Set<Adresse> adresses;
 	private RoleUtilisateur roleUtilisateur;
+	private Fichier avatar;
 
 	public Utilisateur(){		
 	}
@@ -67,6 +68,15 @@ public class Utilisateur{
 
 	public void setRoleUtilisateur(RoleUtilisateur roleUtilisateur) {
 		this.roleUtilisateur = roleUtilisateur;
+	}
+
+	
+	public Fichier getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(Fichier avatar) {
+		this.avatar = avatar;
 	}
 
 	@Override

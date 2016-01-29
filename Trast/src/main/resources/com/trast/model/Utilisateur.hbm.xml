@@ -16,6 +16,10 @@
 		<property name="motDePasse" type="java.lang.String">
 			<column name="MOTDEPASSE" />
 		</property>
+		
+		<many-to-one name="avatar" column="avatar" class="com.trast.model.Fichier"
+			unique="true" not-null="false" lazy="false" />
+		
 		<set name="fichiers" table="FICHIER" inverse="false" lazy="false">
 			<key>
 				<column name="idUtilisateur" />

@@ -13,7 +13,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
 import com.trast.model.Fichier;
 
 @ManagedBean(name = "uploadFileService", eager = true)
@@ -43,8 +42,15 @@ public class UploadFileService {
 		}
 		 System.out.println("Upload ---- chemin: "+fichier.getChemin()+", titre: "+fichier.getTitre());
 
+		 /* tester*/
+		 if(racine==null){
+			 System.out.println("racine null");
+			 racine ="/apache-tomcat-8.0.28/webapps/trast-uploads";
+			 System.out.println("maintena racine: "+racine);
+		 }
 		/* créer repertoire si ca n'existe pas*/
 		 File rep = new File(racine+fichier.getChemin());
+		 System.out.println("rep :"+rep.toPath());
 		 if(!rep.exists()) rep.mkdirs();
 			
 		 File oldFile = new File(racine+fichier.getChemin()+"/"+fichier.getTitre());
@@ -98,6 +104,7 @@ public class UploadFileService {
 	}
 	public static void definirPart(Part part){
 		UploadFileService.myFile=part;
+		
 	}
 
 	/*****************************************/

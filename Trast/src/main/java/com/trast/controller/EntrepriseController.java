@@ -201,16 +201,20 @@ public class EntrepriseController implements Serializable {
 			EntrepriseDAO entrepriseDAO = (EntrepriseDAO) context.getBean("entrepriseDao");
 			Fichier fichier = (Fichier)context.getBean("fichier");
 			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+			
+			/* supprimer l'ancien avatar*/
+			Fichier ancienAvatar = entreprise.getAvatar();
+			if(ancienAvatar!=null) fichierDao.supprimerFichier(ancienAvatar.getId());
+			
 			/* avatar a pour nom avatar*/
 			fichier.setChemin("/entreprise/"+entreprise.getId());
 			fichier.setTitre("avatar");
 			UploadFileService.uploadFichier(fichier);
 			fichierDao.ajouterFichier(fichier);
 			
-			/* attribut avatar non implementé ***/
-			/****************/
 			/* associer file a l'entreprise*/
-			entreprise.getFichiers().add(fichier);
+			entreprise.setAvatar(fichier);
+			//entreprise.getFichiers().add(fichier);
 			entrepriseDAO.modifierEntreprise(entreprise);
 			((ConfigurableApplicationContext) context).close();
 		}

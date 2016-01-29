@@ -16,11 +16,14 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.EtudiantDAO;
+import com.trast.dao.FichierDAO;
 import com.trast.model.Adresse;
 import com.trast.model.Etudiant;
 import com.trast.model.Experience;
+import com.trast.model.Fichier;
 import com.trast.model.Formation;
 import com.trast.service.Security;
+import com.trast.service.UploadFileService;
 
 @ManagedBean(name = "inscriptionEtudiantController", eager = true)
 @SessionScoped
@@ -126,6 +129,9 @@ public class InscriptionEtudiantController implements Serializable {
 		
 		
 		/* ajout fichier*/
+		
+		
+		
 		if(myFile!=null) System.out.println("diffrent de null);");
 		else System.out.println("file null");
 		if(formation.getIntituleFormation()!=null) System.out.println("formation exis");
@@ -154,12 +160,16 @@ public class InscriptionEtudiantController implements Serializable {
 	public void retirerFormation() {
 		etudiant.getQualifications().remove(formation);
 		
-		/* retirer fichier ???????????*/
+		/* retirer fichier */
+		formationFiles.remove(formation.getIntituleFormation());
+		
 	}
 
 	// La méthode appelée quand l'étudiant retire une experience
 	public void retirerExperience() {
 		etudiant.getQualifications().remove(experience);
+		/* retirer fichier */
+		experienceFiles.remove(experience.getSujet());
 	}
 
 	// La méthode appelée quand l'étudiant ajoute une adresse à sa liste
@@ -196,25 +206,27 @@ public class InscriptionEtudiantController implements Serializable {
 		
 		/*** ajouter les fichiers de l'etudiant**/
 		/* formations:*/
-		/*Fichier fichier = (Fichier)context.getBean("fichier");
+		Fichier fichier = (Fichier)context.getBean("fichier");
 		FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
-		Iterator<Entry<String, Part>> it;
+		
+		
 		if(formationFiles.size()>0) 
 		{
-			it= formationFiles.entrySet().iterator();
-			while (it.hasNext()) {
-				 Map.Entry<String,Part> pair = (Entry<String, Part>)it.next();
+			 for (String key : formationFiles.keySet())
+			 {
+				 Part strored_part = formationFiles.get(key);
+				 
 				 fichier.setChemin("/etudiant/"+etudiant.getId());
-				 fichier.setTitre(pair.getKey());
-				 System.out.println("chemin: "+fichier.getChemin()+", titre: "+fichier.getTitre());
-				 UploadFileService.definirPart(pair.getValue());
+				 fichier.setTitre(key);
+				 UploadFileService.definirPart(strored_part);
 				 UploadFileService.uploadFichier(fichier);
 				 fichierDao.ajouterFichier(fichier);
 				 fichier = (Fichier)context.getBean("fichier");
 				 etudiant.getFichiers().add(fichier);
 				 
-			}
-		}*/
+			 }
+			
+		}
 		/*if(experienceFiles.size()>0){
 			it = experienceFiles.entrySet().iterator();
 			while (it.hasNext()) {
@@ -236,6 +248,9 @@ public class InscriptionEtudiantController implements Serializable {
 		//Réinitialiser l'étudiant
 		etudiant = (Etudiant) context.getBean("etudiant");
 		((ConfigurableApplicationContext) context).close();
+		/* initialiser liste fichiers*/
+		experienceFiles = null;
+		formationFiles = null;
 		System.out.println("Inscription réussie.");
 	}
 

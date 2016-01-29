@@ -184,6 +184,11 @@ public class AdministrateurController implements Serializable {
 			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 			Fichier fichier = (Fichier)context.getBean("fichier");
 			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+			
+			/* supprimer l'ancien avatar*/
+			Fichier ancienAvatar = admin.getAvatar();
+			if(ancienAvatar!=null) fichierDao.supprimerFichier(ancienAvatar.getId());
+			
 			/* avatar a pour nom avatar*/
 			System.out.println("id "+admin.getId());
 			fichier.setChemin("/admin/"+admin.getId());
@@ -191,10 +196,9 @@ public class AdministrateurController implements Serializable {
 			UploadFileService.uploadFichier(fichier);
 			fichierDao.ajouterFichier(fichier);
 			
-			/* attribut avatar non implementé ***/
-			/****************/
+			
 			/* associer file a l'entreprise*/
-			admin.getFichiers().add(fichier);
+			admin.setAvatar(fichier);
 			adminDao.modifierAdministrateur(admin);
 			((ConfigurableApplicationContext) context).close();
 		}

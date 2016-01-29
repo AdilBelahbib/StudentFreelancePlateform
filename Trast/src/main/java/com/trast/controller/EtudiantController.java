@@ -12,7 +12,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.trast.dao.AdresseDAO;
 import com.trast.dao.CompetenceDAO;
-import com.trast.dao.EntrepriseDAO;
 import com.trast.dao.EtudiantDAO;
 import com.trast.dao.ExperienceDAO;
 import com.trast.dao.FichierDAO;
@@ -336,16 +335,18 @@ public class EtudiantController implements Serializable {
 			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 			Fichier fichier = (Fichier)context.getBean("fichier");
 			FichierDAO fichierDao = (FichierDAO)context.getBean("fichierDao");
+			
+			/* supprimer l'ancien avatar*/
+			Fichier ancienAvatar = etudiant.getAvatar();
+			if(ancienAvatar!=null) fichierDao.supprimerFichier(ancienAvatar.getId());
+			
 			/* avatar a pour nom avatar*/
 			fichier.setChemin("/etudiant/"+etudiant.getId());
 			fichier.setTitre("avatar");
 			UploadFileService.uploadFichier(fichier);
 			fichierDao.ajouterFichier(fichier);
 			
-			/* attribut avatar non implementé ***/
-			/****************/
-			/* associer file a l'entreprise*/
-			etudiant.getFichiers().add(fichier);
+			etudiant.setAvatar(fichier);
 			etudiantDao.modifierEtudiant(etudiant);
 			((ConfigurableApplicationContext) context).close();
 		}
