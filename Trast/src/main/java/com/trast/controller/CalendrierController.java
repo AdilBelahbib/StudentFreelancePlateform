@@ -11,6 +11,7 @@ import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
 
+import com.trast.model.ContreProposition;
 import com.trast.model.Etudiant;
 import com.trast.model.Projet;
 import com.trast.model.ResultatTest;
@@ -50,8 +51,15 @@ public class CalendrierController implements Serializable {
 					resultat.getDateDernierPassage(), resultat.getDateDernierPassage()));
 		
 		for(Projet projet: etudiant.getProjets())
-			eventModel.addEvent(new DefaultScheduleEvent(projet.getCahierDesCharges().getSujet(),
+			eventModel.addEvent(new DefaultScheduleEvent("Projet: "+projet.getCahierDesCharges().getAppelOffre().getEntreprise().getSigle(),
 					projet.getCahierDesCharges().getDateDebut(), projet.getCahierDesCharges().getDateFin()));
+		
+		for(ContreProposition contreProposition: etudiant.getContrePropositions())
+			if(contreProposition.getEntretien() != null)
+				eventModel.addEvent(new DefaultScheduleEvent("Entretien: "+contreProposition.getAppelOffre().getEntreprise().getSigle(),
+						contreProposition.getEntretien().getDateEntretien(), contreProposition.getEntretien().getDateEntretien()));
+	
+	
 	}
 
 }

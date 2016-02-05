@@ -8,18 +8,15 @@
 	<ui:define name="content">
 		<h:form>
 			<div class="grid-form">
+			
 				<div class="grid-form1">
-
+					#{projetControllerKhouloud.projet.cahierDesCharges.sujet}
+				</div>
+			
+				<div class="grid-form1">
 
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
-					<div class="form-group">
-						<h3 class="head-top">
-							<h:outputText
-								value="#{projetControllerKhouloud.projet.cahierDesCharges.sujet}">
-							</h:outputText>
-						</h3>
-					</div>
 
 					<div class="well">
 						<div class="row">
