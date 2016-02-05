@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2016 at 01:09 PM
+-- Generation Time: Feb 05, 2016 at 06:15 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -41,7 +41,9 @@ CREATE TABLE IF NOT EXISTS `adresse` (
 --
 
 INSERT INTO `adresse` (`id`, `corps`, `ville`, `pays`, `idUtilisateur`) VALUES
-(22, 'Mon Adresse N 3', 'Ville 3', 'Pays 3', 3);
+(1, 'Rue Al-khatawat, Imm. 8, Appar. 5, Agdal', 'Rabat', 'Maroc', 4),
+(2, 'Avenue Al-mokawama, Imm 11A, Appart. 12', 'Mohammedia', 'Maroc', 1),
+(22, 'Rue baraka, N° 8, Mediouna', 'Casablanca', 'Rabat', 3);
 
 -- --------------------------------------------------------
 
@@ -65,8 +67,9 @@ CREATE TABLE IF NOT EXISTS `appel_offre` (
 --
 
 INSERT INTO `appel_offre` (`id`, `dateDebut`, `dateExpiration`, `entretien`, `statut`, `idEntreprise`) VALUES
-(1, '2015-12-01 00:00:00', '2015-12-25 00:00:00', b'1', 'ENCOURS', 4),
-(17, '2016-01-24 21:33:01', '2016-01-24 00:33:00', b'0', 'ENCOURS', 4);
+(1, '2016-02-01 00:00:00', '2016-02-29 00:00:00', b'1', 'ENCOURS', 4),
+(2, '2016-01-01 00:00:00', '2016-02-24 00:00:00', b'0', 'ARCHIVE', 4),
+(3, '2015-12-02 00:00:00', '2016-01-28 00:00:00', b'1', 'ARCHIVE', 4);
 
 -- --------------------------------------------------------
 
@@ -81,6 +84,22 @@ CREATE TABLE IF NOT EXISTS `appel_offre_competence` (
   KEY `idAppelOffre` (`idAppelOffre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `appel_offre_competence`
+--
+
+INSERT INTO `appel_offre_competence` (`idCompetence`, `idAppelOffre`) VALUES
+(1, 1),
+(3, 1),
+(4, 1),
+(7, 1),
+(1, 2),
+(5, 2),
+(7, 2),
+(3, 3),
+(5, 3),
+(7, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -93,14 +112,18 @@ CREATE TABLE IF NOT EXISTS `badge` (
   `idFichier` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idFichier` (`idFichier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `badge`
 --
 
 INSERT INTO `badge` (`id`, `intitule`, `idFichier`) VALUES
-(6, 'Badge 1 parfait', 41);
+(7, 'Badge de Java', 5),
+(8, 'Badge d''anglais', 4),
+(9, '15 Tests réussis', 8),
+(10, '10 scores parfaits', 6),
+(11, '5 projets réalisés', 7);
 
 -- --------------------------------------------------------
 
@@ -125,11 +148,9 @@ CREATE TABLE IF NOT EXISTS `cahier_des_charges` (
 --
 
 INSERT INTO `cahier_des_charges` (`id`, `sujet`, `dateDebut`, `dateFin`, `idAppelOffre`, `idProjet`) VALUES
-(1, 'Sujet cahier des charge 1', '2015-12-02', '2015-12-16', 1, NULL),
-(2, 'Sujet cahier des charge 2', '2015-12-04', '2015-12-23', NULL, NULL),
-(3, 'Sujet cahier des charge 3', '2015-05-12', '2016-05-11', NULL, NULL),
-(4, 'Sujet cahier des charge 4', '2015-04-02', '2015-08-10', NULL, NULL),
-(16, 'test', '2016-01-24', '2016-01-24', NULL, NULL);
+(1, 'Lorem ipsum dolor sit amet, vel augue explicari corrumpit et. Legendos aliquando mea te, per ea saepe possit feugiat. Ne accusamus reformidans ius, ipsum erant invenire eu nam, no viris civibus mei. Cum in quando oportere. Te deleniti copiosae cum. Mei ea alii sumo evertitur, quo clita saperet atomorum ei. Habeo ubique usu no.\r\n\r\nVeritus intellegat eu sea, ullum possit eum et, duo odio adhuc ad. Decore nominati consequat duo ad, offendit reformidans qui ut. Mundi dicant sententiae eu mei. Duo facete vocibus et. Usu eu simul dolorem docendi. Cu vide munere his, eos ei mentitum dignissim.\r\n\r\nDelectus fabellas elaboraret mea eu. Sea integre tibique moderatius et, vim at hinc veniam. Solum graeci postulant an sed, id prodesset dissentias mel, mei assum virtute persecuti ad. Animal aperiri interpretaris te eos, has ea idque cetero tibique, id oporteat philosophia nec.', '2016-01-20', '2016-03-31', 1, NULL),
+(2, 'Ubique legere fierent mei ea, usu agam tantas antiopam ad, per ad iusto mollis. Sit at melius animal eruditi, ut graeci admodum vim. Ignota evertitur vix ad. Est ut ignota accusam singulis.\r\n\r\nAdhuc iusto ornatus mei ut. Eu harum patrioque vix. Ei pri dolorem delectus, an vix cibo omnes voluptatibus, integre euripidis has te. Accusata inciderint referrentur has ea, ea esse alienum electram vis. Eu qui simul cotidieque eloquentiam, qui stet wisi in, vis sumo hinc facilis ad. At enim liber tamquam eum.\r\n\r\nAt quem diam soleat sit, in qui decore omittantur, an amet magna mei. Ex eos nostrum forensibus persequeris. Cu vel cetero deleniti euripidis, ei ipsum oporteat vix. Ex postulant expetenda prodesset vim, alii atomorum an eos.', '2016-01-26', '2016-03-30', 2, NULL),
+(3, 'Eos et suas reque mentitum, modo omnesque invidunt qui eu, qui ad praesent accusamus intellegebat. Mel te eruditi omittam posidonium. At nam sale utinam, ut consequat elaboraret sea. Legere dolorem delectus mel ei. Eam ex populo fierent molestiae.\r\n\r\nEum quodsi viderer recusabo ad, quando scriptorem consequuntur eu vix, utamur tincidunt interesset nam ea. Eu mel suscipit petentium dissentias. Corrumpit repudiandae vel eu, eu nec mutat ludus animal, vix inimicus intellegat suscipiantur eu. Quo modus scripta in, cu sea labitur pertinax antiopam. Mea no decore aperiri labitur, ei legendos electram corrumpit est.\r\n\r\nNe pro aperiri epicuri voluptua, in mucius periculis scribentur sea. Eius apeirian vituperata cum id, et dicam convenire vix. Eam aliquando dissentiunt reprehendunt et. Ius te virtute ancillae contentiones. Et sea mundi altera disputationi, et cum sonet aeterno quaerendum. Vim ei tota possim, te per quando nominati iracundia. Quo no vocent euripidis definitionem, cum deserunt lobortis contentiones ne, inani solet pri in.', '2015-12-26', '2016-03-26', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -174,14 +195,15 @@ CREATE TABLE IF NOT EXISTS `contre_proposition` (
   KEY `idEtudiant` (`idEtudiant`),
   KEY `idAppelOffre` (`idAppelOffre`),
   KEY `idFichier` (`idFichier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `contre_proposition`
 --
 
 INSERT INTO `contre_proposition` (`id`, `enchere`, `idEtudiant`, `idAppelOffre`, `idFichier`) VALUES
-(1, 1000, 3, 1, NULL);
+(2, 2300, 3, 1, NULL),
+(3, 1400, 3, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -202,8 +224,8 @@ CREATE TABLE IF NOT EXISTS `entreprise` (
 --
 
 INSERT INTO `entreprise` (`id`, `sigle`, `apercu`, `etatCompte`) VALUES
-(4, 'TRAST ModifiÃ©', 'Plateforme de gestion des appels d''offre ModifiÃ??Ã?Â©', 'ACTIVE'),
-(27, 'aaaa', 'ssss', 'EN_ATTENTE');
+(4, 'Ribatis corporation', 'Entreprise spécialisée dans le développement informatique et l''installation des ERPs', 'ACTIVE'),
+(27, 'Opus Network', 'La conception et l''impression des éléments graphiques: Infographie, Web design, etc.', 'EN_ATTENTE');
 
 -- --------------------------------------------------------
 
@@ -219,13 +241,6 @@ CREATE TABLE IF NOT EXISTS `entretien` (
   PRIMARY KEY (`id`),
   KEY `idContreProposition` (`idContreProposition`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `entretien`
---
-
-INSERT INTO `entretien` (`id`, `dateEntretien`, `termine`, `idContreProposition`) VALUES
-(1, '2016-01-05 03:00:00', b'0', 1);
 
 -- --------------------------------------------------------
 
@@ -246,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
 --
 
 INSERT INTO `etudiant` (`id`, `nombreBids`, `avisPositifs`, `avisNegatifs`) VALUES
-(3, 5, 0, 0);
+(3, 3, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -266,7 +281,8 @@ CREATE TABLE IF NOT EXISTS `etudiant_badge` (
 --
 
 INSERT INTO `etudiant_badge` (`idEtudiant`, `idBadge`) VALUES
-(3, 6);
+(3, 7),
+(3, 8);
 
 -- --------------------------------------------------------
 
@@ -290,8 +306,6 @@ CREATE TABLE IF NOT EXISTS `etudiant_competence` (
 INSERT INTO `etudiant_competence` (`id`, `idEtudiant`, `idCompetence`, `maitrise`) VALUES
 (7, 3, 2, 16),
 (8, 3, 4, 11),
-(9, 3, 1, 5),
-(10, 3, 5, 2),
 (11, 3, 3, 3);
 
 -- --------------------------------------------------------
@@ -307,14 +321,16 @@ CREATE TABLE IF NOT EXISTS `evenement_badge` (
   `idBadge` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idBadge` (`idBadge`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `evenement_badge`
 --
 
 INSERT INTO `evenement_badge` (`id`, `sourceEvenement`, `valeur`, `idBadge`) VALUES
-(8, 'SCOREPARFAIT', 1, 6);
+(9, 'PROJET', 5, 11),
+(10, 'SCOREPARFAIT', 10, 10),
+(11, 'TEST', 15, 9);
 
 -- --------------------------------------------------------
 
@@ -337,8 +353,7 @@ CREATE TABLE IF NOT EXISTS `experience` (
 --
 
 INSERT INTO `experience` (`id`, `responsabilite`, `typeExperience`, `structureAccueil`, `sujet`, `salaire`) VALUES
-(65, 'Resp2', 'type2', 'structure2', 'Sujet 2', 321),
-(73, 'Resp 3', 'Type 3', 'Structure 3', 'Sujet 3', NULL);
+(3, 'Concepteur / Développeur', 'Stage cadre', 'FST Mohammedia', 'La conception et le développement d''une application web de l''e-Orientation', 0);
 
 -- --------------------------------------------------------
 
@@ -357,16 +372,21 @@ CREATE TABLE IF NOT EXISTS `fichier` (
   KEY `idUtilisateur` (`idUtilisateur`),
   KEY `idCahierDesCharges` (`idCahierDesCharges`),
   KEY `idQualification` (`idQualification`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `fichier`
 --
 
 INSERT INTO `fichier` (`id`, `titre`, `chemin`, `idUtilisateur`, `idCahierDesCharges`, `idQualification`) VALUES
-(40, 'avatar.png', '/admin/1', NULL, NULL, NULL),
-(41, 'a.png', '/badges', NULL, NULL, NULL),
-(45, 'avatar.png', '/etudiant/3', NULL, NULL, NULL);
+(1, 'avatar.jpg', '/admin/1', NULL, NULL, NULL),
+(2, 'avatar.jpg', '/etudiant/3', NULL, NULL, NULL),
+(3, 'avatar.jpg', '/entreprise/4', NULL, NULL, NULL),
+(4, 'anglaisbadge.png', '/badges', NULL, NULL, NULL),
+(5, 'javabadge.jpg', '/badges', NULL, NULL, NULL),
+(6, 'parfaitbadge.png', '/badges', NULL, NULL, NULL),
+(7, 'projetbadge.png', '/badges', NULL, NULL, NULL),
+(8, 'testbadge', '/badges', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -387,7 +407,9 @@ CREATE TABLE IF NOT EXISTS `formation` (
 --
 
 INSERT INTO `formation` (`id`, `intituleFormation`, `etablissement`) VALUES
-(63, 'InititulÃ© formation 3', 'Etablissement 3');
+(1, 'DEUG', 'Faculté des Sciences - Ben M''Sik'),
+(2, 'Cycle d''Ingénieur d''état', 'Faculté des Sciences et Techniques - Mohammedia'),
+(74, 'Formation dans les technologies .NET', 'Centre de Formation de l''entreprise');
 
 -- --------------------------------------------------------
 
@@ -420,15 +442,6 @@ CREATE TABLE IF NOT EXISTS `note` (
   KEY `idEntretien` (`idEntretien`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- Dumping data for table `note`
---
-
-INSERT INTO `note` (`note`, `idEntretien`) VALUES
-('qsdqsd', 1),
-('tototo', 1),
-('tototo\nsdqsdq', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -448,8 +461,8 @@ CREATE TABLE IF NOT EXISTS `particulier` (
 --
 
 INSERT INTO `particulier` (`id`, `nom`, `prenom`, `dateNaissance`) VALUES
-(1, 'nomAdmin', 'prenomAdmin', '2015-12-15'),
-(3, 'nomEtudiantModifie', 'prenomEtudiantModifie', '2015-12-10');
+(1, 'Alami', 'Ahmed', '1978-12-15'),
+(3, 'Silami', 'Rochdi', '1994-12-10');
 
 -- --------------------------------------------------------
 
@@ -476,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `projet` (
 --
 
 INSERT INTO `projet` (`id`, `cout`, `devise`, `statut`, `idCahierDesCharges`, `idEtudiant`, `idEntreprise`) VALUES
-(1, 12, '', 'ENCOURS', 1, 3, 4);
+(1, 1500, 'MAD', 'ENCOURS', 3, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -493,16 +506,17 @@ CREATE TABLE IF NOT EXISTS `qualification` (
   PRIMARY KEY (`id`),
   KEY `idEtudiant` (`idEtudiant`),
   KEY `idAppelOffre` (`idAppelOffre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=74 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=75 ;
 
 --
 -- Dumping data for table `qualification`
 --
 
 INSERT INTO `qualification` (`id`, `dateDebut`, `dateFin`, `idEtudiant`, `idAppelOffre`) VALUES
-(63, '2015-12-20', '2015-12-24', 3, NULL),
-(65, '2015-12-11', '2015-12-23', 3, NULL),
-(73, '2015-12-24', '2015-12-24', 3, NULL);
+(1, '2011-09-15', '2013-06-15', 3, NULL),
+(2, '2013-09-15', '2016-06-15', 3, NULL),
+(3, '2015-04-15', '2015-06-12', 3, NULL),
+(74, '2016-02-16', '2016-02-23', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -517,24 +531,20 @@ CREATE TABLE IF NOT EXISTS `question` (
   `idTest` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idTest` (`idTest`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `question`
 --
 
 INSERT INTO `question` (`id`, `question`, `coefficient`, `idTest`) VALUES
-(1, 'Question A Lorem ipsum dolor sit amet, consectetur adipiscing e', 2, 1),
-(2, 'Question B Lorem ipsum dolor sit amet, consectetur adipiscing e', 1, 1),
-(3, 'Question C Lorem ipsum dolor sit amet, consectetur adipiscing e', 2, 1),
-(4, 'Question D Lorem ipsum dolor sit amet, consectetur adipiscing e', 3, 2),
-(5, 'Question E Lorem ipsum dolor sit amet, consectetur adipiscing e', 2, 2),
-(6, 'Question F Lorem ipsum dolor sit amet, consectetur adipiscing e', 1, 2),
-(7, 'Question G Lorem ipsum dolor sit amet, consectetur adipiscing e', 2, 3),
-(8, 'Question H Lorem ipsum dolor sit amet, consectetur adipiscing e', 2, 3),
-(9, 'Question I Lorem ipsum dolor sit amet, consectetur adipiscing e', 1, 3),
-(10, 'Question J Lorem ipsum dolor sit amet, consectetur adipiscing e', 2, 3),
-(11, 'ttere', 2, 4);
+(22, 'Lorem ipsum dolor sit amet, tortor elementum. Praesent libero, sem velit. Vitae mauris, vestibulum urna nullam, a etiam etiam ?', 1, 1),
+(23, 'Tortor sit. Leo vestibulum aenean, phasellus ut. Dignissim imperdiet, augue id, orci vestibulum ?', 1, 1),
+(24, 'Tincidunt aptent laoreet. Hymenaeos ut, praesent tincidunt, dui elit lorem. Elit velit amet, mi purus tincidun.', 1, 1),
+(25, 'Pinteger turpis eleifend. Nonummy bibendum vitae. Eleifend diam maecenas. A luctus, ultricies sed, nullam in nullam ?', 1, 1),
+(26, 'Scelerisque nulla, commodi at. Ac justo lacus, neque sed nullam ?', 1, 2),
+(27, 'Vitae vestibulum a. Nec metus mauris, vivamus nibh, mauris per hendrerit. Purus nec, nam magna justo, vivamus cras neque.', 1, 2),
+(28, 'Leo donec dictum, pretium quam, eleifend erat. Volutpat aenean, vestibulum iaculis, orci ut dui.', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -550,7 +560,17 @@ CREATE TABLE IF NOT EXISTS `remuneration` (
   `idAppelOffre` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idAppelOffre` (`idAppelOffre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `remuneration`
+--
+
+INSERT INTO `remuneration` (`id`, `somme`, `intitule`, `devise`, `idAppelOffre`) VALUES
+(1, 1500, 'Prix de la réalisation du projet', 'MAD', 1),
+(2, 500, 'Bonus au cas où les délais/fonctionnalités sont respectés', 'MAD', 1),
+(3, 2300, 'Prix de la réalisation du projet', 'MAD', 2),
+(4, 3000, 'Prix de la réalisation du projet', 'MAD', 3);
 
 -- --------------------------------------------------------
 
@@ -570,27 +590,19 @@ CREATE TABLE IF NOT EXISTS `reponse_fausse` (
 --
 
 INSERT INTO `reponse_fausse` (`reponse`, `idQuestion`) VALUES
-('Reponse 1 fausse 1', 1),
-('Reponse 2 fausse 1', 1),
-('Reponse 1 fausse 2', 2),
-('Reponse 2 fausse 2', 2),
-('Reponse 3 fausse 2', 2),
-('Reponse 1 fausse 3', 3),
-('Reponse 2 fausse 3', 3),
-('Reponse 1 fausse 4', 4),
-('Reponse 2 fausse 4', 4),
-('Reponse 3 fausse 4', 4),
-('Reponse 1 fausse 5', 5),
-('Reponse 1 fausse 6', 6),
-('Reponse 2 fausse 6', 6),
-('Reponse 1 fausse 7', 7),
-('Reponse 2 fausse 7', 7),
-('Reponse 1 fausse 8', 8),
-('Reponse 2 fausse 8', 8),
-('Reponse 1 fausse 9', 9),
-('Reponse 1 fausse 10', 10),
-('Reponse 2 fausse 10', 10),
-('ddff', 11);
+('Elit etiam ultrices, vel lectus ligula, sodales in.', 22),
+('Lorem ipsum dolor sit amet, et wisi et.', 22),
+('Pharetra minima, nec eget.', 23),
+('Blandit ligula.', 24),
+('Quis aenean nunc, hac odio vulputate.', 24),
+('Cras convallis.', 25),
+('Ipsum ac facilisi, tristique eu, ante proin.', 25),
+('Massa vestibulum, facilisi nonummy nibh.', 25),
+('Pede et proin.', 26),
+('Pharetra libero nunc, nisl sodales, vitae animi.', 26),
+('Vel lorem, proin auctor, vestibulum mauris tempus.', 27),
+('Convallis eget pretium, amet elit id, vel convallis.', 28),
+('Leo duis mattis, quam maecenas donec, donec suspendisse in.', 28);
 
 -- --------------------------------------------------------
 
@@ -610,19 +622,15 @@ CREATE TABLE IF NOT EXISTS `reponse_juste` (
 --
 
 INSERT INTO `reponse_juste` (`reponse`, `idQuestion`) VALUES
-('Juste Lorem 1', 1),
-('Juste Lorem 2', 2),
-('Juste Lorem 3', 3),
-('Juste Lorem 4', 4),
-('Juste2 Lorem 4', 4),
-('Juste Lorem 5', 5),
-('Juste Lorem 6', 6),
-('Juste Lorem 7', 7),
-('Juste 2 Lorem 8', 8),
-('Juste Lorem 8', 8),
-('Juste Lorem 9', 9),
-('Juste Lorem 10', 10),
-('dd', 11);
+('Lacus congue, similique mi nunc (V)', 22),
+('Massa sollicitudin. (V)', 23),
+('Tortor class. (V)', 23),
+('Ante massa et. (V)', 24),
+('Phasellus aliquam a. (V)', 25),
+('Ut donec. (V)', 26),
+('Neque libero, metus enim, donec condimentum eget. (V)', 27),
+('Ut ut malesuada, sapien risus aperiam, in quam integer. (V)', 27),
+('Illum vel fringilla. (V)', 28);
 
 -- --------------------------------------------------------
 
@@ -641,15 +649,6 @@ CREATE TABLE IF NOT EXISTS `resultat_test` (
   KEY `idEtudiant` (`idEtudiant`),
   KEY `idTest` (`idTest`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
-
---
--- Dumping data for table `resultat_test`
---
-
-INSERT INTO `resultat_test` (`id`, `score`, `nombrePassage`, `dateDernierPassage`, `idEtudiant`, `idTest`) VALUES
-(16, 100, 1, '2016-01-31 16:30:55', 3, 1),
-(17, 0, 1, '2016-02-05 11:38:30', 3, 2),
-(18, 100, 1, '2016-02-05 11:39:13', 3, 3);
 
 -- --------------------------------------------------------
 
@@ -690,9 +689,9 @@ CREATE TABLE IF NOT EXISTS `secteur_activite` (
 --
 
 INSERT INTO `secteur_activite` (`secteur`, `idEntreprise`) VALUES
-('Secteur A', 4),
-('Secteur B', 4),
-('Secteur Z', 27);
+('Développement informatique', 4),
+('Installation ERP', 4),
+('Infographie', 27);
 
 -- --------------------------------------------------------
 
@@ -717,10 +716,8 @@ CREATE TABLE IF NOT EXISTS `test` (
 --
 
 INSERT INTO `test` (`id`, `titre`, `duree`, `nombrePassage`, `idEntreprise`, `idBadge`) VALUES
-(1, 'Test Numéro 1', 20, 11, NULL, NULL),
-(2, 'Test Numéro 2', 30, 5, NULL, NULL),
-(3, 'Test Numéro 3', 25, 7, 4, NULL),
-(4, 'Test 4', 20, 0, 4, NULL);
+(1, 'Test Java', 10, 0, 4, 7),
+(2, 'Test Anglais', 15, 0, NULL, 8);
 
 -- --------------------------------------------------------
 
@@ -740,14 +737,11 @@ CREATE TABLE IF NOT EXISTS `test_competence` (
 --
 
 INSERT INTO `test_competence` (`idTest`, `idCompetence`) VALUES
-(2, 1),
-(3, 1),
-(1, 2),
-(2, 2),
-(3, 2),
-(3, 3),
-(1, 4),
-(2, 5);
+(1, 1),
+(2, 3),
+(2, 4),
+(2, 5),
+(1, 6);
 
 -- --------------------------------------------------------
 
@@ -773,9 +767,9 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`id`, `email`, `motDePasse`, `typeUtilisateur`, `idRole`, `avatar`) VALUES
-(1, 'admin@mail.com', '00d70c561892a94980befd12a400e26aeb4b8599', 'ADM', 1, 40),
-(3, 'etudiant@mail.com', '00d70c561892a94980befd12a400e26aeb4b8599', 'ETU', 2, 45),
-(4, 'entreprise@mail.com', '00d70c561892a94980befd12a400e26aeb4b8599', 'ENT', 3, NULL),
+(1, 'admin@mail.com', '00d70c561892a94980befd12a400e26aeb4b8599', 'ADM', 1, 1),
+(3, 'etudiant@mail.com', '00d70c561892a94980befd12a400e26aeb4b8599', 'ETU', 2, 2),
+(4, 'entreprise@mail.com', '00d70c561892a94980befd12a400e26aeb4b8599', 'ENT', 3, 3),
 (27, 'entreprise2@mail.com', '00d70c561892a94980befd12a400e26aeb4b8599', 'ENT', 3, NULL);
 
 --

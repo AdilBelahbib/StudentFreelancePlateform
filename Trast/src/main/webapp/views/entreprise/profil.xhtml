@@ -19,7 +19,7 @@
 						<!-- left column -->
 						<div class="col-md-4">
 							<div class="text-center">
-								<img src="" class="avatar img-circle" alt="avatar" />
+								<img src="#{proprietes['racinedownloads']}#{sessionScope.utilisateur.avatar.chemin}/#{sessionScope.utilisateur.avatar.titre}" class="avatar img-circle" alt="avatar" />
 								<h:form enctype="multipart/form-data">
 									<input type="hidden" name="${_csrf.parameterName}"
 										value="${_csrf.token}" />

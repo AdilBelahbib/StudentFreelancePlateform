@@ -15,11 +15,13 @@
 					<c:choose>
 						<c:when
 							test="#{not empty appelOffreController.appelOffre.contrePropositions}">
-
+							
 							<div class="grid-form1">
-								<h3 class="head-top">Contre-propositions:
-									#{appelOffreController.appelOffre.cahierDesCharges.sujet}</h3>
-
+								#{appelOffreController.appelOffre.cahierDesCharges.sujet}
+							</div>
+							
+							<div class="grid-form1">
+								
 								<div class="row">
 									<div class="well">
 										<h:form>

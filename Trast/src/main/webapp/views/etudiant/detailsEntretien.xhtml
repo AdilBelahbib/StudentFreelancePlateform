@@ -7,9 +7,13 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="content">
 		<div class="grid-form">
+		
+			<div class="grid-form1">
+				#{entretienController.entretien.contreProposition.appelOffre.cahierDesCharges.sujet}
+			</div>
+			
 			<div class="grid-form1">
 				<h:form>
-					<h3 class="head-top">#{entretienController.entretien.contreProposition.appelOffre.cahierDesCharges.sujet}</h3>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 
