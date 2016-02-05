@@ -6,100 +6,89 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="content">
-		<h:form>
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<!-- Sujet d'entretien -->
-			<div class="form-group">
-				<h3>
-					<label>Sujet:
-					<h:outputText
-							value="#{entretienController.entretien.contreProposition.appelOffre.cahierDesCharges.sujet}">
-					</h:outputText>
-					</label>
-				</h3>
-			</div>
-			<!-- Fin sujet d'entretien -->
-			
-			<hr></hr>
-			
-			<!-- Date d'entretien -->
-			<div class="row">
-				<div class="col-md-offset-3 col-md-6">
-					<div class="form-group">
-						<h4>
-							<label>Date d'entretien: 
-							<h:outputText
-								value="#{entretienController.entretien.dateEntretien}">
-								<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
-							</h:outputText>
-							</label>
-						</h4>
+		<div class="grid-form">
+			<div class="grid-form1">
+				<h:form>
+					<h3 class="head-top">#{entretienController.entretien.contreProposition.appelOffre.cahierDesCharges.sujet}</h3>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+
+					<!-- Date d'entretien -->
+					<div class="row">
+						<div class="col-md-offset-3 col-md-6">
+							<div class="form-group">
+								<h4>
+									<label>Date d'entretien: <h:outputText
+											value="#{entretienController.entretien.dateEntretien}">
+											<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
+										</h:outputText>
+									</label>
+								</h4>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<!-- Fin date d'entretien -->
-			
-			<!-- Affichage nombre de jours restants pour les entretiens non encore passés-->
-			<c:if test="#{entretienController.entretien.termine == false}">
-			<div class="row">
-				<div class="col-md-offset-4 col-md-4">
-					<div class="alert alert-warning">
-						<i class="icon icon-exclamation-circle icon-lg"></i> <i>
-							#{entretienController.nbJoursRestants} </i>
-					</div>
-				</div>
-			</div>
-			</c:if>
-			<!-- Fin d'affichage du nombre de jours restants -->
-			
-			<!-- Ligne état de l'entretien -->
-			<div class="row">
-				<div class="col-md-offset-3 col-md-5">
-					<div class="form-group">
-						<h4>
-							<label> Statut: 
-							<c:if test="#{entretienController.entretien.termine == false}">
+					<!-- Fin date d'entretien -->
+
+					<!-- Affichage nombre de jours restants pour les entretiens non encore passés-->
+					<c:if test="#{entretienController.entretien.termine == false}">
+						<div class="row">
+							<div class="col-md-offset-4 col-md-4">
+								<div class="alert alert-warning">
+									<i class="icon icon-exclamation-circle icon-lg"></i> <i>
+										#{entretienController.nbJoursRestants} </i>
+								</div>
+							</div>
+						</div>
+					</c:if>
+					<!-- Fin d'affichage du nombre de jours restants -->
+
+					<!-- Ligne état de l'entretien -->
+					<div class="row">
+						<div class="col-md-offset-3 col-md-5">
+							<div class="form-group">
+								<h4>
+									<label> Statut: <c:if
+											test="#{entretienController.entretien.termine == false}">
 								En attente
-							</c:if> 
-							<c:if test="#{entretienController.entretien.termine == true}">
+							</c:if> <c:if test="#{entretienController.entretien.termine == true}">
 								Terminé
 							</c:if>
-							</label>
-						</h4>
+									</label>
+								</h4>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<!-- Fin de ligne état de l'entretien -->
-			
-			<!-- Row des boutons de lancement d'entretien -->
-			<div class="row">
-				<div class="col-md-offset-5">
-					<!-- Entretien non encore passé -->
-					<c:if
-						test="#{entretienController.entretien.termine == false}">
-						<h:commandButton value=" > Se présenter à l'entretien"
-							class="btn btn-primary" action="/views/etudiant/passerEntretien.xhtml?faces-redirect=true">
-							<f:setPropertyActionListener
-								target="#{entretienController.entretien}"
-								value="#{entretienController.entretien}" />
-						</h:commandButton>
-					</c:if>
-					<!-- Fin entretien non encore passé -->
-					<!-- Entretien terminé -->
-					<c:if
-						test="#{entretienController.entretien.termine == true}">
-						<h3>
-							<h:outputText
-								value="Vous vous êtes déja présenté à l'entretien !!">
-							</h:outputText>
-						</h3>
-					</c:if>
-					<!-- Fin entretien terminé -->
-				</div>
-			</div>
-			<!-- Fin des rows des boutons de lancement d'entretien -->
-		</h:form>
+					<!-- Fin de ligne état de l'entretien -->
 
+					<!-- Row des boutons de lancement d'entretien -->
+					<div class="row">
+						<div class="col-md-offset-5">
+							<!-- Entretien non encore passé -->
+							<c:if test="#{entretienController.entretien.termine == false}">
+								<h:commandButton value=" > Se présenter à l'entretien"
+									class="btn btn-primary"
+									action="/views/etudiant/passerEntretien.xhtml?faces-redirect=true">
+									<f:setPropertyActionListener
+										target="#{entretienController.entretien}"
+										value="#{entretienController.entretien}" />
+								</h:commandButton>
+							</c:if>
+							<!-- Fin entretien non encore passé -->
+							<!-- Entretien terminé -->
+							<c:if test="#{entretienController.entretien.termine == true}">
+								<h3>
+									<h:outputText
+										value="Vous vous êtes déja présenté à l'entretien !!">
+									</h:outputText>
+								</h3>
+							</c:if>
+							<!-- Fin entretien terminé -->
+						</div>
+					</div>
+					<!-- Fin des rows des boutons de lancement d'entretien -->
+				</h:form>
+
+			</div>
+		</div>
 	</ui:define>
 </ui:composition>

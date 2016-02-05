@@ -102,13 +102,11 @@ public class AdministrateurController implements Serializable {
 		this.adresseDao = adresseDao;
 	}
 
-	public String getEntreprisesEnAttente() {
+	public void getEntreprisesEnAttente() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		EntrepriseDAO entrepriseDAO = (EntrepriseDAO) context.getBean("entrepriseDao");
 		entreprises = entrepriseDAO.getEntreprisesByEtatCompte(EtatCompte.EN_ATTENTE);
 		((ConfigurableApplicationContext) context).close();
-
-		return "/views/admin/listedemandesinscriptions.xhtml";
 	}
 
 	public void accepterEntreprise() {
@@ -179,7 +177,7 @@ public class AdministrateurController implements Serializable {
 	
 	/*************************************************/
 	public void modifierAvatar(){
-		// Si un fichier est sélectionné:
+		// Si un fichier est sï¿½lectionnï¿½:
 		if(UploadFileService.fileSelected()){
 			ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 			Fichier fichier = (Fichier)context.getBean("fichier");

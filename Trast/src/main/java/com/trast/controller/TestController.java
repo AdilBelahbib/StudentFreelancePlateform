@@ -338,7 +338,7 @@ public class TestController implements Serializable {
 		// Vérifier s'il y a un test dans le scope Flash. Sinon, effectuer une
 		// redirection
 		Flash flash = (Flash) FacesContext.getCurrentInstance().getExternalContext().getFlash();
-
+				
 		if (!flash.containsKey("test"))
 			return "/views/etudiant/listeTests.xhtml";
 

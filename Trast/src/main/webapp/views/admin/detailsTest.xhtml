@@ -1,95 +1,99 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-template="../templates/common.xhtml">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="../templates/common.xhtml">
 	<ui:define name="content">
 
-		<div class="container">
-  <div class="row">
-			   <!-- edit form column -->
-    <div class="col-md-9">
-      <h3>Détails du test</h3>
-      
-      <form class="form-horizontal" role="form" enctype="multipart/form-data">
-        <div class="form-group">
-          <label>Test:</label>
-          <h:outputText value="#{testControllerNassima.test.titre}" />
-        </div>
-        <div class="form-group">
-          <label>Durée:</label>
-          <h:outputText value="  #{testControllerNassima.test.duree}" />
-        </div>
-        
-        <div class="form-group">
-          <label>Nombre de passage:</label>
-          <h:outputText value="#{testControllerNassima.test.nombrePassage}" />
-        </div>
-        <c:if test="#{not empty testControllerNassima.test.entreprise}">
-         <div class="form-group">
-           <label>Entreprise:</label>
-           <h:outputText value="#{testControllerNassima.test.entreprise.sigle}" />
-         </div>	
-        </c:if>
-        <c:choose>
-        <c:when test="#{not empty testControllerNassima.test.questions}">
-       <div class="form-group">
-        <label>Questions:</label>
-        <table class="table table-striped table-hover">
+		<div class="grid-form">
 
-			<c:forEach items="#{testControllerNassima.test.questions}" var="question"
-						varStatus="statut">
+			<div class="grid-form1">
+				<h3 class="head-top">#{testControllerNassima.test.titre}</h3>
 
-				<tr>
-					<td>#{question.question}</td>
-					<td>#{question.coefficient}</td>
-					<td>
-						<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample-#{statut.count}" aria-expanded="false" aria-controls="collapseExample-#{statut.count}">
-  							Détails
-						</a>
-					</td>
-								
-				</tr>
-				<tr>
-					<td><div class="collapse" id="collapseExample-#{statut.count}">
-  						<div class="well">
-   							 <h4>Réponses justes:</h4>
-   							 <c:forEach items="#{question.reponsesJustes}" var="repJ">
-   							 	<li>#{repJ}</li>
-   							 </c:forEach>
-   							 <h4>Réponses fausses:</h4>
-   							 <c:forEach items="#{question.reponsesFausses}" var="repF">
-   							 	<li>#{repF}</li>
-   							 </c:forEach>
-   							 </div>
-  							</div></td>
+				<div class="form-group">
+					<label>Durée:</label>
+					<h:outputText value="  #{testControllerNassima.test.duree}" />
+				</div>
 
-				</tr>
-			</c:forEach>
-		</table>
-	</div>
-	</c:when>
-	<c:otherwise>
+				<div class="form-group">
+					<label>Nombre de passage:</label>
+					<h:outputText value="#{testControllerNassima.test.nombrePassage}" />
+				</div>
+				<c:if test="#{not empty testControllerNassima.test.entreprise}">
+					<div class="form-group">
+						<label>Entreprise:</label>
+						<h:outputText
+							value="#{testControllerNassima.test.entreprise.sigle}" />
+					</div>
+				</c:if>
+				<div class="clearfix"></div>
+			</div>
+
+			<c:choose>
+				<c:when test="#{not empty testControllerNassima.test.questions}">
+					<div class="grid-form1">
+						<h3 class="head-top">Questions</h3>
+						<div class="form-group">
+
+							<table class="table table-striped table-hover">
+
+								<c:forEach items="#{testControllerNassima.test.questions}"
+									var="question" varStatus="statut">
+
+									<tr>
+										<td>#{question.question}</td>
+										<td>#{question.coefficient}</td>
+										<td><a class="btn btn-primary" role="button"
+											data-toggle="collapse"
+											href="#collapseExample-#{statut.count}" aria-expanded="false"
+											aria-controls="collapseExample-#{statut.count}"> Détails
+										</a></td>
+
+									</tr>
+									<tr>
+										<td><div class="collapse"
+												id="collapseExample-#{statut.count}">
+												<div class="well">
+													<h4>Réponses justes:</h4>
+													<c:forEach items="#{question.reponsesJustes}" var="repJ">
+														<li>#{repJ}</li>
+													</c:forEach>
+													<h4>Réponses fausses:</h4>
+													<c:forEach items="#{question.reponsesFausses}" var="repF">
+														<li>#{repF}</li>
+													</c:forEach>
+												</div>
+											</div></td>
+
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</c:when>
+				<c:otherwise>
 	Aucune question spécifiée pour ce test!
 	</c:otherwise>
-	</c:choose>
-	<!--  Badge-->
-	<c:if test="#{ not empty testControllerNassima.test.badge}">
-		<div class="form-group">
-          <label>Intitule du badge:</label>
-          <h:outputText value="#{testControllerNassima.test.badge.intitule}" />
-         </div>
-         <div class="row">
-         <div class="col-sm-1 col-md-1">
-          <h:graphicImage value="#{proprietes['racinedownloads']}#{testControllerNassima.test.badge.icone.chemin}/#{testControllerNassima.test.badge.icone.titre}" width="100" height="100"/> 
-        </div>
-        </div>
-	</c:if>
-    </form>
-  </div>
-  </div>
+			</c:choose>
+			<!--  Badge-->
+			<c:if test="#{ not empty testControllerNassima.test.badge}">
+				<div class="form-group">
+					<label>Intitule du badge:</label>
+					<h:outputText value="#{testControllerNassima.test.badge.intitule}" />
+				</div>
+				<div class="row">
+					<div class="col-sm-1 col-md-1">
+						<h:graphicImage
+							value="#{proprietes['racinedownloads']}#{testControllerNassima.test.badge.icone.chemin}/#{testControllerNassima.test.badge.icone.titre}"
+							width="100" height="100" />
+					</div>
+				</div>
+
+			</c:if>
+
 		</div>
 	</ui:define>
 </ui:composition>

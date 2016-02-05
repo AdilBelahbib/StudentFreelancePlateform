@@ -5,134 +5,140 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<ui:define name="content">
+		<div class="grid-form">
+			<div class="grid-form1 text-center">
+				<div id="vid-box"></div>
 
-		<div id="vid-box"></div>
-		
-		<div id="inCall" style="display: none;">
-			<!-- Buttons for in call features -->
-			<button id="end" onclick="end()">End</button>
-			<button id="mute" onclick="mute()">Mute</button>
-			<button id="pause" onclick="pause()">Pause</button>
-		</div>
-		
-		<div id="vid-thumb"></div>
+				<div id="inCall" style="display: none;">
+					<!-- Buttons for in call features -->
+					<button id="end" onclick="end()" class="btn btn-danger">Raccrocher</button>
+					<button id="mute" onclick="mute()" class="btn btn-warning">Mute</button>
+					<button id="pause" onclick="pause()" class="btn btn-default">Pause</button>
+				</div>
 
-		<button id="appelButton" class="btn btn-success" onClick="appeler()">Appeler
-			#{entretienController.entretien.contreProposition.etudiant.prenom}
-			#{entretienController.entretien.contreProposition.etudiant.nom}</button>
+				<div id="vid-thumb"></div>
 
-		<h:form prependId="false">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<h:commandButton id="terminerButton"
-				action="#{entretienController.terminerEntretien}"
-				styleClass="btn btn-success" value="Marquer comme terminer !"
-				style="display: none;" />
-		</h:form>
+				<button id="appelButton" class="btn btn-success btn-lg" onClick="appeler()">Appeler: 
+					#{entretienController.entretien.contreProposition.etudiant.prenom}
+					#{entretienController.entretien.contreProposition.etudiant.nom}</button>
 
-		<div id="noteBlock" style="display: none;">
+				<h:form prependId="false">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+					<h:commandButton id="terminerButton"
+						action="#{entretienController.terminerEntretien}"
+						styleClass="btn btn-success" value="Marquer comme terminer !"
+						style="display: none;" />
+				</h:form>
+				<div class="clearfix"></div>
+			</div>
+			<div id="noteBlock" style="display: none;" class="grid-form1">
+				
+				<h4>Notes</h4>
+				
+				<h:panelGrid id="tableNotes" columns="1"
+					styleClass="table table-striped table-hover">
+					<c:forEach items="#{entretienController.entretien.notes}"
+						var="note">
+						<h:outputLabel value="#{note}" />
+					</c:forEach>
+				</h:panelGrid>
 
-			<h:panelGrid id="tableNotes" columns="1"
-				styleClass="table table-striped table-hover">
-				<c:forEach items="#{entretienController.entretien.notes}" var="note">
-					<h:outputLabel value="#{note}" />
-				</c:forEach>
-			</h:panelGrid>
+				<h:form>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
 
-			<h:form>
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
+					<h:inputTextarea id="note" value="#{entretienController.note}"
+						styleClass="col-md-12" />
 
-				<h:inputTextarea id="note" value="#{entretienController.note}"
-					styleClass="col-md-12" />
+					<h:commandButton action="#{entretienController.ajouterNote}"
+						value="Insérer" styleClass="btn btn-info btn pull-left">
+						<f:ajax execute="note" render="tableNotes"></f:ajax>
+					</h:commandButton>
 
-				<h:commandButton action="#{entretienController.ajouterNote}"
-					value="Insérer" styleClass="btn btn-info btn pull-left">
-					<f:ajax execute="note" render="tableNotes"></f:ajax>
-				</h:commandButton>
+				</h:form>
+			</div>
 
-			</h:form>
-		</div>
+			<script type="text/javascript">
+				var video_out = document.getElementById("vid-box");
+				var vid_thumb = document.getElementById("vid-thumb");
 
-		<script type="text/javascript">
-			var video_out = document.getElementById("vid-box");
-			var vid_thumb = document.getElementById("vid-thumb");
+				console.log("logging in ...");
+				var phone = window.phone = PHONE({
+					number : "#{sessionScope.utilisateur.id}", // listen on username line
+					publish_key : 'pub-c-34e40b7f-1ad5-45c7-a1b5-e912b079e075',
+					subscribe_key : 'sub-c-fba6c1d2-bd15-11e5-8a35-0619f8945a4f',
+				});
+				console.log(" Phone created !");
 
-			console.log("logging in ...");
-			var phone = window.phone = PHONE({
-				number : "#{sessionScope.utilisateur.id}", // listen on username line
-				publish_key : 'pub-c-34e40b7f-1ad5-45c7-a1b5-e912b079e075',
-				subscribe_key : 'sub-c-fba6c1d2-bd15-11e5-8a35-0619f8945a4f',
-			});
-			console.log(" Phone created !");
+				var ctrl = window.ctrl = CONTROLLER(phone);
 
-			var ctrl = window.ctrl = CONTROLLER(phone);
+				ctrl
+						.receive(function(session) {
+							session
+									.connected(function(session) {
+										console.log("Call received !");
+										video_out.appendChild(session.video);
+										document.getElementById('inCall').style.display = 'block';
+									});
+							session
+									.ended(function(session) {
+										video_out.innerHTML = '';
+										vid_thumb.innerHTML = '';
+										document.getElementById('noteBlock').style.display = 'none';
+										ctrl.getVideoElement(session.number)
+												.remove();
+										document.getElementById('appelButton').style.display = 'block';
+										document
+												.getElementById('terminerButton').style.display = 'block';
+										document.getElementById('inCall').style.display = 'none';
+									});
 
-			ctrl
-					.receive(function(session) {
-						session
-								.connected(function(session) {
-									console.log("Call received !");
-									video_out.appendChild(session.video);
-									document.getElementById('inCall').style.display = 'block';
-								});
-						session
-								.ended(function(session) {
-									video_out.innerHTML = '';
-									vid_thumb.innerHTML = '';
-									document.getElementById('noteBlock').style.display = 'none';
-									ctrl.getVideoElement(session.number)
-											.remove();
-									document.getElementById('appelButton').style.display = 'block';
-									document.getElementById('terminerButton').style.display = 'block';
-									document.getElementById('inCall').style.display = 'none';
-								});
+						});
 
-					});
+				console.log(" Phone configured !");
 
-			console.log(" Phone configured !");
-
-			function end() {
-				ctrl.hangup();
-			}
-
-			function mute() {
-				var audio = ctrl.toggleAudio();
-				if (!audio)
-					$("#mute").html("Unmute");
-				else
-					$("#mute").html("Mute");
-			}
-
-			function pause() {
-				var video = ctrl.toggleVideo();
-				if (!video)
-					$('#pause').html('Unpause');
-				else
-					$('#pause').html('Pause');
-			}
-
-			ctrl.videoToggled(function(session, isEnabled) {
-				ctrl.getVideoElement(session.number).toggle(isEnabled); // Hide video is stream paused
-			});
-			ctrl.audioToggled(function(session, isEnabled) {
-				ctrl.getVideoElement(session.number).css("opacity",
-						isEnabled ? 1 : 0.75); // 0.75 opacity is audio muted
-			});
-
-			function appeler() {
-				console.log("Calling ...");
-				if (!window.phone)
-					alert("Login First!");
-				else {
-					phone
-							.dial("#{entretienController.entretien.contreProposition.etudiant.id}");
-					document.getElementById('noteBlock').style.display = 'block';
-					ctrl.addLocalStream(vid_thumb); // Place local stream in div
-					document.getElementById('appelButton').style.display = 'none';
+				function end() {
+					ctrl.hangup();
 				}
-			}
-		</script>
 
+				function mute() {
+					var audio = ctrl.toggleAudio();
+					if (!audio)
+						$("#mute").html("Unmute");
+					else
+						$("#mute").html("Mute");
+				}
+
+				function pause() {
+					var video = ctrl.toggleVideo();
+					if (!video)
+						$('#pause').html('Unpause');
+					else
+						$('#pause').html('Pause');
+				}
+
+				ctrl.videoToggled(function(session, isEnabled) {
+					ctrl.getVideoElement(session.number).toggle(isEnabled); // Hide video is stream paused
+				});
+				ctrl.audioToggled(function(session, isEnabled) {
+					ctrl.getVideoElement(session.number).css("opacity",
+							isEnabled ? 1 : 0.75); // 0.75 opacity is audio muted
+				});
+
+				function appeler() {
+					console.log("Calling ...");
+					if (!window.phone)
+						alert("Login First!");
+					else {
+						phone
+								.dial("#{entretienController.entretien.contreProposition.etudiant.id}");
+						document.getElementById('noteBlock').style.display = 'block';
+						ctrl.addLocalStream(vid_thumb); // Place local stream in div
+						document.getElementById('appelButton').style.display = 'none';
+					}
+				}
+			</script>
+		</div>
 	</ui:define>
 </ui:composition>

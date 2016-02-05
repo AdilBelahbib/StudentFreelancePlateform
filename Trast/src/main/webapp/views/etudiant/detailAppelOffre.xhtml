@@ -7,264 +7,270 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="content">
 
-		<div>
-			<h:form>
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<div class="form-group">
-            <h:commandLink action="#{profilPublicController.getInfosEntreprise}" 
-            value="#{appelOffreController.appelOffre.entreprise.sigle}">
-          	<f:setPropertyActionListener
-            target="#{profilPublicController.entreprise}"
-            value="#{appelOffreController.appelOffre.entreprise}" />
-            </h:commandLink>
-           
-          </div>
-           </h:form>
-			<section class="bg-default" id="appelOffres">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 col-lg-offset-2 text-center">
-							<br />
-							<h2 class="section-heading">Appel d'offre</h2>
-							<hr class="primary"></hr>
-							<br />
-		
-								<div class="form-group">
-									<label>Date début: <h:outputText
-											value="#{appelOffreController.appelOffre.dateDebut}" /></label>
-								</div>
-								<div class="form-group">
-									<label>Date d'expiration: <h:outputText
-											value="#{appelOffreController.appelOffre.dateExpiration}" /></label>
-								</div>
-								<div class="form-group">
-									<label>Statut: <h:outputText value="#{appelOffreController.appelOffre.statut}" /></label>
-								</div>
-						</div>
-					</div>
-				</div>
-			</section>
+		<div class="grid-form">
 
-			<section class="bg-default" id="cahiersDesCharges">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 col-lg-offset-2 text-center">
-							<br />
-							<h2 class="section-heading">Cahier des charges</h2>
-							<hr class="primary"></hr>
-							<br />
-								<div class="form-group">
-									<label>Sujet: <h:outputText
-											value="#{appelOffreController.appelOffre.cahierDesCharges.sujet}" /></label>
-								</div>
-								<c:if test="#{appelOffreController.appelOffre.cahierDesCharges.dateDebut != NULL}">
-									<div class="form-group">
-										<label>Date début du sujet: <h:outputText
-												value="#{appelOffreController.appelOffre.cahierDesCharges.dateDebut}" /></label>
-									</div>
-								</c:if>
-								<c:if test="#{appelOffreController.appelOffre.cahierDesCharges.dateFin != NULL}">
-									<div class="form-group">
-										<label>Date fin du sujet: <h:outputText
-												value="#{appelOffreController.appelOffre.cahierDesCharges.dateFin}" /></label>
-									</div>
-								</c:if>
-								<h:form enctype="multipart/form-data">
-								<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-								<div class="form-group">
-								  <c:forEach items="#{appelOffreController.appelOffre.cahierDesCharges.fichiers}" var="itemFichier">
-									<h:commandLink action="#{uploadFileService.downloadFile()}">
+			<div class="grid-form1">
+				<h2 class="section-heading">Appel d'offre</h2>
+
+				<h:form>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+
+					<div class="form-group">
+						<label>Annonceur: </label>
+						<h:commandLink
+							action="#{profilPublicController.getInfosEntreprise}"
+							value="#{appelOffreController.appelOffre.entreprise.sigle}">
+							<f:setPropertyActionListener
+								target="#{profilPublicController.entreprise}"
+								value="#{appelOffreController.appelOffre.entreprise}" />
+						</h:commandLink>
+
+					</div>
+				</h:form>
+
+				<div class="form-group">
+					<label>Date début: <h:outputText
+							value="#{appelOffreController.appelOffre.dateDebut}" /></label>
+				</div>
+				<div class="form-group">
+					<label>Date d'expiration: <h:outputText
+							value="#{appelOffreController.appelOffre.dateExpiration}" /></label>
+				</div>
+				<div class="form-group">
+					<label>Statut: <h:outputText
+							value="#{appelOffreController.appelOffre.statut}" /></label>
+				</div>
+			</div>
+
+
+			<div class="grid-form1">
+				<br />
+				<h2 class="section-heading">Cahier des charges</h2>
+				<hr class="primary"></hr>
+				<br />
+				<div class="form-group">
+					<label>Sujet: <h:outputText
+							value="#{appelOffreController.appelOffre.cahierDesCharges.sujet}" /></label>
+				</div>
+				<c:if
+					test="#{appelOffreController.appelOffre.cahierDesCharges.dateDebut != NULL}">
+					<div class="form-group">
+						<label>Date début du sujet: <h:outputText
+								value="#{appelOffreController.appelOffre.cahierDesCharges.dateDebut}" /></label>
+					</div>
+				</c:if>
+				<c:if
+					test="#{appelOffreController.appelOffre.cahierDesCharges.dateFin != NULL}">
+					<div class="form-group">
+						<label>Date fin du sujet: <h:outputText
+								value="#{appelOffreController.appelOffre.cahierDesCharges.dateFin}" /></label>
+					</div>
+				</c:if>
+				<h:form enctype="multipart/form-data">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+					<div class="form-group">
+						<c:forEach
+							items="#{appelOffreController.appelOffre.cahierDesCharges.fichiers}"
+							var="itemFichier">
+							<h:commandLink action="#{uploadFileService.downloadFile()}">
 		   								Télécharger le fichier joint  
 										<f:setPropertyActionListener
-											target="#{uploadFileService.fileToDownload}"
-			    							value="#{proprietes['racineuploads']}#{itemFichier.chemin}/#{itemFichier.titre}" />
-			
-									</h:commandLink>
-								 </c:forEach>								
-								</div>
-								</h:form>
+									target="#{uploadFileService.fileToDownload}"
+									value="#{proprietes['racineuploads']}#{itemFichier.chemin}/#{itemFichier.titre}" />
 
-						</div>
+							</h:commandLink>
+						</c:forEach>
 					</div>
-					<div class="container">
-						<div class="row"></div>
-					</div>
-				</div>
-			</section>
+				</h:form>
 
-			<section class="bg-default" id="qualifications">
-				<div class="container-fluid">
-					<div class="row ">
+			</div>
+		</div>
 
-						<div class="col-lg-8 col-lg-offset-2 text-center">
+		<div class="but_list">
+			<div class="bs-example bs-example-tabs" role="tabpanel"
+				data-example-id="togglable-tabs">
+				<ul id="myTab" class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a
+						href="#qualifications" role="tab" id="qualifications-tab"
+						data-toggle="tab" aria-controls="qualifications">Qualifications</a></li>
+					<li role="presentation"><a href="#competences"
+						id="competences-tab" role="tab" data-toggle="tab"
+						aria-controls="competences" aria-expanded="true">Compétences</a></li>
+					<li role="presentation"><a href="#remuneration" role="tab"
+						id="remuneration-tab" data-toggle="tab"
+						aria-controls="remuneration">remuneration</a></li>
+				</ul>
+				<div id="myTabContent" class="tab-content">
+					<div role="tabpanel" class="tab-pane fade in active"
+						id="qualifications" aria-labelledby="qualifications-tab">
+
+						<div class="grid-form1">
 							<br />
 							<h2 class="section-heading">Qualifications</h2>
 
 							<hr class="primary"></hr>
 							<br />
-								<c:forEach items="#{appelOffreController.appelOffre.qualifications}" var="qualification"
-									varStatus="statut">
-									<div class="form-group">
-										<!-- Infos qualification -->
-										<c:if test="#{qualification.dateDebut!= NULL}">
+							<c:forEach
+								items="#{appelOffreController.appelOffre.qualifications}"
+								var="qualification" varStatus="statut">
+								<div class="form-group">
+									<!-- Infos qualification -->
+									<c:if test="#{qualification.dateDebut!= NULL}">
+										<div class="form-group">
+											<label>Date début : <h:outputText
+													value="#{qualification.dateDebut}" /></label>
+										</div>
+									</c:if>
+									<c:if test="#{qualification.dateFin!= NULL}">
+										<div class="form-group">
+											<label>Date fin : <h:outputText
+													value="#{qualification.dateFin}" /></label>
+										</div>
+									</c:if>
+									<!-- if it is formation -->
+									<c:if
+										test="${qualification['class'].simpleName == 'Formation'}">
+										<!-- <h3>Formation</h3> -->
+										<c:if test="#{qualification.etablissement != NULL}">
 											<div class="form-group">
-												<label>Date début : <h:outputText
-														value="#{qualification.dateDebut}" /></label>
+												<label>Etablissement : <h:outputText
+														value="#{qualification.etablissement}" /></label>
 											</div>
 										</c:if>
-										<c:if test="#{qualification.dateFin!= NULL}">
-											<div class="form-group">
-												<label>Date fin : <h:outputText
-														value="#{qualification.dateFin}" /></label>
-											</div>
-										</c:if>
-										<!-- if it is formation -->
-										<c:if
-											test="${qualification['class'].simpleName == 'Formation'}">
-											<!-- <h3>Formation</h3> -->
-											<c:if test="#{qualification.etablissement != NULL}">
-												<div class="form-group">
-													<label>Etablissement : <h:outputText
-															value="#{qualification.etablissement}" /></label>
-												</div>
-											</c:if>
 
-											<c:if test="#{qualification.intituleFormation != NULL}">
-												<div class="form-group">
-													<label>Intitulé formation : <h:outputText
-															value="#{qualification.intituleFormation}" /></label>
-												</div>
-											</c:if>
+										<c:if test="#{qualification.intituleFormation != NULL}">
+											<div class="form-group">
+												<label>Intitulé formation : <h:outputText
+														value="#{qualification.intituleFormation}" /></label>
+											</div>
 										</c:if>
-										<!-- if it is experience -->
-										<c:if
-											test="#${qualification['class'].simpleName == 'Experience'}">
-											<h3>Expériences</h3>
-											<c:if test="#{qualification.responsabilite != NULL}">
-												<div class="form-group">
-													<label>Responsabilité : <h:outputText
-															value="#{qualification.responsabilite}" /></label>
-												</div>
-											</c:if>
-											<c:if test="#{qualification.typeExperience != NULL}">
-												<div class="form-group">
-													<label>Type d'expérience : <h:outputText
-															value="#{qualification.typeExperience}" /></label>
-												</div>
-											</c:if>
-											<c:if test="#{qualification.structureAccueil != NULL}">
-												<div class="form-group">
-													<label>Structure d'accueil : <h:outputText
-															value="#{qualification.structureAccueil}" /></label>
-												</div>
-											</c:if>
-											<c:if test="#{qualification.sujet != NULL}">
-												<div class="form-group">
-													<label>Sujet : <h:outputText
-															value="#{qualification.sujet}" /></label>
-												</div>
-											</c:if>
-											<c:if test="#{qualification.salaire != NULL}">
-												<div class="form-group">
-													<label>Salaire : <h:outputText
-															value="#{qualification.salaire}" /></label>
-												</div>
-											</c:if>
+									</c:if>
+									<!-- if it is experience -->
+									<c:if
+										test="#${qualification['class'].simpleName == 'Experience'}">
+										<h3>Expériences</h3>
+										<c:if test="#{qualification.responsabilite != NULL}">
+											<div class="form-group">
+												<label>Responsabilité : <h:outputText
+														value="#{qualification.responsabilite}" /></label>
+											</div>
 										</c:if>
-									</div>
+										<c:if test="#{qualification.typeExperience != NULL}">
+											<div class="form-group">
+												<label>Type d'expérience : <h:outputText
+														value="#{qualification.typeExperience}" /></label>
+											</div>
+										</c:if>
+										<c:if test="#{qualification.structureAccueil != NULL}">
+											<div class="form-group">
+												<label>Structure d'accueil : <h:outputText
+														value="#{qualification.structureAccueil}" /></label>
+											</div>
+										</c:if>
+										<c:if test="#{qualification.sujet != NULL}">
+											<div class="form-group">
+												<label>Sujet : <h:outputText
+														value="#{qualification.sujet}" /></label>
+											</div>
+										</c:if>
+										<c:if test="#{qualification.salaire != NULL}">
+											<div class="form-group">
+												<label>Salaire : <h:outputText
+														value="#{qualification.salaire}" /></label>
+											</div>
+										</c:if>
+									</c:if>
+								</div>
 									************
 								</c:forEach>
-							
-						</div>
-					</div>
-				</div>
-			</section>
 
-			<section class="bg-default" id="competences">
-				<div class="container-fluid">
-					<div class="row">
-						<br />
-						<div class="col-lg-8 col-lg-offset-2 text-center">
+						</div>
+
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="competences"
+						aria-labelledby="competences-tab">
+
+
+						<div class="grid-form1">
 							<h2 class="section-heading">Compétences</h2>
 							<hr class="primary"></hr>
 							<br />
-								<c:forEach items="#{appelOffreController.appelOffre.competences}" var="competence"
-									varStatus="statut">
-									<div class="form-group">
-										<c:if test="#{competence.intitule != NULL}">
-											<div class="form-group">
-												<label><h:outputText value="#{competence.intitule}" /></label>
-											</div>
-										</c:if>
-									</div>
-								</c:forEach>
-						
-						</div>
-					</div>
-				</div>
-			</section>
+							<c:forEach items="#{appelOffreController.appelOffre.competences}"
+								var="competence" varStatus="statut">
+								<div class="form-group">
+									<c:if test="#{competence.intitule != NULL}">
+										<div class="form-group">
+											<label><h:outputText value="#{competence.intitule}" /></label>
+										</div>
+									</c:if>
+								</div>
+							</c:forEach>
 
-			<section class="bg-default" id="remunerations">
-				<div class="container-fluid">
-					<div class="row">
-						<br />
-						<div class="col-lg-8 col-lg-offset-2 text-center">
+						</div>
+
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="remuneration"
+						aria-labelledby="remuneration-tab">
+
+
+						<div class="grid-form1">
 							<h2 class="section-heading">Rémunération</h2>
 							<hr class="primary"></hr>
 							<br />
-								<c:forEach items="#{appelOffreController.appelOffre.remunerations}" var="remuneration"
-									varStatus="statut">
-									<div class="form-group">
-										<c:if test="#{remuneration.intitule != NULL}">
-											<div class="form-group">
-												<label>Intitulé: <h:outputText
-														value="#{remuneration.intitule}" /></label>
-											</div>
-										</c:if>
-										<c:if test="#{remuneration.somme != NULL}">
-											<div class="form-group">
+							<c:forEach
+								items="#{appelOffreController.appelOffre.remunerations}"
+								var="remuneration" varStatus="statut">
+								<div class="form-group">
+									<c:if test="#{remuneration.intitule != NULL}">
+										<div class="form-group">
+											<label>Intitulé: <h:outputText
+													value="#{remuneration.intitule}" /></label>
+										</div>
+									</c:if>
+									<c:if test="#{remuneration.somme != NULL}">
+										<div class="form-group">
 
-												<label>Salaire: <h:outputText
-														value="#{remuneration.somme} #{remuneration.devise}" /></label>
-											</div>
-										</c:if>
-									</div>
-								</c:forEach>
-							
+											<label>Salaire: <h:outputText
+													value="#{remuneration.somme} #{remuneration.devise}" /></label>
+										</div>
+									</c:if>
+								</div>
+							</c:forEach>
+
 						</div>
-					</div>
-				</div>
-			</section>
-		</div>
 
-
-		<section class="bg-default">
-			<div class="container-fluid">
-				<div class="row">
-					<br />
-					<div class="col-lg-8 col-lg-offset-2 text-center">
-						<h:form>
-						<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-							<c:if test="#{sessionScope.utilisateur.nombreBids > 0}">
-								<c:if test="#{appelOffreController.dejaPostuler() == 0}">
-								<h:link class="btn btn-primary" outcome="/views/etudiant/ajoutContreProposition.xhtml?faces-redirect=true" value="Ajouter une contre-proposition" />
-								</c:if>
-								<c:if test="#{appelOffreController.dejaPostuler() == 1 }">
-								<h3>Vous avez déja postuler !! </h3>
-								</c:if>
-								
-							</c:if>
-							<c:if test="#{sessionScope.utilisateur.nombreBids == 0}">
-								<h3>Vous n'avez pas le droit d'ajouter une
-									contre-proposition !</h3>
-							</c:if>
-						</h:form>
 					</div>
 				</div>
 			</div>
-		</section>
+		</div>
+
+
+
+		<div class="grid-form1">
+			<h:form>
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<c:if test="#{sessionScope.utilisateur.nombreBids > 0}">
+					<c:if test="#{appelOffreController.dejaPostuler() == 0}">
+						<h:link class="btn btn-primary"
+							outcome="/views/etudiant/ajoutContreProposition.xhtml?faces-redirect=true"
+							value="Ajouter une contre-proposition" />
+					</c:if>
+					<c:if test="#{appelOffreController.dejaPostuler() == 1 }">
+						<div class="alert alert-success" role="alert">
+							Vous avez déjà posulter à cette offre.
+						</div>
+					</c:if>
+
+				</c:if>
+				<c:if test="#{sessionScope.utilisateur.nombreBids == 0}">
+					<h3>Vous n'avez pas le droit d'ajouter une contre-proposition
+						!</h3>
+				</c:if>
+			</h:form>
+		</div>
+
 	</ui:define>
 </ui:composition>

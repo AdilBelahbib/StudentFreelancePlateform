@@ -9,110 +9,110 @@
 		<f:metadata>
 			<f:viewAction action="#{testController.getAllTests}" />
 		</f:metadata>
-		<table id="testTable" class="table table-striped table-hover">
+		<div class="grid-form">
+			<div class="grid-form1">
+				<h3 class="head-top">Liste des tests</h3>
+				<table id="testTable" class="table table-striped table-hover">
+				
+					<c:forEach items="#{testController.tests}" var="test"
+						varStatus="statut">
+						<tr>
+							<td>#{test.titre}</td>
+							<td>
+								<button data-toggle="modal"
+									data-target="#detailstest-#{statut.count}" type="button"
+									class="btn btn-default ">...</button>
+							</td>
+						</tr>
 
-			<tr>
-				<th>Titre</th>
-			</tr>
+					</c:forEach>
 
-			<c:forEach items="#{testController.tests}" var="test"
-				varStatus="statut">
-				<tr>
-					<td>#{test.titre}</td>
-					<td>
-						<button data-toggle="modal"
-							data-target="#detailstest-#{statut.count}" type="button"
-							class="btn btn-default ">...</button>
-					</td>
-				</tr>
+				</table>
 
-			</c:forEach>
+				<!-- Modal : Détails du Test -->
+				<c:forEach items="#{testController.tests}" var="test"
+					varStatus="statut">
+					<div class="modal fade" id="detailstest-#{statut.count}"
+						tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">
+										<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+									</button>
+									<h3 class="modal-title" id="lineModalLabel">#{test.titre}</h3>
+								</div>
+								<div class="modal-body">
 
-		</table>
+									<!-- content goes here -->
 
-		<!-- Modal : Détails du Test -->
-		<c:forEach items="#{testController.tests}" var="test"
-			varStatus="statut">
-			<div class="modal fade" id="detailstest-#{statut.count}"
-				tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-							</button>
-							<h3 class="modal-title" id="lineModalLabel">#{test.titre}</h3>
-						</div>
-						<div class="modal-body">
-
-							<!-- content goes here -->
-
-							<div class="form-group">
-								<label>Durée: #{test.duree} minutes</label>
-							</div>
-							<div class="form-group">
-								<label>Compétences: </label>
-								<ul>
-									<c:forEach items="#{test.competences}" var="competence">
-										<li>#{competence.intitule}</li>
-									</c:forEach>
-								</ul>
-							</div>
-							<div class="form-group">
-								<label>Popularité: #{test.nombrePassage}"</label>
-							</div>
-
-							<c:forEach items="#{sessionScope.utilisateur.resultatTests}"
-								var="resultat">
-								<c:if test="#{resultat.test == test}">
-									<div class="form-group">
-										<label>Votre dernier résultat: </label>
+									<div class="form-group col-md-6">
+										<label>Durée: #{test.duree} minutes</label>
+										<label>Popularité: #{test.nombrePassage}"</label>
+									</div>
+									<div class="form-group col-md-6">
+										<label>Compétences: </label>
 										<ul>
-											<li><label>Score:</label> #{resultat.score}</li>
-											<li><label>Date:</label> <h:outputText
-													value="#{resultat.dateDernierPassage}">
-													<f:convertDateTime pattern="dd/MM/yyyy" />
-												</h:outputText></li>
-											<li><label>Nombre de fois passé:</label>
-												#{resultat.nbPassage}</li>
+											<c:forEach items="#{test.competences}" var="competence">
+												<li>#{competence.intitule}</li>
+											</c:forEach>
 										</ul>
 									</div>
+							
+									<c:forEach items="#{sessionScope.utilisateur.resultatTests}"
+										var="resultat">
+										<c:if test="#{resultat.test == test}">
+											<div class="form-group col-md-12">
+												<label>Votre dernier résultat: </label>
+												<ul>
+													<li><label>Score:</label> #{resultat.score}</li>
+													<li><label>Date:</label> <h:outputText
+															value="#{resultat.dateDernierPassage}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+														</h:outputText></li>
+													<li><label>Nombre de fois passé:</label>
+														#{resultat.nbPassage}</li>
+												</ul>
+											</div>
 
-								</c:if>
-							</c:forEach>
+										</c:if>
+									</c:forEach>
 
-							<div class="form-group">
-								<h:form>
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" />
+									<div class="form-group">
+										<h:form>
+											<input type="hidden" name="${_csrf.parameterName}"
+												value="${_csrf.token}" />
 
-									<h:commandButton action="#{testController.lancerTest}"
-										styleClass="btn btn-success btn-hover-green col-md-12"
-										value="Passer ce test !">
-										<f:setPropertyActionListener target="#{testController.test}"
-											value="#{test}" />
-									</h:commandButton>
+											<h:commandButton action="#{testController.lancerTest}"
+												styleClass="btn btn-success btn-hover-green col-md-12"
+												value="Passer ce test !">
+												<f:setPropertyActionListener target="#{testController.test}"
+													value="#{test}" />
+											</h:commandButton>
 
-								</h:form>
-							</div>
+										</h:form>
+									</div>
+									<div class="clearfix"></div>
 
-						</div>
-						<div class="modal-footer">
-							<div class="btn-group btn-group-justified" role="group"
-								aria-label="group button">
+								</div>
+								<div class="modal-footer">
+									<div class="btn-group btn-group-justified" role="group"
+										aria-label="group button">
 
-								<div class="btn-group" role="group">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal" role="button">Fermer</button>
+										<div class="btn-group" role="group">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal" role="button">Fermer</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</c:forEach>
+				</c:forEach>
 
+			</div>
+		</div>
 	</ui:define>
 
 </ui:composition>

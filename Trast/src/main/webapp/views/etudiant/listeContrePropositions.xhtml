@@ -1,107 +1,115 @@
 <ui:composition template="../templates/common.xhtml"
-xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:sec="http://www.springframework.org/security/tags">
-<ui:define name="content"> 
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="content">
+		<div class="grid-form">
+			<div class="grid-form1">
+				<h2>Mes contre-propositions</h2>
 
-<h2>Mes contre-propositions</h2>
+				<div class="alert alert-info">Vous avez actuellement :
+					<strong>#{sessionScope.utilisateur.nombreBids} bids</strong></div>
 
-<h4>Vous avez actuellement : #{sessionScope.utilisateur.nombreBids} bids</h4>
+				<c:choose>
+					<c:when
+						test="#{not empty sessionScope.utilisateur.contrePropositions}">
+						<table class="table table-striped table-hover">
+							<tr>
+								<th>Appel d'offre</th>
+								<th>Entreprise</th>
+							</tr>
 
-<c:choose>
-<c:when test="#{not empty sessionScope.utilisateur.contrePropositions}">
-<table class="table table-striped table-hover">
-  <tr>
-    <th>Appel d'offre</th>
-    <th>Entreprise</th>
-  </tr>
+							<c:forEach items="#{sessionScope.utilisateur.contrePropositions}"
+								var="contreproposition" varStatus="statut">
 
-  <c:forEach items="#{sessionScope.utilisateur.contrePropositions}" var="contreproposition"
-  varStatus="statut">
+								<tr>
+									<td>#{contreproposition.appelOffre.cahierDesCharges.sujet}</td>
+									<td>#{contreproposition.appelOffre.entreprise.sigle}</td>
+									<td>
+										<button data-toggle="modal"
+											data-target="#detailsproposition-#{statut.count}"
+											type="button" class="btn btn-default ">...</button>
+									</td>
+								</tr>
+							</c:forEach>
+						</table>
 
-  <tr>
-    <td>#{contreproposition.appelOffre.cahierDesCharges.sujet}</td>
-    <td>#{contreproposition.appelOffre.entreprise.sigle}</td>
-    <td>
-      <button data-toggle="modal"
-      data-target="#detailsproposition-#{statut.count}" type="button"
-      class="btn btn-default ">...</button>
-    </td>
-  </tr>
-</c:forEach>
-</table>
+						<c:forEach items="#{sessionScope.utilisateur.contrePropositions}"
+							var="contreproposition" varStatus="statut">
+							<div class="modal fade" id="detailsproposition-#{statut.count}"
+								tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">
+												<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+											</button>
+											<h3 class="modal-title" id="lineModalLabel">Contre-proposition</h3>
+										</div>
+										<div class="modal-body">
 
-<c:forEach items="#{sessionScope.utilisateur.contrePropositions}" var="contreproposition"
-varStatus="statut">
-<div class="modal fade" id="detailsproposition-#{statut.count}"
-tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">
-        <span aria-hidden="true">×</span><span class="sr-only">Close</span>
-      </button>
-      <h3 class="modal-title" id="lineModalLabel">Contre-proposition</h3>
-    </div>
-    <div class="modal-body">
+											<!-- content goes here -->
+											<form>
 
-      <!-- content goes here -->
-      <form>
+												<div class="form-group">
+													<label>Sujet: <h:outputText
+															value="#{contreproposition.appelOffre.cahierDesCharges.sujet}" /></label>
+												</div>
+												<div class="form-group">
+													<label>Entreprise: <h:outputText
+															value="#{contreproposition.appelOffre.entreprise.sigle}" /></label>
+												</div>
+												<div class="form-group">
+													<label>Votre enchère: <h:outputText
+															value="#{contreproposition.enchere}" /></label>
+												</div>
+												<div class="form-group">
+													<a href="#"> > Voir les détails de l'appel d'offre</a>
+												</div>
 
-        <div class="form-group">
-          <label>Sujet: <h:outputText
-            value="#{contreproposition.appelOffre.cahierDesCharges.sujet}" /></label>
-          </div>
-          <div class="form-group">
-            <label>Entreprise: <h:outputText value="#{contreproposition.appelOffre.entreprise.sigle}" /></label>
-          </div>
-          <div class="form-group">
-            <label>Votre enchère: <h:outputText value="#{contreproposition.enchere}" /></label>
-          </div>
-          <div class="form-group">
-            <a href="#"> > Voir les détails de l'appel d'offre</a>
-          </div>
+												<div class="form-group">
+													<h:form>
+														<input type="hidden" name="${_csrf.parameterName}"
+															value="${_csrf.token}" />
+														<h:commandButton
+															action="#{contrePropositionController.retirerContreProposition}"
+															styleClass="btn btn-danger btn-hover-green col-md-12"
+															value="Retirer la contre-proposition">
+															<f:setPropertyActionListener
+																target="#{contrePropositionController.contreProposition}"
+																value="#{contreproposition}" />
+														</h:commandButton>
+													</h:form>
+												</div>
+											</form>
 
-          <div class="form-group">
-            <h:form>
-            <input type="hidden" name="${_csrf.parameterName}"
-            value="${_csrf.token}" />
-            <h:commandButton
-            action="#{contrePropositionController.retirerContreProposition}"
-            styleClass="btn btn-danger btn-hover-green col-md-12" value="Retirer la contre-proposition">
-            <f:setPropertyActionListener
-            target="#{contrePropositionController.contreProposition}"
-            value="#{contreproposition}" />
-          </h:commandButton>
-        </h:form>
-      </div>
-    </form>
+										</div>
+										<div class="modal-footer">
+											<div class="btn-group btn-group-justified" role="group"
+												aria-label="group button">
 
-  </div>
-  <div class="modal-footer">
-    <div class="btn-group btn-group-justified" role="group"
-    aria-label="group button">
+												<div class="btn-group" role="group">
+													<button type="button" class="btn btn-default"
+														data-dismiss="modal" role="button">Fermer</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
 
-    <div class="btn-group" role="group">
-      <button type="button" class="btn btn-default"
-      data-dismiss="modal" role="button">Fermer</button>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-</div>
-</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<h5>Aucune contre-proposition !</h5>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
 
-</c:when>
-<c:otherwise>
-<h5>Aucune contre-proposition !</h5>
-</c:otherwise>
-</c:choose>
-
-</ui:define>
+	</ui:define>
 </ui:composition>

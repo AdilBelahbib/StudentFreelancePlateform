@@ -8,51 +8,50 @@
 	<ui:define name="content">
 
 		<f:metadata>
-			<f:viewAction action="#{entretienController.getAllEntretiensByEtudiant}" />
+			<f:viewAction
+				action="#{entretienController.getAllEntretiensByEtudiant}" />
 		</f:metadata>
-		<h:form>
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
+		<div class="grid-form">
+			<div class="grid-form1">
+				<h3 class="head-top">Mes entretiens</h3>
+				<h:form>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
 
-			<table class="table table-striped table-hover">
-				<tr>
-					<th>Sujet </th>
-					<th>Statut </th>
-					<th>Date de passage</th>
-				</tr>
+					<table class="table table-striped table-hover">
+						<tr>
+							<th>Sujet</th>
+							<th>Statut</th>
+							<th>Date de passage</th>
+						</tr>
 
-				<c:forEach items="#{entretienController.listeEntretiens}"
-					var="item" varStatus="statut">
+						<c:forEach items="#{entretienController.listeEntretiens}"
+							var="item" varStatus="statut">
 
-					<tr>
-						<td>#{item.contreProposition.appelOffre.cahierDesCharges.sujet}</td>
-						<td>
-						<c:if test="#{item.termine == false}">
+							<tr>
+								<td>#{item.contreProposition.appelOffre.cahierDesCharges.sujet}</td>
+								<td><c:if test="#{item.termine == false}">
 						En attente
-						</c:if>
-						<c:if test="#{item.termine == true}">
+						</c:if> <c:if test="#{item.termine == true}">
 						Terminé
-						</c:if>
-						</td>
-						<td>
-						<h:outputText value="#{item.dateEntretien}">
-						<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
-						</h:outputText>
-						</td>
-						<td>
-						<h:commandButton value="Détails" class="btn btn-default"
-								action="#{entretienController.detailsEntretien}">
+						</c:if></td>
+								<td><h:outputText value="#{item.dateEntretien}">
+										<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
+									</h:outputText></td>
+								<td><h:commandButton value="Détails"
+										class="btn btn-default"
+										action="#{entretienController.detailsEntretien}">
 
-								<f:setPropertyActionListener
-									target="#{entretienController.entretien}" 
-									value="#{item}" />
+										<f:setPropertyActionListener
+											target="#{entretienController.entretien}" value="#{item}" />
 
-							</h:commandButton>
-						</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</h:form>
+									</h:commandButton></td>
+							</tr>
+						</c:forEach>
+					</table>
+				</h:form>
+			</div>
+		</div>
 
 	</ui:define>
 </ui:composition>

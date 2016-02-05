@@ -8,27 +8,31 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="content">
 
+		<h1>Profil</h1>
 
-		<div class="container">
-			<h1>Profil</h1>
+		<div class="grid-form">
+			<div class="grid-form1">
 
-			<div class="row">
 				<!-- left column -->
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<div class="text-center">
 						<img src="" class="avatar img-circle" alt="avatar" />
 						<h6>Modifier votre photo de profil</h6>
-      <h:form enctype="multipart/form-data">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        <h:inputFile id="fichierAvatar" class="form-control" value="#{uploadFileService.myFile}"> 
-		</h:inputFile>
-		<h:commandButton action="#{administrateurController.modifierAvatar()}" value="Modifier avatar" />
-		</h:form>
+						<h:form enctype="multipart/form-data">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<h:inputFile id="fichierAvatar" class="form-control"
+								value="#{uploadFileService.myFile}">
+							</h:inputFile>
+							<h:commandButton
+								action="#{administrateurController.modifierAvatar()}"
+								value="Modifier avatar" />
+						</h:form>
 					</div>
 				</div>
 
 				<!-- edit form column -->
-				<div class="col-md-9 personal-info">
+				<div class="col-md-8 well">
 					<h3>Informations personnelles</h3>
 
 					<form class="form-horizontal" role="form">
@@ -58,9 +62,12 @@
 						</div>
 					</form>
 				</div>
+				<div class="clearfix"></div>
+			</div>
 
+			<div class="grid-form1">
 				<!-- LES ADRESSES -->
-				<div class="col-md-9 personal-info">
+				<div class="col-md-12 personal-info">
 					<h3>Adresses</h3>
 					<div class="col-md-10">
 						<div class="form-group">
@@ -95,156 +102,157 @@
 				</div>
 				<!-- /LES ADRESSES -->
 
+				<div class="clearfix"></div>
+			</div>
+			<!-- LES MODALS -->
+			<!-- MODAL: Ajout adresse-->
+			<div class="modal fade" id="ajoutadresse" tabindex="-1" role="dialog"
+				aria-labelledby="modalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+							</button>
+							<h3 class="modal-title" id="lineModalLabel">Ajout adresse</h3>
+						</div>
+						<div class="modal-body">
 
-				<!-- LES MODALS -->
-				<!-- MODAL: Ajout adresse-->
-				<div class="modal fade" id="ajoutadresse" tabindex="-1"
-					role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">
-									<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-								</button>
-								<h3 class="modal-title" id="lineModalLabel">Ajout adresse</h3>
-							</div>
-							<div class="modal-body">
+							<!-- content goes here -->
+							<h:form enctype="multipart/form-data">
 
-								<!-- content goes here -->
-								<h:form enctype="multipart/form-data">
-
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" />
-									<div class="form-group">
-										<label for="adresse">Adresse</label>
-										<div class='input-group date'>
-											<h:inputText id="adresse"
-												value="#{administrateurController.adresse.adresse}"
-												styleClass="form-control" />
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="ville">Ville</label>
-										<div class='input-group date'>
-											<h:inputText id="ville"
-												value="#{administrateurController.adresse.ville}"
-												styleClass="form-control" />
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="pays">Pays</label>
-										<h:inputText id="pays"
-											value="#{administrateurController.adresse.pays}"
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+								<div class="form-group">
+									<label for="adresse">Adresse</label>
+									<div class='input-group date'>
+										<h:inputText id="adresse"
+											value="#{administrateurController.adresse.adresse}"
 											styleClass="form-control" />
 									</div>
-
-									<div class="btn-group" role="group">
-										<h:commandButton
-											action="#{administrateurController.ajouterAdresse()}"
-											styleClass="btn btn-success btn-hover-green" value="Ajouter" />
+								</div>
+								<div class="form-group">
+									<label for="ville">Ville</label>
+									<div class='input-group date'>
+										<h:inputText id="ville"
+											value="#{administrateurController.adresse.ville}"
+											styleClass="form-control" />
 									</div>
+								</div>
+								<div class="form-group">
+									<label for="pays">Pays</label>
+									<h:inputText id="pays"
+										value="#{administrateurController.adresse.pays}"
+										styleClass="form-control" />
+								</div>
 
-								</h:form>
+								<div class="btn-group" role="group">
+									<h:commandButton
+										action="#{administrateurController.ajouterAdresse()}"
+										styleClass="btn btn-success btn-hover-green" value="Ajouter" />
+								</div>
 
-							</div>
-							<div class="modal-footer">
-								<div class="btn-group btn-group-justified" role="group"
-									aria-label="group button">
-									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal" role="button">Fermer</button>
-									</div>
+							</h:form>
+
+						</div>
+						<div class="modal-footer">
+							<div class="btn-group btn-group-justified" role="group"
+								aria-label="group button">
+								<div class="btn-group" role="group">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" role="button">Fermer</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- /MODAL: Ajout adresse-->
+			</div>
+			<!-- /MODAL: Ajout adresse-->
 
-				<!-- MODAL: Modifier les informations-->
-				<div class="modal fade" id="modifierinfos" tabindex="-1"
-					role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">
-									<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-								</button>
-								<h3 class="modal-title" id="lineModalLabel">Modifier les
-									informations</h3>
-							</div>
-							<div class="modal-body">
+			<!-- MODAL: Modifier les informations-->
+			<div class="modal fade" id="modifierinfos" tabindex="-1"
+				role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+							</button>
+							<h3 class="modal-title" id="lineModalLabel">Modifier les
+								informations</h3>
+						</div>
+						<div class="modal-body">
 
-								<!-- content goes here -->
-								<h:form enctype="multipart/form-data">
+							<!-- content goes here -->
+							<h:form enctype="multipart/form-data">
 
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" />
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
 
-									<div class="form-group">
-										<label for="nom">Nom</label>
-										<h:inputText id="nom"
-											value="#{administrateurController.admin.nom}"
-											styleClass="form-control" />
+								<div class="form-group">
+									<label for="nom">Nom</label>
+									<h:inputText id="nom"
+										value="#{administrateurController.admin.nom}"
+										styleClass="form-control" />
+								</div>
+								<div class="form-group">
+									<label for="prenom">Prenom</label>
+									<h:inputText id="prenom"
+										value="#{administrateurController.admin.prenom}"
+										styleClass="form-control" />
+								</div>
+								<div class="form-group">
+									<label for="dateNaissance">Date de naissance</label>
+									<div class='input-group date'>
+
+										<h:inputText id="dateNaissance"
+											value="#{administrateurController.admin.dateNaissance}"
+											styleClass="form-control">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:inputText>
+										<span class="input-group-addon"> <span
+											class="glyphicon glyphicon-calendar"></span>
+										</span>
 									</div>
-									<div class="form-group">
-										<label for="prenom">Prenom</label>
-										<h:inputText id="prenom"
-											value="#{administrateurController.admin.prenom}"
-											styleClass="form-control" />
-									</div>
-									<div class="form-group">
-										<label for="dateNaissance">Date de naissance</label>
-										<div class='input-group date'>
+								</div>
+								<div class="form-group">
+									<label for="email">Email</label>
+									<h:inputText id="email"
+										value="#{administrateurController.admin.email}"
+										styleClass="form-control" />
+								</div>
 
-											<h:inputText id="dateNaissance"
-												value="#{administrateurController.admin.dateNaissance}"
-												styleClass="form-control">
-												<f:convertDateTime pattern="dd/MM/yyyy" />
-											</h:inputText>
-											<span class="input-group-addon"> <span
-												class="glyphicon glyphicon-calendar"></span>
-											</span>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="email">Email</label>
-										<h:inputText id="email"
-											value="#{administrateurController.admin.email}"
-											styleClass="form-control" />
-									</div>
+								<div class="form-group">
+									<label for="motDePasse">Mot de passe</label>
+									<h:inputSecret id="motDePasse"
+										value="#{administrateurController.motDePasse}"
+										styleClass="form-control" />
+								</div>
 
-									<div class="form-group">
-										<label for="motDePasse">Mot de passe</label>
-										<h:inputSecret id="motDePasse"
-											value="#{administrateurController.motDePasse}"
-											styleClass="form-control" />
-									</div>
+								<div class="btn-group" role="group">
+									<h:commandButton
+										action="#{administrateurController.modifierAdministrateur}"
+										styleClass="btn btn-success btn-hover-green"
+										value="Mettre à jour" />
+								</div>
+							</h:form>
 
-									<div class="btn-group" role="group">
-										<h:commandButton
-											action="#{administrateurController.modifierAdministrateur}"
-											styleClass="btn btn-success btn-hover-green"
-											value="Mettre à jour" />
-									</div>
-								</h:form>
-
-							</div>
-							<div class="modal-footer">
-								<div class="btn-group btn-group-justified" role="group"
-									aria-label="group button">
-									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal" role="button">Fermer</button>
-									</div>
+						</div>
+						<div class="modal-footer">
+							<div class="btn-group btn-group-justified" role="group"
+								aria-label="group button">
+								<div class="btn-group" role="group">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" role="button">Fermer</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<!-- /MODAL: Modifier les informations-->
-			</div>
-			</div>
+			<!-- /MODAL: Modifier les informations-->
+
+		</div>
 	</ui:define>
 </ui:composition>

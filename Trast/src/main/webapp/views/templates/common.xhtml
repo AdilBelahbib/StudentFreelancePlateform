@@ -3,9 +3,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:sec="http://www.springframework.org/security/tags">
+	xmlns:sec="http://www.springframework.org/security/tags"
+	style="overflow: hidden;">
 <h:head>
 	<ui:insert name="metadata" />
+
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,16 +18,24 @@
 	<h:outputStylesheet library="css" name="inscription-wizard.css" />
 	<h:outputStylesheet library="css" name="sidemenu.css" />
 	<h:outputStylesheet library="css" name="font-awesome.min.css" />
-	<!--  -->
-	<h:outputStylesheet library="css" name="component.css" />
-	<h:outputStylesheet library="css" name="default.css" />
+
+	<!-- Fig Caption -->
+	<h:outputStylesheet library="css" name="fig-caption.css" />
 	<h:outputStylesheet library="fullcalendar" name="fullcalendar.css" />
 
-	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="main-trast.css" />
 
+	<!-- Minimal Template CSS dependencies -->
+	<h:outputStylesheet library="css" name="minimal-style.css" />
+	<h:outputStylesheet library="css" name="minimal-custom.css" />
+	<link
+		href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+		rel="stylesheet" />
 
-	<h:outputScript library="primefaces" name="jquery/jquery.js"
-		target="head" />
+	<!-- 	<h:outputScript library="primefaces" name="jquery/jquery.js" -->
+	<!-- 		target="head" /> -->
+
+	<h:outputScript library="js" name="jquery.js" />
 	<h:outputScript library="js" name="bootstrap.min.js" />
 	<h:outputScript library="js" name="inscription-wizard.js" />
 	<h:outputScript library="js" name="countdown-timer.js" />
@@ -33,7 +43,6 @@
 	<h:outputScript library="js" name="modernizr.custom.js" />
 	<h:outputScript library="js" name="toucheffects.js" />
 
-	<h:outputScript library="js" name="main.js" />
 
 	<h:outputScript library="fullcalendar" name="lib/moment.min.js" />
 	<h:outputScript library="fullcalendar" name="fullcalendar.js" />
@@ -43,24 +52,34 @@
 	<script src="https://cdn.pubnub.com/webrtc/webrtc.js"></script>
 	<script src="https://cdn.pubnub.com/webrtc/rtc-controller.js"></script>
 
+
+	<!-- Minimal Template JS dependencies -->
+	<h:outputScript library="js" name="jquery.metisMenu.js" />
+	<h:outputScript library="js" name="jquery.slimscroll.min.js" />
+	<h:outputScript library="js" name="minimal-custom.js" />
+
 	<title>Trast - Trust A Student !</title>
 </h:head>
 <body>
 
 	<sec:authorize access="hasRole('ROLE_ETUDIANT')">
 		<ui:insert name="header">
-			<ui:include src="/views/templates/etudiant/header.xhtml">
-			</ui:include>
+			<!-- 			<ui:include src="/views/templates/etudiant/header.xhtml" /> -->
+			<ui:include src="/views/templates/etudiant/header2.xhtml" />
 		</ui:insert>
 		<ui:insert name="sidebar">
-			<ui:include src="/views/templates/etudiant/sidebar.xhtml">
-			</ui:include>
+			<!-- 			<ui:include src="/views/templates/etudiant/sidebar.xhtml" /> -->
 		</ui:insert>
-		<aside>
-			<ui:insert name="content">
-				<ui:include src="/views/templates/etudiant/content.xhtml" />
-			</ui:insert>
-		</aside>
+		<div id="page-wrapper" class="gray-bg dashbard-1"
+			style="min-height: 348px;">
+			<div class="content-main">
+
+				<ui:insert name="content">
+					<ui:include src="/views/templates/etudiant/content.xhtml" />
+				</ui:insert>
+
+			</div>
+		</div>
 		<ui:insert name="footer">
 			<ui:include src="/views/templates/etudiant/footer.xhtml" />
 		</ui:insert>
@@ -68,18 +87,24 @@
 
 	<sec:authorize access="hasRole('ROLE_ENTREPRISE')">
 		<ui:insert name="header">
-			<ui:include src="/views/templates/entreprise/header.xhtml">
-			</ui:include>
+			<!-- 			<ui:include src="/views/templates/entreprise/header.xhtml"> -->
+			<ui:include src="/views/templates/entreprise/header2.xhtml" />
 		</ui:insert>
+
 		<ui:insert name="sidebar">
-			<ui:include src="/views/templates/entreprise/sidebar.xhtml">
-			</ui:include>
+			<!-- 			<ui:include src="/views/templates/entreprise/sidebar.xhtml" /> -->
 		</ui:insert>
-		<aside>
-			<ui:insert name="content">
-				<ui:include src="/views/templates/entreprise/content.xhtml" />
-			</ui:insert>
-		</aside>
+
+		<div id="page-wrapper" class="gray-bg dashbard-1"
+			style="min-height: 348px;">
+			<div class="content-main">
+
+				<ui:insert name="content">
+					<ui:include src="/views/templates/entreprise/content.xhtml" />
+				</ui:insert>
+
+			</div>
+		</div>
 		<ui:insert name="footer">
 			<ui:include src="/views/templates/entreprise/footer.xhtml" />
 		</ui:insert>
@@ -87,18 +112,22 @@
 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<ui:insert name="header">
-			<ui:include src="/views/templates/admin/header.xhtml">
-			</ui:include>
+			<!-- 			<ui:include src="/views/templates/admin/header.xhtml" /> -->
+			<ui:include src="/views/templates/admin/header2.xhtml" />
 		</ui:insert>
 		<ui:insert name="sidebar">
-			<ui:include src="/views/templates/admin/sidebar.xhtml">
-			</ui:include>
+<!-- 			<ui:include src="/views/templates/admin/sidebar.xhtml" /> -->
 		</ui:insert>
-		<aside>
-			<ui:insert name="content">
-				<ui:include src="/views/templates/admin/content.xhtml" />
-			</ui:insert>
-		</aside>
+		<div id="page-wrapper" class="gray-bg dashbard-1"
+			style="min-height: 348px;">
+			<div class="content-main">
+
+				<ui:insert name="content">
+					<ui:include src="/views/templates/admin/content.xhtml" />
+				</ui:insert>
+
+			</div>
+		</div>
 		<ui:insert name="footer">
 			<ui:include src="/views/templates/admin/footer.xhtml" />
 		</ui:insert>
@@ -118,6 +147,8 @@
 		</ui:insert>
 	</sec:authorize>
 
+	<h:outputScript library="js" name="jquery.nicescroll.js" />
+	<h:outputScript library="js" name="minimal-scripts.js" />
 
 </body>
 </html>

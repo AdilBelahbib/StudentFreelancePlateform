@@ -4,10 +4,6 @@ body {
 	font-family: 'Lato', Calibri, Arial, sans-serif;
 }
 
-aside
-{
-	margin-left: 280px;
-}
 
 .question
 {
@@ -69,4 +65,10 @@ aside
 }
 .calId{
 		z-index: 91000;
+}
+
+#inCall
+{
+	margin-top: 50px;
+	margin-bottom: 50px;
 }

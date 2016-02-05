@@ -3,321 +3,319 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:sec="http://www.springframework.org/security/tags">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<ui:define name="content">
-<c:choose>
-<c:when test="${entrepriseController.entreprise.etatCompte == 'ACTIVE'}">
+		<div class="grid-form">
+			<c:choose>
+				<c:when
+					test="${entrepriseController.entreprise.etatCompte == 'ACTIVE'}">
 
-		<div>
-			<div class="form-group">
-				<h3>
-					<label>Sujet: <h:outputText
-							value="#{projetControllerKhouloud.projet.cahierDesCharges.sujet}">
-						</h:outputText>
-					</label>
-				</h3>
-			</div>
-			<hr></hr>
-			<div class="row">
-				<div class="col-md-offset-3 col-md-6">
-					<div class="form-group">
-						<h4>
-							<label>Date début: <h:outputText
-									value="#{projetControllerKhouloud.projet.cahierDesCharges.dateDebut}">
-									<f:convertDateTime pattern="dd/MM/yyyy" />
-								</h:outputText>
-							</label>
-						</h4>
+					<div class="grid-form1">
+						<h3 class="head-top">#{projetControllerKhouloud.projet.cahierDesCharges.sujet}</h3>
 
-						<h4>
-							<label>Date fin: <h:outputText
-									value="#{projetControllerKhouloud.projet.cahierDesCharges.dateFin}">
-									<f:convertDateTime pattern="dd/MM/yyyy" />
-								</h:outputText>
-							</label>
-						</h4>
+						<div>
 
-					</div>
-				</div>
-			</div>
-			<c:if test="#{projetControllerKhouloud.projet.statut == 'ENCOURS'}">
-				<div class="row">
-					<div class="col-md-offset-4 col-md-4">
-						<div class="alert alert-warning">
-							<i class="icon icon-exclamation-circle icon-lg"></i> <i>
-								#{projetControllerKhouloud.nbJoursRestants} </i>
-						</div>
-					</div>
-				</div>
-			</c:if>
-			<div class="row">
-				<div class="col-md-offset-3 col-md-5">
+							<div class="row">
+								<div class="col-md-offset-3 col-md-6">
+									<div class="form-group">
+										<h4>
+											<label>Date début: <h:outputText
+													value="#{projetControllerKhouloud.projet.cahierDesCharges.dateDebut}">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</h:outputText>
+											</label>
+										</h4>
 
-					<div class="form-group">
-						<h4>
-							<label> Statut: <h:outputText
-									value="#{projetControllerKhouloud.projet.statut}">
+										<h4>
+											<label>Date fin: <h:outputText
+													value="#{projetControllerKhouloud.projet.cahierDesCharges.dateFin}">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</h:outputText>
+											</label>
+										</h4>
 
-								</h:outputText>
-							</label>
-						</h4>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-offset-3 col-md-5">
-					<div class="form-group">
-						<h4>
-							<label>Cout: <h:outputText
-									value="#{projetControllerKhouloud.projet.cout} #{projetControllerKhouloud.projet.devise}" /></label>
-						</h4>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-offset-3 col-md-5">
-					<div>
-						<label>Avancement de votre projet:</label>
-						<div class="progress">
-							<i>#{projetControllerKhouloud.avancementProjet}%</i>
-
-							<div class="progress-bar" role="progressbar"
-								aria-valuenow="#{projetControllerKhouloud.avancementProjet}"
-								aria-valuemin="0" aria-valuemax="100"
-								style="width: #{projetControllerKhouloud.avancementProjet}%">
-								<span class="sr-only">#{projetControllerKhouloud.avancementProjet}%</span>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
+							<c:if
+								test="#{projetControllerKhouloud.projet.statut == 'ENCOURS'}">
+								<div class="row">
+									<div class="col-md-offset-4 col-md-4">
+										<div class="alert alert-warning">
+											<i class="icon icon-exclamation-circle icon-lg"></i> <i>
+												#{projetControllerKhouloud.nbJoursRestants} </i>
+										</div>
+									</div>
+								</div>
+							</c:if>
+							<div class="row">
+								<div class="col-md-offset-3 col-md-5">
 
-				</div>
-			</div>
+									<div class="form-group">
+										<h4>
+											<label> Statut: <h:outputText
+													value="#{projetControllerKhouloud.projet.statut}">
 
-		</div>
+												</h:outputText>
+											</label>
+										</h4>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-offset-3 col-md-5">
+									<div class="form-group">
+										<h4>
+											<label>Cout: <h:outputText
+													value="#{projetControllerKhouloud.projet.cout} #{projetControllerKhouloud.projet.devise}" /></label>
+										</h4>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-offset-3 col-md-5">
+									<div>
+										<label>Avancement de votre projet:</label>
+										<div class="progress">
+											<i>#{projetControllerKhouloud.avancementProjet}%</i>
 
-		<!-- Liste livrables entreprise -->
-
-
-		<div class="col-md-10">
-			<div class="form-group">
-
-
-				<h:form enctype="multipart/form-data">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-
-					<table class="table table-striped table-hover">
-						<tr>
-							<th>Livrables</th>
-						</tr>
-
-						<c:forEach items="#{projetControllerKhouloud.listeLivrables}"
-							var="item" varStatus="statut">
-
-							<tr>
-								<td><h:outputText value="#{item.dateLivraison}">
-										<f:convertDateTime pattern="dd/MM/yyyy" />
-									</h:outputText></td>
-								<td>#{item.pourcentageAvancement}%</td>
-								<td>
-								<h:commandLink action="#{uploadFileService.downloadFile()}">Télécharger le fichier joint
-									<f:setPropertyActionListener
-									   target="#{uploadFileService.fileToDownload}"
-										value="#{proprietes['racineuploads']}#{item.fichier.chemin}/#{item.fichier.titre}" />
-									
-								</h:commandLink>
-								<a href="#"></a></td>
-								<td>
-
-									<button data-toggle="modal"
-										data-target="#ajoutInfosLivrable-#{statut.count}"
-										type="button" class="btn btn-default btn-lg pull-right">+</button>
-								</td>
-								<!-- valider livrable -->
-								<c:if test="#{! item.valide}">
-									<td><c:choose>
-											<c:when test="#{item.pourcentageAvancement == 100}">
-												<button data-toggle="modal"
-													data-target="#validerProjetModal" type="button"
-													class="btn btn-default btn-lg pull-right">Valider
-													projet</button>
-
-
-											</c:when>
-											<c:otherwise>
-												<h:commandButton
-													action="#{projetControllerKhouloud.validerLivrable}"
-													styleClass="close" class="btn btn-success" value="Y">
-
-													<f:setPropertyActionListener
-														target="#{projetControllerKhouloud.livrable}"
-														value="#{item}" />
-												</h:commandButton>
-											</c:otherwise>
-										</c:choose></td>
-								</c:if>
-								<!-- refuser livrable -->
-								<c:if test="#{! item.valide}">
-									<td><h:commandButton
-											action="#{projetControllerKhouloud.refuserLivrable}"
-											styleClass="close" class="btn btn-danger" value="x">
-											<f:setPropertyActionListener
-												target="#{projetControllerKhouloud.livrable}"
-												value="#{item}" />
-										</h:commandButton></td>
-								</c:if>
-							</tr>
-
-							<tr>
-								<td>#{item.remarqueEntreprise}</td>
-							</tr>
-
-						</c:forEach>
-
-					</table>
-				</h:form>
-			</div>
-		</div>
-
-		<!-- End of liste livrables -->
-		<!-- Modals
- -->
-		<!-- AjoutInfosLivrable -->
-		<c:forEach items="#{projetControllerKhouloud.listeLivrables}"
-			var="item" varStatus="statut">
-			<div class="modal fade" id="ajoutInfosLivrable-#{statut.count}"
-				tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-
-							<button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-							</button>
-							<h3 class="modal-title" id="lineModalLabel">Etude du
-								livrable</h3>
-						</div>
-						<div class="modal-body">
-
-
-
-							<!-- content goes here -->
-							<h:form enctype="multipart/form-data">
-
-								<input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" />
-
-								<div class="form-group">
-									<label for="remarques">Remarques</label> <br />
-
-									<h:inputText id="remarques" value="#{item.remarqueEntreprise}"
-										styleClass="form-control" />
-									<div class="btn-group" role="group">
-										<h:commandButton
-											action="#{projetControllerKhouloud.modifierLivrable}"
-											styleClass="btn btn-success btn-hover-green" value="Signaler">
-											<f:setPropertyActionListener
-												target="#{projetControllerKhouloud.livrable}"
-												value="#{item}" />
-										</h:commandButton>
+											<div class="progress-bar" role="progressbar"
+												aria-valuenow="#{projetControllerKhouloud.avancementProjet}"
+												aria-valuemin="0" aria-valuemax="100"
+												style="width: #{projetControllerKhouloud.avancementProjet}%">
+												<span class="sr-only">#{projetControllerKhouloud.avancementProjet}%</span>
+											</div>
+										</div>
 									</div>
 
 								</div>
-
-
-							</h:form>
-
-						</div>
-						<div class="modal-footer">
-							<div class="btn-group btn-group-justified" role="group"
-								aria-label="group button">
-								<div class="btn-group" role="group">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal" role="button">Fermer</button>
-								</div>
 							</div>
+
 						</div>
-					</div>
-				</div>
-			</div>
-		</c:forEach>
-		<!-- End of ajoutInfosLivrable -->
+
+						<!-- Liste livrables entreprise -->
 
 
-		<!-- modal validation Projet: -->
-		<div class="modal fade" id="validerProjetModal" tabindex="-1"
-			role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-						</button>
-						<h3 class="modal-title">Valider Projet</h3>
-					</div>
-					<div class="modal-body">
-
-
-
-						<!-- content goes here -->
-						<h:form enctype="multipart/form-data">
-
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
-
+						<div class="col-md-10">
 							<div class="form-group">
-								<label for="remarques">Votre avis sur:
-									#{projetControllerKhouloud.projet.etudiant.nom}
-									#{projetControllerKhouloud.projet.etudiant.prenom}</label> <br />
 
 
-								<div class="btn-group" role="group">
-									<div class="row">
+								<h:form enctype="multipart/form-data">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
 
-										<div class="col-md-5">
-											<h:commandLink id="AvisPositif" class="avis"
-												action="#{projetControllerKhouloud.validerProjet('1')}"
-												styleClass="btn btn-success btn-hover-green">
-												<i class="fa fa-thumbs-up fa-lg"></i>
-											</h:commandLink>
-										</div>
-										<div class="col-md-5">
-											<h:commandLink id="AvisNegatif" class="avis"
-												action="#{projetControllerKhouloud.validerProjet('0')}"
-												styleClass="btn btn-danger btn-hover-green">
-												<i class="fa fa-thumbs-down fa-lg"></i>
-											</h:commandLink>
+									<table class="table table-striped table-hover">
+
+										<c:forEach items="#{projetControllerKhouloud.listeLivrables}"
+											var="item" varStatus="statut">
+
+											<tr>
+												<td><h:outputText value="#{item.dateLivraison}">
+														<f:convertDateTime pattern="dd/MM/yyyy" />
+													</h:outputText></td>
+												<td>#{item.pourcentageAvancement}%</td>
+												<td><h:commandLink
+														action="#{uploadFileService.downloadFile()}">Télécharger le fichier joint
+									<f:setPropertyActionListener
+															target="#{uploadFileService.fileToDownload}"
+															value="#{proprietes['racineuploads']}#{item.fichier.chemin}/#{item.fichier.titre}" />
+
+													</h:commandLink> <a href="#"></a></td>
+												<td>
+
+													<button data-toggle="modal"
+														data-target="#ajoutInfosLivrable-#{statut.count}"
+														type="button" class="btn btn-default btn-lg pull-right">+</button>
+												</td>
+												<!-- valider livrable -->
+												<c:if test="#{! item.valide}">
+													<td><c:choose>
+															<c:when test="#{item.pourcentageAvancement == 100}">
+																<button data-toggle="modal"
+																	data-target="#validerProjetModal" type="button"
+																	class="btn btn-default btn-lg pull-right">Valider
+																	projet</button>
+
+
+															</c:when>
+															<c:otherwise>
+																<h:commandButton
+																	action="#{projetControllerKhouloud.validerLivrable}"
+																	styleClass="close" class="btn btn-success" value="Y">
+
+																	<f:setPropertyActionListener
+																		target="#{projetControllerKhouloud.livrable}"
+																		value="#{item}" />
+																</h:commandButton>
+															</c:otherwise>
+														</c:choose></td>
+												</c:if>
+												<!-- refuser livrable -->
+												<c:if test="#{! item.valide}">
+													<td><h:commandButton
+															action="#{projetControllerKhouloud.refuserLivrable}"
+															styleClass="close" class="btn btn-danger" value="x">
+															<f:setPropertyActionListener
+																target="#{projetControllerKhouloud.livrable}"
+																value="#{item}" />
+														</h:commandButton></td>
+												</c:if>
+											</tr>
+
+											<tr>
+												<td>#{item.remarqueEntreprise}</td>
+											</tr>
+
+										</c:forEach>
+
+									</table>
+								</h:form>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<!-- End of liste livrables -->
+					<!-- Modals
+ -->
+					<!-- AjoutInfosLivrable -->
+					<c:forEach items="#{projetControllerKhouloud.listeLivrables}"
+						var="item" varStatus="statut">
+						<div class="modal fade" id="ajoutInfosLivrable-#{statut.count}"
+							tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+
+										<button type="button" class="close" data-dismiss="modal">
+											<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+										</button>
+										<h3 class="modal-title" id="lineModalLabel">Etude du
+											livrable</h3>
+									</div>
+									<div class="modal-body">
+
+
+
+										<!-- content goes here -->
+										<h:form enctype="multipart/form-data">
+
+											<input type="hidden" name="${_csrf.parameterName}"
+												value="${_csrf.token}" />
+
+											<div class="form-group">
+												<label for="remarques">Remarques</label> <br />
+
+												<h:inputText id="remarques"
+													value="#{item.remarqueEntreprise}"
+													styleClass="form-control" />
+												<div class="btn-group" role="group">
+													<h:commandButton
+														action="#{projetControllerKhouloud.modifierLivrable}"
+														styleClass="btn btn-success btn-hover-green"
+														value="Signaler">
+														<f:setPropertyActionListener
+															target="#{projetControllerKhouloud.livrable}"
+															value="#{item}" />
+													</h:commandButton>
+												</div>
+
+											</div>
+
+
+										</h:form>
+
+									</div>
+									<div class="modal-footer">
+										<div class="btn-group btn-group-justified" role="group"
+											aria-label="group button">
+											<div class="btn-group" role="group">
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal" role="button">Fermer</button>
+											</div>
 										</div>
 									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+					<!-- End of ajoutInfosLivrable -->
 
+
+					<!-- modal validation Projet: -->
+					<div class="modal fade" id="validerProjetModal" tabindex="-1"
+						role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+
+									<button type="button" class="close" data-dismiss="modal">
+										<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+									</button>
+									<h3 class="modal-title">Valider Projet</h3>
+								</div>
+								<div class="modal-body">
+
+
+
+									<!-- content goes here -->
+									<h:form enctype="multipart/form-data">
+
+										<input type="hidden" name="${_csrf.parameterName}"
+											value="${_csrf.token}" />
+
+										<div class="form-group">
+											<label for="remarques">Votre avis sur:
+												#{projetControllerKhouloud.projet.etudiant.nom}
+												#{projetControllerKhouloud.projet.etudiant.prenom}</label> <br />
+
+
+											<div class="btn-group" role="group">
+												<div class="row">
+
+													<div class="col-md-5">
+														<h:commandLink id="AvisPositif" class="avis"
+															action="#{projetControllerKhouloud.validerProjet('1')}"
+															styleClass="btn btn-success btn-hover-green">
+															<i class="fa fa-thumbs-up fa-lg"></i>
+														</h:commandLink>
+													</div>
+													<div class="col-md-5">
+														<h:commandLink id="AvisNegatif" class="avis"
+															action="#{projetControllerKhouloud.validerProjet('0')}"
+															styleClass="btn btn-danger btn-hover-green">
+															<i class="fa fa-thumbs-down fa-lg"></i>
+														</h:commandLink>
+													</div>
+												</div>
+
+
+											</div>
+
+										</div>
+
+
+									</h:form>
 
 								</div>
-
-							</div>
-
-
-						</h:form>
-
-					</div>
-					<div class="modal-footer">
-						<div class="btn-group btn-group-justified" role="group"
-							aria-label="group button">
-							<div class="btn-group" role="group">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal" role="button">Fermer</button>
+								<div class="modal-footer">
+									<div class="btn-group btn-group-justified" role="group"
+										aria-label="group button">
+										<div class="btn-group" role="group">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal" role="button">Fermer</button>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				</c:when>
+				<c:otherwise>
+					<div>votre compte n'est pas encore active!!!</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
-</c:when>
-<c:otherwise>
-<div> votre compte n'est pas encore active!!!</div>
-</c:otherwise>
-</c:choose>
 	</ui:define>
 </ui:composition>
